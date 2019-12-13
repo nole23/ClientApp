@@ -9,7 +9,9 @@ export class ImagesComponent implements OnInit {
 
   @Input() imagesList: any;
   linkImage: String;
-  constructor() { }
+  constructor() {
+    this.linkImage = null;
+  }
 
   ngOnInit() {
   }
