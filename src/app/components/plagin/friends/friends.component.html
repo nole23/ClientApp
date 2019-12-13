@@ -1,0 +1,15 @@
+<div class="user-area">
+  <div class="m-l-5 m-r-5 m-t-1 m-b-1">
+    <div class="left-area">
+      <img src="{{item.otherInformation.publicMedia.profileImage}}" alt="" width="80px" height="100%">
+    </div>
+    
+    <div class="center-area">
+      <span>{{item.firstName + ' ' + item.lastName}}</span>
+    </div>
+
+    <div class="right-area">
+      <button class="btn-left" [routerLink]="['/profile/' + item._id]"> Profil</button> <button class="btn-right" (click)="deleteFriends(item)">Izbrisi</button>
+    </div>
+  </div>
+</div>

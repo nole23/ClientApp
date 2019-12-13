@@ -1,0 +1,144 @@
+.h-full {
+    overflow: auto;
+    height: 100vh;
+}
+
+.name-component {
+    height: 15vh;
+    border-bottom: 2px solid #00c928;
+}
+
+.name-component h4 {
+    float: left;
+    margin-top: 70px;
+    color: #ccc;
+}
+
+.header-settings {
+    min-height: 20vh;
+    color: #fff;
+}
+
+.header-settings-header {
+    border-bottom: 1px solid #00c928;
+    width: 100%;
+    height: 15vh;
+}
+
+.header-settings-header h4 {
+    float: left;
+    margin-top: 70px;
+    margin-right: 5px;
+    color: #ccc;
+}
+
+.header-settings-header button {
+    display: none;
+    float: left;
+    margin-top: 70px;
+}
+
+.header-settings:hover .header-settings-header button,
+.header-settings:hover ~ .header-settings-header button {
+    display: block;
+    color: #fff;
+}
+
+.header-settings-body {
+    margin-top: 10px;
+    height: 2em;
+}
+
+.b-b-1 {
+    border-bottom: 1px solid rgb(155, 155, 155);
+}
+
+.name-css {
+    float: left;
+    height: 100%;
+}
+
+.name-css p {
+    height: 100%;
+}
+
+.name-css.i-l {
+    width: 350px;
+}
+
+.header-settings-foter button {
+    margin-left: 350px;
+    margin-top: 10px;
+}
+
+.show {
+    display: block;
+}
+
+.hide {
+    display: none;
+}
+
+.max-input {
+    width: 215px;
+}
+
+.form-control {
+    height: calc(1.3em + 0.6rem + -2px);
+    margin-top: -3px;
+}
+
+@media (min-width: 762px) {
+    @media (max-height: 640px) {
+        .max-input {
+            width: 215px;
+        }
+    
+        .name-css.i-l {
+            width: 17em;
+        }
+
+        .header-settings-foter button {
+            margin-left: 24em;
+            margin-top: 10px;
+        }
+    
+        .header-settings-header {
+            height: 7em;
+        }
+    
+        .header-settings-header button {
+            display: block;
+            color: #fff;
+        }
+    
+    }
+}
+
+@media (max-width: 761px) {
+    .max-input {
+        width: 215px;
+    }
+
+    .name-css.i-l {
+        width: 150px;
+    }
+
+    .header-settings-header {
+        height: 7em;
+    }
+
+    .header-settings-header button {
+        display: block;
+        color: #fff;
+    }
+
+    .h-full {
+        overflow: auto;
+        height: 93vh;
+    }
+    .header-settings-foter button {
+        margin-left: 260px;
+        margin-top: 10px;
+    }
+}

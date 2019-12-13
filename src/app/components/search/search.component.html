@@ -1,0 +1,29 @@
+<div class="container" style="height: 90vh;">
+    <h1 class="font-weight-light text-center text-lg-left mt-4 mb-0">Osobe iz okruzenja</h1>
+
+    <input type="text" placeholder="Pretraga..." class="search" name="searchText" [(ngModel)]="searchText" (input)="filter()">
+    <!--<button><i class="fa fa-search" aria-hidden="true"></i></button>-->
+    <hr class="mt-2 mb-5">
+
+    <div class="spinner-border text-success" *ngIf="loading"></div>
+    <div class="row text-center text-lg-left body-style"  id="style-4" *ngIf="searchUsers === null && !loading">
+      <div class="col-lg-3 col-md-4 col-6" *ngFor="let item of listUsers">
+        <a [routerLink]="['/profile/' + item._id]" class="d-block mb-4 h-100" style="cursor: pointer;">
+          <img class="img-fluid img-thumbnail" src="{{item.otherInformation.publicMedia.profileImage}}" alt="">
+          <p>{{item.firstName + ' ' + item.lastName}}</p>
+        </a>
+      </div>
+      
+    </div>
+
+    <div class="row text-center text-lg-left body-style"  id="style-4" *ngIf="searchUsers !== null && !loading">
+      <div class="col-lg-3 col-md-4 col-6" *ngFor="let item of searchUsers">
+        <a [routerLink]="['/profile/' + item._id]" class="d-block mb-4 h-100" style="cursor: pointer;">
+          <img class="img-fluid img-thumbnail" src="{{item.otherInformation.publicMedia.profileImage}}" alt="">
+          <p>{{item.firstName + ' ' + item.lastName}}</p>
+        </a>
+      </div>
+      
+    </div>
+
+  </div>

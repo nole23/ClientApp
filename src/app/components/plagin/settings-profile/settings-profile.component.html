@@ -1,0 +1,38 @@
+<div class="my-container h-full" #prod id="style-4">
+
+  <!-- <div class="name-component">
+    <h4>Podesavanja</h4>
+  </div> -->
+  
+  <!-- Ovo treba da bude plagin pa cu probati da napravim najbolje -->
+  <div class="header-settings" *ngFor="let item of data; let i = index" [id]="'settings-id-' + i">
+
+    <div class="header-settings-header" [id]="'settings-id-' + i + '-header'">
+      <h4>{{item.title}}</h4>
+      <button (click)="ngSetting(i)"><i class="{{item.icon}}" aria-hidden="true"></i></button>
+    </div>
+
+    <!-- Ovo isto ide u for -->
+    <div class="header-settings-body b-b-1" *ngFor="let val of item.data;" [id]="'settings-id-' + i + '-body'">
+      <div class="name-css i-l">
+        <p>{{val.name}}</p>
+      </div>
+      <div class="name-css show" [id]="'value-' + i">
+        <p *ngIf="val.type !== 'Date' && val.type !== 'Password'">{{ngShowText(val.value)}}</p>
+        <p *ngIf="val.type === 'Date'">{{val.value | date : 'dd. MMMM yyyy'}}</p>
+        <p *ngIf="val.type === 'Password'">*****</p>
+      </div>
+      <div class="name-css hide max-input" [id]="'input-' + i">
+        <input class="form-control" type="{{val.type}}" name="{{val.idName}}" value="{{val.value}}" [id]="'input-value-' + i">
+      </div>
+    </div>
+    <!-- Kraj fora -->
+
+    <div class="header-settings-foter hide">
+      <button class="btn btn-success" (click)="ngSaveEdit(i)">Sacuvajte <span class="spinner-border smal" role="status" *ngIf="btnSave"></span></button>
+    </div>
+    
+  </div>
+  <!-- kraj ovog plagina -->
+
+</div>

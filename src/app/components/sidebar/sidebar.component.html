@@ -1,0 +1,53 @@
+<!-- Sidebar  -->
+
+<nav id="sidebar" [ngClass]="addCals">
+    <div class="sidebar-header">
+        <h3 class="activ-text-width"><img src="{{user.otherInformation.publicMedia.profileImage}}" class="rounded-circle" alt="" width="45px" height="45px" i18n="@@logoText"> TwoWay</h3>
+        <strong><img src="{{user.otherInformation.publicMedia.profileImage}}" class="rounded-circle" alt="" width="45px" height="45px"></strong>
+    </div>
+
+    <ul class="list-unstyled components">
+
+        <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+            <a [routerLink]="['/home']">
+                <i class="fa fa-weixin" aria-hidden="true"></i>
+                <span class="activ-text-width" i18n="@@ahrefChating">Chatovanje</span>
+            </a>
+        </li>
+        <li routerLinkActive="active">
+            <a [routerLink]="['/profile/' + user._id]" >
+                <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                <span class="activ-text-width" i18n="@@ahrefProfil"> Profil </span>
+            </a>
+        </li>
+        <li routerLinkActive="active">
+            <a [routerLink]="['/search']" >
+                <i class="fa fa-podcast" aria-hidden="true"></i>
+                <span class="activ-text-width" i18n="@@ahrefSearch"> Pretraga </span>
+            </a>
+        </li>
+        <li routerLinkActive="active">
+            <a [routerLink]="['/notification']" >
+                <i class="fa fa-bell" aria-hidden="true"></i>
+                <span class="activ-text-width"> Obavestenje </span>
+            </a>
+        </li>
+    </ul>
+
+    <ul class="list-unstyled">
+        <li routerLinkActive="active">
+            <a [routerLink]="['/settings']" >
+                <i class="fa fa-cogs" aria-hidden="true"></i>
+                <span class="activ-text-width" i18n="@@ahrefSetting"> Podesavanja </span>
+            </a>
+        </li>
+        <li class="">
+            <a style="cursor: pointer" (click)="ngLogout()" >
+                <i class="fa fa-sign-out" aria-hidden="true"></i>
+                <span class="activ-text-width" i18n="@@ahrefLogiout"> Odjavite se </span>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+

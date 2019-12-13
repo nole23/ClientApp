@@ -1,21 +1,71 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+<!--Ovo se desava sve dok se ne provjeri da li smo prijavljeni na sistem-->
+<div *ngIf="loading">
+  <div class="vertical-center">
+      <div class="spinner-border" role="status"></div>
+    </div>
 </div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
 
-<router-outlet></router-outlet>
+<!--Ovde ide prvo ako nije prijavljen login page-->
+<div *ngIf="!loginStatus">
+  <div class="limiter" >
+    <div class="container-login100">
+      <div class="login100-more" [ngStyle]="{'background-image':' url(' + picture + ')'}"></div>
+
+      <div class="wrap-login100 p-l-50 p-r-50 p-t-72 p-b-50">
+        <form class="login100-form validate-form">
+        
+          <span class="login100-form-title p-b-59" i18n="@@createProfile">
+            <i class="m-r-5"><img src="../assets/picture/icons/logo.png" alt="" width="25px" height="25px"></i>
+            {{title}}
+          </span>
+
+          <span class="worning" *ngIf="worningRegistrationStatus" i18n="@@emailNotFree">Email je zauzet, proverite vas email!</span>
+          <span class="worning" *ngIf="worningStatus" i18n="@@userIsDeactive">Nalog ne postoji ili je deaktiviran. Da bi ste ponovo vratili vas nalog posaljite zahtev za aktivaciju naloga</span>
+          <span class="error" *ngIf="errorStatus" i18n="@@errorLogin">Email ili sifra nisu ispravni. Molimo vas proverite da li ste uneli ispravne podatke</span>
+          <span class="success" *ngIf="successStatus" i18n="@@successLogin">Uspesno ste se registrovali, ostao je poslednji korak da verifikujete nalog. Idite na vas email i verifikujte nalog</span>
+          <span class="worning" *ngIf="emailNotFound" i18n="@@emailNotFound">Email nije pronadjen molimo vas provjerite email</span>
+          <span class="success" *ngIf="passwordRestart" i18n="@@passwordIsChange">Sifra je restartovana, sada se ulogujte sa novom sifrom</span>
+          <span class="worning" *ngIf="codeNotValidate" i18n="@@codeNotCorect">Kod za restartovanje nije dobar, molimo vas provjerite vas kod u porukama</span>
+      
+          
+          <app-login *ngIf="loginForm && !loading && !restart && !verify" (ngRestartPassword)="ngRestartPassword($event)" (ngNotActivete)="ngNotActivete($event)" (ngClose)="ngOpenClose($event)" (ngStatusProfile)="ngStatusProfile($event)" (ngLoginStatus)="ngLoginStatus($event)" (ngEerrorStatus)="ngEerrorStatus($event)"></app-login>
+          <app-registration *ngIf="!loginForm  && !loading && !restart && !verify" (ngClose)="ngHidenClose($event)" (ngEmailNotCorect)="ngEmailNotCorect($event)"></app-registration>
+          <app-restart *ngIf="restart && !verify" (ngNotFound)="ngNotFound($event)" (ngClose)="ngHidenClose($event)" (ngStatus)="ngStatus($event)"></app-restart>
+          <app-verify *ngIf="verify && !restart" [email]="email" (ngNotCodeCorect)="ngNotCodeCorect($event)" (ngSavePassword)="ngSavePassword($event)" (ngClose)="ngOpenFirstPage($event)" (ngRestartPassword)="ngRestartPassword($event)"></app-verify>
+        </form>
+      </div>
+      
+      
+
+    </div>
+  </div>
+</div>
+
+<!--Ako je prijavljen ide ovo-->
+<div *ngIf="loginStatus && !loading" class="wrapper">
+  
+  <app-sidebar (status)="status()"></app-sidebar>
+  <div id="content" class="w-100 float-left">
+    <nav class="navbar navbar-expand-lg bacground mobile-nav-bar">
+        <div class="container-fluid float-left border-b p-b-5">
+          <button type="button" (click)="ngOpenSideBar()" class="btn btn-dark">
+              <i class="fa fa-bars" aria-hidden="true"></i>
+          </button>
+          <div class="float-right">
+            <button type="button" [ngClass]="btnColorNewFriend" class="btn btn-color">
+              <i class="fa fa-user-plus" aria-hidden="true"></i>
+            </button>
+            <button type="button"  [ngClass]="btnColorNewMessage" class="btn btn-color">
+              <i class="fa fa-weixin" aria-hidden="true"></i>
+            </button>
+            <button type="button"  [ngClass]="btnColorNewInfo" class="btn btn-color">
+              <i class="fa fa-bell" aria-hidden="true"></i>
+            </button>
+          </div>
+          
+        </div>
+
+    </nav>
+    <router-outlet></router-outlet>
+  </div>
+</div>
