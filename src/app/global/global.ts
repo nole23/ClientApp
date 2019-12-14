@@ -12,10 +12,10 @@ export class Global {
     linkWebhost: string;
     panleOptions: any;
     constructor() {
-        this.linkLocalhostChat = 'http://192.168.1.2:8084/api/'
-        this.linkLocalhost = 'http://192.168.1.2:8080/api/';
-        this.linkLocalhostMedia = 'http://192.168.1.2:8081/api/';
-        this.linkLocalhostStatus = 'http://192.168.1.2:8082/api/';
+        this.linkLocalhostChat = 'https://twoway-chatservice.herokuapp.com/api/'
+        this.linkLocalhost = 'https://twoway-usersservice.herokuapp.com/api/';
+        this.linkLocalhostMedia = 'https://twoway-mediaservice.herokuapp.com/api/';
+        this.linkLocalhostStatus = 'https://twoway-statusservice.herokuapp.com/api/';
         this.linkWebhost = 'https:';
         this.panleOptions = {
             GeneralData: {
