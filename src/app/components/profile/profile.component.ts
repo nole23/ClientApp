@@ -6,6 +6,7 @@ import { Images } from '../../models/images';
 import { Publication } from '../../models/publication';
 import { UserService } from '../../services/user.service';
 import { MediaService } from '../../services/media.service';
+import { Global } from '../../global/global';
 
 @Component({
   selector: 'app-profile',
@@ -36,8 +37,8 @@ export class ProfileComponent implements OnInit {
   selectedFilesHeaderImage: File = null;
   urlsForHeaderImage: any;
   fd = new FormData();
-  constructor(private activatedRoute: ActivatedRoute, private userService: UserService, private mediaService: MediaService) {
-    this.socket = io('http://localhost:8080/');
+  constructor(private activatedRoute: ActivatedRoute, private userService: UserService, private mediaService: MediaService, private global: Global) {
+    this.socket = io(this.global.getLink().split('/')[2]);
     this.user = null;
     this.status = false;
     this.imgShow = false;
