@@ -81,6 +81,13 @@ export class Global {
         return this.linkLocalhostChat;
     }
 
+    getOriginsIO() {
+        let allowedOrigins = {
+
+        }
+        return allowedOrigins;
+    }
+
     editLocalStorage(object: any) {
         console.info('Global.editLocalStorage() - Edit localstorage when update profile for client')
         

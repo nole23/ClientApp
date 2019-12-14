@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
   notChatText: String;
   indicator: Boolean;
   constructor(private userService: UserService, private chatService: ChatService, private global: Global) {
-    this.socket = io(this.global.getChat().split('/')[2]);
+    // this.socket = io(this.global.getChat().split('/')[2]);
     this.chat = null;
     this.notChatText = 'Zapocnite chat';
     this.indicator = false;
@@ -44,12 +44,12 @@ export class HomeComponent implements OnInit {
     })
 
     // TODO socket
-    this.socket.on('chat-' + this.user._id, (data: any) => {
-      if (this.chat !== null) {
-        this.chat.chatBox.push(data['chatBoxResponse']);
-      }
-      this._setIndicator(data['chatBoxResponse'].text._id_sender.username, 'hide', 'show');
-    })
+    // this.socket.on('chat-' + this.user._id, (data: any) => {
+    //   if (this.chat !== null) {
+    //     this.chat.chatBox.push(data['chatBoxResponse']);
+    //   }
+    //   this._setIndicator(data['chatBoxResponse'].text._id_sender.username, 'hide', 'show');
+    // })
 
     // TODO dovesti one sa kojima smo pricali
   }

@@ -35,7 +35,7 @@ export class AppComponent implements OnInit {
   btnColorNewMessage: String;
   btnColorNewInfo: String;
   constructor(private auth: AuthNav, @Inject(LOCALE_ID) public locale: string, private global: Global) {
-    this.socket = io(this.global.getChat().split('/')[2]);
+    // this.socket = io(this.global.getChat().split('/')[2]);
     this.loading = true;
     this.loginStatus = false;
     this.loginForm = true;
@@ -60,11 +60,11 @@ export class AppComponent implements OnInit {
     this.status();
 
     this.user = JSON.parse(localStorage.getItem('user'));
-    if (this.user !== null) {
-      this.socket.on('chat-' + this.user._id, (data: any) => {
-        this._playAudio();
-      })
-    }
+    // if (this.user !== null) {
+    //   this.socket.on('chat-' + this.user._id, (data: any) => {
+    //     this._playAudio();
+    //   })
+    // }
   }
 
   _playAudio() {
