@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map, catchError  } from 'rxjs/operators';
 import { Global } from '../global/global';
 import { Online } from '../models/online';
@@ -19,6 +19,12 @@ export class ChatService {
   }
 
   setChat(item: Online) {
+    
+    const httpOptions = {
+      headers: new HttpHeaders({ 
+        'Access-Control-Allow-Origin':'*',
+      })
+    };
     return this.http.post(this.global.getChat() + 'chats/', item)
       .pipe(map(res => {
         return res;
