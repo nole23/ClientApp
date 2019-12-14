@@ -81,10 +81,9 @@ export class Global {
         return this.linkLocalhostChat;
     }
 
-    getOriginsIO() {
-        let allowedOrigins = {
-
-        }
+    geIOLing(link: any) {
+        let allowedOrigins = link.split('/')[0] + link.split('/')[1] + link.split('/')[2];
+        console.log(allowedOrigins);
         return allowedOrigins;
     }
 

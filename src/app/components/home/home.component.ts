@@ -22,7 +22,8 @@ export class HomeComponent implements OnInit {
   notChatText: String;
   indicator: Boolean;
   constructor(private userService: UserService, private chatService: ChatService, private global: Global) {
-    // this.socket = io(this.global.getChat().split('/')[2]);
+    this.socket = io(this.global.geIOLing(this.global.getChat()));
+    io.set('origins', 'http://138.250.31.29:80');
     this.chat = null;
     this.notChatText = 'Zapocnite chat';
     this.indicator = false;
