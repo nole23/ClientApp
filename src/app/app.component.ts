@@ -35,7 +35,8 @@ export class AppComponent implements OnInit {
   btnColorNewMessage: String;
   btnColorNewInfo: String;
   constructor(private auth: AuthNav, @Inject(LOCALE_ID) public locale: string, private global: Global) {
-    // this.socket = io(this.global.getChat().split('/')[2]);
+    this.socket = io(this.global.geIOLing(this.global.getChat()));
+    io.set('origins', this.global.getChat().toString());
     this.loading = true;
     this.loginStatus = false;
     this.loginForm = true;
