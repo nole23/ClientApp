@@ -238,7 +238,7 @@ iframe {
   background: -o-linear-gradient(bottom, #000000, #000000);
   background: -moz-linear-gradient(bottom, #000000, #000000);
   background: linear-gradient(bottom, #000000, #000000);
-  opacity: 0.9;
+  opacity: 0.6;
 }
 
 /*==================================================================
