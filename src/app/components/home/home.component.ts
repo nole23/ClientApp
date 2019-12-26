@@ -21,11 +21,17 @@ export class HomeComponent implements OnInit {
   textChat: String;
   notChatText: String;
   indicator: Boolean;
+  isOpenChating: Boolean;
+  lastActivUser: String;
+  numberMessage: any;
   constructor(private userService: UserService, private chatService: ChatService, private global: Global) {
-    this.socket = io('twoway-chatservice.herokuapp.com');
+    this.socket = io('https://twoway-chatservice.herokuapp.com');
     this.chat = null;
     this.notChatText = 'Zapocnite chat';
     this.indicator = false;
+    this.isOpenChating = false;
+    this.lastActivUser = null;
+    this.numberMessage = 0;
   }
 
   ngOnInit() {
@@ -44,19 +50,20 @@ export class HomeComponent implements OnInit {
     })
 
     // TODO socket
-    // this.socket.on('chat-' + this.user._id, (data: any) => {
-    //   if (this.chat !== null) {
-    //     this.chat.chatBox.push(data['chatBoxResponse']);
-    //   }
-    //   this._setIndicator(data['chatBoxResponse'].text._id_sender.username, 'hide', 'show');
-    // })
+    this.socket.on('chat-' + this.user._id, (data: any) => {
+      console.log(data)
+      if (this.chat !== null) {
+        this.chat.chatBox.push(data['chatBoxResponse']);
+      }
+      this.numberMessage += this.numberMessage + 1;
+      this._setIndicator(data['chatBoxResponse'].text._id_sender.username, 'hide', 'show');
+    })
 
     // TODO dovesti one sa kojima smo pricali
   }
 
   _getFriends(listChat: any, numberOfList: number) {
     this.userService.getFriendsByLimit(listChat, numberOfList).subscribe(res => {
-      console.log(res)
       this._editRes(res['users']);
     })
   }
@@ -71,10 +78,20 @@ export class HomeComponent implements OnInit {
 
   _setIndicator(username: String, remove: String, add: String) {
     let list = this.list.nativeElement.children['list-user-' + username];
+      list.classList.add('bacgraund-hover');
+      if (this.lastActivUser !== null && username !== this.lastActivUser) {
+        let last = this.list.nativeElement.children['list-user-' + this.lastActivUser];
+        last.classList.remove('bacgraund-hover')
+      }
       if (list.children.length > 0) {
         list.children[1].classList.remove(remove);
         list.children[1].classList.add(add);
+
+        list.children[0].children[0].classList.remove(remove);
+        list.children[0].children[0].classList.add(add)
       }
+      
+      this.lastActivUser = username;
   }
 
   _getChatOneUser(firstFriends: Online) {
@@ -112,8 +129,15 @@ export class HomeComponent implements OnInit {
   }
 
   openUserForChat(item: Online) {
+    console.info('HomeComponent.openUserForChat() - open chating from ' + item.user.username);
     this._setIndicator(item.user.username, 'show', 'hide');
+
+    this.isOpenChating = true;
+    this.notChatText = 'Zapocnite chat';
+
     this.chatService.setChat(item).subscribe(res => {
+      this.isOpenChating = false;
+      this.numberMessage = 0;
       if (res['message'].chatBox.length === 0) {
         this.notChatText = null;
         this.chat = {
@@ -130,6 +154,10 @@ export class HomeComponent implements OnInit {
         this.notChatText = null;
       }
     })
+  }
+
+  ngViewMessage(item: any) {
+    this._setIndicator(item.text._id_sender.username, 'show', 'hide');
   }
 
   _sendMessage() {

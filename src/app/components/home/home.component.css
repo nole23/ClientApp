@@ -14,9 +14,11 @@
     height: calc(100% - 100px);
     color: #00c928;
     margin-top: 100px;
+    width: calc(100% - 450px);
+    text-align: center;
 }
 .css-info p {
-    margin-left: calc(100% - 60%);
+    /* margin-left: calc(100% - 60%); */
 }
 .chat-area-tap {
     border-top: 1px solid green;
@@ -131,8 +133,23 @@
     text-justify: inter-word;
     word-wrap: break-word;
 }
+.bacgraund-hover {
+    background-color: #464646;
+}
 
-
+.number-of-messages {
+    position: absolute;
+    min-width: 15px;
+    min-height: 15px;
+    border-radius: 10px;
+    background: #00c928;
+    padding: 0 1px 0 1px;
+    margin-left: 35px;
+}
+.number-of-messages span {
+    color: #fff;
+    font-size: 14px;
+}
 
 .i-hiden {
     display: none;
