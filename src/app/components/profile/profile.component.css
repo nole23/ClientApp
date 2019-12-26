@@ -222,7 +222,7 @@
 
 @media (min-width: 768px) and (max-width: 1250px) {
     .nav-bar {
-        width: 40vw;
+        width: calc(100% - 47px);
     }
 
     .modal-content {
