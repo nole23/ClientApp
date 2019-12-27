@@ -54,7 +54,7 @@ export class HomeComponent implements OnInit {
     var numberOfList = 20;
     this.userService.setOnline().subscribe((res: any) => {
       this.listChatFriends = res['message'];
-      // this._getChatOneUser(this.listChatFriends[0]);
+      
       numberOfList -= this.listChatFriends.length;
       this._getFriends(this.listChatFriends, numberOfList);
     }, (err: any) => {
@@ -66,7 +66,7 @@ export class HomeComponent implements OnInit {
       if (this.chat !== null) {
         this.chat.chatBox.push(data['chatBoxResponse']);
       }
-      this.numberMessage += this.numberMessage + 1;
+      // this.numberMessage += 1;
       this._setIndicator(data['chatBoxResponse'].text._id_sender.username, 'hide', 'show');
     })
 
@@ -134,6 +134,7 @@ export class HomeComponent implements OnInit {
   }
 
   sendMessage(event: any) {
+    this.smileContextMenu(false);
     let listTyping = [];
     this.chat.listChater.forEach((item: any) => {
       if (item._id.toString() !== this.user._id.toString()){
@@ -142,7 +143,6 @@ export class HomeComponent implements OnInit {
     });
     this.socketStatus.emit('typing', listTyping);
     if (event.keyCode == 13) {
-      this.smileContextMenu()
       this._sendMessage();
     }
   }
@@ -184,6 +184,7 @@ export class HomeComponent implements OnInit {
   }
 
   _sendMessage() {
+    this.smileContextMenu(false);
     this.isSendStatus = true;
     let myMessage = {
       user: this.user,
@@ -203,12 +204,15 @@ export class HomeComponent implements OnInit {
     this.listOneListSmile = this.global.getFunction(item);
   }
 
-  smileContextMenu() {
+  smileContextMenu(status: Boolean) {
     let context = this.smileRef.nativeElement.children[0].classList;
-    if (context[1] === 'hide') {
+    if (context[1] === 'hide' && status) {
       context.remove('hide');
       context.add('show')
-    } else {
+    } else if (context[1] === 'show' && status) {
+      context.remove('show');
+      context.add('hide')
+    } else if (!status) {
       context.remove('show');
       context.add('hide')
     }
@@ -216,5 +220,9 @@ export class HomeComponent implements OnInit {
 
   selectSmile(item: any) {
     this.textChat += this.global._setSmile(item);
+  }
+
+  replaceLineBreak(s:string) {
+    return this.global.ngReplice(s);
   }
 }

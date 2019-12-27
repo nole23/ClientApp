@@ -31,7 +31,7 @@
   </div>
   <div class="chat-area">
     <div class="chat-area-box" id="style-4" #scrollMe [scrollTop]="scrollMe.scrollHeight">
-      <div *ngIf="notChatText === null">
+      <div *ngIf="notChatText === null" (click)="smileContextMenu(false)">
         <div class="list-chat" *ngFor="let item of chat.chatBox" (click)="ngViewMessage(item)">
           
           <!-- Ovde idu poruke od prijatelja -->
@@ -40,14 +40,14 @@
               <img src="{{item.text._id_sender.otherInformation.publicMedia.profileImage}}" alt="">
             </div>
             <div class="text">
-              <span>{{item.text.text + ' '}} <br></span>
+              <span [innerHTML]="replaceLineBreak(item.text.text)"><br></span>
             </div>
           </div>
 
           <!-- Ovde idu moje poruke -->
           <div class="area-me" *ngIf="item.text._id_sender._id === user._id">
             <div class="text">
-              <span>{{item.text.text + ' '}} <br></span>
+              <span [innerHTML]="replaceLineBreak(item.text.text)"><br></span>
             </div>
           </div>
 
@@ -88,7 +88,7 @@
     </div>
     <div class="chat-area-tap" *ngIf="notChatText === null">
       <div class="chat-button-smile">
-        <button (click)="smileContextMenu()"><i class="fa fa-smile-o fa-3x"></i></button>
+        <button (click)="smileContextMenu(true)"><i class="fa fa-smile-o fa-3x"></i></button>
       </div>
       <div class="chat-textarea">
         <textarea name="" id="" [(ngModel)]="textChat" (keydown)="sendMessage($event)"></textarea>

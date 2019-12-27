@@ -73,6 +73,7 @@ export class ProfileComponent implements OnInit {
           this.isRequester = resUser['isRequester'];
           this.isResponder = resUser['isResponder'];
           this.isFriends = resUser['isFriends'];
+          console.log(resUser)
           this.getPublication();
         })
       } else {
@@ -121,7 +122,6 @@ export class ProfileComponent implements OnInit {
     console.info('ProfileComponent.getFriends() - get list frineds');
     this.userService.getFriends(this.user, 0).subscribe((res: [User]) => {
       this.userList = res['listFriends'];
-
     });
   }
 
