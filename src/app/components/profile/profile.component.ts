@@ -128,6 +128,7 @@ export class ProfileComponent implements OnInit {
   getImage() {
     console.info('ProfileComponent.getImage() - get data from server');
     this.mediaService.getPicture(this.user.username).subscribe((res: any) =>{
+      console.log(res)
       res.user += null;
       res.user = new User(this.user);
       this.imagesList = new Images(res).settingListImages();

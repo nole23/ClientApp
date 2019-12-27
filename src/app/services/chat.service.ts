@@ -30,9 +30,7 @@ export class ChatService {
         return res;
       }))
   }
-
   pushMessage(chat: any, message: any) {
-    console.log(chat)
     return this.http.post(this.global.getChat() + 'chats/push', {chat: chat, message: message})
       .pipe(map(res => {
         return res;

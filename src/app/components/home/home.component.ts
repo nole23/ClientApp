@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import * as io from 'socket.io-client';
+import { Observable } from 'rxjs';
 import { User } from '../../models/user';
 import { UserService } from '../../services/user.service';
 import { ChatService } from '../../services/chat.service';
@@ -13,7 +14,9 @@ import { Global } from '../../global/global';
 })
 export class HomeComponent implements OnInit {
   @ViewChild('list') list: ElementRef;
+  @ViewChild('smileRef') smileRef: ElementRef;
   private socket: any;
+  private socketStatus: any;
 
   listChatFriends: [Online];
   chat: any;
@@ -24,20 +27,29 @@ export class HomeComponent implements OnInit {
   isOpenChating: Boolean;
   lastActivUser: String;
   numberMessage: any;
+  isTyping: Boolean;
+  isSendStatus: Boolean;
+  listSmile: any;
+  listOneListSmile: any;
   constructor(private userService: UserService, private chatService: ChatService, private global: Global) {
     this.socket = io('https://twoway-chatservice.herokuapp.com');
+    this.socketStatus = io('https://twoway-statusservice.herokuapp.com')
     this.chat = null;
     this.notChatText = 'Zapocnite chat';
     this.indicator = false;
     this.isOpenChating = false;
     this.lastActivUser = null;
     this.numberMessage = 0;
+    this.isTyping = false;
+    this.isSendStatus = false;
+    this.listSmile = this.global.getList();
+    this.listOneListSmile = [];
   }
 
   ngOnInit() {
     console.info('ProfileComponent.ngOnInit() - Data initialization');
     // this._getAllChater();
-
+    this.openListSmile('smile');
     this.user = JSON.parse(localStorage.getItem('user'));
     var numberOfList = 20;
     this.userService.setOnline().subscribe((res: any) => {
@@ -51,7 +63,6 @@ export class HomeComponent implements OnInit {
 
     // TODO socket
     this.socket.on('chat-' + this.user._id, (data: any) => {
-      console.log(data)
       if (this.chat !== null) {
         this.chat.chatBox.push(data['chatBoxResponse']);
       }
@@ -59,7 +70,11 @@ export class HomeComponent implements OnInit {
       this._setIndicator(data['chatBoxResponse'].text._id_sender.username, 'hide', 'show');
     })
 
-    // TODO dovesti one sa kojima smo pricali
+    // TODO typing
+    this.socketStatus.on('typing-' + this.user._id, (data: any) => {
+      this.isTyping = true;
+      setTimeout(() => { this.isTyping = false }, 5000);
+    });
   }
 
   _getFriends(listChat: any, numberOfList: number) {
@@ -119,7 +134,15 @@ export class HomeComponent implements OnInit {
   }
 
   sendMessage(event: any) {
+    let listTyping = [];
+    this.chat.listChater.forEach((item: any) => {
+      if (item._id.toString() !== this.user._id.toString()){
+        listTyping.push(item);
+      }
+    });
+    this.socketStatus.emit('typing', listTyping);
     if (event.keyCode == 13) {
+      this.smileContextMenu()
       this._sendMessage();
     }
   }
@@ -161,6 +184,7 @@ export class HomeComponent implements OnInit {
   }
 
   _sendMessage() {
+    this.isSendStatus = true;
     let myMessage = {
       user: this.user,
       text: this.textChat,
@@ -169,8 +193,28 @@ export class HomeComponent implements OnInit {
     this.chatService.pushMessage(this.chat, myMessage).subscribe(res => {
       this.chat.chatBox.push(res['chatBoxResponse'])
       delete this.textChat;
+      this.isSendStatus = false;
     })
     // this.chat.push(myMessage);
     // delete this.textChat;
+  }
+
+  openListSmile(item: any) {
+    this.listOneListSmile = this.global.getFunction(item);
+  }
+
+  smileContextMenu() {
+    let context = this.smileRef.nativeElement.children[0].classList;
+    if (context[1] === 'hide') {
+      context.remove('hide');
+      context.add('show')
+    } else {
+      context.remove('show');
+      context.add('hide')
+    }
+  }
+
+  selectSmile(item: any) {
+    this.textChat += this.global._setSmile(item);
   }
 }

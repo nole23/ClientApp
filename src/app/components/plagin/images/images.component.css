@@ -7,6 +7,10 @@
     background-color: black;
 }
 
+.img-height {
+    height: 90px;
+}
+
 .img-responsive1 {
     width: 100%;
     height: 100%;

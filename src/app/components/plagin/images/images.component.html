@@ -2,15 +2,15 @@
   <div class="row text-center text-lg-left">
 
     <div class="col-lg-3 col-md-4 col-6" *ngFor="let item of imagesList">
-      <a class="d-block mb-4 h-100" (click)="openImage(item.link.image)" data-toggle="modal" data-target="#myModal">
-        <img class="img-fluid img-thumbnail" src="{{item.link.image}}" alt="">
+      <a class="d-block mb-4 h-100 cursor-pointer" (click)="openImage(item.link.image)" data-toggle="modal" data-target="#myModal">
+        <img class="img-fluid img-thumbnail img-height" src="{{item.link.image}}" alt="">
       </a>
     </div>
     
   </div>
 </div>
 
-<div id="myModal" class="modal fade" (click)="closeModal()" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
         <div class="modal-body" *ngIf="linkImage !== null">

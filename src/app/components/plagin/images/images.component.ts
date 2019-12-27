@@ -17,6 +17,7 @@ export class ImagesComponent implements OnInit {
   }
 
   openImage(link: String) {
+    console.log(link)
     this.linkImage = link;
   }
 
