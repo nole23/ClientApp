@@ -13,16 +13,13 @@ import { Global } from "../../global/global";
   styleUrls: ["./home.component.css"]
 })
 export class HomeComponent implements OnInit {
-<<<<<<< HEAD
+
   @ViewChild('list') list: ElementRef;
   @ViewChild('smileRef') smileRef: ElementRef;
   @ViewChild('smileRefMobile') smileRefMobile: ElementRef;
   @ViewChild('scrollMe') scrollMe: ElementRef;
   @ViewChild('dateShow') dateShow: ElementRef;
-=======
-  @ViewChild("list") list: ElementRef;
-  @ViewChild("smileRef") smileRef: ElementRef;
->>>>>>> 40550211c7974ffe8e679279bc0ed8e7e991fbe4
+
   private socket: any;
   private socketStatus: any;
 
@@ -39,20 +36,10 @@ export class HomeComponent implements OnInit {
   isSendStatus: Boolean;
   listSmile: any;
   listOneListSmile: any;
-<<<<<<< HEAD
   openUser: any;
   constructor(private userService: UserService, private chatService: ChatService, private global: Global) {
     this.socket = io('https://twoway-chatservice.herokuapp.com');
     this.socketStatus = io('https://twoway-statusservice.herokuapp.com')
-=======
-  constructor(
-    private userService: UserService,
-    private chatService: ChatService,
-    private global: Global
-  ) {
-    this.socket = io("https://twoway-chatservice.herokuapp.com");
-    this.socketStatus = io("https://twoway-statusservice.herokuapp.com");
->>>>>>> 40550211c7974ffe8e679279bc0ed8e7e991fbe4
     this.chat = null;
     this.notChatText = "Zapocnite chat";
     this.indicator = false;
@@ -89,7 +76,6 @@ export class HomeComponent implements OnInit {
       if (this.chat !== null) {
         this.chat.chatBox.push(data["chatBoxResponse"]);
       }
-<<<<<<< HEAD
       this.listChatFriends.forEach(element => {
         if (element.user._id.toString() === data['chatBoxResponse'].text._id_sender._id.toString()) {
           element.numberOfMessage = 1;
@@ -97,15 +83,7 @@ export class HomeComponent implements OnInit {
         }
       })
     })
-=======
-      this.numberMessage += 1;
-      this._setIndicator(
-        data["chatBoxResponse"].text._id_sender.username,
-        "hide",
-        "show"
-      );
-    });
->>>>>>> 40550211c7974ffe8e679279bc0ed8e7e991fbe4
+
 
     // TODO typing
     this.socketStatus.on("typing-" + this.user._id, (data: any) => {
@@ -117,18 +95,11 @@ export class HomeComponent implements OnInit {
   }
 
   _getFriends(listChat: any, numberOfList: number) {
-<<<<<<< HEAD
     this.userService.getFriendsByLimit(listChat, numberOfList).subscribe(res => {
       let status = this._editRes(res['users']);
       this._setNumberOfMessage(this.listChatFriends);
     })
-=======
-    this.userService
-      .getFriendsByLimit(listChat, numberOfList)
-      .subscribe(res => {
-        this._editRes(res["users"]);
-      });
->>>>>>> 40550211c7974ffe8e679279bc0ed8e7e991fbe4
+
   }
 
   _editRes(res: any) {
@@ -140,8 +111,6 @@ export class HomeComponent implements OnInit {
   }
 
   _setIndicator(username: String, remove: String, add: String) {
-<<<<<<< HEAD
-    
     let list = this.list.nativeElement.children['list-user-' + username];
     if (list) {
       list.classList.add('bacgraund-hover');
@@ -159,25 +128,7 @@ export class HomeComponent implements OnInit {
       
       this.lastActivUser = username;
     }
-=======
-    let list = this.list.nativeElement.children["list-user-" + username];
-    list.classList.add("bacgraund-hover");
-    if (this.lastActivUser !== null && username !== this.lastActivUser) {
-      let last = this.list.nativeElement.children[
-        "list-user-" + this.lastActivUser
-      ];
-      last.classList.remove("bacgraund-hover");
-    }
-    if (list.children.length > 0) {
-      list.children[1].classList.remove(remove);
-      list.children[1].classList.add(add);
 
-      list.children[0].children[0].classList.remove(remove);
-      list.children[0].children[0].classList.add(add);
-    }
-
-    this.lastActivUser = username;
->>>>>>> 40550211c7974ffe8e679279bc0ed8e7e991fbe4
   }
 
   _getChatOneUser(firstFriends: Online) {
@@ -221,16 +172,8 @@ export class HomeComponent implements OnInit {
   }
 
   openUserForChat(item: Online) {
-<<<<<<< HEAD
     console.info('HomeComponent.openUserForChat() - open chating from ' + item.user.username);
     this._removeNumberOfMessage(item.user);
-=======
-    console.info(
-      "HomeComponent.openUserForChat() - open chating from " +
-        item.user.username
-    );
-    this._setIndicator(item.user.username, "show", "hide");
->>>>>>> 40550211c7974ffe8e679279bc0ed8e7e991fbe4
 
     this.openUser = item;
     this.isOpenChating = true;
@@ -242,7 +185,6 @@ export class HomeComponent implements OnInit {
       if (res["message"].chatBox.length === 0) {
         this.notChatText = null;
         this.chat = {
-<<<<<<< HEAD
           _id: res['message']._id,
           listChater: res['message'].listChater,
           chatBox: [],
@@ -255,18 +197,7 @@ export class HomeComponent implements OnInit {
           chatBox: res['message'].chatBox,
           lastLimit: res['lastLimit']
         }
-=======
-          _id: res["message"]._id,
-          listChater: res["message"].listChater,
-          chatBox: []
-        };
-      } else {
-        this.chat = {
-          _id: res["message"]._id,
-          listChater: res["message"].listChater,
-          chatBox: res["message"].chatBox
-        };
->>>>>>> 40550211c7974ffe8e679279bc0ed8e7e991fbe4
+
         this.notChatText = null;
       }
     });
@@ -305,27 +236,17 @@ export class HomeComponent implements OnInit {
     this.isSendStatus = true;
     let myMessage = {
       user: this.user,
-<<<<<<< HEAD
       text: text,
       media: null,
     }
     this._removeNumberOfMessage(this.chat.listChater[1]);
-=======
-      text: this.textChat,
-      media: null
-    };
->>>>>>> 40550211c7974ffe8e679279bc0ed8e7e991fbe4
+
     this.chatService.pushMessage(this.chat, myMessage).subscribe(res => {
       this.chat.chatBox.push(res["chatBoxResponse"]);
       delete this.textChat;
       this.isSendStatus = false;
-<<<<<<< HEAD
     })
-=======
-    });
-    // this.chat.push(myMessage);
-    // delete this.textChat;
->>>>>>> 40550211c7974ffe8e679279bc0ed8e7e991fbe4
+
   }
 
   openListSmile(item: any) {
@@ -334,7 +255,6 @@ export class HomeComponent implements OnInit {
 
   smileContextMenu(status: Boolean) {
     let context = this.smileRef.nativeElement.children[0].classList;
-<<<<<<< HEAD
     let contextMobile = this.smileRefMobile.nativeElement.children[0].classList;
 
     if (context[1] === 'hide' && status) {
@@ -343,14 +263,7 @@ export class HomeComponent implements OnInit {
     } else if (context[1] === 'show' && status) {
       context.remove('show');
       context.add('hide')
-=======
-    if (context[1] === "hide" && status) {
-      context.remove("hide");
-      context.add("show");
-    } else if (context[1] === "show" && status) {
-      context.remove("show");
-      context.add("hide");
->>>>>>> 40550211c7974ffe8e679279bc0ed8e7e991fbe4
+
     } else if (!status) {
       context.remove("show");
       context.add("hide");
@@ -377,7 +290,6 @@ export class HomeComponent implements OnInit {
     return this.global.ngReplice(s);
   }
 
-<<<<<<< HEAD
   onScroll(event: any){
     const scrollTop = event.path[0].scrollTop;
     if (!scrollTop) {
@@ -408,16 +320,6 @@ export class HomeComponent implements OnInit {
   mouseOut(index: any) {
     let dateShow = this.dateShow.nativeElement.children['item-' + index];
     dateShow.children[0].children[0].children[0].classList.add('hide');
-=======
-  statusUpate(user: User) {
-    console.log(
-      "HomeComponent.openUserForChat() - edit status online/offline for user: " +
-        user.username
-    );
-    // TODO Ovde treba izvuci clasu koja daje crvenu boju indikatoru online
-    // i zamjeniti ga indikatorom online
-    let list = this.list.nativeElement.children["list-user-" + user.username];
-    console.log(list);
->>>>>>> 40550211c7974ffe8e679279bc0ed8e7e991fbe4
+
   }
 }
