@@ -1,23 +1,28 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import * as io from 'socket.io-client';
-import { Observable } from 'rxjs';
-import { User } from '../../models/user';
-import { UserService } from '../../services/user.service';
-import { ChatService } from '../../services/chat.service';
-import { Online } from '../../models/online';
-import { Global } from '../../global/global';
+import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
+import * as io from "socket.io-client";
+import { Observable } from "rxjs";
+import { User } from "../../models/user";
+import { UserService } from "../../services/user.service";
+import { ChatService } from "../../services/chat.service";
+import { Online } from "../../models/online";
+import { Global } from "../../global/global";
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  selector: "app-home",
+  templateUrl: "./home.component.html",
+  styleUrls: ["./home.component.css"]
 })
 export class HomeComponent implements OnInit {
+<<<<<<< HEAD
   @ViewChild('list') list: ElementRef;
   @ViewChild('smileRef') smileRef: ElementRef;
   @ViewChild('smileRefMobile') smileRefMobile: ElementRef;
   @ViewChild('scrollMe') scrollMe: ElementRef;
   @ViewChild('dateShow') dateShow: ElementRef;
+=======
+  @ViewChild("list") list: ElementRef;
+  @ViewChild("smileRef") smileRef: ElementRef;
+>>>>>>> 40550211c7974ffe8e679279bc0ed8e7e991fbe4
   private socket: any;
   private socketStatus: any;
 
@@ -34,12 +39,22 @@ export class HomeComponent implements OnInit {
   isSendStatus: Boolean;
   listSmile: any;
   listOneListSmile: any;
+<<<<<<< HEAD
   openUser: any;
   constructor(private userService: UserService, private chatService: ChatService, private global: Global) {
     this.socket = io('https://twoway-chatservice.herokuapp.com');
     this.socketStatus = io('https://twoway-statusservice.herokuapp.com')
+=======
+  constructor(
+    private userService: UserService,
+    private chatService: ChatService,
+    private global: Global
+  ) {
+    this.socket = io("https://twoway-chatservice.herokuapp.com");
+    this.socketStatus = io("https://twoway-statusservice.herokuapp.com");
+>>>>>>> 40550211c7974ffe8e679279bc0ed8e7e991fbe4
     this.chat = null;
-    this.notChatText = 'Zapocnite chat';
+    this.notChatText = "Zapocnite chat";
     this.indicator = false;
     this.isOpenChating = false;
     this.lastActivUser = null;
@@ -52,25 +67,29 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.info('ProfileComponent.ngOnInit() - Data initialization');
+    console.info("ProfileComponent.ngOnInit() - Data initialization");
     // this._getAllChater();
-    this.openListSmile('smile');
-    this.user = JSON.parse(localStorage.getItem('user'));
+    this.openListSmile("smile");
+    this.user = JSON.parse(localStorage.getItem("user"));
     var numberOfList = 20;
-    this.userService.setOnline().subscribe((res: any) => {
-      this.listChatFriends = res['message'];
-      
-      numberOfList -= this.listChatFriends.length;
-      this._getFriends(this.listChatFriends, numberOfList);
-    }, (err: any) => {
-      console.log(err)
-    })
+    this.userService.setOnline().subscribe(
+      (res: any) => {
+        this.listChatFriends = res["message"];
+
+        numberOfList -= this.listChatFriends.length;
+        this._getFriends(this.listChatFriends, numberOfList);
+      },
+      (err: any) => {
+        console.log(err);
+      }
+    );
 
     // TODO socket
-    this.socket.on('chat-' + this.user._id, (data: any) => {
+    this.socket.on("chat-" + this.user._id, (data: any) => {
       if (this.chat !== null) {
-        this.chat.chatBox.push(data['chatBoxResponse']);
+        this.chat.chatBox.push(data["chatBoxResponse"]);
       }
+<<<<<<< HEAD
       this.listChatFriends.forEach(element => {
         if (element.user._id.toString() === data['chatBoxResponse'].text._id_sender._id.toString()) {
           element.numberOfMessage = 1;
@@ -78,30 +97,50 @@ export class HomeComponent implements OnInit {
         }
       })
     })
+=======
+      this.numberMessage += 1;
+      this._setIndicator(
+        data["chatBoxResponse"].text._id_sender.username,
+        "hide",
+        "show"
+      );
+    });
+>>>>>>> 40550211c7974ffe8e679279bc0ed8e7e991fbe4
 
     // TODO typing
-    this.socketStatus.on('typing-' + this.user._id, (data: any) => {
+    this.socketStatus.on("typing-" + this.user._id, (data: any) => {
       this.isTyping = true;
-      setTimeout(() => { this.isTyping = false }, 5000);
+      setTimeout(() => {
+        this.isTyping = false;
+      }, 5000);
     });
   }
 
   _getFriends(listChat: any, numberOfList: number) {
+<<<<<<< HEAD
     this.userService.getFriendsByLimit(listChat, numberOfList).subscribe(res => {
       let status = this._editRes(res['users']);
       this._setNumberOfMessage(this.listChatFriends);
     })
+=======
+    this.userService
+      .getFriendsByLimit(listChat, numberOfList)
+      .subscribe(res => {
+        this._editRes(res["users"]);
+      });
+>>>>>>> 40550211c7974ffe8e679279bc0ed8e7e991fbe4
   }
 
   _editRes(res: any) {
     res.forEach(element => {
-      var edit = new Online({user: element, device: []})
+      var edit = new Online({ user: element, device: [] });
       this.listChatFriends.push(edit);
     });
     return true;
   }
 
   _setIndicator(username: String, remove: String, add: String) {
+<<<<<<< HEAD
     
     let list = this.list.nativeElement.children['list-user-' + username];
     if (list) {
@@ -120,34 +159,53 @@ export class HomeComponent implements OnInit {
       
       this.lastActivUser = username;
     }
+=======
+    let list = this.list.nativeElement.children["list-user-" + username];
+    list.classList.add("bacgraund-hover");
+    if (this.lastActivUser !== null && username !== this.lastActivUser) {
+      let last = this.list.nativeElement.children[
+        "list-user-" + this.lastActivUser
+      ];
+      last.classList.remove("bacgraund-hover");
+    }
+    if (list.children.length > 0) {
+      list.children[1].classList.remove(remove);
+      list.children[1].classList.add(add);
+
+      list.children[0].children[0].classList.remove(remove);
+      list.children[0].children[0].classList.add(add);
+    }
+
+    this.lastActivUser = username;
+>>>>>>> 40550211c7974ffe8e679279bc0ed8e7e991fbe4
   }
 
   _getChatOneUser(firstFriends: Online) {
     if (firstFriends) {
       this.notChatText = null;
       this.chatService.getChatByUser(firstFriends.user._id).subscribe(res => {
-        console.log(res)
-      })
+        console.log(res);
+      });
     } else {
-      this.notChatText = 'Zapocnite chat'
+      this.notChatText = "Zapocnite chat";
     }
   }
 
   _getAllChater() {
-    this.userService.getAllChater().subscribe((res: any) =>{
+    this.userService.getAllChater().subscribe((res: any) => {
       this.listChatFriends = res;
-    })
+    });
   }
 
   sendMessage(event: any) {
     this.smileContextMenu(false);
     let listTyping = [];
     this.chat.listChater.forEach((item: any) => {
-      if (item._id.toString() !== this.user._id.toString()){
+      if (item._id.toString() !== this.user._id.toString()) {
         listTyping.push(item);
       }
     });
-    this.socketStatus.emit('typing', listTyping);
+    this.socketStatus.emit("typing", listTyping);
     if (event.keyCode == 13) {
       if (this.textChat !== null) {
         this._sendMessage(this.textChat);
@@ -163,19 +221,28 @@ export class HomeComponent implements OnInit {
   }
 
   openUserForChat(item: Online) {
+<<<<<<< HEAD
     console.info('HomeComponent.openUserForChat() - open chating from ' + item.user.username);
     this._removeNumberOfMessage(item.user);
+=======
+    console.info(
+      "HomeComponent.openUserForChat() - open chating from " +
+        item.user.username
+    );
+    this._setIndicator(item.user.username, "show", "hide");
+>>>>>>> 40550211c7974ffe8e679279bc0ed8e7e991fbe4
 
     this.openUser = item;
     this.isOpenChating = true;
-    this.notChatText = 'Zapocnite chat';
+    this.notChatText = "Zapocnite chat";
 
     this.chatService.setChat(item, undefined).subscribe(res => {
       this.isOpenChating = false;
       this.numberMessage = 0;
-      if (res['message'].chatBox.length === 0) {
+      if (res["message"].chatBox.length === 0) {
         this.notChatText = null;
         this.chat = {
+<<<<<<< HEAD
           _id: res['message']._id,
           listChater: res['message'].listChater,
           chatBox: [],
@@ -188,9 +255,21 @@ export class HomeComponent implements OnInit {
           chatBox: res['message'].chatBox,
           lastLimit: res['lastLimit']
         }
+=======
+          _id: res["message"]._id,
+          listChater: res["message"].listChater,
+          chatBox: []
+        };
+      } else {
+        this.chat = {
+          _id: res["message"]._id,
+          listChater: res["message"].listChater,
+          chatBox: res["message"].chatBox
+        };
+>>>>>>> 40550211c7974ffe8e679279bc0ed8e7e991fbe4
         this.notChatText = null;
       }
-    })
+    });
   }
 
   _removeNumberOfMessage(user: any) {
@@ -218,7 +297,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngViewMessage(item: any) {
-    this._setIndicator(item.text._id_sender.username, 'show', 'hide');
+    this._setIndicator(item.text._id_sender.username, "show", "hide");
   }
 
   _sendMessage(text: String) {
@@ -226,15 +305,27 @@ export class HomeComponent implements OnInit {
     this.isSendStatus = true;
     let myMessage = {
       user: this.user,
+<<<<<<< HEAD
       text: text,
       media: null,
     }
     this._removeNumberOfMessage(this.chat.listChater[1]);
+=======
+      text: this.textChat,
+      media: null
+    };
+>>>>>>> 40550211c7974ffe8e679279bc0ed8e7e991fbe4
     this.chatService.pushMessage(this.chat, myMessage).subscribe(res => {
-      this.chat.chatBox.push(res['chatBoxResponse'])
+      this.chat.chatBox.push(res["chatBoxResponse"]);
       delete this.textChat;
       this.isSendStatus = false;
+<<<<<<< HEAD
     })
+=======
+    });
+    // this.chat.push(myMessage);
+    // delete this.textChat;
+>>>>>>> 40550211c7974ffe8e679279bc0ed8e7e991fbe4
   }
 
   openListSmile(item: any) {
@@ -243,6 +334,7 @@ export class HomeComponent implements OnInit {
 
   smileContextMenu(status: Boolean) {
     let context = this.smileRef.nativeElement.children[0].classList;
+<<<<<<< HEAD
     let contextMobile = this.smileRefMobile.nativeElement.children[0].classList;
 
     if (context[1] === 'hide' && status) {
@@ -251,9 +343,17 @@ export class HomeComponent implements OnInit {
     } else if (context[1] === 'show' && status) {
       context.remove('show');
       context.add('hide')
+=======
+    if (context[1] === "hide" && status) {
+      context.remove("hide");
+      context.add("show");
+    } else if (context[1] === "show" && status) {
+      context.remove("show");
+      context.add("hide");
+>>>>>>> 40550211c7974ffe8e679279bc0ed8e7e991fbe4
     } else if (!status) {
-      context.remove('show');
-      context.add('hide')
+      context.remove("show");
+      context.add("hide");
     }
 
     if (contextMobile[1] === 'hide' && status) {
@@ -273,10 +373,11 @@ export class HomeComponent implements OnInit {
     this.textChat === null ? this.textChat = smile : this.textChat += ' ' + smile;
   }
 
-  replaceLineBreak(s:string) {
+  replaceLineBreak(s: string) {
     return this.global.ngReplice(s);
   }
 
+<<<<<<< HEAD
   onScroll(event: any){
     const scrollTop = event.path[0].scrollTop;
     if (!scrollTop) {
@@ -307,5 +408,16 @@ export class HomeComponent implements OnInit {
   mouseOut(index: any) {
     let dateShow = this.dateShow.nativeElement.children['item-' + index];
     dateShow.children[0].children[0].children[0].classList.add('hide');
+=======
+  statusUpate(user: User) {
+    console.log(
+      "HomeComponent.openUserForChat() - edit status online/offline for user: " +
+        user.username
+    );
+    // TODO Ovde treba izvuci clasu koja daje crvenu boju indikatoru online
+    // i zamjeniti ga indikatorom online
+    let list = this.list.nativeElement.children["list-user-" + user.username];
+    console.log(list);
+>>>>>>> 40550211c7974ffe8e679279bc0ed8e7e991fbe4
   }
 }
