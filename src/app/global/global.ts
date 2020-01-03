@@ -140,109 +140,109 @@ export class Global {
     }
 
     _setSmile(item: any) {
-        if (item === "assets/picture/emoticion/first/001.svg") {
+        if (item.toString() === "assets/picture/emoticion/first/001.svg") {
             return ':)'; //
-          } else if (item === "assets/picture/emoticion/first/002.svg") {
+          } else if (item.toString() === "assets/picture/emoticion/first/002.svg") {
             return ':joy';//
-          } else if (item === "assets/picture/emoticion/first/003.svg") {
+          } else if (item.toString() === "assets/picture/emoticion/first/003.svg") {
             return ':cry'//
-          } else if (item === "assets/picture/emoticion/first/004.svg") {
+          } else if (item.toString() === "assets/picture/emoticion/first/004.svg") {
             return ':ang';//
-          } else if ( item === "assets/picture/emoticion/first/005.svg") {
+          } else if (item.toString() === "assets/picture/emoticion/first/005.svg") {
             return ':P';//
-          } else if (item === "assets/picture/emoticion/first/006.svg") {
+          } else if (item.toString() === "assets/picture/emoticion/first/006.svg") {
             return ':rang'//
-          } else if (item === "assets/picture/emoticion/first/007.svg") {
+          } else if (item.toString() === "assets/picture/emoticion/first/007.svg") {
             return ';)';//
-          } else if (item === "assets/picture/emoticion/first/008.svg") {
+          } else if (item.toString() === "assets/picture/emoticion/first/008.svg") {
             return ':dis';//
-          } else if ( item === "assets/picture/emoticion/first/009.svg") {
+          } else if (item.toString() === "assets/picture/emoticion/first/009.svg") {
             return ':<';//
-          } else if (item === "assets/picture/emoticion/first/0010.svg") {
+          } else if (item.toString() === "assets/picture/emoticion/first/0010.svg") {
             return ':emb'//
-          } else if (item === "assets/picture/emoticion/first/011.svg") {
+          } else if (item.toString() === "assets/picture/emoticion/first/011.svg") {
             return ':O';//
-          } else if (item === "assets/picture/emoticion/first/012.svg") {
+          } else if (item.toString() === "assets/picture/emoticion/first/012.svg") {
             return ':(';//
-          } else if ( item === "assets/picture/emoticion/first/013.svg") {
+          } else if (item.toString() === "assets/picture/emoticion/first/013.svg") {
             return ':x';//
-          } else if (item === "assets/picture/emoticion/first/014.svg") {
+          } else if (item.toString() === "assets/picture/emoticion/first/014.svg") {
             return ':$';//
-          } else if (item === "assets/picture/emoticion/first/015.svg") {
+          } else if (item.toString() === "assets/picture/emoticion/first/015.svg") {
             return ':-a';//
-          } else if (item === "assets/picture/emoticion/first/016.svg") {
+          } else if (item.toString() === "assets/picture/emoticion/first/016.svg") {
             return ':-8';//
-          } else if ( item === "assets/picture/emoticion/first/017.svg") {
+          } else if (item.toString() === "assets/picture/emoticion/first/017.svg") {
             return ':88';//
-          } else if (item === "assets/picture/emoticion/first/018.svg") {
+          } else if (item.toString() === "assets/picture/emoticion/first/018.svg") {
             return ';-sho';//
-          } else if (item === "assets/picture/emoticion/first/019.svg") {
+          } else if (item.toString() === "assets/picture/emoticion/first/019.svg") {
             return ':-ick';//
-          } else if (item === "assets/picture/emoticion/first/020.svg") {
+          } else if (item.toString() === "assets/picture/emoticion/first/020.svg") {
             return ':#';//
-          } else if ( item === "assets/picture/emoticion/first/021.svg") {
+          } else if (item.toString() === "assets/picture/emoticion/first/021.svg") {
             return ':z';//
-          } else if (item === "assets/picture/emoticion/first/022.svg") {
+          } else if (item.toString() === "assets/picture/emoticion/first/022.svg") {
             return ';sur';//
-          } else if (item === "assets/picture/emoticion/first/023.svg") {
+          } else if (item.toString() === "assets/picture/emoticion/first/023.svg") {
             return ':o';//
-          } else if (item === "assets/picture/emoticion/first/024.svg") {
+          } else if (item.toString() === "assets/picture/emoticion/first/024.svg") {
             return ':h';//
-          } else if ( item === "assets/picture/emoticion/first/025.svg") {
+          } else if (item.toString() === "assets/picture/emoticion/first/025.svg") {
             return ':-rich';//
-          } else if (item === "assets/picture/emoticion/first/026.svg") {
+          } else if (item.toString() === "assets/picture/emoticion/first/026.svg") {
             return ':666';//
-          } else if (item === "assets/picture/emoticion/first/027.svg") {
+          } else if (item.toString() === "assets/picture/emoticion/first/027.svg") {
             return ':sk';//
-          } else if (item === "assets/picture/emoticion/first/028.svg") {
+          } else if (item.toString() === "assets/picture/emoticion/first/028.svg") {
             return ':-c';//
-          } else if (item === "assets/picture/emoticion/first/029.svg") {
+          } else if (item.toString() === "assets/picture/emoticion/first/029.svg") {
             return ';-ro';//
-          } else if ( item === "assets/picture/emoticion/first/030.svg") {
+          } else if ( item.toString() === "assets/picture/emoticion/first/030.svg") {
             return ':poo';//
-          } else if (item === "assets/picture/emoticion/first/031.svg") {
+          } else if (item.toString() === "assets/picture/emoticion/first/031.svg") {
             return ':-s';//
-          } else if (item === "assets/picture/emoticion/first/032.svg") {
+          } else if (item.toString() === "assets/picture/emoticion/first/032.svg") {
             return ':g';//
-          } else if (item === "assets/picture/emoticion/first/033.svg") {
+          } else if (item.toString() === "assets/picture/emoticion/first/033.svg") {
             return ':-p';//
-          } else if ( item === "assets/picture/emoticion/first/034.svg") {
+          } else if (item.toString() === "assets/picture/emoticion/first/034.svg") {
             return ':-x';//
-          } else if (item === "assets/picture/emoticion/first/035.svg") {
+          } else if (item.toString() === "assets/picture/emoticion/first/035.svg") {
             return ':-ey';//
-          } else if (item === "assets/picture/emoticion/first/036.svg") {
+          } else if (item.toString() === "assets/picture/emoticion/first/036.svg") {
             return ':-o3';//
-          } else if (item === "assets/picture/emoticion/first/037.svg") {
+          } else if (item.toString() === "assets/picture/emoticion/first/037.svg") {
             return ':-C';//
-          } else if ( item === "assets/picture/emoticion/first/038.svg") {
+          } else if (item.toString() === "assets/picture/emoticion/first/038.svg") {
             return ':H';//
-          } else if (item === "assets/picture/emoticion/first/039.svg") {
+          } else if (item.toString() === "assets/picture/emoticion/first/039.svg") {
             return ':-%';//
-          } else if (item === "assets/picture/emoticion/first/040.svg") {
+          } else if (item.toString() === "assets/picture/emoticion/first/040.svg") {
             return ':T';//
-          } else if (item === "assets/picture/emoticion/first/041.svg") {
+          } else if (item.toString() === "assets/picture/emoticion/first/041.svg") {
             return ':5';//
-          } else if ( item === "assets/picture/emoticion/first/042.svg") {
+          } else if (item.toString() === "assets/picture/emoticion/first/042.svg") {
             return ':7';//
-          } else if (item === "assets/picture/emoticion/first/043.svg") {
+          } else if (item.toString() === "assets/picture/emoticion/first/043.svg") {
             return ';-mart';//
-          } else if (item === "assets/picture/emoticion/first/044.svg") {
+          } else if (item.toString() === "assets/picture/emoticion/first/044.svg") {
             return ';pss';//
-          } else if (item === "assets/picture/emoticion/first/045.svg") {
+          } else if (item.toString() === "assets/picture/emoticion/first/045.svg") {
             return ':D';//
-          } else if ( item === "assets/picture/emoticion/first/046.svg") {
+          } else if (item.toString() === "assets/picture/emoticion/first/046.svg") {
             return ':y';//
-          } else if (item === "assets/picture/emoticion/first/047.svg") {
+          } else if (item.toString() === "assets/picture/emoticion/first/047.svg") {
             return ':Y';//
-          } else if (item === "assets/picture/emoticion/first/048.svg") {
+          } else if (item.toString() === "assets/picture/emoticion/first/048.svg") {
             return ':>';//
-          } else if (item === "assets/picture/emoticion/first/049.svg") {
+          } else if (item.toString() === "assets/picture/emoticion/first/049.svg") {
             return ':na';//
-          } else if ( item === "assets/picture/emoticion/first/050.svg") {
+          } else if (item.toString() === "assets/picture/emoticion/first/050.svg") {
             return ';r';//
-          } else if (item === "assets/picture/emoticion/first/051.svg") {
+          } else if (item.toString() === "assets/picture/emoticion/first/051.svg") {
             return ';O';//
-          } else if ( item === "assets/picture/emoticion/first/052.svg") {
+          } else if (item.toString() === "assets/picture/emoticion/first/052.svg") {
             return ';q';//
           }
     }
