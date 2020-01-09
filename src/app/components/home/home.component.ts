@@ -251,7 +251,7 @@ export class HomeComponent implements OnInit {
         user.username
     );
     // TODO Ovde treba izvuci clasu koja daje crvenu boju indikatoru online
-    // i zamjeniti ga indikatorom online
+    // i zamjeniti ga indikatorom online/offline
     let list = this.list.nativeElement.children["list-user-" + user.username];
     console.log(list);
   }
