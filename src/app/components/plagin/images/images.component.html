@@ -1,28 +1,55 @@
-<div class="container" >
+<div class="container">
   <div class="row text-center text-lg-left">
-
-    <div class="col-lg-3 col-md-4 col-6" *ngFor="let item of imagesList">
-      <a class="d-block mb-4 h-100 cursor-pointer" (click)="openImage(item.link.image)" data-toggle="modal" data-target="#myModal">
-        <img class="img-fluid img-thumbnail img-height" src="{{item.link.image}}" alt="">
+    <div class="col-lg-2 col-md-4 col-sm-6" *ngFor="let item of imagesList">
+      <a
+        class="d-block mb-4 h-100 cursor-pointer"
+        (click)="openImage(item.link.image)"
+        data-toggle="modal"
+        data-target="#myModal"
+      >
+        <img
+          class="img-fluid img-thumbnail img-height"
+          src="{{ item.link.image }}"
+          alt=""
+        />
       </a>
     </div>
-    
   </div>
 </div>
 
-<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div
+  id="myModal"
+  class="modal fade"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog">
     <div class="modal-content">
-        <div class="modal-body" *ngIf="linkImage !== null">
-            <img src="{{linkImage}}" class="img-responsive1">
-            <button class="btn-likes"><!--<i class="fa fa-thumbs-o-up fa-3x" aria-hidden="true"></i> --><i class="fa fa-thumbs-up fa-3x" aria-hidden="true"></i>Svidja<br>mi se</button>
-            <button class="btn-comments"><i class="fa fa-comment-o fa-3x" aria-hidden="true"></i><span style="margin-top: 2px;">Komentar</span></button>
+      <div class="modal-body" *ngIf="linkImage !== null">
+        <img src="{{ linkImage }}" class="img-responsive1" />
+        <button class="btn-likes">
+          <!--<i class="fa fa-thumbs-o-up fa-3x" aria-hidden="true"></i> --><i
+            class="fa fa-thumbs-up fa-3x"
+            aria-hidden="true"
+          ></i
+          >Svidja<br />mi se
+        </button>
+        <button class="btn-comments">
+          <i class="fa fa-comment-o fa-3x" aria-hidden="true"></i
+          ><span style="margin-top: 2px;">Komentar</span>
+        </button>
+      </div>
+      <div
+        class="container"
+        style="margin: 50vh 0 0 0; text-align: center;"
+        *ngIf="linkImage === null"
+      >
+        <div class="spinner-border text-success" role="status">
+          <span class="sr-only">Loading...</span>
         </div>
-        <div class="container"  style="margin: 50vh 0 0 0; text-align: center;" *ngIf="linkImage === null">
-          <div class="spinner-border text-success" role="status">
-            <span class="sr-only">Loading...</span>
-          </div>
-        </div>
+      </div>
     </div>
   </div>
 </div>
