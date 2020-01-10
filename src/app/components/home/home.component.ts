@@ -13,11 +13,12 @@ import { Global } from "../../global/global";
   styleUrls: ["./home.component.css"]
 })
 export class HomeComponent implements OnInit {
-  @ViewChild("list") list: ElementRef;
-  @ViewChild("smileRef") smileRef: ElementRef;
-  @ViewChild("smileRefMobile") smileRefMobile: ElementRef;
-  @ViewChild("scrollMe") scrollMe: ElementRef;
-  @ViewChild("dateShow") dateShow: ElementRef;
+
+  @ViewChild('list') list: ElementRef;
+  @ViewChild('smileRef') smileRef: ElementRef;
+  @ViewChild('smileRefMobile') smileRefMobile: ElementRef;
+  @ViewChild('scrollMe') scrollMe: ElementRef;
+  @ViewChild('dateShow') dateShow: ElementRef;
 
   private socket: any;
   private socketStatus: any;
@@ -36,13 +37,9 @@ export class HomeComponent implements OnInit {
   listSmile: any;
   listOneListSmile: any;
   openUser: any;
-  constructor(
-    private userService: UserService,
-    private chatService: ChatService,
-    private global: Global
-  ) {
-    this.socket = io("https://twoway-chatservice.herokuapp.com");
-    this.socketStatus = io("https://twoway-statusservice.herokuapp.com");
+  constructor(private userService: UserService, private chatService: ChatService, private global: Global) {
+    this.socket = io('https://twoway-chatservice.herokuapp.com');
+    this.socketStatus = io('https://twoway-statusservice.herokuapp.com')
     this.chat = null;
     this.notChatText = "Zapocnite chat";
     this.indicator = false;
@@ -83,19 +80,13 @@ export class HomeComponent implements OnInit {
         this.chat.chatBox.push(data["chatBoxResponse"]);
       }
       this.listChatFriends.forEach(element => {
-        if (
-          element.user._id.toString() ===
-          data["chatBoxResponse"].text._id_sender._id.toString()
-        ) {
+        if (element.user._id.toString() === data['chatBoxResponse'].text._id_sender._id.toString()) {
           element.numberOfMessage = 1;
-          this._setIndicator(
-            data["chatBoxResponse"].text._id_sender.username,
-            "hide",
-            "show"
-          );
+          this._setIndicator(data['chatBoxResponse'].text._id_sender.username, 'hide', 'show');
         }
-      });
-    });
+      })
+    })
+
 
     // TODO typing
     this.socketStatus.on("typing-" + this.user._id, (data: any) => {
@@ -108,12 +99,11 @@ export class HomeComponent implements OnInit {
   }
 
   _getFriends(listChat: any, numberOfList: number) {
-    this.userService
-      .getFriendsByLimit(listChat, numberOfList)
-      .subscribe(res => {
-        let status = this._editRes(res["users"]);
-        this._setNumberOfMessage(this.listChatFriends);
-      });
+    this.userService.getFriendsByLimit(listChat, numberOfList).subscribe(res => {
+      let status = this._editRes(res['users']);
+      this._setNumberOfMessage(this.listChatFriends);
+    })
+
   }
 
   _editRes(res: any) {
@@ -125,25 +115,24 @@ export class HomeComponent implements OnInit {
   }
 
   _setIndicator(username: String, remove: String, add: String) {
-    let list = this.list.nativeElement.children["list-user-" + username];
+    let list = this.list.nativeElement.children['list-user-' + username];
     if (list) {
-      list.classList.add("bacgraund-hover");
+      list.classList.add('bacgraund-hover');
       if (this.lastActivUser !== null && username !== this.lastActivUser) {
-        let last = this.list.nativeElement.children[
-          "list-user-" + this.lastActivUser
-        ];
-        last.classList.remove("bacgraund-hover");
+        let last = this.list.nativeElement.children['list-user-' + this.lastActivUser];
+        last.classList.remove('bacgraund-hover')
       }
       if (list.children.length > 0) {
         list.children[1].classList.remove(remove);
         list.children[1].classList.add(add);
-
+  
         list.children[0].children[0].classList.remove(remove);
-        list.children[0].children[0].classList.add(add);
+        list.children[0].children[0].classList.add(add)
       }
-
+      
       this.lastActivUser = username;
     }
+
   }
 
   _getChatOneUser(firstFriends: Online) {
@@ -188,10 +177,7 @@ export class HomeComponent implements OnInit {
   }
 
   openUserForChat(item: Online) {
-    console.info(
-      "HomeComponent.openUserForChat() - open chating from " +
-        item.user.username
-    );
+    console.info('HomeComponent.openUserForChat() - open chating from ' + item.user.username);
     this._removeNumberOfMessage(item.user);
 
     this.openUser = item;
@@ -204,18 +190,18 @@ export class HomeComponent implements OnInit {
       if (res["message"].chatBox.length === 0) {
         this.notChatText = null;
         this.chat = {
-          _id: res["message"]._id,
-          listChater: res["message"].listChater,
+          _id: res['message']._id,
+          listChater: res['message'].listChater,
           chatBox: [],
-          lastLimit: res["lastLimit"]
+          lastLimit: res['lastLimit']
         };
       } else {
         this.chat = {
-          _id: res["message"]._id,
-          listChater: res["message"].listChater,
-          chatBox: res["message"].chatBox,
-          lastLimit: res["lastLimit"]
-        };
+          _id: res['message']._id,
+          listChater: res['message'].listChater,
+          chatBox: res['message'].chatBox,
+          lastLimit: res['lastLimit']
+        }
 
         this.notChatText = null;
       }
@@ -224,23 +210,26 @@ export class HomeComponent implements OnInit {
 
   _removeNumberOfMessage(user: any) {
     this.chatService.removeMessageStatus(user._id).subscribe(res => {
-      this._setIndicator(user.username, "show", "hide");
+      this._setIndicator(user.username, 'show', 'hide');
     });
+
   }
 
   _setNumberOfMessage(user: any) {
     this.chatService.getMessagesStatus(user).subscribe(res => {
-      res["message"].forEach(element => {
+
+      res['message'].forEach(element => {
         this.listChatFriends.forEach(item => {
-          if (item.user._id.toString() === element.user.user._id.toString()) {
-            item.numberOfMessage = element.numberMessage;
+          if(item.user._id.toString() === element.user.user._id.toString()) {
+            item.numberOfMessage = element.numberMessage
             if (item.numberOfMessage > 0) {
-              this._setIndicator(item.user.username, "hide", "show");
+              this._setIndicator(item.user.username, 'hide', 'show');
             }
           }
-        });
+        })
       });
-    });
+      
+    })
   }
 
   ngViewMessage(item: any) {
@@ -253,15 +242,20 @@ export class HomeComponent implements OnInit {
     let myMessage = {
       user: this.user,
       text: text,
-      media: null
-    };
+      media: null,
+    }
     this._removeNumberOfMessage(this.chat.listChater[1]);
 
     this.chatService.pushMessage(this.chat, myMessage).subscribe(res => {
       this.chat.chatBox.push(res["chatBoxResponse"]);
       delete this.textChat;
       this.isSendStatus = false;
+<<<<<<< HEAD
     });
+=======
+    })
+
+>>>>>>> 11c29edcfbe9f8e2daf1fd77be94b83e9e528da3
   }
 
   openListSmile(item: any) {
@@ -272,48 +266,68 @@ export class HomeComponent implements OnInit {
     let context = this.smileRef.nativeElement.children[0].classList;
     let contextMobile = this.smileRefMobile.nativeElement.children[0].classList;
 
-    if (context[1] === "hide" && status) {
-      context.remove("hide");
-      context.add("show");
-    } else if (context[1] === "show" && status) {
-      context.remove("show");
-      context.add("hide");
+    if (context[1] === 'hide' && status) {
+      context.remove('hide');
+      context.add('show')
+    } else if (context[1] === 'show' && status) {
+      context.remove('show');
+      context.add('hide')
+
     } else if (!status) {
       context.remove("show");
       context.add("hide");
     }
 
-    if (contextMobile[1] === "hide" && status) {
-      contextMobile.remove("hide");
-      contextMobile.add("show");
-    } else if (contextMobile[1] === "show" && status) {
-      contextMobile.remove("show");
-      contextMobile.add("hide");
+    if (contextMobile[1] === 'hide' && status) {
+      contextMobile.remove('hide');
+      contextMobile.add('show')
+    } else if (contextMobile[1] === 'show' && status) {
+      contextMobile.remove('show');
+      contextMobile.add('hide')
     } else if (!status) {
-      contextMobile.remove("show");
-      contextMobile.add("hide");
+      contextMobile.remove('show');
+      contextMobile.add('hide')
     }
   }
 
   selectSmile(item: any) {
     let smile = this.global._setSmile(item);
-    this.textChat === null
-      ? (this.textChat = smile)
-      : (this.textChat += " " + smile);
+    this.textChat === null ? this.textChat = smile : this.textChat += ' ' + smile;
   }
 
   replaceLineBreak(s: string) {
     return this.global.ngReplice(s);
   }
 
-  statusUpate(user: User) {
-    console.log(
-      "HomeComponent.openUserForChat() - edit status online/offline for user: " +
-        user.username
-    );
-    // TODO Ovde treba izvuci clasu koja daje crvenu boju indikatoru online
-    // i zamjeniti ga indikatorom online/offline
-    let list = this.list.nativeElement.children["list-user-" + user.username];
-    console.log(list);
+  onScroll(event: any){
+    const scrollTop = event.path[0].scrollTop;
+    if (!scrollTop) {
+      let concatNumber = this.chat.lastLimit -= 10;
+      this.chatService.setChat(this.openUser, concatNumber).subscribe(res => {
+        
+        // res['message'].chatBox.sort(function(a: any, b: any){
+        //   return new Date(b.date) - new Date(a.date);
+        // });
+
+        res['message'].chatBox.forEach(element => {
+          this.chat.chatBox.unshift(element)
+        });
+      })
+    }
+  }
+
+  onActivate(e, scrollContainer) {
+    console.log('upao')
+    scrollContainer.scrollTop = 0;
+  }
+
+  mouseEnter(index: any) {
+    let dateShow = this.dateShow.nativeElement.children['item-' + index];
+    dateShow.children[0].children[0].children[0].classList.remove('hide')
+  }
+
+  mouseOut(index: any) {
+    let dateShow = this.dateShow.nativeElement.children['item-' + index];
+    dateShow.children[0].children[0].children[0].classList.add('hide');
   }
 }
