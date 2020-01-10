@@ -14,12 +14,12 @@
         <a style="height: 100%; cursor: pointer;" (click)="openUserForChat(item)">
           <div class="number-of-messages hide">
             <span>
-              {{numberMessage}}
+              {{item.numberOfMessage}}
             </span>
           </div>
-          <img class="rounded-circle" src="{{item.user.otherInformation.publicMedia.profileImage}}" alt="" width="50px" height="50px">
+          <img class="rounded-circle" [ngClass]="item.device.length === 0 ? 'offline' : 'online'" src="{{item.user.otherInformation.publicMedia.profileImage}}" alt="" width="50px" height="50px">
           <div class="activ-text-width" style="width: 73%; height: 100%; float: right; margin-top: 12px;">
-            <span class="name-text"> {{item.user.firstName + ' ' + item.user.lastName}} </span> <span style="float: right"><i class="fa fa-circle" [ngClass]="item.device.length === 0 ? 'offline' : 'online'" aria-hidden="true"></i></span> <br>
+            <span class="name-text"> {{item.user.firstName + ' ' + item.user.lastName}} </span> <span style="float: right"><i class="fa fa-circle"  aria-hidden="true"></i></span> <br>
             <span class="chat-text"> {{item.text}} </span>
           </div>
         </a>
@@ -30,10 +30,9 @@
     </ul>
   </div>
   <div class="chat-area">
-    <div class="chat-area-box" id="style-4" #scrollMe [scrollTop]="scrollMe.scrollHeight">
-      <div *ngIf="notChatText === null" (click)="smileContextMenu(false)">
-        <div class="list-chat" *ngFor="let item of chat.chatBox" (click)="ngViewMessage(item)">
-          
+    <div class="chat-area-box" id="style-4" #scrollMe [scrollTop]="scrollMe.scrollHeight" (scroll)="onScroll($event)">
+      <div *ngIf="notChatText === null" (click)="smileContextMenu(false)" #dateShow>
+        <div class="list-chat" *ngFor="let item of chat.chatBox; let i = index" (click)="ngViewMessage(item)" [id]="'item-' + i">
           <!-- Ovde idu poruke od prijatelja -->
           <div class="area-friends" *ngIf="item.text._id_sender._id !== user._id">
             <div class="picture">
@@ -42,11 +41,14 @@
             <div class="text">
               <span [innerHTML]="replaceLineBreak(item.text.text)"><br></span>
             </div>
+            <div class="text-date-frends hide">{{item.date | date: 'dd. MMMM'}}</div>
           </div>
 
           <!-- Ovde idu moje poruke -->
           <div class="area-me" *ngIf="item.text._id_sender._id === user._id">
-            <div class="text">
+            
+            <div class="text" (mouseenter) ="mouseEnter(i)" (mouseout)="mouseOut(i)">
+              <div class="text-date hide">{{item.date | date: 'dd. MMMM'}}</div>
               <span [innerHTML]="replaceLineBreak(item.text.text)"><br></span>
             </div>
           </div>
@@ -68,7 +70,7 @@
 
 
     </div>
-    <div #smileRef id="'smile-list'">
+    <div class="big-window" #smileRef id="'smile-list'">
       <div class="smile-list hide">
         <div class="list" id="style-4">
           <div class="item-grups" *ngFor="let item of listOneListSmile">
@@ -87,6 +89,24 @@
       </div>
     </div>
     <div class="chat-area-tap" *ngIf="notChatText === null">
+      <div class="smal-window" #smileRefMobile id="'smile-list'">
+        <div class="smile-list-mobile hide">
+          <div class="list" id="style-4">
+            <div class="item-grups" *ngFor="let item of listOneListSmile">
+              <a class="cursor-pointer" (click)="selectSmile(item)">
+                <img src="{{item}}" alt="">
+              </a>
+            </div>
+          </div>
+          <div class="groups">
+            <div class="item-grups" *ngFor="let item of listSmile">
+              <a class="cursor-pointer" (click)="openListSmile(item[0])">
+                <img src="{{item[1]}}" alt="">
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="chat-button-smile">
         <button (click)="smileContextMenu(true)"><i class="fa fa-smile-o fa-3x"></i></button>
       </div>

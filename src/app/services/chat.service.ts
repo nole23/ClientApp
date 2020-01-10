@@ -18,20 +18,35 @@ export class ChatService {
       }))
   }
 
-  setChat(item: Online) {
+  setChat(item: Online, lastElement: any) {
     
     const httpOptions = {
       headers: new HttpHeaders({ 
         'Access-Control-Allow-Origin':'*',
       })
     };
-    return this.http.post(this.global.getChat() + 'chats/', item)
+    return this.http.post(this.global.getChat() + 'chats/', {body: item, lastElement: lastElement})
       .pipe(map(res => {
         return res;
       }))
   }
   pushMessage(chat: any, message: any) {
     return this.http.post(this.global.getChat() + 'chats/push', {chat: chat, message: message})
+      .pipe(map(res => {
+        return res;
+      }))
+  }
+
+  getMessagesStatus(user: any) {
+    return this.http.post(this.global.getChat() + 'chats/get-status', user)
+      .pipe(map(res => {
+        return res;
+      }))
+  }
+
+  removeMessageStatus(user: any) {
+    console.log(user)
+    return this.http.get(this.global.getChat() + 'chats/remove-status/' + user)
       .pipe(map(res => {
         return res;
       }))
