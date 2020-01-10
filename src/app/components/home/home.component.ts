@@ -250,12 +250,7 @@ export class HomeComponent implements OnInit {
       this.chat.chatBox.push(res["chatBoxResponse"]);
       delete this.textChat;
       this.isSendStatus = false;
-<<<<<<< HEAD
     });
-=======
-    })
-
->>>>>>> 11c29edcfbe9f8e2daf1fd77be94b83e9e528da3
   }
 
   openListSmile(item: any) {
