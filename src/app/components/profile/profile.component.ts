@@ -73,7 +73,6 @@ export class ProfileComponent implements OnInit {
           this.isRequester = resUser['isRequester'];
           this.isResponder = resUser['isResponder'];
           this.isFriends = resUser['isFriends'];
-          console.log(resUser)
           this.getPublication();
         })
       } else {
@@ -104,7 +103,6 @@ export class ProfileComponent implements OnInit {
     this.isResponder = false;
     this.userList = null;
     this.isFriends = false;
-
     this.activeUser = true;
     this.activeFriend = false;
     this.activePicture = false;
@@ -120,6 +118,7 @@ export class ProfileComponent implements OnInit {
 
   getFriends() {
     console.info('ProfileComponent.getFriends() - get list frineds');
+    this.userList = null;
     this.userService.getFriends(this.user, 0).subscribe((res: [User]) => {
       this.userList = res['listFriends'];
     });
@@ -127,8 +126,8 @@ export class ProfileComponent implements OnInit {
 
   getImage() {
     console.info('ProfileComponent.getImage() - get data from server');
+    this.imagesList = null;
     this.mediaService.getPicture(this.user.username).subscribe((res: any) =>{
-      console.log(res)
       res.user += null;
       res.user = new User(this.user);
       this.imagesList = new Images(res).settingListImages();

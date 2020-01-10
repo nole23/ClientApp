@@ -1,170 +1,173 @@
-
 .tab-item {
-    float: left;
-    width: 100%;
-    margin: 0;
-    padding: 5%;
-    border-bottom: 1px solid #00c928;
-    min-height: 10vh;
-    padding: 0;
+  float: left;
+  width: 100%;
+  margin: 0;
+  padding: 5%;
+  border-bottom: 1px solid #00c928;
+  min-height: 10vh;
+  padding: 0;
 }
 
 .tab-foter {
-    width: 100%;
-    height: 30px;
-    float: left;
-    border-top: 1px solid rgba(0,0,0,.1);
+  width: 100%;
+  height: 30px;
+  float: left;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .foter-btn-like {
-    float: left;
-    height: 100%;
-    width: 50%;
-    padding: 1px;
+  float: left;
+  height: 100%;
+  width: 50%;
+  padding: 1px;
 }
 
 .tab-coment {
-    float: left;
-    width: 100%;
-    min-height: 40px;
-    border-top: 1px solid rgba(0,0,0,.1);
+  float: left;
+  width: 100%;
+  min-height: 40px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 5px;
 }
 
 .coment-left {
-    float: left;
-    width: 15%;
+  float: left;
+  margin-right: 15px;
 }
 
 .coment-right {
-    float: left;
-    width: 85%;
-
+  float: left;
+  width: calc(100% - 50px);
+  line-height: 12px;
 }
 
 .show {
-    display: block;
+  display: block;
 }
 
 .hide {
-    display: none;
+  display: none;
 }
 
 .btn-like {
-    text-align: center;
-    width: 100%;
-    height: 100%;
-    color: #ddd;
-    padding: 1px;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  color: #ddd;
+  padding: 1px;
 }
 
 .btn-like:hover {
-    color: #00c928;
-    background-color: #fff;
+  color: #00c928;
+  background-color: #fff;
 }
 
 .tab-item-left {
-    float: left;
-    width: 15%;
-    max-height: 10vh;
-    padding: 2% 0 2% 3%;
+  float: left;
+  max-height: 10vh;
+  padding: 2% 0 2% 3%;
 }
 
 .tab-item-right {
-    float: left;
-    width: 80%;
-    min-height: 10vh;
-    margin-left: 1vw;
+  float: left;
+  width: 80%;
+  min-height: 10vh;
+  margin-left: 1vw;
 }
 
 .item-right-top {
-    min-height: 30px;
-    color: #fff;
-    margin-top: 5px;
+  min-height: 30px;
+  color: #fff;
+  margin-top: 5px;
 }
 
 .item-right-bottom {
-    float: left;
-    height: 25px;
-    font-size: 12px;
-    color: #fff;
-    margin-top: -10px;
+  float: left;
+  height: 25px;
+  font-size: 12px;
+  color: #fff;
+  margin-top: -10px;
 }
 .img-area {
-    margin: 10px 10px 10px 0;
+  margin: 10px 10px 10px 0;
 }
 .item-right-area {
-    float: left;
-    min-height: 1px;
-    font-size: 12px;
-    color: #fff;
-    width: 100%;
+  float: left;
+  min-height: 1px;
+  font-size: 12px;
+  color: #fff;
+  width: 100%;
 }
 
 .item-right-area span {
-    margin-top: 2%;
-    float: right;
-    width: 65%;
+  margin-top: 2%;
+  float: right;
+  width: 65%;
 }
 
 .input100 {
-    color: #fff;
-    padding-left: 5px;
-    font-size: 12px;
-    width: 100%;
-    border: 1px solid #00c928;
-    border-radius: 10px;
-    background: #464646;
+  color: #fff;
+  padding-left: 5px;
+  font-size: 12px;
+  width: 100%;
+  border: 1px solid #00c928;
+  border-radius: 10px;
+  background: #464646;
 }
 
 .cursor {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .tab-item p {
-    color: #fff;
-
+  color: #fff;
 }
 
 .modal-content {
-    width: 600px;
-    background-color: black;
+  width: 600px;
+  background-color: black;
 }
 
 .img-responsive1 {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 .btn-likes {
-    color: #fff;
-    left: 42px;
-    font-size: 10px;
-    width: 80px;
+  color: #fff;
+  left: 42px;
+  font-size: 10px;
+  width: 80px;
 }
 
 .btn-likes:hover {
-    color: #00c928;
+  color: #00c928;
 }
 
 .btn-comments {
-    color: #fff;
-    left: 160px;
-    font-size: 10px;
-    width: 90px;
+  color: #fff;
+  left: 160px;
+  font-size: 10px;
+  width: 90px;
 }
 
 .btn-comments:hover {
-    color: #00c928;
+  color: #00c928;
 }
 
-@media (max-width: 768px) { 
+@media (max-width: 768px) {
+  .modal-dialog {
+    margin: 0;
+  }
 
-    .modal-dialog {
-        margin: 0;
-    }
+  .img-responsive1 {
+    margin: -2% 0 0 -2%;
+    width: 104%;
+  }
+}
 
-    .img-responsive1 {
-        margin: -2% 0 0 -2%;
-        width: 104%;
-    }
+.tab-coment .text {
+  float: left;
+  width: 100%;
+  margin-top: 2px;
 }
