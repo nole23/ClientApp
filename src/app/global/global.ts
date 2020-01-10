@@ -13,22 +13,30 @@ export class Global {
     panleOptions: any;
     listSmile: any;
     smile: any;
+    simbol: any;
     constructor() {
+        this.simbol = [
+          ':)', ':joy', ':cry', ':ang', ':P', ':rang', ';)', ':dis', ':<', ':emb',
+          ':O', ':(', ':x', ':$', ':-a', ':-8', ':88', ';-sho', ':-ick', ':#',
+          ':z', ';sur', ':o', ':h', ':-rich', ':666', ':sk', ':-c', ';-ro', ':poo',
+          ':-s', ':g', ':-p', ':-x', ':-ey', ':-o3', ':-C', ':H', ':-%', ':T',':5',
+          ':7', ';-mart', ';pss', ':D', ':y', ':Y', ':>', ':na', ';r', ';O', ';q'
+        ]
         this.listSmile = [
             ['smile', 'assets/picture/emoticion/first/001.svg']
         ];
         this.smile = {
             smile: [
-                "assets/picture/emoticion/first/001.svg","assets/picture/emoticion/first/002.svg","assets/picture/emoticion/first/003.svg","assets/picture/emoticion/first/004.svg","assets/picture/emoticion/first/005.svg",
-                "assets/picture/emoticion/first/006.svg","assets/picture/emoticion/first/007.svg","assets/picture/emoticion/first/008.svg","assets/picture/emoticion/first/009.svg","assets/picture/emoticion/first/010.svg",
-                "assets/picture/emoticion/first/011.svg","assets/picture/emoticion/first/012.svg","assets/picture/emoticion/first/013.svg","assets/picture/emoticion/first/014.svg","assets/picture/emoticion/first/015.svg",
-                "assets/picture/emoticion/first/016.svg","assets/picture/emoticion/first/017.svg","assets/picture/emoticion/first/018.svg","assets/picture/emoticion/first/019.svg","assets/picture/emoticion/first/020.svg",
-                "assets/picture/emoticion/first/021.svg","assets/picture/emoticion/first/022.svg","assets/picture/emoticion/first/023.svg","assets/picture/emoticion/first/024.svg","assets/picture/emoticion/first/025.svg",
-                "assets/picture/emoticion/first/026.svg","assets/picture/emoticion/first/027.svg","assets/picture/emoticion/first/028.svg","assets/picture/emoticion/first/029.svg","assets/picture/emoticion/first/030.svg",
-                "assets/picture/emoticion/first/031.svg","assets/picture/emoticion/first/032.svg","assets/picture/emoticion/first/033.svg","assets/picture/emoticion/first/034.svg","assets/picture/emoticion/first/035.svg",
-                "assets/picture/emoticion/first/036.svg","assets/picture/emoticion/first/037.svg","assets/picture/emoticion/first/038.svg","assets/picture/emoticion/first/039.svg","assets/picture/emoticion/first/040.svg",
-                "assets/picture/emoticion/first/041.svg","assets/picture/emoticion/first/042.svg","assets/picture/emoticion/first/043.svg","assets/picture/emoticion/first/044.svg","assets/picture/emoticion/first/045.svg",
-                "assets/picture/emoticion/first/046.svg","assets/picture/emoticion/first/047.svg","assets/picture/emoticion/first/048.svg","assets/picture/emoticion/first/049.svg","assets/picture/emoticion/first/050.svg"
+                "assets/picture/emoticion/first/1.svg","assets/picture/emoticion/first/2.svg","assets/picture/emoticion/first/3.svg","assets/picture/emoticion/first/4.svg","assets/picture/emoticion/first/5.svg",
+                "assets/picture/emoticion/first/6.svg","assets/picture/emoticion/first/7.svg","assets/picture/emoticion/first/8.svg","assets/picture/emoticion/first/9.svg","assets/picture/emoticion/first/10.svg",
+                "assets/picture/emoticion/first/11.svg","assets/picture/emoticion/first/12.svg","assets/picture/emoticion/first/13.svg","assets/picture/emoticion/first/14.svg","assets/picture/emoticion/first/15.svg",
+                "assets/picture/emoticion/first/16.svg","assets/picture/emoticion/first/17.svg","assets/picture/emoticion/first/18.svg","assets/picture/emoticion/first/19.svg","assets/picture/emoticion/first/20.svg",
+                "assets/picture/emoticion/first/21.svg","assets/picture/emoticion/first/22.svg","assets/picture/emoticion/first/23.svg","assets/picture/emoticion/first/24.svg","assets/picture/emoticion/first/25.svg",
+                "assets/picture/emoticion/first/26.svg","assets/picture/emoticion/first/27.svg","assets/picture/emoticion/first/28.svg","assets/picture/emoticion/first/29.svg","assets/picture/emoticion/first/30.svg",
+                "assets/picture/emoticion/first/31.svg","assets/picture/emoticion/first/32.svg","assets/picture/emoticion/first/33.svg","assets/picture/emoticion/first/34.svg","assets/picture/emoticion/first/35.svg",
+                "assets/picture/emoticion/first/36.svg","assets/picture/emoticion/first/37.svg","assets/picture/emoticion/first/38.svg","assets/picture/emoticion/first/39.svg","assets/picture/emoticion/first/40.svg",
+                "assets/picture/emoticion/first/41.svg","assets/picture/emoticion/first/42.svg","assets/picture/emoticion/first/43.svg","assets/picture/emoticion/first/44.svg","assets/picture/emoticion/first/45.svg",
+                "assets/picture/emoticion/first/46.svg","assets/picture/emoticion/first/47.svg","assets/picture/emoticion/first/48.svg","assets/picture/emoticion/first/49.svg","assets/picture/emoticion/first/50.svg"
             ]
         };
         this.linkLocalhostChat = 'https://twoway-chatservice.herokuapp.com/api/'
@@ -140,165 +148,65 @@ export class Global {
     }
 
     _setSmile(item: any) {
-        if (item === "assets/picture/emoticion/first/001.svg") {
-            return ':)'; //
-          } else if (item === "assets/picture/emoticion/first/002.svg") {
-            return ':joy';//
-          } else if (item === "assets/picture/emoticion/first/003.svg") {
-            return ':cry'//
-          } else if (item === "assets/picture/emoticion/first/004.svg") {
-            return ':ang';//
-          } else if ( item === "assets/picture/emoticion/first/005.svg") {
-            return ':P';//
-          } else if (item === "assets/picture/emoticion/first/006.svg") {
-            return ':rang'//
-          } else if (item === "assets/picture/emoticion/first/007.svg") {
-            return ';)';//
-          } else if (item === "assets/picture/emoticion/first/008.svg") {
-            return ':dis';//
-          } else if ( item === "assets/picture/emoticion/first/009.svg") {
-            return ':<';//
-          } else if (item === "assets/picture/emoticion/first/0010.svg") {
-            return ':emb'//
-          } else if (item === "assets/picture/emoticion/first/011.svg") {
-            return ':O';//
-          } else if (item === "assets/picture/emoticion/first/012.svg") {
-            return ':(';//
-          } else if ( item === "assets/picture/emoticion/first/013.svg") {
-            return ':x';//
-          } else if (item === "assets/picture/emoticion/first/014.svg") {
-            return ':$';//
-          } else if (item === "assets/picture/emoticion/first/015.svg") {
-            return ':-a';//
-          } else if (item === "assets/picture/emoticion/first/016.svg") {
-            return ':-8';//
-          } else if ( item === "assets/picture/emoticion/first/017.svg") {
-            return ':88';//
-          } else if (item === "assets/picture/emoticion/first/018.svg") {
-            return ';-sho';//
-          } else if (item === "assets/picture/emoticion/first/019.svg") {
-            return ':-ick';//
-          } else if (item === "assets/picture/emoticion/first/020.svg") {
-            return ':#';//
-          } else if ( item === "assets/picture/emoticion/first/021.svg") {
-            return ':z';//
-          } else if (item === "assets/picture/emoticion/first/022.svg") {
-            return ';sur';//
-          } else if (item === "assets/picture/emoticion/first/023.svg") {
-            return ':o';//
-          } else if (item === "assets/picture/emoticion/first/024.svg") {
-            return ':h';//
-          } else if ( item === "assets/picture/emoticion/first/025.svg") {
-            return ':-rich';//
-          } else if (item === "assets/picture/emoticion/first/026.svg") {
-            return ':666';//
-          } else if (item === "assets/picture/emoticion/first/027.svg") {
-            return ':sk';//
-          } else if (item === "assets/picture/emoticion/first/028.svg") {
-            return ':-c';//
-          } else if (item === "assets/picture/emoticion/first/029.svg") {
-            return ';-ro';//
-          } else if ( item === "assets/picture/emoticion/first/030.svg") {
-            return ':poo';//
-          } else if (item === "assets/picture/emoticion/first/031.svg") {
-            return ':-s';//
-          } else if (item === "assets/picture/emoticion/first/032.svg") {
-            return ':g';//
-          } else if (item === "assets/picture/emoticion/first/033.svg") {
-            return ':-p';//
-          } else if ( item === "assets/picture/emoticion/first/034.svg") {
-            return ':-x';//
-          } else if (item === "assets/picture/emoticion/first/035.svg") {
-            return ':-ey';//
-          } else if (item === "assets/picture/emoticion/first/036.svg") {
-            return ':-o3';//
-          } else if (item === "assets/picture/emoticion/first/037.svg") {
-            return ':-C';//
-          } else if ( item === "assets/picture/emoticion/first/038.svg") {
-            return ':H';//
-          } else if (item === "assets/picture/emoticion/first/039.svg") {
-            return ':-%';//
-          } else if (item === "assets/picture/emoticion/first/040.svg") {
-            return ':T';//
-          } else if (item === "assets/picture/emoticion/first/041.svg") {
-            return ':5';//
-          } else if ( item === "assets/picture/emoticion/first/042.svg") {
-            return ':7';//
-          } else if (item === "assets/picture/emoticion/first/043.svg") {
-            return ';-mart';//
-          } else if (item === "assets/picture/emoticion/first/044.svg") {
-            return ';pss';//
-          } else if (item === "assets/picture/emoticion/first/045.svg") {
-            return ':D';//
-          } else if ( item === "assets/picture/emoticion/first/046.svg") {
-            return ':y';//
-          } else if (item === "assets/picture/emoticion/first/047.svg") {
-            return ':Y';//
-          } else if (item === "assets/picture/emoticion/first/048.svg") {
-            return ':>';//
-          } else if (item === "assets/picture/emoticion/first/049.svg") {
-            return ':na';//
-          } else if ( item === "assets/picture/emoticion/first/050.svg") {
-            return ';r';//
-          } else if (item === "assets/picture/emoticion/first/051.svg") {
-            return ';O';//
-          } else if ( item === "assets/picture/emoticion/first/052.svg") {
-            return ';q';//
-          }
+      for (let i=1; i<52; i++) {
+        if (item === 'assets/picture/emoticion/first/' + i + '.svg') {
+          return this.simbol[i].toString();
+        }
+      }
     }
 
     ngReplice(s: string) {
         let emoticons = {
-            a01: '<img src="assets/picture/emoticion/first/001.svg" width="20px" height="20px"/>',
-            a02: '<img src="assets/picture/emoticion/first/002.svg" width="20px" height="20px"/>',
-            a03: '<img src="assets/picture/emoticion/first/003.svg" width="20px" height="20px"/>',
-            a04: '<img src="assets/picture/emoticion/first/004.svg" width="20px" height="20px"/>',
-            a05: '<img src="assets/picture/emoticion/first/005.svg" width="20px" height="20px"/>',
-            a06: '<img src="assets/picture/emoticion/first/006.svg" width="20px" height="20px"/>',
-            a07: '<img src="assets/picture/emoticion/first/007.svg" width="20px" height="20px"/>',
-            a08: '<img src="assets/picture/emoticion/first/008.svg" width="20px" height="20px"/>',
-            a09: '<img src="assets/picture/emoticion/first/009.svg" width="20px" height="20px"/>',
-            a10: '<img src="assets/picture/emoticion/first/010.svg" width="20px" height="20px"/>',
-            a11: '<img src="assets/picture/emoticion/first/011.svg" width="20px" height="20px"/>',
-            a12: '<img src="assets/picture/emoticion/first/012.svg" width="20px" height="20px"/>',
-            a13: '<img src="assets/picture/emoticion/first/013.svg" width="20px" height="20px"/>',
-            a14: '<img src="assets/picture/emoticion/first/014.svg" width="20px" height="20px"/>',
-            a15: '<img src="assets/picture/emoticion/first/015.svg" width="20px" height="20px"/>',
-            a16: '<img src="assets/picture/emoticion/first/016.svg" width="20px" height="20px"/>',
-            a17: '<img src="assets/picture/emoticion/first/017.svg" width="20px" height="20px"/>',
-            a18: '<img src="assets/picture/emoticion/first/018.svg" width="20px" height="20px"/>',
-            a19: '<img src="assets/picture/emoticion/first/019.svg" width="20px" height="20px"/>',
-            a20: '<img src="assets/picture/emoticion/first/020.svg" width="20px" height="20px"/>',
-            a21: '<img src="assets/picture/emoticion/first/021.svg" width="20px" height="20px"/>',
-            a22: '<img src="assets/picture/emoticion/first/022.svg" width="20px" height="20px"/>',
-            a23: '<img src="assets/picture/emoticion/first/023.svg" width="20px" height="20px"/>',
-            a24: '<img src="assets/picture/emoticion/first/024.svg" width="20px" height="20px"/>',
-            a25: '<img src="assets/picture/emoticion/first/025.svg" width="20px" height="20px"/>',
-            a26: '<img src="assets/picture/emoticion/first/026.svg" width="20px" height="20px"/>',
-            a27: '<img src="assets/picture/emoticion/first/027.svg" width="20px" height="20px"/>',
-            a28: '<img src="assets/picture/emoticion/first/028.svg" width="20px" height="20px"/>',
-            a29: '<img src="assets/picture/emoticion/first/029.svg" width="20px" height="20px"/>',
-            a30: '<img src="assets/picture/emoticion/first/030.svg" width="20px" height="20px"/>',
-            a31: '<img src="assets/picture/emoticion/first/031.svg" width="20px" height="20px"/>',
-            a32: '<img src="assets/picture/emoticion/first/032.svg" width="20px" height="20px"/>',
-            a33: '<img src="assets/picture/emoticion/first/033.svg" width="20px" height="20px"/>',
-            a34: '<img src="assets/picture/emoticion/first/034.svg" width="20px" height="20px"/>',
-            a35: '<img src="assets/picture/emoticion/first/035.svg" width="20px" height="20px"/>',
-            a36: '<img src="assets/picture/emoticion/first/036.svg" width="20px" height="20px"/>',
-            a37: '<img src="assets/picture/emoticion/first/037.svg" width="20px" height="20px"/>',
-            a38: '<img src="assets/picture/emoticion/first/038.svg" width="20px" height="20px"/>',
-            a39: '<img src="assets/picture/emoticion/first/039.svg" width="20px" height="20px"/>',
-            a40: '<img src="assets/picture/emoticion/first/040.svg" width="20px" height="20px"/>',
-            a41: '<img src="assets/picture/emoticion/first/041.svg" width="20px" height="20px"/>',
-            a42: '<img src="assets/picture/emoticion/first/042.svg" width="20px" height="20px"/>',
-            a43: '<img src="assets/picture/emoticion/first/043.svg" width="20px" height="20px"/>',
-            a44: '<img src="assets/picture/emoticion/first/044.svg" width="20px" height="20px"/>',
-            a45: '<img src="assets/picture/emoticion/first/045.svg" width="20px" height="20px"/>',
-            a46: '<img src="assets/picture/emoticion/first/046.svg" width="20px" height="20px"/>',
-            a47: '<img src="assets/picture/emoticion/first/047.svg" width="20px" height="20px"/>',
-            a48: '<img src="assets/picture/emoticion/first/048.svg" width="20px" height="20px"/>',
-            a49: '<img src="assets/picture/emoticion/first/049.svg" width="20px" height="20px"/>',
-            a50: '<img src="assets/picture/emoticion/first/050.svg" width="20px" height="20px"/>',
+            a01: '<img src="assets/picture/emoticion/first/1.svg" width="20px" height="20px"/>',
+            a02: '<img src="assets/picture/emoticion/first/2.svg" width="20px" height="20px"/>',
+            a03: '<img src="assets/picture/emoticion/first/3.svg" width="20px" height="20px"/>',
+            a04: '<img src="assets/picture/emoticion/first/4.svg" width="20px" height="20px"/>',
+            a05: '<img src="assets/picture/emoticion/first/5.svg" width="20px" height="20px"/>',
+            a06: '<img src="assets/picture/emoticion/first/6.svg" width="20px" height="20px"/>',
+            a07: '<img src="assets/picture/emoticion/first/7.svg" width="20px" height="20px"/>',
+            a08: '<img src="assets/picture/emoticion/first/8.svg" width="20px" height="20px"/>',
+            a09: '<img src="assets/picture/emoticion/first/9.svg" width="20px" height="20px"/>',
+            a10: '<img src="assets/picture/emoticion/first/10.svg" width="20px" height="20px"/>',
+            a11: '<img src="assets/picture/emoticion/first/11.svg" width="20px" height="20px"/>',
+            a12: '<img src="assets/picture/emoticion/first/12.svg" width="20px" height="20px"/>',
+            a13: '<img src="assets/picture/emoticion/first/13.svg" width="20px" height="20px"/>',
+            a14: '<img src="assets/picture/emoticion/first/14.svg" width="20px" height="20px"/>',
+            a15: '<img src="assets/picture/emoticion/first/15.svg" width="20px" height="20px"/>',
+            a16: '<img src="assets/picture/emoticion/first/16.svg" width="20px" height="20px"/>',
+            a17: '<img src="assets/picture/emoticion/first/17.svg" width="20px" height="20px"/>',
+            a18: '<img src="assets/picture/emoticion/first/18.svg" width="20px" height="20px"/>',
+            a19: '<img src="assets/picture/emoticion/first/19.svg" width="20px" height="20px"/>',
+            a20: '<img src="assets/picture/emoticion/first/20.svg" width="20px" height="20px"/>',
+            a21: '<img src="assets/picture/emoticion/first/21.svg" width="20px" height="20px"/>',
+            a22: '<img src="assets/picture/emoticion/first/22.svg" width="20px" height="20px"/>',
+            a23: '<img src="assets/picture/emoticion/first/23.svg" width="20px" height="20px"/>',
+            a24: '<img src="assets/picture/emoticion/first/24.svg" width="20px" height="20px"/>',
+            a25: '<img src="assets/picture/emoticion/first/25.svg" width="20px" height="20px"/>',
+            a26: '<img src="assets/picture/emoticion/first/26.svg" width="20px" height="20px"/>',
+            a27: '<img src="assets/picture/emoticion/first/27.svg" width="20px" height="20px"/>',
+            a28: '<img src="assets/picture/emoticion/first/28.svg" width="20px" height="20px"/>',
+            a29: '<img src="assets/picture/emoticion/first/29.svg" width="20px" height="20px"/>',
+            a30: '<img src="assets/picture/emoticion/first/30.svg" width="20px" height="20px"/>',
+            a31: '<img src="assets/picture/emoticion/first/31.svg" width="20px" height="20px"/>',
+            a32: '<img src="assets/picture/emoticion/first/32.svg" width="20px" height="20px"/>',
+            a33: '<img src="assets/picture/emoticion/first/33.svg" width="20px" height="20px"/>',
+            a34: '<img src="assets/picture/emoticion/first/34.svg" width="20px" height="20px"/>',
+            a35: '<img src="assets/picture/emoticion/first/35.svg" width="20px" height="20px"/>',
+            a36: '<img src="assets/picture/emoticion/first/36.svg" width="20px" height="20px"/>',
+            a37: '<img src="assets/picture/emoticion/first/37.svg" width="20px" height="20px"/>',
+            a38: '<img src="assets/picture/emoticion/first/38.svg" width="20px" height="20px"/>',
+            a39: '<img src="assets/picture/emoticion/first/39.svg" width="20px" height="20px"/>',
+            a40: '<img src="assets/picture/emoticion/first/40.svg" width="20px" height="20px"/>',
+            a41: '<img src="assets/picture/emoticion/first/41.svg" width="20px" height="20px"/>',
+            a42: '<img src="assets/picture/emoticion/first/42.svg" width="20px" height="20px"/>',
+            a43: '<img src="assets/picture/emoticion/first/43.svg" width="20px" height="20px"/>',
+            a44: '<img src="assets/picture/emoticion/first/44.svg" width="20px" height="20px"/>',
+            a45: '<img src="assets/picture/emoticion/first/45.svg" width="20px" height="20px"/>',
+            a46: '<img src="assets/picture/emoticion/first/46.svg" width="20px" height="20px"/>',
+            a47: '<img src="assets/picture/emoticion/first/47.svg" width="20px" height="20px"/>',
+            a48: '<img src="assets/picture/emoticion/first/48.svg" width="20px" height="20px"/>',
+            a49: '<img src="assets/picture/emoticion/first/49.svg" width="20px" height="20px"/>',
+            a50: '<img src="assets/picture/emoticion/first/50.svg" width="20px" height="20px"/>',
         };
 
         let patterns = {

@@ -64,7 +64,10 @@ export class HomeComponent implements OnInit {
         this._getFriends(this.listChatFriends, numberOfList);
       },
       (err: any) => {
-        console.log(err);
+        console.log(
+          "ProfileComponent.ngOnInit() - Data initialization - twoway-statusservice not recognization"
+        );
+        this._getFriends(this.listChatFriends, numberOfList);
       }
     );
 
@@ -83,6 +86,7 @@ export class HomeComponent implements OnInit {
 
     // TODO typing
     this.socketStatus.on("typing-" + this.user._id, (data: any) => {
+      if (!this.isTyping) this.isTyping = true;
       this.isTyping = true;
       setTimeout(() => {
         this.isTyping = false;
@@ -134,13 +138,6 @@ export class HomeComponent implements OnInit {
     } else {
       this.notChatText = "Zapocnite chat";
     }
-    // this.chat = [{
-    //   user: this.user,
-    //   text: ['Prva poruka', 'Druga poruka malo duza', 'Treca poruka jos duza da vidimo sta ce biti']
-    // }, {
-    //   user: this.user,
-    //   text: ['Odgovorio samo jednom']
-    // }]
   }
 
   _getAllChater() {
@@ -157,6 +154,7 @@ export class HomeComponent implements OnInit {
         listTyping.push(item);
       }
     });
+    // emit typing to server
     this.socketStatus.emit("typing", listTyping);
     if (event.keyCode == 13) {
       this._sendMessage();
@@ -215,8 +213,6 @@ export class HomeComponent implements OnInit {
       delete this.textChat;
       this.isSendStatus = false;
     });
-    // this.chat.push(myMessage);
-    // delete this.textChat;
   }
 
   openListSmile(item: any) {

@@ -56,7 +56,7 @@
 .btn-right:hover {
   background-color: #ddd;
 }
-@media (min-width: 1114px) {
+@media (min-width: 1000px) {
   .right-area {
     margin-top: 1px;
   }
