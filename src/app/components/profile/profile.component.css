@@ -18,7 +18,7 @@
 .wp-r-300 {
     float: left;
     margin: 0;
-    width: calc(100vw - 590px)!important;
+    width: calc(100vw - 600px)!important;
 }
 
 .sidebar-header {
@@ -352,4 +352,10 @@
 
 .background {
     background: #464646;
+}
+
+.locate-css {
+    height: calc(100vh - 58vh);
+    border: 1px solid rgba(0,0,0,.1);
+    width: 320px;
 }
