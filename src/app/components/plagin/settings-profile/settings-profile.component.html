@@ -23,8 +23,15 @@
         <p *ngIf="val.type === 'Password'">*****</p>
       </div>
       <div class="name-css hide max-input" [id]="'input-' + i">
-        <input class="form-control" type="{{val.type}}" name="{{val.idName}}" value="{{val.value}}" [id]="'input-value-' + i">
-      </div>
+		<div *ngIf="val.type !== 'Select'">
+			<input class="form-control" type="{{val.type}}" name="{{val.idName}}" value="{{val.value}}" [id]="'input-value-' + i">
+		</div>
+		<div *ngIf="val.type === 'Select'">
+			<select class="form-control" name="{{val.idName}}" [id]="'input-value-' + i">
+				<option *ngFor="let sect of val.selectionParameter" value="{{sect}}">{{sect}}</option>
+			</select>
+		</div>
+	  </div>
     </div>
     <!-- Kraj fora -->
 

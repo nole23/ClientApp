@@ -14,14 +14,17 @@ export class PublicationComponent implements OnInit {
   showerChat: String;
   addComment: String;
   imageLink: String;
+  me: User;
   constructor(private userService: UserService) { 
     this.showerChat = 'hide';
     this.addComment = null;
     this.imageLink = null;
+    this.me = JSON.parse(localStorage.getItem('user'));
   }
 
   ngOnInit() {
     console.info('ProfileComponent.ngOnInit() - Data initialization');
+    console.log(this.me._id)
   }
 
   openComentar() {
@@ -53,6 +56,7 @@ export class PublicationComponent implements OnInit {
   likePublication() {
     console.info('ProfileComponent.likePublication() - Click like/dislike in publication');
     this.userService.likePublication(this.user, this.item).subscribe(res => {
+      console.log(res)
       this.item.likes.push(this.user._id);
     })
   }
@@ -60,8 +64,14 @@ export class PublicationComponent implements OnInit {
   disLikePublication() {
     console.info('ProfileComponent.likePublication() - Click like/dislike in publication');
     this.userService.dislikePublication(this.user, this.item).subscribe(res => {
+      console.log(res)
       this.item.likes.splice(this.user._id, 1);
     })
+  }
+
+  closeModal() {
+    console.log('dosao')
+    this.imageLink = null;
   }
 
   openImage(link: String) {
@@ -73,7 +83,7 @@ export class PublicationComponent implements OnInit {
     let status = false;
 
     list.forEach(element => {
-      if (element === this.user._id) {
+      if (element === this.me._id) {
         status = true;
       }
     });

@@ -7,7 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NotificationComponent implements OnInit {
 
-  constructor() { }
+  isOwner : Boolean;
+  constructor() {
+    this.isOwner = false;
+  }
 
   ngOnInit() {
   }

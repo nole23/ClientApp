@@ -58,6 +58,12 @@
 
 }
 
+@media (max-width: 768px) {
+    .col-lg-2 {
+        width: calc(100% / 4)!important;
+    }
+}
+
 @media (min-width: 768px) and (max-width: 1250px) {
 
     .modal-content {

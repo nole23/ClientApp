@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { User } from '../../models/user';
 import { SearchService } from '../../services/search.service';
 
@@ -8,6 +8,7 @@ import { SearchService } from '../../services/search.service';
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {
+  @ViewChild('search') prod: ElementRef;
 
   listUsers: [User];
   searchUsers: [User];
@@ -40,6 +41,16 @@ export class SearchComponent implements OnInit {
     } else {
       this.searchUsers = null;
     }
+  }
+  
+  ngShowSearch() {
+	let select = this.prod.nativeElement.children['input-search'];
+	
+	if (select.classList.value.includes('m-search')) {
+		select.classList.remove('m-search');
+	} else {
+		select.classList.add('m-search');
+	}
   }
 
 }

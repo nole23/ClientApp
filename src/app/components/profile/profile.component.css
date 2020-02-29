@@ -7,6 +7,10 @@
     cursor: pointer;
 }
 
+.mobile-button {
+    display: none;
+}
+
 .wp-300 {
     width: 300px;
     min-width: 300px;
@@ -18,7 +22,7 @@
 .wp-r-300 {
     float: left;
     margin: 0;
-    width: calc(100vw - 590px)!important;
+    width: calc(100vw - 600px)!important;
 }
 
 .sidebar-header {
@@ -41,6 +45,9 @@
     opacity: 0.9;
 }
 .btn-hide {
+    display: none;
+}
+.btn-hide-mobile {
     display: none;
 }
 #btn:hover .btn-hide {
@@ -260,6 +267,23 @@
         display: none;
     }
 
+    .wp-300 {
+        height: 100vh;
+    }
+
+    .privat-information {
+        position: absolute;
+        border: 1px solid rgba(0,0,0,.1);
+        display: block;
+        margin: 0 0px 0 -50px;
+        width: 24vw !important;
+        height: 33vh !important;
+    }
+
+    .btn-hide-mobile {
+        display: block;
+    }
+
     @media (max-width: 1200px) {
         .user-tab {
             width: 89.5%;
@@ -274,12 +298,14 @@
     }
     
     .btn-mobile-image {
-        position: absolute;
-        top: 12em;
-        left: 9em;
-        font-size: 30px;
-        cursor: pointer;
         display: block;
+        margin-left: calc(100% - 37%);
+        margin-right: auto;
+        margin-top: -80px;
+        margin-bottom: 30px;
+        color: #00c928;
+        font-size: 40px;
+        cursor: pointer;
     }
 
     .modal-content {
@@ -302,7 +328,7 @@
         width: 100%;
         min-width: 100%;
         float: left;
-        height: 500px;
+        height: calc(100vh - 163px);
     }
     .wp-r-300 {
         width: 100% !important;
@@ -314,6 +340,7 @@
     .nav-bar {
         width: 100%;
         margin-left: 0;
+        margin-top: 0;
     }
     .image-phone {
         background-position: center !important;
@@ -324,7 +351,11 @@
         margin: 0 !important;
     }
     .image-phone img {
-        margin: 180px 0 0 25vw;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        /* width: 50%; */
+        margin-top: 20px;
     }
     #btn {
         display: none;
@@ -335,6 +366,31 @@
     }
     
     .btn-comments {
+    }
+	
+	.locate-css {
+		display: none;
+    }
+    
+    .mobile-button {
+        display: block;
+        width: 20%;
+        float: left;
+    }
+    .mobile-button .settings {
+        display: block;
+        margin-left: 20px;
+        margin-top: 0px;
+        margin-right: -20px;
+        margin-bottom: -70px;
+        width: 50px;
+        /* font-size: 16px; */
+        /* border: 1px solid red; */
+        height: 50px;
+    }
+    .mobile-button i {
+        font-size: 40px;
+        color: #00c928;
     }
 }
 
@@ -352,4 +408,123 @@
 
 .background {
     background: #464646;
+}
+
+.locate-css {
+	position: absolute;
+    height: calc(100vh - 58vh);
+    border: 1px solid rgba(0,0,0,.1);
+	top: calc(100vh - 45%);
+    width: 332px;
+}
+
+.privat-information {
+    width: 100%;
+    height: 270px;
+}
+.privat-information .location {
+    height: 60%;
+}
+.privat-information .private {
+    height: 40%;
+    margin-top: 25px;
+}
+
+.add-publication {
+    width: 100%;
+    height: 35px;
+    border-bottom: 1px solid #00c928;
+}
+
+.add-publication .profile {
+    float: left;
+    width: 25px;
+    margin: 5px;
+}
+.add-publication .profile img {
+    border-radius: 50px;
+}
+
+.add-publication .location {
+    float: left;
+    width: 35%;
+    height: 28px;
+    margin-top: 3px;
+    margin-left: 33px;
+    padding: 4px 0 5px 16px;
+    border: 1px solid #00c928;
+    border-radius: 20px;
+}
+.add-publication .location .left {
+    float: left;
+}
+.add-publication .location .right {
+    float: left;
+    margin-left: 8px;
+    color: #fff;
+}
+.add-publication .location:hover {
+    background-color: #00c928;
+}
+.add-publication .location:hover .add-publication i{
+    color: #fff   
+}
+
+.add-publication .picture {
+    float: left;
+    margin-top: 3px;
+    margin-left: 53px;
+    width: 35%;
+    height: 28px;
+    border: 1px solid #00c928;
+    border-radius: 20px;
+    padding: 4px 0 0 35px;
+}
+.add-publication .picture .left {
+    float: left;
+}
+.add-publication .picture .right {
+    float: left;
+    margin-left: 8px;
+    color: #fff;
+}
+.add-publication .picture:hover {
+    background-color: #00c928;
+}
+.add-publication .picture:hover .add-publication i{
+    color: #fff   
+}
+
+.add-publication button {
+    width: 20%;
+    text-align: center;
+}
+.add-publication i {
+    font-size: 20px;
+    color: #00c928
+}
+
+@media (max-width: 768px) {
+    .add-publication .location {
+        width: 40%;
+        margin-top: 3px;
+        margin-left: 2px;
+        padding: 4px 0 5px 8px;
+    }
+    .add-publication .location .right {
+        margin-left: 7px;
+        font-size: 11px;
+        margin-top: 5px;
+    }
+
+    .add-publication .picture {
+        margin-left: 3px;
+        width: 40%;
+        padding: 4px 0 0 10px;
+    }
+    .add-publication .picture .right {
+        margin-left: 5px;
+        font-size: 11px;
+        margin-top: 6px;
+    }
 }

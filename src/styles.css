@@ -1,3 +1,4 @@
+@import "~angular-notifier/styles";
 /* You can add global styles to this file, and also import other style files */
 body, html {
     height: 110%;
@@ -13,7 +14,7 @@ body, html {
 
 #style-4::-webkit-scrollbar
 {
-    width: 15px;
+    width: 8px;
     background-color: #464646;
 }
 

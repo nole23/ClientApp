@@ -1,7 +1,9 @@
-<div class="container" style="height: 90vh;">
+<div class="container" #search>
     <h1 class="font-weight-light text-center text-lg-left mt-4 mb-0">Osobe iz okruzenja</h1>
-
-    <input type="text" placeholder="Pretraga..." class="search" name="searchText" [(ngModel)]="searchText" (input)="filter()">
+	<button class="search-button" (click)="ngShowSearch()">
+		<i class="fa fa-search" aria-hidden="true"></i>
+	</button>
+    <input type="text" placeholder="Pretraga..." class="search m-search" name="searchText" [(ngModel)]="searchText" (input)="filter()" [id]="'input-search'">
     <!--<button><i class="fa fa-search" aria-hidden="true"></i></button>-->
     <hr class="mt-2 mb-5">
 

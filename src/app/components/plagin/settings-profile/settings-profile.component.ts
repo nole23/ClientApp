@@ -49,7 +49,8 @@ export class SettingsProfileComponent implements OnInit {
         show: true,
         type: generalData.data[i].type,
         value: this.getValue(item, generalData.data[i].idData),
-        idName: generalData.data[i].idName
+        idName: generalData.data[i].idName,
+		selectionParameter: generalData.data[i].selections
       })
     }
     return data;
@@ -126,6 +127,7 @@ export class SettingsProfileComponent implements OnInit {
 
     this.btnSave = true;
     const select = this.prod.nativeElement.children['settings-id-' + i];
+	
     const object = {};
     for (let j = 1; j<select.children.length - 1; j++) {
       object[select.children[j].children['input-' + i].querySelector('input').name] = select.children[j].children['input-' + i].querySelector('input').value;

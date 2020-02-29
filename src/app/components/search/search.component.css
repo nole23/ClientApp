@@ -1,6 +1,6 @@
 .container {
     color: #00c928;
-    margin-top: -60px;
+    margin-top: calc(100vh - 111vh);;
 }
 
 .mt-4 {
@@ -36,8 +36,42 @@
     border-radius: 3px;
 }
 
+.search-button {
+	display: none;
+}
+
+.m-search {
+	display: block;
+}
+
 @media (max-width: 761px) {
     .search {
-        display: none;
+		top: 9vh;
+		left: 5vw;
+		width: 80vw;
+		height: 4vh;
     }
+	
+	.m-search {
+		display: none;
+	}
+	
+	.search-button {
+		display: block;
+		color: #00c928;
+		position: absolute;
+		top: 55px;
+		right: 25px;
+		font-size: 20px;
+	}
+	
+	.container {
+		height: calc(100vh - 60px);
+	}
+
+	.mt-4 {
+		margin-top: 16vh!important;
+		margin-bottom: 0;
+		font-size: 20px;
+	}
 }

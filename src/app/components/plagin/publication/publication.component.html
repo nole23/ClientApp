@@ -16,7 +16,7 @@
 
     <div class="item-right-area" *ngIf="item.image !== null">
       <div>
-        <a class="cursor-pointer" data-toggle="modal" data-target="#myModalImage" (click)="openImage(item.image)"><img src="{{item.image}}" class="img-area" alt="" width="100px" height="100px"></a>
+        <a class="cursor-pointer" data-toggle="modal" data-target="#myModalImage" (click)="openImage(item.image)"><img src="{{item.image}}" class="img-area" alt=""></a>
         <span *ngIf="item.text !== null">{{item.text}}</span>
       </div>
     </div>
@@ -48,7 +48,7 @@
       <div class="coment-left">
           <img src="{{comment.user.otherInformation.publicMedia.profileImage}}" class="rounded-circle" alt="" width="35px" height="35px">
       </div>
-      <div class="coment-right" style="padding: 0;">
+      <div class="coment-right">
           <span style="color: #fff; font-size: 12px;">{{comment.text}}</span>
       </div>
     </div>
@@ -65,18 +65,11 @@
   </div>
 </div>
 
-<div id="myModalImage" class="modal fade" (click)="closeModal()" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" *ngIf="imageLink !== null">
+<div id="myModalImage" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-        <div class="modal-body" *ngIf="imageLink !== null">
+        <div class="modal-body">
             <img src="{{imageLink}}" class="img-responsive1">
-            <button class="btn-likes"><!--<i class="fa fa-thumbs-o-up fa-3x" aria-hidden="true"></i> --><i class="fa fa-thumbs-up fa-3x" aria-hidden="true"></i>Svidja<br>mi se</button>
-            <button class="btn-comments"><i class="fa fa-comment-o fa-3x" aria-hidden="true"></i><span style="margin-top: 2px;">Komentar</span></button>
-        </div>
-        <div class="container"  style="margin: 50vh 0 0 0; text-align: center;" *ngIf="imageLink === null">
-          <div class="spinner-border text-success" role="status">
-            <span class="sr-only">Loading...</span>
-          </div>
         </div>
     </div>
   </div>

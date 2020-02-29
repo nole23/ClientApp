@@ -6,7 +6,9 @@ import { Images } from '../../models/images';
 import { Publication } from '../../models/publication';
 import { UserService } from '../../services/user.service';
 import { MediaService } from '../../services/media.service';
+import { PublicationService } from '../../services/publication.service';
 import { Global } from '../../global/global';
+import { NotifierService } from 'angular-notifier';
 
 @Component({
   selector: 'app-profile',
@@ -15,6 +17,7 @@ import { Global } from '../../global/global';
 })
 export class ProfileComponent implements OnInit {
 
+  private readonly notifier: NotifierService;
   private socket: any;
 
   user: User;
@@ -37,7 +40,10 @@ export class ProfileComponent implements OnInit {
   selectedFilesHeaderImage: File = null;
   urlsForHeaderImage: any;
   fd = new FormData();
-  constructor(private activatedRoute: ActivatedRoute, private userService: UserService, private mediaService: MediaService, private global: Global) {
+  typeLocation: String;
+  newLocationSave: any;
+  click: Boolean;
+  constructor(notifier: NotifierService, private activatedRoute: ActivatedRoute, private publicationSercice: PublicationService, private userService: UserService, private mediaService: MediaService, private global: Global) {
     this.socket = io(this.global.getLink().split('/')[2]);
     this.user = null;
     this.status = false;
@@ -54,6 +60,13 @@ export class ProfileComponent implements OnInit {
     this.isResponder = false;
     this.userList = null;
     this.isFriends = false;
+    this.typeLocation = 'userProfile';
+    this.newLocationSave = {
+      address: '',
+      message: ''
+    };
+    this.notifier = notifier;
+    this.click = false;
   }
 
   ngOnInit() {
@@ -174,6 +187,7 @@ export class ProfileComponent implements OnInit {
 
   openImage(link: String) {
     console.info('ProfileComponent.openImage() - push button and open image in modal');
+    this.imageLink = null;
     this.imageLink = link;
   }
 
@@ -182,6 +196,10 @@ export class ProfileComponent implements OnInit {
     if (this.imageLink !== null) {
       this.imageLink = null;
     }
+  }
+
+  likePicture(link: String) {
+    console.log(link)
   }
 
   addFriends(user: User) {
@@ -265,4 +283,24 @@ export class ProfileComponent implements OnInit {
       this.ngHeaderImage();
     })
   }
+
+  onVoted(event: any) {
+    this.newLocationSave.address =  event.address;
+  }
+
+  ngSaveLocation() {
+    if (this.newLocationSave.address !== '') {
+      this.publicationSercice.setNewLocation(this.newLocationSave).subscribe(res =>{
+        this.notifier.notify( 'success', 'Uspjesno ste dodali lokaciju');
+        // Trebamo prilagoditi podatke za prikaz iz res
+        console.log(res)
+        // this.publication.push()
+      }, err => {
+        this.notifier.notify( 'warning', 'Niste uspjeli da dodate lokaciju')
+      })
+    } else {
+      this.notifier.notify( 'warning', 'Adresa nije dodata, morate dodati adresu')
+    }
+  }
+
 }

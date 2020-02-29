@@ -1,0 +1,48 @@
+.container-notification {
+	margin-top: calc(100vh - 94vh);
+    height: calc(100vh - 8.5vh);
+	color: #fff;
+}
+
+table {
+	color: #fff;
+}
+
+.td-left {
+	width: 10%;
+}
+
+.td-right {
+	width: 90%;
+	margin: 0;
+}
+
+.img {
+	width: 40px;
+}
+
+.img img {
+	border-radius: 50%;
+}
+
+.right {
+	width: 50px;
+    float: right;
+}
+
+.left {
+	float: left;
+	max-width: 80%;
+}
+
+.date {
+	font-size: 11px;
+}
+
+.icon-center {
+	margin-left: 16px;
+}
+
+.green {
+	color: #00c928;
+}

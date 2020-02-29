@@ -1,0 +1,51 @@
+img {
+    height: calc(100% - 25%) !important;
+}
+
+h4 span {
+    color: #00c928;
+}
+
+h3 {
+    color: #fff;
+    font-size: 20px;
+}
+hr {
+    margin: 2px 0 2px 0;
+}
+ h4 {
+    text-align: left;
+    font-size: 14px;
+    /* margin-left: 10px; */
+    text-align: center;
+}
+.friend-center {
+    top: 50%;
+    position: absolute;
+    left: 45%;
+}
+
+@media (max-width: 769px) {
+    .friend-center {
+        top: calc(100vh - 33%);
+        position: absolute;
+        left: 45%;
+    }
+    .arrea {
+        width: 412px;
+        height: 100%
+    }
+    .arrea-div {
+        width: 412px;
+    }
+}
+
+.arrea {
+    width: 100%;
+    height: 100%
+}
+
+.arrea-div {
+    width: 100%;
+    height: calc(100% - 20px)
+}

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { timer } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -14,7 +15,12 @@ export class Global {
     listSmile: any;
     smile: any;
     simbol: any;
+    isChangeLocationStatus: Boolean;
+    abc: any;
+    isAutoLocation: Boolean;
     constructor() {
+        this.isAutoLocation = false;
+        this.isChangeLocationStatus = false;
         this.simbol = [
           ':)', ':joy', ':cry', ':ang', ':P', ':rang', ';)', ':dis', ':<', ':emb',
           ':O', ':(', ':x', ':$', ':-a', ':-8', ':88', ';-sho', ':-ick', ':#',
@@ -280,5 +286,38 @@ export class Global {
             .replace(patterns.a16, emoticons.a16).replace(patterns.a32, emoticons.a32).replace(patterns.a48, emoticons.a48)
             .replace(patterns.a17, emoticons.a17).replace(patterns.a33, emoticons.a33).replace(patterns.a49, emoticons.a49)
             .replace(patterns.a50, emoticons.a50);
+    }
+
+    timeOfSetAddress(setDate: Date) {
+        console.log(setDate)
+        const source = timer(1000, 2000);
+        let that = this;
+        // setTimeout(() => {
+        //     console.log(LocationComponent)
+        // }, 5000);
+        // const abc = source.subscribe(val => {
+        //     console.log(val, '-');
+        //     // this.subscribeTimer = this.timeLeft - val;
+        //   });
+    }
+
+    /**
+     * Metoda koja provjerada va li je addressa sacuvana ili nije u localstorage
+     */
+    isChangeLocation() {
+        let isStatus = localStorage.getItem('address') ? true : false;
+        return isStatus;
+    }
+
+    isSetChangeLocation(type: Boolean) {
+        this.isChangeLocationStatus = type;
+    }
+
+    isAutoLocationStart() {
+        return this.isAutoLocation;
+    }
+
+    isSetAutoLocationStart(type: Boolean) {
+        this.isAutoLocation = type;
     }
 }

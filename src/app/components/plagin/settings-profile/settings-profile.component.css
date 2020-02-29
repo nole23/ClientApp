@@ -60,6 +60,7 @@
 
 .name-css p {
     height: 100%;
+	line-height: 1;
 }
 
 .name-css.i-l {
@@ -117,7 +118,7 @@
 
 @media (max-width: 761px) {
     .max-input {
-        width: 215px;
+        width: calc(100vw - 46px);;
     }
 
     .name-css.i-l {
@@ -135,10 +136,14 @@
 
     .h-full {
         overflow: auto;
-        height: 93vh;
+        height: 90vh;
     }
     .header-settings-foter button {
-        margin-left: 260px;
+        margin-left: calc(100vw - 160px);
         margin-top: 10px;
+		width: 113px;
     }
+	.form-control {
+		padding: 1px 0 0 8px;
+	}
 }

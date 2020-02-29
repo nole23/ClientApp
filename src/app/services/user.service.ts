@@ -139,14 +139,14 @@ export class UserService {
   }
 
   likePublication(user: User, publication: Publication) {
-    return this.http.put(this.global.getLink() + 'publication/', {user: user._id, publication: publication._id})
+    return this.http.put(/*this.global.getLink() + */'http://localhost:8080/api/publication/', {user: user._id, publication: publication._id})
       .pipe(map(res => {
         return res;
       }))
   }
 
   dislikePublication(user: User, publication: Publication) {
-    return this.http.put(this.global.getLink() + 'publication/remove', {user: user._id, publication: publication._id})
+    return this.http.put(/*this.global.getLink() + */'http://localhost:8080/api/publication/remove', {user: user._id, publication: publication._id})
       .pipe(map(res => {
         return res;
       }))

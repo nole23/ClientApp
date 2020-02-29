@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ScrollEventModule } from 'ngx-scroll-event';
+import { NotifierModule, NotifierOptions } from 'angular-notifier';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -26,6 +27,50 @@ import { FriendsComponent } from './components/plagin/friends/friends.component'
 import { ImagesComponent } from './components/plagin/images/images.component';
 import { SettingsProfileComponent } from './components/plagin/settings-profile/settings-profile.component';
 import { NotificationComponent } from './components/plagin/notification/notification.component';
+import { LocationComponent } from './components/plagin/location/location.component';
+import { LocatMeComponent } from './components/plagin/location/locat-me/locat-me.component';
+
+const customNotifierOptions: NotifierOptions = {
+  position: {
+    horizontal: {
+      position: 'right',
+      distance: 12
+    },
+    vertical: {
+      position: 'top',
+      distance: 12,
+      gap: 10
+    }
+  },
+  theme: 'material',
+  behaviour: {
+    autoHide: 5000,
+    onClick: 'hide',
+    onMouseover: 'pauseAutoHide',
+    showDismissButton: true,
+    stacking: 4
+  },
+  animations: {
+    enabled: true,
+    show: {
+      preset: 'slide',
+      speed: 300,
+      easing: 'ease'
+    },
+    hide: {
+      preset: 'fade',
+      speed: 300,
+      easing: 'ease',
+      offset: 50
+    },
+    shift: {
+      speed: 300,
+      easing: 'ease'
+    },
+    overlap: 150
+  }
+};
+
 
 @NgModule({
   declarations: [
@@ -44,8 +89,11 @@ import { NotificationComponent } from './components/plagin/notification/notifica
     ImagesComponent,
     SettingsProfileComponent,
     NotificationComponent,
+    LocationComponent,
+    LocatMeComponent,
   ],
   imports: [
+    NotifierModule.withConfig(customNotifierOptions),
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
