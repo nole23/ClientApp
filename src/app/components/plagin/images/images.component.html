@@ -1,15 +1,15 @@
 <div class="container">
   <div class="row text-center text-lg-left">
-    <div class="col-lg-2 col-md-4 col-sm-6" *ngFor="let item of imagesList">
+    <div class="col-lg-2 col-md-4 col-sm-6" *ngFor="let item of imagesList; let i = index">
       <a
         class="d-block mb-4 h-100 cursor-pointer"
-        (click)="openImage(item.link.image)"
+        (click)="openImage(item, i)"
         data-toggle="modal"
         data-target="#myModal"
       >
         <img
           class="img-fluid img-thumbnail img-height"
-          src="{{ item.link.image }}"
+          src="{{ item.link.link }}"
           alt=""
         />
       </a>
@@ -28,19 +28,30 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-body" *ngIf="linkImage !== null">
-        <img src="{{ linkImage }}" class="img-responsive1" />
-        <!-- <button class="btn-likes">
-          <!--<i class="fa fa-thumbs-o-up fa-3x" aria-hidden="true"></i> --
-          <i
-            class="fa fa-thumbs-up fa-3x"
-            aria-hidden="true"
-          ></i
-          >Svidja<br />mi se
+        <img src="{{ linkImage.link.link }}" class="img-responsive1" />
+        
+        
+
+
+        <button type="button" (click)="likeDislike(linkImage.link.isStatus)" [ngClass]="{'btn-success': !linkImage.link.isStatus, 'btn-warning': linkImage.link.isStatus }" class="btn modal-button-position left-18">
+          <i class="fa fa-thumbs-o-up" *ngIf="!linkImage.link.isStatus"></i>
+          <i class="fa fa-thumbs-o-down" *ngIf="linkImage.link.isStatus"></i>
         </button>
-        <button class="btn-comments">
-          <i class="fa fa-comment-o fa-3x" aria-hidden="true"></i
-          ><span style="margin-top: 2px;">Komentar</span>
-        </button> -->
+
+        <button *ngIf="onStatusMe()" type="button" (click)="addToProfile(linkImage)" class="btn modal-button-position left-60 btn-success">
+          <span>Postavi kao profilnu</span>
+        </button>
+
+        <span class="number-of-likes">
+          Lajkovi: {{linkImage.link.like.length}}
+        </span>
+
+        <button type="button" (click)="ngShift('left')" class="btn btn-outline-secondary modal-button-position-shift left">
+          <i class="fa fa-angle-left"></i>
+        </button>
+        <button type="button" (click)="ngShift('right')" class="btn btn-outline-secondary modal-button-position-shift right">
+          <i class="fa fa-angle-right"></i>
+        </button>
       </div>
       <div
         class="container"

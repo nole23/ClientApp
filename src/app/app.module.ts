@@ -29,6 +29,8 @@ import { SettingsProfileComponent } from './components/plagin/settings-profile/s
 import { NotificationComponent } from './components/plagin/notification/notification.component';
 import { LocationComponent } from './components/plagin/location/location.component';
 import { LocatMeComponent } from './components/plagin/location/locat-me/locat-me.component';
+import { ModelPublicationComponent } from './components/plagin/modal/model-publication/model-publication.component';
+import { GetLocationComponent } from './components/plagin/location/get-location/get-location.component';
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -91,6 +93,8 @@ const customNotifierOptions: NotifierOptions = {
     NotificationComponent,
     LocationComponent,
     LocatMeComponent,
+    ModelPublicationComponent,
+    GetLocationComponent
   ],
   imports: [
     NotifierModule.withConfig(customNotifierOptions),

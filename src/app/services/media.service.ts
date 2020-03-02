@@ -16,4 +16,18 @@ export class MediaService {
         return res;
       }))
   }
+
+  likeImage(data: any) {
+    return this.http.put(this.global.getMediaLink() + 'media/like', data)
+      .pipe(map(res => {
+        return res;
+      }))
+  }
+
+  dislikeImage(data: any) {
+    return this.http.put(this.global.getMediaLink() + 'media/dislike', data)
+      .pipe(map(res => {
+        return res;
+      }))
+  }
 }

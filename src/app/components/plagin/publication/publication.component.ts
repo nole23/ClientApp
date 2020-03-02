@@ -1,6 +1,13 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, ViewChild, EventEmitter, ElementRef } from '@angular/core';
 import { User } from '../../../models/user';
 import { UserService } from '../../../services/user.service';
+import OlMap from 'ol/Map';
+import OlXYZ from 'ol/source/XYZ';
+import OlTileLayer from 'ol/layer/Tile';
+import OlView from 'ol/View';
+import Overlay from 'ol/Overlay';
+
+import { fromLonLat } from 'ol/proj';
 
 @Component({
   selector: 'app-publication',
@@ -9,8 +16,18 @@ import { UserService } from '../../../services/user.service';
 })
 export class PublicationComponent implements OnInit {
 
+  @ViewChild('myimage') myimage: ElementRef;
+  @Output() imageEmiter = new EventEmitter<any>()
   @Input() item: any;
   @Input() user: any;
+
+  mapMe: OlMap;
+  source: OlXYZ;
+  layer: OlTileLayer;
+  view: OlView
+  overLayer: Overlay;
+
+
   showerChat: String;
   addComment: String;
   imageLink: String;
@@ -24,7 +41,6 @@ export class PublicationComponent implements OnInit {
 
   ngOnInit() {
     console.info('ProfileComponent.ngOnInit() - Data initialization');
-    console.log(this.me._id)
   }
 
   openComentar() {
@@ -76,7 +92,35 @@ export class PublicationComponent implements OnInit {
 
   openImage(link: String) {
     console.info('ProfileComponent.openImage() - Open modal for image');
+
     this.imageLink = link;
+    let isStatus = this.isStatusButton(this.imageLink['likes'])
+    this.imageLink['isStatus'] = isStatus;
+
+    this.imageEmiter.emit(this.imageLink);
+  }
+
+  openMap() {
+    this.source = new OlXYZ({
+      url: 'http://tile.osm.org/{z}/{x}/{y}.png'
+    });
+
+    this.layer = new OlTileLayer({
+      source: this.source,
+      stopEvent: false,
+    });
+    
+    this.view = new OlView({
+      center: fromLonLat([45.258722299999995,19.814681699999998]),
+      zoom: 15
+    });
+    
+    this.mapMe = new OlMap({
+      target: 'mapMe',
+      layers: [this.layer],
+      view: this.view
+    });
+    console.log(this.mapMe)
   }
 
   isStatusButton(list: any) {

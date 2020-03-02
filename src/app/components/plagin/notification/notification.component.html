@@ -3,12 +3,12 @@
     <tbody>
 
       <!-- Ovo ide u for petlju i vrti se za sve notifikacije koje imamo -->
-      <tr>
+      <tr *ngFor="let item of notifications">
         <td class="td-left">
-          <div class="img"><a [routerLink]="['/profile/kajsdkaljsdjal']"><img src="./assets/picture/face-3.jpg" width="100%" height="100%"></a></div>
+          <div class="img"><a [routerLink]="['/profile/kajsdkaljsdjal']"><img src="{{item.friend.otherInformation.publicMedia.profileImage}}" width="100%" height="100%"></a></div>
           <!-- <span style="font-size: 10px">20. feb 2020.</span> -->
         </td>
-        <td class="td-right">
+        <td class="td-right" >
           <!-- Kada dodam sliku -->
           <span *ngIf="isOwner">
             <div class="left">Vi ste dodali novu profilnu sliku </div>
@@ -16,9 +16,15 @@
           </span>
       
           <!-- Kada neko lajkuje moju sliku -->
-          <span *ngIf="isOwner">
-            <div class="left">Dejan je lajkovao vasu sliku <br><span class="date">23. feb 2020.</span></div>
-            <div class="right"><img src="./assets/picture/face-3.jpg" width="100%" height="100%"></div>
+          <span *ngIf="item.type === 'like' && item.image !== null && item.publication === null">
+            <div class="left"><a class="cursor-pointer style-link" [routerLink]="['/profile/' + item.friend._id]">{{item.friend.firstName}}</a> <span i18n="@@OvoMoramSrediti"> je lajkovao vasu sliku </span> <br><span class="date">{{item.dateNotification | date: 'dd. MMMM'}}</span></div>
+            <div class="right cursor-pointer" ><button  (click)="openImage(item, 'image')" data-toggle="modal"  data-target="#myModalNotificationImage"><img src="{{item.image.link_image}}" width="100%" height="100%"></button></div>
+          </span>
+
+          <!-- Kada neko lajkuje moju objavu -->
+          <span *ngIf="item.type === 'like' && item.image === null && item.publication !== null">
+            <div class="left"><a class="cursor-pointer style-link" [routerLink]="['/profile/' + item.friend._id]">{{item.friend.firstName}}</a> <span i18n="@@OvoMoramSrediti"> je lajkovao vasu objavu </span> <br><span class="date">{{item.dateNotification | date: 'dd. MMMM'}}</span></div>
+            <div class="right cursor-pointer" ><button  (click)="openImage(item, 'publication')" data-toggle="modal"  data-target="#myModalNotificationImage"><img src="{{item.publication.image}}" width="100%" height="100%"></button></div>
           </span>
 
           <!-- Kada je neko blizu vas -->
@@ -28,7 +34,7 @@
           </span>
 
           <!-- Kada je neko posetio vas profil -->
-          <span *ngIf="!isOwner">
+          <span *ngIf="isOwner">
             <div class="left">Stefan je posetio vas profil, pokazite inicijativu i javite se <br><span class="date">23. feb 2020.</span></div>
             <div class="right"><span><span class="icon-center"><i class="fa fa-map-marker green" aria-hidden="true"></i></span>500m</span></div>
           </span>
@@ -37,4 +43,23 @@
 
     </tbody>
   </table>
+</div>
+
+<div id="myModalNotificationImage" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-body"  *ngIf="linkImage !== null">
+        <img src="{{linkImage}}" class="img-responsive1">
+        <!-- <button type="button" (click)="likeDislike(openPublication.isStatus)" [ngClass]="{'btn-success': !openPublication.isStatus, 'btn-warning': openPublication.isStatus }" class="btn modal-button-position">
+          <i class="fa fa-thumbs-o-up" *ngIf="!openPublication.isStatus"></i>
+          <i class="fa fa-thumbs-o-down" *ngIf="openPublication.isStatus"></i>
+        </button>
+
+        <span class="number-of-likes">
+          Lajkovi: {{openPublication.likes.length}}
+        </span> -->
+      </div>
+    </div>
+  </div>
 </div>

@@ -138,15 +138,23 @@ export class UserService {
       }))
   }
 
+  updateImageProfile(link: any) {
+    return this.http.put(this.global.getLink() + 'media/', {link: link})
+      .pipe(map(res => {
+        return res;
+      }))
+    
+  }
+
   likePublication(user: User, publication: Publication) {
-    return this.http.put(/*this.global.getLink() + */'http://localhost:8080/api/publication/', {user: user._id, publication: publication._id})
+    return this.http.put(this.global.getLink() + 'publication/', {user: user._id, publication: publication._id})
       .pipe(map(res => {
         return res;
       }))
   }
 
   dislikePublication(user: User, publication: Publication) {
-    return this.http.put(/*this.global.getLink() + */'http://localhost:8080/api/publication/remove', {user: user._id, publication: publication._id})
+    return this.http.put(this.global.getLink() + 'publication/remove', {user: user._id, publication: publication._id})
       .pipe(map(res => {
         return res;
       }))
@@ -182,7 +190,23 @@ export class UserService {
       .pipe(map(res => {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
+        localStorage.removeItem('address')
         return res;
     }))
+  }
+
+  setImageInLocalstorage(link: any) {
+    let profile = JSON.parse(localStorage.getItem('user'));
+    profile.otherInformation.publicMedia.profileImage = link;
+    localStorage.removeItem('user');
+    localStorage.setItem('user', JSON.stringify(profile));
+  }
+
+  getUserInLocalStorage() {
+    return JSON.parse(localStorage.getItem('user'));
+  }
+
+  isPicturDiferent(link: any) {
+    return link.split('/')[5].toString() === this.getUserInLocalStorage().otherInformation.publicMedia.profileImage.split('/')[5].toString();
   }
 }

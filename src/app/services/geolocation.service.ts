@@ -67,7 +67,7 @@ export class GeolocationService {
 
       let oldGeolocation = that.geolocation();
       if (oldGeolocation.cordinates.latitude.toFixed(3) === res.coords.latitude.toFixed(3)) {
-          const source = timer(5000, 2000);
+          const source = timer(36000000, 2000);
           that.abc = source.subscribe(val => {
               console.log(val + '-');
               that.startAutomationChangeLocation();
@@ -107,7 +107,7 @@ export class GeolocationService {
       longitude: corrdinate.longitude,
       accuracy: corrdinate.accuracy
     }
-    this.http.post('http://localhost:8080/api/geolocation/', geocordinate)
+    this.http.post(this.global.getLink() + 'geolocation/', geocordinate)
       .subscribe(res => {
         console.log(res)
       }, err => {

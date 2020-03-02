@@ -6,12 +6,12 @@ import { Global } from '../global/global';
 @Injectable({
   providedIn: 'root'
 })
-export class PublicationService {
+export class NotificationService {
 
   constructor(private global: Global, private http: HttpClient) { }
 
-  setNewLocation(newPublicaton: any) {
-    return this.http.post(this.global.linkLocalhost + 'publication/location', newPublicaton)
+  getAllNotification() {
+    return this.http.get(this.global.getLink() + 'notification/')
       .pipe(map(res => {
         return res;
       }))

@@ -46,3 +46,33 @@ table {
 .green {
 	color: #00c928;
 }
+
+.style-link {
+	font-size: 20px;
+    color: #00c928;
+}
+
+.modal-content {
+	background: black;
+}
+
+.img-responsive1 {
+	width: 100%;
+	height: 100%;
+}
+
+.modal-button-position {
+	position: absolute;
+	bottom: 60px;
+	left: 15px;
+}
+.number-of-likes {
+    position: absolute;
+    bottom: 60px;
+    font-size: 14px;
+    right: 50px;
+    color: #fff;
+}
+.left-60 {
+    left: 60px;
+}

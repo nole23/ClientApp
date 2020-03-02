@@ -271,6 +271,10 @@
         height: 100vh;
     }
 
+    .left-20 {
+        left: 20px;
+    }
+
     .privat-information {
         position: absolute;
         border: 1px solid rgba(0,0,0,.1);
@@ -360,14 +364,6 @@
     #btn {
         display: none;
     }
-
-    .btn-likes {
-
-    }
-    
-    .btn-comments {
-    }
-	
 	.locate-css {
 		display: none;
     }
@@ -527,4 +523,18 @@
         font-size: 11px;
         margin-top: 6px;
     }
+}
+.modal-button-position {
+    position: absolute;
+    bottom: 60px;
+}
+.number-of-likes {
+    position: absolute;
+    bottom: 60px;
+    font-size: 14px;
+    right: 50px;
+    color: #fff;
+}
+.left-60 {
+    left: 60px;
 }

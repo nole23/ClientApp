@@ -1,0 +1,22 @@
+
+<div class="modal-dialog">
+  <div class="modal-content">
+
+    <div class="modal-body" [id]="'settings-id-image'" #myimage>
+      <div class="add-image" [id]="add-image">
+
+      </div>
+
+      <button type="button" [ngClass]="{'btn-success': !imgLink.isStatus, 'btn-warning': imgLink.isStatus }" class="btn modal-button-position" >
+        <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+        <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
+      </button>
+    </div>
+    <!-- <div class="hide" [id]="'settings-id-spiner'">
+      <div class="spinner-border text-success" style="margin: 50% 45%;" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div> -->
+  </div>
+</div>
+

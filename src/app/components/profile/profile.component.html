@@ -69,7 +69,7 @@
           <div class="right">Postavite sliku</div>
         </div>
       </div>
-      <app-publication *ngFor="let item of publication" [item]="item" [user]="user"></app-publication>
+      <app-publication *ngFor="let item of publication" [item]="item" [user]="user" (imageEmiter)="onImageEmiter($event)"></app-publication>
     </div>
 
     <div class="user-tab" id="style-4" *ngIf="tab === 'friend'">
@@ -79,7 +79,7 @@
       <app-friends *ngFor="let item of userList" [item]="item" [user]="user"></app-friends>
     </div>
 
-    <div class="user-tab" id="style-4" *ngIf="tab === 'picture'">
+    <div class="user-tab" id="style-4" *ngIf="tab === 'picture' && imagesList !== null">
       <app-images [imagesList]="imagesList"> </app-images>    
     </div>
   </div>
@@ -96,15 +96,6 @@
     <div class="modal-content">
         <div class="modal-body" *ngIf="imageLink !== null">
             <img src="{{imageLink}}" class="img-responsive1">
-            <!-- <button class="btn-likes" (click)="likePicture(imageLink)">
-              <!--<i class="fa fa-thumbs-o-up fa-3x" aria-hidden="true"></i> --
-              <i class="fa fa-thumbs-up fa-3x" aria-hidden="true"></i>
-              <span>Svidja mi se</span>
-            </button>
-            <button class="btn-comments">
-              <i class="fa fa-comment-o fa-3x" aria-hidden="true"></i>
-              <span style="margin-top: 2px;">Komentar</span>
-            </button> -->
         </div>
         <div class="container"  style="margin: 50vh 0 0 0; text-align: center;" *ngIf="imageLink === null">
           <div class="spinner-border text-success" role="status">
@@ -178,6 +169,32 @@
         <button type="button" class="btn btn-outline-success" style="float: left;" (click)="ngSaveLocation()" data-dismiss="modal">Podelite lokaciju</button>
       </div>
 
+    </div>
+  </div>
+</div>
+
+
+<!-- Pokisavamo da ovo izmjestimo na neku drugu lokaciju, da model bude na jednom mjesto -->
+
+<div id="myModalImagePublication" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-body"  *ngIf="imagePublication !== null">
+        <img src="{{imagePublication.image}}" class="img-responsive1">
+        <button type="button" (click)="likeDislike(imagePublication.isStatus)" [ngClass]="{'btn-success': !imagePublication.isStatus, 'btn-warning': imagePublication.isStatus }" class="btn modal-button-position left-20">
+          <i class="fa fa-thumbs-o-up" *ngIf="!imagePublication.isStatus"></i>
+          <i class="fa fa-thumbs-o-down" *ngIf="imagePublication.isStatus"></i>
+        </button>
+
+        <button *ngIf="!isFriends && !status && !isRequester && !isResponder" type="button" (click)="addToProfile(imagePublication)" class="btn modal-button-position left-60 btn-success">
+          <span>Postavi kao profilnu</span>
+        </button>
+
+        <span class="number-of-likes">
+          Lajkovi: {{imagePublication.likes.length}}
+        </span>
+      </div>
     </div>
   </div>
 </div>

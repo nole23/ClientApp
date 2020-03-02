@@ -38,6 +38,29 @@
     color: #00c928;
 }
 
+.modal-button-position {
+    position: absolute;
+    bottom: 60px;
+}
+.number-of-likes {
+    position: absolute;
+    bottom: 60px;
+    font-size: 14px;
+    right: 50px;
+    color: #fff;
+}
+.left-60 {
+    left: 60px;
+}
+
+.modal-button-position-shift {
+    position: absolute;
+    top: calc(0px + 40%);
+}
+.right {
+    right: 20px;
+}
+
 @media (max-width: 768px) {
 
     .modal-dialog {
@@ -61,6 +84,18 @@
 @media (max-width: 768px) {
     .col-lg-2 {
         width: calc(100% / 4)!important;
+    }
+}
+
+@media (min-width: 769px) {
+    .left {
+        left: 20px;
+    }
+    .modal-button-position-shift {
+        top: calc(0px + 45%);
+    }
+    .left-18 {
+        left: 18px;
     }
 }
 

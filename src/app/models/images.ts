@@ -6,7 +6,7 @@ export class Images {
 
     constructor(images = null) {
         this.user = images.user
-        this.imageLink = images.images;
+        this.imageLink = images.imageLink;
     }
 
     settingListImages() {
@@ -19,9 +19,17 @@ export class Images {
 }
 
 export class Image {
-    image: String;
+    _id: any;
+    datePublication: any;
+    link: String;
+    like: any;
+    comment: any;
 
     constructor(i = null) {
-        this.image = i.image;
+        this._id = i._id;
+        this.datePublication = i.datePublication;
+        this.link = i.link;
+        this.like = i.like;
+        this.comment = i.comment;
     }
 }

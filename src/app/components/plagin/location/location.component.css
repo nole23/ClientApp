@@ -25,21 +25,6 @@ hr {
     left: 45%;
 }
 
-@media (max-width: 769px) {
-    .friend-center {
-        top: calc(100vh - 33%);
-        position: absolute;
-        left: 45%;
-    }
-    .arrea {
-        width: 412px;
-        height: 100%
-    }
-    .arrea-div {
-        width: 412px;
-    }
-}
-
 .arrea {
     width: 100%;
     height: 100%
@@ -49,3 +34,19 @@ hr {
     width: 100%;
     height: calc(100% - 20px)
 }
+
+@media (max-width: 769px) {
+    .friend-center {
+        top: calc(100vh - 33%);
+        position: absolute;
+        left: 45%;
+    }
+    .arrea {
+        width: 480px;
+        height: 100%
+    }
+    .arrea-div {
+        width: 480px;
+    }
+}
+

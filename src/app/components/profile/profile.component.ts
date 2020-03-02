@@ -17,6 +17,7 @@ import { NotifierService } from 'angular-notifier';
 })
 export class ProfileComponent implements OnInit {
 
+  @ViewChild('myModalImagePublication') myimage: ElementRef;
   private readonly notifier: NotifierService;
   private socket: any;
 
@@ -43,7 +44,15 @@ export class ProfileComponent implements OnInit {
   typeLocation: String;
   newLocationSave: any;
   click: Boolean;
-  constructor(notifier: NotifierService, private activatedRoute: ActivatedRoute, private publicationSercice: PublicationService, private userService: UserService, private mediaService: MediaService, private global: Global) {
+  imagePublication: any;
+  constructor(
+      notifier: NotifierService,
+      private activatedRoute: ActivatedRoute,
+      private publicationSercice: PublicationService,
+      private userService: UserService,
+      private mediaService: MediaService,
+      private global: Global
+    ) {
     this.socket = io(this.global.getLink().split('/')[2]);
     this.user = null;
     this.status = false;
@@ -63,10 +72,12 @@ export class ProfileComponent implements OnInit {
     this.typeLocation = 'userProfile';
     this.newLocationSave = {
       address: '',
-      message: ''
+      message: '',
+      friends: []
     };
     this.notifier = notifier;
     this.click = false;
+    this.imagePublication = null;
   }
 
   ngOnInit() {
@@ -125,7 +136,7 @@ export class ProfileComponent implements OnInit {
     console.info('ProfileComponent.getPublication() - get all publication for ' + this.user.firstName);
     this.userService.getPublication(this.user).subscribe((res: [Publication]) => {
       this.publication = res['publication'];
-      // console.log(this.publication)
+      console.log(this.publication)
     });
   }
 
@@ -140,7 +151,7 @@ export class ProfileComponent implements OnInit {
   getImage() {
     console.info('ProfileComponent.getImage() - get data from server');
     this.imagesList = null;
-    this.mediaService.getPicture(this.user.username).subscribe((res: any) =>{
+    this.mediaService.getPicture(this.user._id).subscribe((res: any) =>{
       res.user += null;
       res.user = new User(this.user);
       this.imagesList = new Images(res).settingListImages();
@@ -290,6 +301,7 @@ export class ProfileComponent implements OnInit {
 
   ngSaveLocation() {
     if (this.newLocationSave.address !== '') {
+
       this.publicationSercice.setNewLocation(this.newLocationSave).subscribe(res =>{
         this.notifier.notify( 'success', 'Uspjesno ste dodali lokaciju');
         // Trebamo prilagoditi podatke za prikaz iz res
@@ -300,6 +312,53 @@ export class ProfileComponent implements OnInit {
       })
     } else {
       this.notifier.notify( 'warning', 'Adresa nije dodata, morate dodati adresu')
+    }
+  }
+
+  onImageEmiter(event: any) {
+    this.imagePublication = event;
+
+  }
+
+  likeDislike(isStatus: Boolean) {
+    if (!isStatus) {
+      this.userService.likePublication(this.user, this.imagePublication).subscribe(res => {
+        // this.publication je metoda koju trebamo nadograditi kasnije
+        this.editStatus(true);
+      })
+    } else {
+      this.userService.dislikePublication(this.user, this.imagePublication).subscribe(res => {
+        this.editStatus(false);
+      })
+    }
+    this.imagePublication.isStatus = !this.imagePublication.isStatus;
+    
+  }
+
+  editStatus(type: Boolean) {
+    this.publication.filter(item => {
+      if (item._id.toString() == this.imagePublication._id.toString()) {
+        if (type) {
+          item.likes.push(JSON.parse(localStorage.getItem('user'))._id);
+        } else {
+          item.likes.splice(JSON.parse(localStorage.getItem('user'))._id, 1);
+        }
+      }
+    })
+  }
+
+  addToProfile(link: any) {
+    let isStatus = this.userService.isPicturDiferent(link.image);
+    if (!isStatus) {
+      this.userService.updateImageProfile(link.image).subscribe(res => {
+        this.notifier.notify('success', 'Uspjesno ste postavili profilnu sliku')
+        this.userService.setImageInLocalstorage(link.image);
+        
+      }, err => {
+        this.notifier.notify('warning', 'Nismo mogli da obradimo ovaj zahtev')
+      })
+    } else {
+      this.notifier.notify('info', 'Ova slika je vec profilna')
     }
   }
 

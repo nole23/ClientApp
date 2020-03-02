@@ -86,7 +86,7 @@
   height: 25px;
   font-size: 12px;
   color: #fff;
-  margin-top: -10px;
+  margin-top: -5px;
 }
 .img-area {
   margin: 10px 10px 10px 0;
@@ -96,14 +96,13 @@
 .item-right-area {
   float: left;
   min-height: 1px;
-  font-size: 12px;
+  font-size: 14px;
   color: #fff;
   width: 100%;
 }
 
 .item-right-area span {
   margin-top: 2%;
-  float: right;
   width: 65%;
 }
 
@@ -187,3 +186,7 @@
   padding-bottom: 2px;
 }
 
+.modal-button-position {
+  position: absolute;
+  bottom: 60px;
+}

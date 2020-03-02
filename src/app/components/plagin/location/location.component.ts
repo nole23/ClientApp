@@ -42,6 +42,14 @@ export class LocationComponent implements OnInit {
    * Startovanje aplikacije
    */
   ngOnInit() {
+
+    /**
+     * moracemo srediti socket u ovoj metodi
+     * autoPublication-_id je metoda koja treba da dodje kada se promjeni nesto
+     * i kreira se nova publication
+     */
+
+
     console.info('LocationComponetn - Init geolocation of users');
     this.statusSave = (this.user._id.toString() === this.me._id.toString());
     if (this.statusSave) {
@@ -68,12 +76,14 @@ export class LocationComponent implements OnInit {
 
   getCordinate() {
     navigator.geolocation.getCurrentPosition(res => {
+      console.log(res)
       this.cordinates = res.coords;
       this.cordinates.type = 'client';
       this.geolocationService.setNewLocationServer(this.cordinates);
       this.openMap(true);
     }, err => {
       if (err.code === 1) {
+        console.log(err)
         this.notifier.notify( 'warning', 'Lokacija je iskljucena na ovom uredjaju')
         this.getLocationInLocastorage('server');
       }
@@ -85,6 +95,7 @@ export class LocationComponent implements OnInit {
       if (this.global.isChangeLocation()) {
         this.address = this.geolocationService.getInLocalStorage().address;
         this.cordinates = this.geolocationService.getInLocalStorage().cordinates;
+        console.log(this.cordinates.latitude)
         this.openMap(false); 
       } else {
         this.getCordinate();
