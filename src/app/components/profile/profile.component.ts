@@ -9,6 +9,7 @@ import { MediaService } from '../../services/media.service';
 import { PublicationService } from '../../services/publication.service';
 import { Global } from '../../global/global';
 import { NotifierService } from 'angular-notifier';
+import { GeolocationService } from '../../services/geolocation.service';
 
 @Component({
   selector: 'app-profile',
@@ -45,13 +46,17 @@ export class ProfileComponent implements OnInit {
   newLocationSave: any;
   click: Boolean;
   imagePublication: any;
+  isAddPicture: any;
+  addPictureConstruct: any;
+  checkLocation: Boolean;
   constructor(
       notifier: NotifierService,
       private activatedRoute: ActivatedRoute,
       private publicationSercice: PublicationService,
       private userService: UserService,
       private mediaService: MediaService,
-      private global: Global
+      private global: Global,
+      private geolocationService: GeolocationService,
     ) {
     this.socket = io(this.global.getLink().split('/')[2]);
     this.user = null;
@@ -78,6 +83,13 @@ export class ProfileComponent implements OnInit {
     this.notifier = notifier;
     this.click = false;
     this.imagePublication = null;
+    this.isAddPicture = false;
+    this.addPictureConstruct = {
+      image: '',
+      text: '',
+      cordinate: {}
+    };
+    this.checkLocation = false;
   }
 
   ngOnInit() {
@@ -290,7 +302,7 @@ export class ProfileComponent implements OnInit {
     this.fd.append('file', this.selectedFilesHeaderImage, name.toString());
 
     this.userService.saveImageProfile(this.fd, name.toString()).subscribe(res => {
-      // console.log(res);
+      console.log(res);
       this.ngHeaderImage();
     })
   }
@@ -360,6 +372,42 @@ export class ProfileComponent implements OnInit {
     } else {
       this.notifier.notify('info', 'Ova slika je vec profilna')
     }
+  }
+
+  filterCheck() {
+    navigator.geolocation.getCurrentPosition(res => {
+      this.addPictureConstruct.cordinate['latitude'] = res.coords.latitude;
+      this.addPictureConstruct.cordinate['longitude'] = res.coords.longitude;
+      this.addPictureConstruct.cordinate['accuracy'] = res.coords.accuracy;
+    }, err => {
+      this.notifier.notify('warning', 'Lokacija je iskljucena')
+      this.checkLocation = false;
+    })
+  }
+
+  ngSaveImagePublication() {
+    var datetimestamp = Date.now();
+    let name = this.user.username + '.' + this.user._id + '.' + datetimestamp;
+    this.fd.append('file', this.selectedFilesHeaderImage, name.toString());
+    this.addPictureConstruct.image = name;
+    this.mediaService.addPicture(this.fd, name, this.addPictureConstruct).subscribe(res => {
+
+      // console.log(res)
+      // this.publication.push()
+      // _id: "5e5c3d4659ba8031e806fb1d"
+      // user_id: {_id: "5d8fcee2713b221a90811e91", firstName: "Novica", lastName: "Nikolić", username: "nole0223", email: "nole0223@gmail.com", …}
+      // text: "test da li radi ovo"
+      // image: null
+      // location: {corrdinate: {…}, address: {…}}
+      // datePublish: "2020-03-01T22:55:02.807Z"
+      // likes: (2) ["5d8fcee2713b221a90811e91", "5dc48b5042323c0350a6a4fb"]
+      // comments: []
+      this.ngHeaderImage();
+    }, err => {
+      this.notifier.notify('error', 'Server nije dostupan')
+    })
+
+    
   }
 
 }

@@ -320,4 +320,6 @@ export class Global {
     isSetAutoLocationStart(type: Boolean) {
         this.isAutoLocation = type;
     }
+
+    
 }

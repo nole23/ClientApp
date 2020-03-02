@@ -6,6 +6,7 @@ import OlView from 'ol/View';
 import Overlay from 'ol/Overlay';
 import { NotifierService } from 'angular-notifier';
 import { GeolocationService } from '../../../../services/geolocation.service';
+import { NotificationService } from '../../../../services/notification.service';
 
 import { fromLonLat } from 'ol/proj';
 
@@ -28,7 +29,10 @@ export class LocatMeComponent implements OnInit {
   cordinates: any;
   address: any;
   message: String;
-  constructor(notifier: NotifierService, private geolocationService: GeolocationService) { 
+  constructor(
+      notifier: NotifierService,
+      private geolocationService: GeolocationService,
+      private notificationService: NotificationService) { 
     this.notifier = notifier;
     this.address = null;
   }
@@ -44,7 +48,10 @@ export class LocatMeComponent implements OnInit {
       this.getAddress();
     }, err => {
       if (err.code === 1) {
-        this.notifier.notify( 'warning', 'Lokacija je iskljucena na ovom uredjaju')
+        if (this.notificationService.isNotification('warning', 'locatOFF')) {
+          this.notificationService.saveNotification('warning', 'locatOFF')
+          this.notifier.notify( 'warning', 'Lokacija je iskljucena na ovom uredjaju 2')
+        }
       }
     })
   }

@@ -30,4 +30,11 @@ export class MediaService {
         return res;
       }))
   }
+
+  addPicture(fd: any, name: String, data: any) {
+    return this.http.post(this.global.getMediaLink() + 'media/profile-picture/' + name, fd)
+      .pipe(map(res => {
+        return res;
+      }))
+  }
 }

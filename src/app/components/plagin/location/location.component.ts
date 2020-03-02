@@ -6,6 +6,7 @@ import OlView from 'ol/View';
 import Overlay from 'ol/Overlay';
 import { GeolocationService } from '../../../services/geolocation.service';
 import { Global } from '../../../global/global';
+import { NotificationService } from '../../../services/notification.service';
 import { timer } from 'rxjs';
 import { NotifierService } from 'angular-notifier';
 
@@ -31,13 +32,18 @@ export class LocationComponent implements OnInit {
   address: any;
   me: any;
   statusSave: Boolean;
-  radi: Boolean;
-  constructor(notifier: NotifierService, private geolocationService: GeolocationService, private global: Global) {
+  isShowMap: Boolean;
+  constructor(
+      notifier: NotifierService,
+      private geolocationService: GeolocationService,
+      private global: Global,
+      private notificationService: NotificationService
+    ) {
     this.address = null;
     this.notifier = notifier;
     this.me = JSON.parse(localStorage.getItem('user'));
     this.statusSave = true;
-    this.radi = false;
+    this.isShowMap = false;
   }
 
   /**
@@ -51,7 +57,7 @@ export class LocationComponent implements OnInit {
      * i kreira se nova publication
      */
 
-
+    this.isShowMap = false;
     console.info('LocationComponetn - Init geolocation of users');
     this.statusSave = (this.user._id.toString() === this.me._id.toString());
     if (this.statusSave) {
@@ -64,51 +70,52 @@ export class LocationComponent implements OnInit {
         this.getLocationInLocastorage('local');
       }
     } else {
-      console.log(this.user.otherInformation.adress)
       // Prvi slucaj nema kordinate
-      if (this.user.otherInformation.adress.corrdinate) {
+      if (this.user.otherInformation.adress.corrdinate.longitude !== undefined) {
         this.cordinates = this.user.otherInformation.adress.corrdinate;
         this.openMapFriend();
       } else {
+        this.isShowMap = true;
         this.notifier.notify('info', 'Korisnik jos nije dodao lokaciju')
       }
-      // Drugi slucaj ima kordinate
     }
   }
 
   getCordinate() {
     navigator.geolocation.getCurrentPosition(res => {
-      console.log(res)
       this.cordinates = res.coords;
       this.cordinates.type = 'client';
       this.geolocationService.setNewLocationServer(this.cordinates);
       this.openMap(true);
     }, err => {
       if (err.code === 1) {
-        console.log(err)
-        this.notifier.notify( 'warning', 'Lokacija je iskljucena na ovom uredjaju')
+        if (this.notificationService.isNotification('warning', 'locatOFF')) {
+          this.notificationService.saveNotification('warning', 'locatOFF')
+          this.notifier.notify( 'warning', 'Lokacija je iskljucena na ovom uredjaju 1')
+        }
         this.getLocationInLocastorage('server');
       }
     })
   }
 
   getLocationInLocastorage(type: String) {
+    this.isShowMap = false;
     if (type === 'local') {
       if (this.global.isChangeLocation()) {
         this.address = this.geolocationService.getInLocalStorage().address;
         this.cordinates = this.geolocationService.getInLocalStorage().cordinates;
-        console.log(this.cordinates.latitude)
         this.openMap(false); 
       } else {
         this.getCordinate();
       }
     } else if (type === 'server') {
       let cordinates = this.geolocationService.getUser().otherInformation.adress.corrdinate;
-      if (cordinates) {
+      if (cordinates.longitude) {
         this.cordinates = cordinates;
         this.cordinates.type = 'server'
         this.openMap(true)
       } else {
+        this.isShowMap = true;
         this.notifier.notify('info', 'Molimo vas da postavite addresu kako bi vas ljudi videli')
       }
     }
