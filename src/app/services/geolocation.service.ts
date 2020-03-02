@@ -33,7 +33,7 @@ export class GeolocationService {
     const requestOptions = {                                                                                                                                                                                 
       headers: new Headers(headerDict), 
     };
-    return fetch('http://nominatim.openstreetmap.org/reverse?format=json&lon=' + cordinates[0] + '&lat=' + cordinates[1])
+    return fetch('https://nominatim.openstreetmap.org/reverse?format=json&lon=' + cordinates[0] + '&lat=' + cordinates[1])
       .then(res => {
         return res.json();
       })
