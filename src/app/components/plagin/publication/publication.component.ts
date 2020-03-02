@@ -32,11 +32,13 @@ export class PublicationComponent implements OnInit {
   addComment: String;
   imageLink: String;
   me: User;
+  test: Boolean;
   constructor(private userService: UserService) { 
     this.showerChat = 'hide';
     this.addComment = null;
     this.imageLink = null;
     this.me = JSON.parse(localStorage.getItem('user'));
+    this.test = false;
   }
 
   ngOnInit() {

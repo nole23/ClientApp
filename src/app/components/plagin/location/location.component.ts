@@ -31,11 +31,13 @@ export class LocationComponent implements OnInit {
   address: any;
   me: any;
   statusSave: Boolean;
+  radi: Boolean;
   constructor(notifier: NotifierService, private geolocationService: GeolocationService, private global: Global) {
     this.address = null;
     this.notifier = notifier;
     this.me = JSON.parse(localStorage.getItem('user'));
     this.statusSave = true;
+    this.radi = false;
   }
 
   /**
