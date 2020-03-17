@@ -10,6 +10,7 @@ import { PublicationService } from '../../services/publication.service';
 import { Global } from '../../global/global';
 import { NotifierService } from 'angular-notifier';
 import { GeolocationService } from '../../services/geolocation.service';
+import { forEach } from '@angular/router/src/utils/collection';
 
 @Component({
   selector: 'app-profile',
@@ -17,7 +18,7 @@ import { GeolocationService } from '../../services/geolocation.service';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-
+  @ViewChild('profilLocation') profilLocation: ElementRef;
   @ViewChild('myModalImagePublication') myimage: ElementRef;
   private readonly notifier: NotifierService;
   private socket: any;
@@ -148,7 +149,6 @@ export class ProfileComponent implements OnInit {
     console.info('ProfileComponent.getPublication() - get all publication for ' + this.user.firstName);
     this.userService.getPublication(this.user).subscribe((res: [Publication]) => {
       this.publication = res['publication'];
-      console.log(this.publication)
     });
   }
 
@@ -182,6 +182,9 @@ export class ProfileComponent implements OnInit {
   openTab(item: any) {
     console.info('ProfileComponent.openTab() - push button in navbar in profile and open tab');
     this.tab = item;
+
+    // let userTab = this.profilLocation.nativeElement.children['user-tab'];
+    // console.log(userTab.children['user-tab-before'])
     if (item === 'home') {
       this.activeUser = true;
       this.activeFriend = false;

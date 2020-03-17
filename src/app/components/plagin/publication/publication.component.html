@@ -71,16 +71,24 @@
           <img src="{{comment.user.otherInformation.publicMedia.profileImage}}" class="rounded-circle" alt="" width="35px" height="35px">
       </div>
       <div class="coment-right">
+        <div class="comment-text">
           <span style="color: #fff; font-size: 12px;">{{comment.text}}</span>
+        </div>
+        <div class="comment-date">
+          {{comment.dateComent | date: 'dd.MMMM HH:mm'}}
+        </div>
       </div>
     </div>
     <br>
+    <div class="comment-spiner" [ngClass]="isComment">
+      <span class="spinner-border m-l-10" role="status"></span>
+    </div>
     <div class="text m-t-10">
       <div class="coment-left">
           <img src="{{user.otherInformation.publicMedia.profileImage}}" class="rounded-circle" alt="" width="35px" height="35px">
       </div>
       <div class="coment-right" style="padding: 0;">
-          <input class="input100" type="text" name="comment" [(ngModel)]="addComment" i18-pleacholder="@@publicAddCommentInput" placeholder="Unesite neki komentar ..." (keydown)="sendMessage($event, item)">
+          <textarea class="form-control" type="text" name="comment" [(ngModel)]="addComment" i18-pleacholder="@@publicAddCommentInput" placeholder="Unesite neki komentar ..." (keydown)="sendMessage($event, item)"></textarea>
       </div>
     </div>
     

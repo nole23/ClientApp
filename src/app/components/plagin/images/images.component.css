@@ -107,3 +107,7 @@
         background-color: black;
     }
 }
+
+.modal-button-position-shift:hover {
+    background-color: #00c928;
+}

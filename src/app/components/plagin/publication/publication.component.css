@@ -38,7 +38,7 @@
 .coment-right {
   float: left;
   width: calc(100% - 50px);
-  line-height: 12px;
+  line-height: 10px;
 }
 
 .show {
@@ -180,13 +180,26 @@
 .tab-coment .text {
   float: left;
   width: 100%;
-  margin-top: 2px;
-  margin-bottom: 2px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  padding-bottom: 2px;
+  margin-bottom: 5px;
 }
 
 .modal-button-position {
   position: absolute;
   bottom: 60px;
+}
+
+.comment-date {
+  font-size: 10px;
+  float: right;
+  margin-right: 8px;
+  height: 35px;
+}
+
+.comment-text {
+  float: left;
+}
+
+.comment-spiner {
+  padding-left: 45%;
+  color: #00c928;
 }

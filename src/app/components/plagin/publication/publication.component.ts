@@ -33,12 +33,14 @@ export class PublicationComponent implements OnInit {
   imageLink: String;
   me: User;
   test: Boolean;
+  isComment: String;
   constructor(private userService: UserService) { 
     this.showerChat = 'hide';
     this.addComment = null;
     this.imageLink = null;
     this.me = JSON.parse(localStorage.getItem('user'));
     this.test = false;
+    this.isComment = 'hide';
   }
 
   ngOnInit() {
@@ -59,13 +61,16 @@ export class PublicationComponent implements OnInit {
     if (event.keyCode === 13) {
       let comments = {
         user: this.user,
-        dateOfComments: Date(),
+        dateComent: Date(),
         text: this.addComment
       }
+      console.log(comments)
+      this.isComment = 'show';
       this.userService.addComment(this.item, comments).subscribe(res => {
 
         item.comments.push(comments);
         this.addComment = null;
+        this.isComment = 'hide';
       })
       
     }
