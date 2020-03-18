@@ -10,7 +10,13 @@ import { PublicationService } from '../../services/publication.service';
 import { Global } from '../../global/global';
 import { NotifierService } from 'angular-notifier';
 import { GeolocationService } from '../../services/geolocation.service';
-import { forEach } from '@angular/router/src/utils/collection';
+
+
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { ModelPublicationComponent } from '../plagin/modal/model-publication/model-publication.component';
+import { ProfileImagesComponent } from '../plagin/modal/profile-images/profile-images.component';
+import { UpdateProfilImageComponent } from '../plagin/modal/update-profil-image/update-profil-image.component';
+import { AddLocationComponent } from '../plagin/modal/add-location/add-location.component';
 
 @Component({
   selector: 'app-profile',
@@ -50,6 +56,8 @@ export class ProfileComponent implements OnInit {
   isAddPicture: any;
   addPictureConstruct: any;
   checkLocation: Boolean;
+  options: any;
+  isModalOpen: Boolean;
   constructor(
       notifier: NotifierService,
       private activatedRoute: ActivatedRoute,
@@ -58,6 +66,7 @@ export class ProfileComponent implements OnInit {
       private mediaService: MediaService,
       private global: Global,
       private geolocationService: GeolocationService,
+      public matDialog: MatDialog
     ) {
     this.socket = io(this.global.getLink().split('/')[2]);
     this.user = null;
@@ -91,6 +100,8 @@ export class ProfileComponent implements OnInit {
       cordinate: {}
     };
     this.checkLocation = false;
+    this.options = {};
+    this.isModalOpen = false;
   }
 
   ngOnInit() {
@@ -183,8 +194,6 @@ export class ProfileComponent implements OnInit {
     console.info('ProfileComponent.openTab() - push button in navbar in profile and open tab');
     this.tab = item;
 
-    // let userTab = this.profilLocation.nativeElement.children['user-tab'];
-    // console.log(userTab.children['user-tab-before'])
     if (item === 'home') {
       this.activeUser = true;
       this.activeFriend = false;
@@ -215,13 +224,48 @@ export class ProfileComponent implements OnInit {
     console.info('ProfileComponent.openImage() - push button and open image in modal');
     this.imageLink = null;
     this.imageLink = link;
+
+    this.options['list'] = [];
+    this.options['type'] = 'profilImage';
+    this.options['image'] = this.imageLink
+  }
+
+  openModal(link: String, type: String) {
+    const dialogConfig = new MatDialogConfig();
+    // The user can't close the dialog by clicking outside its body
+    dialogConfig.disableClose = true;
+    dialogConfig.id = "modal-component";
+    if (type === 'profilImage') {
+      dialogConfig.data = {
+        link: link
+      }
+      const modalDialogProfile = this.matDialog.open(ProfileImagesComponent, dialogConfig);
+    } else if (type === 'updateImage') {
+      const modalDialogUpdate = this.matDialog.open(UpdateProfilImageComponent, dialogConfig);
+      modalDialogUpdate.afterClosed().subscribe(result => {
+        if (result !== null) {
+
+          // TODO Ovde mozemo napraviti nesto sto ce omoguciti da se
+          // automatski promjeni slika 
+          this.notifier.notify( 'success', 'Uspjesno ste postavili sliku');
+        }
+      });
+    } else if (type === 'addLocation') {
+      const modalDialogAddLocation = this.matDialog.open(AddLocationComponent, dialogConfig);
+      modalDialogAddLocation.afterClosed().subscribe(result =>{
+        if (result !== null) {
+          this.publication.unshift(result)
+        }
+      })
+    } else if (type === 'addPicture') {
+      console.log('cetvrti deo')
+    }
   }
 
   closeModal() {
     console.info('ProfileComponent.closeModal() - push button and close image in modal');
-    if (this.imageLink !== null) {
-      this.imageLink = null;
-    }
+    this.options = null;
+    this.isModalOpen = false;
   }
 
   likePicture(link: String) {

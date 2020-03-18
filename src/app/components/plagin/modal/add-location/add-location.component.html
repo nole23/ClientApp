@@ -1,0 +1,42 @@
+<div id="modal-content-wrapper">
+  <header id="modal-header">
+    <h4 class="modal-title left">Vasa lokacija</h4>
+    <button type="button" class="right" (click)="closeModal()">
+      <i class="fa fa-times" aria-hidden="true"></i>
+    </button>
+  </header>
+  <br>
+  <section id="modal-body">
+    <section *ngIf="isLocation">
+      <div class="address" *ngIf="address !== null">
+        {{address.address.neighbourhood + ' - ' + address.address.city}}
+      </div>
+      <div id="map1" class="arrea"></div>
+      <div class="text-address">
+        <textarea 
+          class="form-control"
+          type="text"
+          name="text"
+          [(ngModel)]="text"
+          i18-pleacholder="@@publicAddCommentInput"
+          placeholder="Dodajte neki tekst ...">
+        </textarea>
+      </div>
+    </section>
+    <section style="width: 50vw; height: 50vh;" *ngIf="!isLocation">
+      <i class="fa fa-window-close-o" style="color: red; margin: 20% 43%; font-size: 100px;" aria-hidden="true"></i>
+    </section>
+  </section>
+  <footer id="modal-footer">
+      <button 
+        id="modal-action-button"
+        class="btn btn-outline-success"
+        (click)="saveLocation()">Objavite lokaciju
+      </button>
+      <button 
+        id="modal-cancel-button"
+        class="btn btn-outline-danger"
+        (click)="closeModal()">Odustati
+      </button>
+  </footer>
+</div>

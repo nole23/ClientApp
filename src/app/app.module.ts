@@ -5,6 +5,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ScrollEventModule } from 'ngx-scroll-event';
 import { NotifierModule, NotifierOptions } from 'angular-notifier';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -29,8 +32,11 @@ import { SettingsProfileComponent } from './components/plagin/settings-profile/s
 import { NotificationComponent } from './components/plagin/notification/notification.component';
 import { LocationComponent } from './components/plagin/location/location.component';
 import { LocatMeComponent } from './components/plagin/location/locat-me/locat-me.component';
-import { ModelPublicationComponent } from './components/plagin/modal/model-publication/model-publication.component';
+import { ModelPublicationComponent as ModelPublicationComponent} from './components/plagin/modal/model-publication/model-publication.component';
 import { GetLocationComponent } from './components/plagin/location/get-location/get-location.component';
+import { ProfileImagesComponent } from './components/plagin/modal/profile-images/profile-images.component';
+import { UpdateProfilImageComponent } from './components/plagin/modal/update-profil-image/update-profil-image.component';
+import { AddLocationComponent } from './components/plagin/modal/add-location/add-location.component';
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -94,7 +100,10 @@ const customNotifierOptions: NotifierOptions = {
     LocationComponent,
     LocatMeComponent,
     ModelPublicationComponent,
-    GetLocationComponent
+    GetLocationComponent,
+    ProfileImagesComponent,
+    UpdateProfilImageComponent,
+    AddLocationComponent
   ],
   imports: [
     NotifierModule.withConfig(customNotifierOptions),
@@ -102,7 +111,10 @@ const customNotifierOptions: NotifierOptions = {
     HttpClientModule,
     AppRoutingModule,
     ScrollEventModule,
-    FormsModule
+    FormsModule,
+    MatButtonModule,
+    MatDialogModule,
+    BrowserAnimationsModule
   ],
   providers: [
     AuthGuard,
@@ -113,6 +125,12 @@ const customNotifierOptions: NotifierOptions = {
       multi: true
     }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    ModelPublicationComponent,
+    ProfileImagesComponent,
+    UpdateProfilImageComponent,
+    AddLocationComponent
+  ]
 })
 export class AppModule { }

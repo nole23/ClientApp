@@ -1,4 +1,5 @@
-import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-model-publication',
@@ -6,33 +7,23 @@ import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
   styleUrls: ['./model-publication.component.css']
 })
 export class ModelPublicationComponent implements OnInit {
-  @Input() imageLink: any;
-  @ViewChild('myimage') myimage: ElementRef;
 
-  imgLink: any;
-  constructor() { 
-    this.imgLink = null;
+  constructor(public dialogRef: MatDialogRef<ModelPublicationComponent>) {
   }
 
-  ngOnInit() {
-    console.log('upada li ovo vise puta')
-    this.destroy();
-    // this.imgLink = this.imageLink
+  ngOnInit() { }
+
+  // When the user clicks the action button a.k.a. the logout button in the\
+  // modal, show an alert and followed by the closing of the modal
+  actionFunction() {
+    alert("You have logged out.");
+    this.closeModal();
   }
 
-  destroy() {
-    const image = this.myimage.nativeElement;
-    // const spiner = this.prod.nativeElement.querySelector('img');
-    console.log(image.children[0].querySelector('img'))
-    if (image.children[0].querySelector('img') !== null) {
-      console.log('upao ovde ima slika')
-    } else {
-      image.children[0].insertAdjacentHTML('beforeend', '<img src="' + this.imageLink.image + '" style="width: 100%; height: 100%;">')
-    }
-  }
-
-  getAttribute() {
-    this.imgLink = this.imageLink;
+  // If the user clicks the cancel button a.k.a. the go back button, then\
+  // just close the modal
+  closeModal() {
+    this.dialogRef.close();
   }
 
 }

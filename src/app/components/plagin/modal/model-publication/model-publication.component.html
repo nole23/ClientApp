@@ -1,22 +1,12 @@
-
-<div class="modal-dialog">
-  <div class="modal-content">
-
-    <div class="modal-body" [id]="'settings-id-image'" #myimage>
-      <div class="add-image" [id]="'add-image'">
-
-      </div>
-
-      <button type="button" [ngClass]="{'btn-success': !imgLink.isStatus, 'btn-warning': imgLink.isStatus }" class="btn modal-button-position" >
-        <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
-        <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
-      </button>
-    </div>
-    <!-- <div class="hide" [id]="'settings-id-spiner'">
-      <div class="spinner-border text-success" style="margin: 50% 45%;" role="status">
-        <span class="sr-only">Loading...</span>
-      </div>
-    </div> -->
-  </div>
+<div id="modal-content-wrapper">
+  <header id="modal-header">
+      <h1 id="modal-title">Are you sure you want to logout?</h1>
+  </header>
+  <section id="modal-body">
+      <p>If you logout bad things might happen, but don't mind me, I'm just the description in a modal...</p>
+  </section>
+  <footer id="modal-footer">
+      <button mat-raised-button id="modal-action-button" (click)="actionFunction()">Logout</button>
+      <button mat-raised-button id="modal-cancel-button" (click)="closeModal()">Go back</button>
+  </footer>
 </div>
-

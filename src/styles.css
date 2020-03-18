@@ -1,9 +1,9 @@
 @import "~angular-notifier/styles";
+@import '~@angular/material/prebuilt-themes/purple-green.css';
 /* You can add global styles to this file, and also import other style files */
 body, html {
     height: 110%;
 }
-
 
 #style-4::-webkit-scrollbar-track
 {
@@ -22,4 +22,14 @@ body, html {
 {
     background-color: #191919;
     border: 1px solid #191919;
+}
+
+/* Overwrite the styles of the mat-dialog-container element globally, but only for those
+that have an id of `modal-component` */
+/* https://stackoverflow.com/a/48689004/9263761 */
+mat-dialog-container#modal-component {
+    border: 3px solid #262626;
+    border-radius: 11px;
+    background-color: black;
+    color: #fff;
 }
