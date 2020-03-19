@@ -1,13 +1,10 @@
 import { Component, OnInit, Input, Output, ViewChild, EventEmitter, ElementRef } from '@angular/core';
+
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { PublicationImageComponent } from '../../plagin/modal/publication-image/publication-image.component';
 import { User } from '../../../models/user';
 import { UserService } from '../../../services/user.service';
-import OlMap from 'ol/Map';
-import OlXYZ from 'ol/source/XYZ';
-import OlTileLayer from 'ol/layer/Tile';
-import OlView from 'ol/View';
-import Overlay from 'ol/Overlay';
-
-import { fromLonLat } from 'ol/proj';
+import { MediaService } from '../../../services/media.service';
 
 @Component({
   selector: 'app-publication',
@@ -17,38 +14,35 @@ import { fromLonLat } from 'ol/proj';
 export class PublicationComponent implements OnInit {
 
   @ViewChild('myimage') myimage: ElementRef;
-  @Output() imageEmiter = new EventEmitter<any>()
   @Input() item: any;
   @Input() user: any;
 
-  mapMe: OlMap;
-  source: OlXYZ;
-  layer: OlTileLayer;
-  view: OlView
-  overLayer: Overlay;
-
-
   showerChat: String;
   addComment: String;
-  imageLink: String;
   me: User;
   test: Boolean;
   isComment: String;
-  constructor(private userService: UserService) { 
+  constructor(
+    private userService: UserService,
+    public matDialog: MatDialog,
+    private mediaService: MediaService
+  ) { 
     this.showerChat = 'hide';
     this.addComment = null;
-    this.imageLink = null;
     this.me = JSON.parse(localStorage.getItem('user'));
     this.test = false;
     this.isComment = 'hide';
   }
 
   ngOnInit() {
-    console.info('ProfileComponent.ngOnInit() - Data initialization');
+    // console.info('ProfileComponent.ngOnInit() - Data initialization');
+    if (this.item.location !== null) {
+      console.log(this.item.location.corrdinate)
+    }
   }
 
   openComentar() {
-    console.info('ProfileComponent.openComentar() - Show and open component');
+    // console.info('ProfileComponent.openComentar() - Show and open component');
     if (this.showerChat === 'hide') {
       this.showerChat = 'show';
     } else {
@@ -57,14 +51,13 @@ export class PublicationComponent implements OnInit {
   }
 
   sendMessage(event: any, item: any) {
-    console.info('ProfileComponent.sendMessage() - Add comment to publication');
+    // console.info('ProfileComponent.sendMessage() - Add comment to publication');
     if (event.keyCode === 13) {
       let comments = {
-        user: this.user,
+        user: this.me,
         dateComent: Date(),
         text: this.addComment
       }
-      console.log(comments)
       this.isComment = 'show';
       this.userService.addComment(this.item, comments).subscribe(res => {
 
@@ -77,7 +70,7 @@ export class PublicationComponent implements OnInit {
   }
 
   likePublication() {
-    console.info('ProfileComponent.likePublication() - Click like/dislike in publication');
+    // console.info('ProfileComponent.likePublication() - Click like/dislike in publication');
     this.userService.likePublication(this.user, this.item).subscribe(res => {
       console.log(res)
       this.item.likes.push(this.user._id);
@@ -85,59 +78,44 @@ export class PublicationComponent implements OnInit {
   }
 
   disLikePublication() {
-    console.info('ProfileComponent.likePublication() - Click like/dislike in publication');
+    // console.info('ProfileComponent.likePublication() - Click like/dislike in publication');
     this.userService.dislikePublication(this.user, this.item).subscribe(res => {
       console.log(res)
       this.item.likes.splice(this.user._id, 1);
     })
   }
 
-  closeModal() {
-    console.log('dosao')
-    this.imageLink = null;
+  openImage(item: String) {
+    // console.info('ProfileComponent.openImage() - Open modal for image');
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.id = "modal-component";
+    dialogConfig.minWidth = "400px";
+    dialogConfig.data = {
+      item: item,
+      isDisable: this.userService.isPicturDiferent(item['image'])
+    }
+    const modalDialogProfile = this.matDialog.open(PublicationImageComponent, dialogConfig);
+    modalDialogProfile.afterClosed().subscribe(result =>{
+      this.editStatus(result, item);
+    })
   }
 
-  openImage(link: String) {
-    console.info('ProfileComponent.openImage() - Open modal for image');
-
-    this.imageLink = link;
-    let isStatus = this.isStatusButton(this.imageLink['likes'])
-    this.imageLink['isStatus'] = isStatus;
-
-    this.imageEmiter.emit(this.imageLink);
-  }
-
-  openMap() {
-    this.source = new OlXYZ({
-      url: 'http://tile.osm.org/{z}/{x}/{y}.png'
-    });
-
-    this.layer = new OlTileLayer({
-      source: this.source,
-      stopEvent: false,
-    });
-    
-    this.view = new OlView({
-      center: fromLonLat([45.258722299999995,19.814681699999998]),
-      zoom: 15
-    });
-    
-    this.mapMe = new OlMap({
-      target: 'mapMe',
-      layers: [this.layer],
-      view: this.view
-    });
-    console.log(this.mapMe)
+  editStatus(type: String, i: any) {
+    if (type === null) {
+      // This is noting
+    } else if (type === 'like') {
+      if (this.item._id.toString() === i._id.toString()) {
+        this.item.likes.push(this.me._id)
+      }
+    } else if (type === 'dislike') {
+      if (this.item._id.toString() === i._id.toString()) {
+        this.item.likes.splice(this.me._id, 1)
+      }
+    }
   }
 
   isStatusButton(list: any) {
-    let status = false;
-
-    list.forEach(element => {
-      if (element === this.me._id) {
-        status = true;
-      }
-    });
-    return status;
+    return this.mediaService.isStatusButton(list, this.me);
   } 
 }

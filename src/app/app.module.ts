@@ -31,12 +31,12 @@ import { ImagesComponent } from './components/plagin/images/images.component';
 import { SettingsProfileComponent } from './components/plagin/settings-profile/settings-profile.component';
 import { NotificationComponent } from './components/plagin/notification/notification.component';
 import { LocationComponent } from './components/plagin/location/location.component';
-import { LocatMeComponent } from './components/plagin/location/locat-me/locat-me.component';
-import { ModelPublicationComponent as ModelPublicationComponent} from './components/plagin/modal/model-publication/model-publication.component';
-import { GetLocationComponent } from './components/plagin/location/get-location/get-location.component';
 import { ProfileImagesComponent } from './components/plagin/modal/profile-images/profile-images.component';
 import { UpdateProfilImageComponent } from './components/plagin/modal/update-profil-image/update-profil-image.component';
 import { AddLocationComponent } from './components/plagin/modal/add-location/add-location.component';
+import { AddPictureComponent } from './components/plagin/modal/add-picture/add-picture.component';
+import { PublicationImageComponent } from './components/plagin/modal/publication-image/publication-image.component';
+import { ProfilFriendsComponent } from './components/profil-friends/profil-friends.component';
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -98,12 +98,12 @@ const customNotifierOptions: NotifierOptions = {
     SettingsProfileComponent,
     NotificationComponent,
     LocationComponent,
-    LocatMeComponent,
-    ModelPublicationComponent,
-    GetLocationComponent,
     ProfileImagesComponent,
     UpdateProfilImageComponent,
-    AddLocationComponent
+    AddLocationComponent,
+    AddPictureComponent,
+    PublicationImageComponent,
+    ProfilFriendsComponent,
   ],
   imports: [
     NotifierModule.withConfig(customNotifierOptions),
@@ -127,10 +127,11 @@ const customNotifierOptions: NotifierOptions = {
   ],
   bootstrap: [AppComponent],
   entryComponents: [
-    ModelPublicationComponent,
     ProfileImagesComponent,
     UpdateProfilImageComponent,
-    AddLocationComponent
+    AddLocationComponent,
+    AddPictureComponent,
+    PublicationImageComponent
   ]
 })
 export class AppModule { }

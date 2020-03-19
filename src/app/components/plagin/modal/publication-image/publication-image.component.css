@@ -1,0 +1,22 @@
+.number-of-likes {
+    font-size: 15px;
+    color: #fff;
+    padding: 5px;
+    float: left;
+}
+
+#modal-footer {
+    margin-top: 5px;
+}
+
+#modal-footer button {
+    float: right;
+}
+
+.show-image {
+    max-height: 85vh;
+}
+
+.show-image img {
+    max-height: 80vh;
+}

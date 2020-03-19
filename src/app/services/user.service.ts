@@ -207,6 +207,11 @@ export class UserService {
   }
 
   isPicturDiferent(link: any) {
-    return link.split('/')[5].toString() === this.getUserInLocalStorage().otherInformation.publicMedia.profileImage.split('/')[5].toString();
+    // if (this.getUserInLocalStorage().otherInformation.publicMedia.profileImage.split('/')[5] !== undefined) {
+    if (this.getUserInLocalStorage().otherInformation.publicMedia.profileImage.split('/')[5] === undefined) {
+      return link.split('/')[3] === this.getUserInLocalStorage().otherInformation.publicMedia.profileImage.split('/')[3];
+    } else {
+      return link.split('/')[5].toString() === this.getUserInLocalStorage().otherInformation.publicMedia.profileImage.split('/')[5].toString();
+    }
   }
 }

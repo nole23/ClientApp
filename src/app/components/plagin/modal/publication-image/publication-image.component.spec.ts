@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LocatMeComponent } from './locat-me.component';
+import { PublicationImageComponent } from './publication-image.component';
 
-describe('LocatMeComponent', () => {
-  let component: LocatMeComponent;
-  let fixture: ComponentFixture<LocatMeComponent>;
+describe('PublicationImageComponent', () => {
+  let component: PublicationImageComponent;
+  let fixture: ComponentFixture<PublicationImageComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LocatMeComponent ]
+      declarations: [ PublicationImageComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LocatMeComponent);
+    fixture = TestBed.createComponent(PublicationImageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

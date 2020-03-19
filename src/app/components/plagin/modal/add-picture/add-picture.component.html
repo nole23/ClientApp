@@ -1,6 +1,6 @@
 <div id="modal-content-wrapper">
   <header id="modal-header">
-    <h4 class="modal-title left">Promenite profilnu sliku</h4>
+    <h4 class="modal-title left">Objavite slik</h4>
     <button type="button" class="modal-x" (click)="closeModal()">
       <i class="fa fa-times" aria-hidden="true"></i>
     </button>
@@ -30,21 +30,31 @@
     </div>
     <div class="show-image" *ngIf="selectedFilesHeaderImage !== null">
       <img [src]="urls">
+      <div class="text-address">
+        <textarea 
+          class="form-control"
+          type="text"
+          name="text"
+          [(ngModel)]="text"
+          i18-pleacholder="@@publicAddCommentInput"
+          placeholder="Dodajte neki tekst ...">
+        </textarea>
+      </div>
     </div>
   </section>
   <footer id="modal-footer">
       <button
-        id="modal-action-button" 
+        id="modal-action-button"
         class="btn btn-outline-success"
         (click)="saveImages()">
         Sacuvajte sliku
       </button>
-      
+
       <button
         id="modal-cancel-button"
         class="btn btn-outline-danger"
         (click)="ngRestore()">
-        Promeni sliku
-      </button>
+      Odustati od slike
+    </button>
   </footer>
 </div>

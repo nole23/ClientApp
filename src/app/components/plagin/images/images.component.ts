@@ -99,14 +99,7 @@ export class ImagesComponent implements OnInit {
   }
 
   isStatusButton(list: any) {
-    let status = false;
-
-    list.forEach(element => {
-      if (element === this.me._id) {
-        status = true;
-      }
-    });
-    return status;
+    return this.mediaService.isStatusButton(list, this.me);
   } 
 
   onStatusMe() {

@@ -2,9 +2,10 @@
     float: right;
 }
 
-.image-responsive1 {
-    min-width: 50vw;
-    max-width: 80vw;
-    min-height: 40vh;
-    max-height: 80vh;
+.show-image {
+    max-height: 90vh;
+}
+
+.show-image img {
+    max-height: 85vh;
 }

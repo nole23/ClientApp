@@ -14,14 +14,16 @@ import { AddLocationComponent } from '../plagin/modal/add-location/add-location.
 import { AddPictureComponent } from '../plagin/modal/add-picture/add-picture.component';
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css']
+  selector: 'app-profil-friends',
+  templateUrl: '../profile/profile.component.html',
+  styleUrls: ['../profile/profile.component.css']
 })
-export class ProfileComponent implements OnInit, OnDestroy {
+export class ProfilFriendsComponent implements OnInit, OnDestroy {
+
   private readonly notifier: NotifierService;
 
   user: User;
+  me: User;
   userList: [User];
   status: Boolean;
   publication: [Publication];
@@ -43,7 +45,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
     private mediaService: MediaService,
     public matDialog: MatDialog
   ) {
-    this.user = null;
     this.status = false;
     this.tab = 'home';
     this.activeUser = true;
@@ -57,17 +58,25 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.isFriends = false;
     this.typeLocation = 'userProfile';
     this.notifier = notifier;
+    this.me = JSON.parse(localStorage.getItem('user'));
   }
 
   ngOnInit() {
-    // console.info('ProfileComponent.ngOnInit() - Data initialization');
-    
-    this.activatedRoute.params.subscribe(res =>{
+    this.activatedRoute.params.subscribe(res => {
       this.setInitOpcion();
-      
-      this.status = false;
-      this.user = new User(JSON.parse(localStorage.getItem('user')));
-      this.getPublication();
+
+      this.status = true;
+      this.isRequester = false;
+      this.isResponder = false;
+
+      this.userService.getUser(res['id']).subscribe(resUser => {
+
+        this.user = new User(resUser['user']);
+        this.isRequester = resUser['isRequester'];
+        this.isResponder = resUser['isResponder'];
+        this.isFriends = resUser['isFriends'];
+        this.getPublication();
+      })
     });
   }
 

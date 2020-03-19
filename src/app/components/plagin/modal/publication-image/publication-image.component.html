@@ -1,0 +1,47 @@
+<div id="modal-content-wrapper">
+  <header id="modal-header">
+    <button id="modal-cancel-button" class="modal-x" (click)="closeModal()">
+      <i class="fa fa-times" aria-hidden="true"></i>
+    </button>
+  </header>
+  
+  <section id="modal-body" *ngIf="imageLink !== null">
+    <div class="show-image">
+      <img src="{{imageLink.image}}" alt="">
+    </div>
+  </section>
+
+  <footer id="modal-footer" *ngIf="imageLink !== null">
+
+    <button 
+      *ngIf="isMe" 
+      type="button" 
+      (click)="addToProfile(imageLink)" 
+      id="modal-action-button"
+      class="btn btn-outline-success"
+      [disabled]="isDisable">
+      
+      <span>Postavi kao profilnu</span>
+    </button>
+
+    <button 
+      type="button" 
+      (click)="likeDislike(imageLink)" 
+      [ngClass]="{'btn-outline-success': !imageLink.isStatus, 'btn-outline-danger': imageLink.isStatus }" 
+      id="modal-action-button"
+      class="btn m-r-5">
+
+      <i class="fa fa-thumbs-o-up" *ngIf="!imageLink.isStatus"></i>
+      <i class="fa fa-thumbs-o-down" *ngIf="imageLink.isStatus"></i>
+      
+    </button>
+
+    <span class="number-of-likes">
+      Lajkovi: {{imageLink.likes.length}}
+    </span>
+  </footer>
+
+  <section *ngIf="imageLink === null">
+    loading...
+  </section>
+</div>

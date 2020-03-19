@@ -1,10 +1,12 @@
 <div id="modal-content-wrapper">
   <header id="modal-header">
-    <button mat-raised-button id="modal-cancel-button" (click)="closeModal()">
+    <button id="modal-cancel-button" class="modal-x" (click)="closeModal()">
       <i class="fa fa-times" aria-hidden="true"></i>
     </button>
   </header>
   <section id="modal-body">
-      <img src="{{data.link}}" alt="" class="image-responsive1">
+    <div class="show-image">
+      <img src="{{data.link}}" alt="">
+    </div>
   </section>
 </div>

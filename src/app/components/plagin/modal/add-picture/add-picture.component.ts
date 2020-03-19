@@ -2,24 +2,28 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { User } from '../../../../models/user';
 import { UserService } from '../../../../services/user.service';
+import { MediaService } from '../../../../services/media.service';
 
 @Component({
-  selector: 'app-update-profil-image',
-  templateUrl: './update-profil-image.component.html',
-  styleUrls: ['./update-profil-image.component.css']
+  selector: 'app-add-picture',
+  templateUrl: './add-picture.component.html',
+  styleUrls: ['./add-picture.component.css']
 })
-export class UpdateProfilImageComponent implements OnInit {
+export class AddPictureComponent implements OnInit {
 
   selectedFilesHeaderImage: File = null;
   urls: any;
   fd = new FormData();
   me: User;
+  text: any;
   constructor(
-    public dialogRef: MatDialogRef<UpdateProfilImageComponent>,
+    public dialogRef: MatDialogRef<AddPictureComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private userService: UserService
+    private userService: UserService,
+    private mediaService: MediaService
   ) {
     this.urls = null;
+    this.text = null;
   }
 
   ngOnInit() {
@@ -50,9 +54,30 @@ export class UpdateProfilImageComponent implements OnInit {
   }
 
   saveImages() {
-    console.info('ModalDialog.ngSaveImageHeader() - push button and save selected images');
     var datetimestamp = Date.now();
     let name = this.me.username + '.' + this.me._id + '.' + datetimestamp;
+    this.fd.append('file', this.selectedFilesHeaderImage, name.toString());
+
+    const addPictureConstruct = {
+      image: '',
+      text: '',
+      cordinate: {}
+    };
+    addPictureConstruct.image = name;
+    addPictureConstruct.text = this.text;
+    this.mediaService.addPicture(this.fd, name, addPictureConstruct).subscribe(res => {
+      this.ngRestore();
+      this.closeModal('success');
+    }, err => {
+      this.closeModal('error')
+    })
+
+
+
+
+
+    
+    var datetimestamp = Date.now();
     this.fd.append('file', this.selectedFilesHeaderImage, name.toString());
 
     this.userService.saveImageProfile(this.fd, name.toString()).subscribe(res => {

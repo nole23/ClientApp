@@ -502,13 +502,6 @@
     position: absolute;
     bottom: 60px;
 }
-.number-of-likes {
-    position: absolute;
-    bottom: 60px;
-    font-size: 14px;
-    right: 50px;
-    color: #fff;
-}
 .left-60 {
     left: 60px;
 }

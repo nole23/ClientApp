@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NotificationService } from '../../../services/notification.service';
 import { UserService } from '../../../services/user.service';
+import { MediaService } from '../../../services/media.service';
 
 @Component({
   selector: 'app-notification',
@@ -14,7 +15,11 @@ export class NotificationComponent implements OnInit {
   openPublication: any;
   me: any;
   linkImage: String;
-  constructor(private notificationService: NotificationService, private userService: UserService) {
+  constructor(
+    private notificationService: NotificationService,
+    private userService: UserService,
+    private mediaService: MediaService
+  ) {
     this.isOwner = false;
     this.openPublication = null;
     this.linkImage = null;
@@ -44,14 +49,7 @@ export class NotificationComponent implements OnInit {
   }
 
   isStatusButton(list: any) {
-    let status = false;
-
-    list.forEach(element => {
-      if (element === this.me._id) {
-        status = true;
-      }
-    });
-    return status;
+    return this.mediaService.isStatusButton(list, this.me);
   } 
 
   likeDislike(isStatus: Boolean) {

@@ -10,7 +10,7 @@
     <div class="spinner-border text-success" *ngIf="loading"></div>
     <div class="row text-center text-lg-left body-style"  id="style-4" *ngIf="searchUsers === null && !loading">
       <div class="col-lg-3 col-md-4 col-6" *ngFor="let item of listUsers">
-        <a [routerLink]="['/profile/' + item._id]" class="d-block mb-4 h-100" style="cursor: pointer;">
+        <a [routerLink]="['/friends/' + item._id]" class="d-block mb-4 h-100" style="cursor: pointer;">
           <img class="img-fluid img-thumbnail" src="{{item.otherInformation.publicMedia.profileImage}}" alt="">
           <p>{{item.firstName + ' ' + item.lastName}}</p>
         </a>
@@ -20,7 +20,7 @@
 
     <div class="row text-center text-lg-left body-style"  id="style-4" *ngIf="searchUsers !== null && !loading">
       <div class="col-lg-3 col-md-4 col-6" *ngFor="let item of searchUsers">
-        <a [routerLink]="['/profile/' + item._id]" class="d-block mb-4 h-100" style="cursor: pointer;">
+        <a [routerLink]="['/friends/' + item._id]" class="d-block mb-4 h-100" style="cursor: pointer;">
           <img class="img-fluid img-thumbnail" src="{{item.otherInformation.publicMedia.profileImage}}" alt="">
           <p>{{item.firstName + ' ' + item.lastName}}</p>
         </a>

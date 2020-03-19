@@ -1,6 +1,6 @@
 <div class="my-container" *ngIf="user !== null">
   <div class="wp-300">
-    <div class="sidebar-header image-phone" (window:resize)="initResponsiveElements()">
+    <div class="sidebar-header image-phone">
       <!-- redirect to settings -->
       <div class="mobile-button">
         <button class="settings" [routerLink]="['/settings']"><i class="fa fa-cog"></i></button>
@@ -84,7 +84,7 @@
       
     </div>
   </div>
-  <div class="wp-r-300 background height-100" #profilLocation>
+  <div class="wp-r-300 background height-100">
     <div class="nav-bar">
       <div class="row" style="margin-right: 0;">
         <div [ngClass]="!status ? 'col-4' : 'col-6'">
@@ -131,11 +131,7 @@
 
       </div>
 
-      <app-publication 
-        *ngFor="let item of publication" 
-        [item]="item"
-        [user]="user"
-        (imageEmiter)="onImageEmiter($event)">
+      <app-publication *ngFor="let item of publication" [item]="item" [user]="user">
       </app-publication>
     </div>
 
@@ -164,97 +160,3 @@
     <span class="sr-only">Loading...</span>
   </div>
 </div>
-
-
-<!-- The Modal --
-<div class="modal" id="myModalLocation">
-  <div class="modal-dialog">
-    <div class="modal-content">
-
-      <!-- Modal Header --
-      <div class="modal-header">
-        <h4 class="modal-title">Vasa lokacija</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
-
-      <!-- Modal body --
-      <div class="modal-body">
-        <app-locat-me (voted)="onVoted($event)"></app-locat-me>
-
-        <textarea type="text" class="form-control" name="message" [(ngModel)]="newLocationSave.message" placeholder="Kako se osecate"></textarea>
-      </div>
-
-      <!-- Modal footer --
-      <div class="modal-footer">
-        <button type="button" class="btn btn-outline-danger" data-dismiss="modal" style="float: left;" >Odustanite</button>
-        <button type="button" class="btn btn-outline-success" style="float: left;" (click)="ngSaveLocation()" data-dismiss="modal">Podelite lokaciju</button>
-      </div>
-
-    </div>
-  </div>
-</div>
-
-
-<!-- Pokisavamo da ovo izmjestimo na neku drugu lokaciju, da model bude na jednom mjesto --
-<div id="myModalImagePublication" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-
-      <div class="modal-body"  *ngIf="imagePublication !== null">
-        <img src="{{imagePublication.image}}" class="img-responsive1">
-        <button type="button" (click)="likeDislike(imagePublication.isStatus)" [ngClass]="{'btn-success': !imagePublication.isStatus, 'btn-warning': imagePublication.isStatus }" class="btn modal-button-position left-20">
-          <i class="fa fa-thumbs-o-up" *ngIf="!imagePublication.isStatus"></i>
-          <i class="fa fa-thumbs-o-down" *ngIf="imagePublication.isStatus"></i>
-        </button>
-
-        <button *ngIf="!isFriends && !status && !isRequester && !isResponder" type="button" (click)="addToProfile(imagePublication)" class="btn modal-button-position left-60 btn-success">
-          <span>Postavi kao profilnu</span>
-        </button>
-
-        <span class="number-of-likes">
-          Lajkovi: {{imagePublication.likes.length}}
-        </span>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- The Modal --
-<div class="modal" id="addModelPicture" *ngIf="isAddPicture">
-  <div class="modal-dialog">
-    <div class="modal-content">
-
-      <!-- Modal Header --
-      <div class="modal-header">
-        <h4 class="modal-title">Objavite sliku</h4>
-        <button type="button" class="close" (click)="ngHeaderImage()" data-dismiss="modal">&times;</button>
-      </div>
-
-      <!-- Modal body --
-      <div class="modal-body">
-        <div class="content-img" style="margin: 0; margin: 0 auto;" *ngIf="selectedFilesHeaderImage === null">
-          <div class="box" style=" padding-left: 40%" *ngIf="load">
-              <div class="loader"></div>
-          </div>
-          <div class="box" *ngIf="!load">
-            <input type="file" name="filesp" id="filesp" (change)="onSelectImgForHeader($event)" class="inputfile inputfile-4" accept="image/*" data-multiple-caption="{count} filesp selected" multiple style="display: none" />
-            <label for="filesp"><figure><svg xmlns="assets/img/outbox.png" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"/></svg></figure> <span>Izaberite sliku&hellip;</span></label>
-          </div>
-        </div>
-        <div class="" style="margin: 0; margin: 0 auto;" *ngIf="selectedFilesHeaderImage !== null">
-          <div>
-            <img [src]="urlsForHeaderImage" height="100%" width="100%">
-          </div>
-        </div>
-      </div>
-
-      <!-- Modal footer --
-      <div class="modal-footer">
-        <button type="button" class="btn btn-outline-danger" style="float: left;" (click)="ngHeaderImage()">Odustanite</button>
-        <button type="button" class="btn btn-outline-success" style="float: left;" (click)="ngSaveImagePublication()" data-dismiss="modal">Objavite</button>
-      </div>
-
-    </div>
-  </div>
-</div>
--->

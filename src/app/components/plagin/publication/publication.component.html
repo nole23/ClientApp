@@ -1,22 +1,45 @@
 <div class="tab-item" >
   <div class="tab-item-left">
-    <div class="cursor"><img src="{{user.otherInformation.publicMedia.profileImage}}" class="rounded-circle small" alt="" width="45px" height="45px"></div>
+    <div class="cursor">
+      <img
+        src="{{user.otherInformation.publicMedia.profileImage}}" 
+        class="rounded-circle small" 
+        alt="" 
+        width="45px" 
+        height="45px"/>
+    </div>
   </div>
   <div class="tab-item-right">
 
     <!-- Kada dodam novog prijatelja da vide, funkcija ne radi -->
     <div class="item-right-top" *ngIf="item.image === null && item.location === null && test">
-      <span style="color: #00c928;">{{user.firstName + ' ' + user.lastName}}</span> <span style="font-size: 12px; color: #ddd;" i18n="@@proflieNotificateAddFriend"> je postao prijatelj sa </span> <span style="color: #00c928;">{{item.user.firstName + ' ' + item.user.lastName}}</span>
+      <span style="color: #00c928;">
+        {{user.firstName + ' ' + user.lastName}}
+      </span> 
+
+      <span style="font-size: 12px; color: #ddd;" i18n="@@proflieNotificateAddFriend"> 
+        je postao prijatelj sa 
+      </span> 
+
+      <span style="color: #00c928;">
+        {{item.user.firstName + ' ' + item.user.lastName}}
+      </span>
     </div>
 
     <!-- Kada dodam lokaciju da se prikaze, trebali bi da napravimo da radi -->
     <div class="item-right-top" *ngIf="item.image === null && item.location !== null">
-      <span style="color: #00c928;">{{item.user_id.firstName + ' '}}</span><span>je posetio</span><span>{{' ' + item.location.address.neighbourhood + ' u ' + item.location.address.city}}</span> 
+      <span style="color: #00c928;">{{item.user_id.firstName + ' '}}</span>
+
+      <span>je posetio</span>
+
+      <span>{{' ' + item.location.address.neighbourhood + ' u ' + item.location.address.city}}</span>
     </div>
 
     <!-- Kada promjenim profilnu sliku -->
     <div class="item-right-top" *ngIf="item.image !== null && item.location === null">
-      <span style="font-size: 12px; color: #ddd;" i18n="@@proflieNotificatePublicationPicture">Objavili ste sliku </span>
+      <span style="font-size: 12px; color: #ddd;" i18n="@@proflieNotificatePublicationPicture">
+        Objavili ste sliku
+      </span>
     </div>
 
     <!-- Trebali bi da prilagodimo kada dodamo samo sliku, to ne postoji -->
@@ -25,15 +48,20 @@
     </div>
 
     <div class="item-right-bottom">
-      <span style="font-size: 12px; float: left; margin-top: 0px;">{{item.datePublish | date : 'dd. MMM yyyy. HH:mm'}}</span>
+      <span style="font-size: 12px; float: left; margin-top: 0px;">
+        {{item.datePublish | date : 'dd. MMM yyyy. HH:mm'}}
+      </span>
     </div>
 
     <div class="item-right-area" *ngIf="item.image !== null && item.location === null">
       <div>
-        <a class="cursor-pointer" data-toggle="modal" data-target="#myModalImagePublication" (click)="openImage(item)">
-          <img src="{{item.image}}" class="img-area" alt="">
+
+        <a class="cursor-pointer" (click)="openImage(item)">
+          <img src="{{item.image}}" class="img-area" alt=""/>
         </a>
+
         <span *ngIf="item.text !== null">{{item.text}}</span>
+        
       </div>
     </div>
 
@@ -68,7 +96,12 @@
   <div class="tab-coment" id="style-4" [ngClass]="showerChat">
     <div class="text" *ngFor="let comment of item.comments">
       <div class="coment-left">
-          <img src="{{comment.user.otherInformation.publicMedia.profileImage}}" class="rounded-circle" alt="" width="35px" height="35px">
+          <img 
+            src="{{comment.user.otherInformation.publicMedia.profileImage}}" 
+            class="rounded-circle" 
+            alt="" 
+            width="35px" 
+            height="35px"/>
       </div>
       <div class="coment-right">
         <div class="comment-text">
@@ -85,10 +118,23 @@
     </div>
     <div class="text m-t-10">
       <div class="coment-left">
-          <img src="{{user.otherInformation.publicMedia.profileImage}}" class="rounded-circle" alt="" width="35px" height="35px">
+          <img 
+            src="{{me.otherInformation.publicMedia.profileImage}}" 
+            class="rounded-circle" 
+            alt="" 
+            width="35px" 
+            height="35px"/>
       </div>
       <div class="coment-right" style="padding: 0;">
-          <textarea class="form-control" type="text" name="comment" [(ngModel)]="addComment" i18-pleacholder="@@publicAddCommentInput" placeholder="Unesite neki komentar ..." (keydown)="sendMessage($event, item)"></textarea>
+          <textarea 
+            class="form-control" 
+            type="text" 
+            name="comment" 
+            [(ngModel)]="addComment" 
+            i18-pleacholder="@@publicAddCommentInput" 
+            placeholder="Unesite neki komentar ..." 
+            (keydown)="sendMessage($event, item)">
+          </textarea>
       </div>
     </div>
     
