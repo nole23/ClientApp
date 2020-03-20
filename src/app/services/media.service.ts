@@ -33,7 +33,7 @@ export class MediaService {
   }
 
   addPicture(fd: any, name: String, data: any) {
-    return this.http.post(/*this.global.getMediaLink() + */'http://localhost:8081/api/media/profile-picture/' + name, fd)
+    return this.http.post(this.global.getMediaLink() + 'media/profile-picture/' + name, fd)
       .pipe(map(res => {
         return res;
       }))

@@ -95,7 +95,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   getFriends() {
     // console.info('ProfileComponent.getFriends() - get list frineds');
-    this.userList = null;
+    // this.userList = null;
     this.userService.getFriends(this.user, 0).subscribe((res: [User]) => {
       this.userList = res['listFriends'];
     });
@@ -103,7 +103,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   getImage() {
     // console.info('ProfileComponent.getImage() - get data from server');
-    this.imagesList = null;
+    // this.imagesList = null;
     this.mediaService.getPicture(this.user._id).subscribe((res: any) =>{
       res.user += null;
       res.user = new User(this.user);

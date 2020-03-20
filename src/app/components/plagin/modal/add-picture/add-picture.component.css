@@ -34,7 +34,7 @@
 }
 
 .show-image img {
-    max-height: 80vh;
+    max-height: 70vh;
 }
 
 #modal-footer {
@@ -43,4 +43,10 @@
 
 #modal-footer button {
     margin-left: 10px;
+}
+
+@media (max-width: 768px) {
+    .show-image img {
+        max-height: 68vh;
+    }
 }

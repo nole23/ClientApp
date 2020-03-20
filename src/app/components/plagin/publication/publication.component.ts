@@ -14,6 +14,7 @@ import { MediaService } from '../../../services/media.service';
 export class PublicationComponent implements OnInit {
 
   @ViewChild('myimage') myimage: ElementRef;
+  @ViewChild('image') image: ElementRef;
   @Input() item: any;
   @Input() user: any;
 
@@ -34,11 +35,8 @@ export class PublicationComponent implements OnInit {
     this.isComment = 'hide';
   }
 
-  ngOnInit() {
-    // console.info('ProfileComponent.ngOnInit() - Data initialization');
-    if (this.item.location !== null) {
-      console.log(this.item.location.corrdinate)
-    }
+  ngOnInit() { 
+    console.log(this.item)
   }
 
   openComentar() {
@@ -72,7 +70,6 @@ export class PublicationComponent implements OnInit {
   likePublication() {
     // console.info('ProfileComponent.likePublication() - Click like/dislike in publication');
     this.userService.likePublication(this.user, this.item).subscribe(res => {
-      console.log(res)
       this.item.likes.push(this.user._id);
     })
   }
@@ -80,7 +77,6 @@ export class PublicationComponent implements OnInit {
   disLikePublication() {
     // console.info('ProfileComponent.likePublication() - Click like/dislike in publication');
     this.userService.dislikePublication(this.user, this.item).subscribe(res => {
-      console.log(res)
       this.item.likes.splice(this.user._id, 1);
     })
   }
@@ -118,4 +114,9 @@ export class PublicationComponent implements OnInit {
   isStatusButton(list: any) {
     return this.mediaService.isStatusButton(list, this.me);
   } 
+
+  editStyle(link: String) {
+    console.log(this.image)
+    return link
+  }
 }

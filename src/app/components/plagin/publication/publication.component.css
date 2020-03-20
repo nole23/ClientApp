@@ -1,9 +1,12 @@
+.calc-width {
+  width: calc(100% - 120px);
+}
+
 .tab-item {
   float: left;
   width: 100%;
   margin: 0;
-  padding: 5%;
-  border-bottom: 1px solid #00c928;
+  border-bottom: 2px solid #00c928;
   min-height: 10vh;
   padding: 0;
 }
@@ -61,20 +64,9 @@
 
 .btn-like:hover {
   color: #00c928;
-  background-color: #fff;
-}
-
-.tab-item-left {
-  float: left;
-  max-height: 10vh;
-  padding: 2% 0 2% 3%;
 }
 
 .tab-item-right {
-  float: left;
-  width: 80%;
-  min-height: 10vh;
-  margin-left: 1vw;
 }
 
 .item-right-top {
@@ -116,10 +108,6 @@
   border: 1px solid #00c928;
   border-radius: 10px;
   background: #464646;
-}
-
-.cursor {
-  cursor: pointer;
 }
 
 .tab-item p {

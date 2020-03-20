@@ -1,6 +1,8 @@
 <div class="tab-item" >
-  <div class="tab-item-left">
-    <div class="cursor">
+
+  <!-- Ovde ide slika osobe koja je napravila objavu -->
+  <div class="float-l p-l-5 p-t-5 p-r-5 p-b-5 w-full h-8 bo-b-1-d">
+    <div class="cursor-pointer float-l w-60 h-8">
       <img
         src="{{user.otherInformation.publicMedia.profileImage}}" 
         class="rounded-circle small" 
@@ -8,43 +10,101 @@
         width="45px" 
         height="45px"/>
     </div>
-  </div>
-  <div class="tab-item-right">
 
-    <!-- Kada dodam novog prijatelja da vide, funkcija ne radi -->
+    <div class="calc-width float-l h-8">
+      <span class="fw-600 text-green fs-14">
+        {{item.user_id.firstName + ' '}}
+      </span>
+
+      <span 
+        class="fs-14 fa-white"
+        i18n="@@PublicationIsUpdateProfilImage"
+        *ngIf="item.image !== null && item.location === null">
+        je promenio profilnu sliku
+      </span>
+
+      <span
+        class="fs-14 fa-white"
+        i18n="@@PublicationIsVisit"
+        *ngIf="item.image === null && item.location !== null">
+        je posetio 
+      </span>
+
+      <span class="fs-14 fa-white" *ngIf="item.image === null && item.location !== null">
+        {{' ' + item.location.address.city  + ' - ' + item.location.address.neighbourhood}}
+      </span>
+
+      <div>
+        <span class="fa-white fs-12 float-l">
+          {{item.datePublish | date : 'dd. MMM yyyy. HH:mm'}}
+        </span>
+        
+        <span class="text-green fs-14 float-l m-l-10 cursor-pointer">
+          <i class="fa fa-globe" aria-hidden="true"></i>
+        </span>
+      </div>
+    </div>
+
+    <div class="float-l w-60 h-8">
+      <span class="fs-25 m-t-10 m-r-15 cursor-pointer fa-green-h float-r">
+        <i class="fa fa-sliders" aria-hidden="true"></i>
+      </span>
+    </div>
+  </div>
+  <div class="tab-item-right w-full h-10 float-l h-m-70">
+
+    <div class="w-full bgblack-sider h-20" *ngIf="item.image !== null && item.location === null">
+      <a class="cursor-pointer" (click)="openImage(item)">
+        <img src="{{item.image}}" class="sizefull h-f-70 fit-image" alt=""/>
+      </a>
+    </div>
+
+    <div 
+      class="w-full h-10 fa-white p-t-30 p-r-10 p-b-10 p-l-10 text-center"
+      [ngClass]="item.text === null ? 'bgblack-sider' : ''" 
+      *ngIf="item.image === null && item.location !== null" >
+      <samp class="fs-20" *ngIf="item.text !== null">
+        {{item.text}}
+      </samp>
+      <span *ngIf="item.text === null">
+        <i class="fa fa-map fs-90" aria-hidden="true"></i>
+      </span>
+    </div>
+    
+    <!-- Kada dodam novog prijatelja da vide, funkcija ne radi --
     <div class="item-right-top" *ngIf="item.image === null && item.location === null && test">
       <span style="color: #00c928;">
         {{user.firstName + ' ' + user.lastName}}
       </span> 
-
+574*752
       <span style="font-size: 12px; color: #ddd;" i18n="@@proflieNotificateAddFriend"> 
         je postao prijatelj sa 
       </span> 
 
-      <span style="color: #00c928;">
+      <span style="color: #00c928; font-weight: 600;">
         {{item.user.firstName + ' ' + item.user.lastName}}
       </span>
     </div>
 
-    <!-- Kada dodam lokaciju da se prikaze, trebali bi da napravimo da radi -->
+    <!-- Kada dodam lokaciju da se prikaze, trebali bi da napravimo da radi --
     <div class="item-right-top" *ngIf="item.image === null && item.location !== null">
-      <span style="color: #00c928;">{{item.user_id.firstName + ' '}}</span>
+      <span style="color: #00c928; font-weight: 600;">{{item.user_id.firstName + ' '}}</span>
 
       <span>je posetio</span>
 
-      <span>{{' ' + item.location.address.neighbourhood + ' u ' + item.location.address.city}}</span>
+      <span>{{' ' + item.location.address.city  + ' - ' + item.location.address.neighbourhood}}</span>
     </div>
 
-    <!-- Kada promjenim profilnu sliku -->
+    <!-- Kada promjenim profilnu sliku --
     <div class="item-right-top" *ngIf="item.image !== null && item.location === null">
       <span style="font-size: 12px; color: #ddd;" i18n="@@proflieNotificatePublicationPicture">
-        Objavili ste sliku
+        objavio je 
       </span>
     </div>
 
-    <!-- Trebali bi da prilagodimo kada dodamo samo sliku, to ne postoji -->
+    <!-- Trebali bi da prilagodimo kada dodamo samo sliku, to ne postoji --
     <div class="item-right-top" *ngIf="item.image !== null && test">
-      <!-- <span style="font-size: 12px; color: #ddd;" i18n="@@proflieNotificatePublicationPicture">Objavili ste sliku </span> -->
+      <!-- <span style="font-size: 12px; color: #ddd;" i18n="@@proflieNotificatePublicationPicture">Objavili ste sliku </span> --
     </div>
 
     <div class="item-right-bottom">
@@ -69,7 +129,7 @@
       <div>
         <span *ngIf="item.text !== null">{{item.text}}</span>
       </div>
-    </div>
+    </div>-->
   </div>
   
   <div class="tab-foter">

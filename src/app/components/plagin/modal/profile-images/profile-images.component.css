@@ -9,3 +9,10 @@
 .show-image img {
     max-height: 85vh;
 }
+
+@media (max-width: 768px) {
+    .show-image img {
+        height: 100%;
+        width: 100%;
+    }
+}

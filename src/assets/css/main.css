@@ -2,6 +2,12 @@
   cursor: pointer;
 }
 
+.active {
+  /* text-decoration: underline; */
+  color: #00c928 !important;
+  font-weight: 600;
+}
+
 .smal {
   width: 15px;
   height: 15px;
@@ -10,10 +16,11 @@
 
 .background-black {
   background: #191919;
+  line-height: 1.34;
 }
 
 .my-container {
-  width: 100%;
+  max-width: 1440px;
   padding-right: 15px;
   padding-left: 15px;
   margin-right: auto;

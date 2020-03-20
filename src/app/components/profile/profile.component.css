@@ -3,14 +3,6 @@
     margin: 0;
 }
 
-.height-100 {
-    height: 100vh;
-}
-
-.cursor-pointer {
-    cursor: pointer;
-}
-
 .mobile-button {
     display: none;
 }
@@ -29,9 +21,6 @@
     width: calc(100vw - 600px)!important;
 }
 
-.sidebar-header {
-    margin: 20px 50px 20px 50px;
-}
 #btn {
     position: absolute;
     top: 115px;
@@ -65,14 +54,6 @@
     border: 3px solid #00c928;
 }
 
-.small {
-    border: none;
-}
-
-.friend-center {
-    margin: 50% 0 0 50%;
-}
-
 .btn-outline-success {
     width: 100%;
 }
@@ -84,172 +65,10 @@
 }
 
 .nav-bar {
-    margin-left: 50px;
-    margin-top: 20px;
-    
     border-top: 1px solid #00c928;
     width: calc(100% - 100px);
-    float: left;
     height: 35px;
     border-bottom: 3px solid #fff;
-}
-
-.active {
-    text-decoration: underline;
-    color: #00c928 !important;
-}
-
-.tab-item {
-    float: left;
-    width: 100%;
-    margin: 0;
-    padding: 5%;
-    border-bottom: 1px solid #00c928;
-    min-height: 10vh;
-    padding: 0;
-}
-
-.tab-foter {
-    width: 100%;
-    height: 30px;
-    float: left;
-    border-top: 1px solid rgba(0,0,0,.1);
-}
-
-.foter-btn-like {
-    float: left;
-    height: 100%;
-    width: 50%;
-    padding: 1px;
-}
-
-.tab-coment {
-    float: left;
-    width: 100%;
-    min-height: 100px;
-    border: 1px solid red;
-}
-
-.show {
-    display: block;
-}
-
-.hide {
-    display: none;
-}
-
-.btn-like {
-    text-align: center;
-    width: 100%;
-    height: 100%;
-    color: #ddd;
-    padding: 1px;
-}
-
-.btn-like:hover {
-    color: #00c928;
-    background-color: #fff;
-}
-
-.tab-item-left {
-    float: left;
-    width: 15%;
-    max-height: 10vh;
-    padding: 2% 0 2% 3%;
-}
-
-.tab-item-right {
-    float: left;
-    width: 80%;
-    min-height: 10vh;
-}
-
-.item-right-top {
-    height: 30px;
-    color: #fff;
-}
-
-.item-right-bottom {
-    float: left;
-    height: 25px;
-    font-size: 12px;
-    color: #fff;
-}
-.img-area {
-    margin: 10px;
-}
-.item-right-area {
-    float: left;
-    min-height: 1px;
-    font-size: 12px;
-    color: #fff;
-    width: 100%;
-}
-
-.cursor {
-    cursor: pointer;
-}
-
-.tab-item p {
-    color: #fff;
-
-}
-
-.fa-3x {
-    float: left;
-}
-
-.btn-likes {
-    color: #fff;
-    left: 42px;
-    font-size: 10px;
-    width: 80px;
-}
-
-.btn-comments {
-    color: #fff;
-    left: 160px;
-    font-size: 10px;
-    width: 90px;
-}
-
-.btn-likes:hover {
-    color: #00c928;
-}
-
-.btn-comments:hover {
-    color: #00c928;
-}
-
-.modal-content {
-    width: 600px;
-    background-color: black;
-}
-
-@media (min-width: 768px) and (max-width: 1250px) {
-    .nav-bar {
-        width: calc(100% - 55px);
-    }
-
-    .modal-content {
-        width: 600px;
-        min-height: 420px;
-        background-color: black;
-    }
-}
-
-.col-2 {
-    margin-right: 10px;
-}
-
-.col-2 p {
-    color: #ddd !important;
-    cursor: pointer;
-    font-size: 18px;
-    padding-right: 10px;
-}
-.col-2 p:hover {
-    color: #00c928 !important;
 }
 
 .user-tab {
@@ -261,6 +80,46 @@
     width: calc(100% - 100px);
 }
 
+.background {
+    background: #464646;
+}
+
+.privat-information {
+    width: 100%;
+    height: calc(100vh - 470px);
+}
+
+.add-publication {
+    width: 100%;
+    height: 40px;
+}
+
+.add-publication .location {
+    height: 33px;
+}
+
+.add-publication .location:hover {
+    background-color: #00c928;
+}
+
+.add-publication .location:hover .add-publication i{
+    color: #fff   
+}
+
+.btn-mobile-image {
+    display: block;
+}
+
+@media (min-width: 768px) and (max-width: 1250px) {
+    .nav-bar {
+        width: calc(100% - 55px);
+    }
+
+    .user-tab {
+        width: calc(100vw - 650px)
+    }
+}
+
 @media (min-width: 769px) {
     .btn-mobile-image {
         display: none;
@@ -268,10 +127,6 @@
 
     .wp-300 {
         height: 100vh;
-    }
-
-    .left-20 {
-        left: 20px;
     }
 
     .privat-information {
@@ -286,61 +141,42 @@
     .btn-hide-mobile {
         display: block;
     }
-
-    @media (max-width: 1200px) {
-        .user-tab {
-            width: 89.5%;
-        }
-    }
 }
 
 @media (max-width: 768px) {
 
-    .modal-dialog {
-        margin: 0;
-    }
-    
-    .btn-mobile-image {
-        display: block;
-        margin-left: calc(100% - 37%);
-        margin-right: auto;
-        margin-top: -80px;
-        margin-bottom: 30px;
-        color: #00c928;
-        font-size: 40px;
-        cursor: pointer;
-    }
-
-    .modal-content {
-        margin-top: 50px;
-        width: 100%;
-        height: 100%;
-        background-color: black
+    .privat-information {
+        height: calc(100vh - 430px);
     }
 
     .container {
         margin-right: auto;
         margin-left: auto;
     }
+
     .wp-300 {
         width: 100%;
         min-width: 100%;
         float: left;
         height: calc(100vh - 163px);
     }
+
     .wp-r-300 {
         width: 100% !important;
         margin-top: 67px;
     }
+
     .user-tab  {
         margin-left: 0;
         width: 100% !important;
     }
+
     .nav-bar {
         width: 100%;
         margin-left: 0;
         margin-top: 0;
     }
+
     .image-phone {
         background-position: center !important;
         background-repeat: no-repeat !important;
@@ -349,180 +185,47 @@
         height: 300px !important;
         margin: 0 !important;
     }
+
     .image-phone img {
         display: block;
         margin-left: auto;
         margin-right: auto;
-        /* width: 50%; */
         margin-top: 20px;
     }
+
     #btn {
         display: none;
-    }
-	.locate-css {
-		display: none;
     }
     
     .mobile-button {
         display: block;
-        width: 20%;
-        float: left;
     }
+
     .mobile-button .settings {
         display: block;
-        margin-left: 20px;
-        margin-top: 0px;
         margin-right: -20px;
         margin-bottom: -70px;
-        width: 50px;
-        /* font-size: 16px; */
-        /* border: 1px solid red; */
-        height: 50px;
     }
-    .mobile-button i {
-        font-size: 40px;
-        color: #00c928;
+
+    .mobile-button-right {
+        right: 0px;
     }
 }
 
-.col-4 p {
-    text-align: center;
-    color: #fff;
-    cursor: pointer;
-}
+@media (min-width: 1441px) {
+    .wp-300 {
+        min-width: 500px;
+    }
 
-.col-6 p {
-    text-align: center;
-    color: #fff;
-    cursor: pointer;
-}
+    .wp-r-300 {
+        width: calc(100% - 500px)!important;
+    }
 
-.background {
-    background: #464646;
-}
+    .rounded-circle {
+        margin: auto 25%
+    }
 
-.locate-css {
-	position: absolute;
-    height: calc(100vh - 58vh);
-    /* border: 1px solid rgba(0,0,0,.1); */
-	top: calc(100vh - 45%);
-    width: 332px;
-}
-
-.privat-information {
-    width: 100%;
-    height: calc(100vh - 470px);
-}
-.privat-information .location {
-    height: 60%;
-}
-.privat-information .private {
-    height: 40%;
-    margin-top: 25px;
-}
-
-.add-publication {
-    width: 100%;
-    height: 40px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-.add-publication .profile {
-    float: right;
-    width: 40px;
-    margin: 5px
-}
-.add-publication .profile img {
-    border-radius: 50px;
-    display: none;
-}
-
-.add-publication .location {
-    float: right;
-    margin-top: 3px;
-    margin-left: 10px;
-    height: 33px;
-    border: 1px solid #00c928;
-    border-radius: 20px;
-    padding: 6px 10px 0 10px
-}
-.add-publication .location .left {
-    float: left;
-}
-.add-publication .location .right {
-    float: left;
-    margin-left: 8px;
-    color: #fff;
-}
-.add-publication .location:hover {
-    background-color: #00c928;
-}
-.add-publication .location:hover .add-publication i{
-    color: #fff   
-}
-
-.add-publication .picture {
-    float: left;
-    margin-top: 3px;
-    margin-left: 53px;
-    width: 35%;
-    height: 28px;
-    border: 1px solid #00c928;
-    border-radius: 20px;
-    padding: 4px 0 0 35px;
-}
-.add-publication .picture .left {
-    float: left;
-}
-.add-publication .picture .right {
-    float: left;
-    margin-left: 8px;
-    color: #fff;
-}
-.add-publication .picture:hover {
-    background-color: #00c928;
-}
-.add-publication .picture:hover .add-publication i{
-    color: #fff   
-}
-
-.add-publication button {
-    width: 20%;
-    text-align: center;
-}
-.add-publication i {
-    font-size: 20px;
-    color: #fff
-}
-
-@media (max-width: 359px) {
-    
-}
-.modal-button-position {
-    position: absolute;
-    bottom: 60px;
-}
-.left-60 {
-    left: 60px;
-}
-
-.from-input-text {
-    clear: both;
-    margin-top: 10px;
-    height: 25px;
-    width: 50%;
-    float: left;
-}
-.check-form {
-    float: left;
-    /* font-size: 20px; */
-    margin-top: 9px;
-    width: 45%;
-    text-align: left;
-    margin-left: 5%;
-}
-.from-input-check {
-    font-size: 8px;
-    float: left;
-    width: 10%;
+    .privat-information {
+        width: 530px !important;
+    }
 }

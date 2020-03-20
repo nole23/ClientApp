@@ -27,3 +27,10 @@
 .text-address {
     margin-top: 5px;
 }
+
+@media (max-width: 768px) {
+    .arrea {
+        width: 100%;
+        height: 40vh;
+    }
+}
