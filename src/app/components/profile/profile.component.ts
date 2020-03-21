@@ -61,7 +61,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     // console.info('ProfileComponent.ngOnInit() - Data initialization');
-    
     this.activatedRoute.params.subscribe(res =>{
       this.setInitOpcion();
       
@@ -223,6 +222,16 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.btnSave = false;
       this.isFriends = false;
     })
+  }
+
+  onEmitPublic(event: any) {
+    if (event['type'] === 'public') {
+      // this.publication.unshift(event['public'])
+      console.log(event['public'])
+    } else if (event['type'] === 'delete') {
+      let index = this.publication.findIndex(x => x._id === event['public']['_id'].toString());
+      this.publication.splice(index, 1)
+    }
   }
 
   ngOnDestroy() {

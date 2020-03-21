@@ -214,4 +214,11 @@ export class UserService {
       return link.split('/')[5].toString() === this.getUserInLocalStorage().otherInformation.publicMedia.profileImage.split('/')[5].toString();
     }
   }
+
+  showHidePublication(item: any, type: String) {
+    return this.http.put('http://localhost:8080/api/publication/status/' + type, item)
+      .pipe(map(res => {
+        return res;
+      }))
+  }
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, ViewChild, EventEmitter, ElementRef } from '@angular/core';
-
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { PublicationImageComponent } from '../../plagin/modal/publication-image/publication-image.component';
+import { PublicationShowDeleteComponent } from '../../plagin/modal/publication-show-delete/publication-show-delete.component';
 import { User } from '../../../models/user';
 import { UserService } from '../../../services/user.service';
 import { MediaService } from '../../../services/media.service';
@@ -13,16 +13,17 @@ import { MediaService } from '../../../services/media.service';
 })
 export class PublicationComponent implements OnInit {
 
-  @ViewChild('myimage') myimage: ElementRef;
-  @ViewChild('image') image: ElementRef;
   @Input() item: any;
   @Input() user: any;
+  @Output() emit = new EventEmitter<any>();
 
   showerChat: String;
   addComment: String;
   me: User;
   test: Boolean;
   isComment: String;
+  isContextMenu: Boolean;
+  isDisable: Boolean;
   constructor(
     private userService: UserService,
     public matDialog: MatDialog,
@@ -33,11 +34,12 @@ export class PublicationComponent implements OnInit {
     this.me = JSON.parse(localStorage.getItem('user'));
     this.test = false;
     this.isComment = 'hide';
+    this.isContextMenu = false;
+    this.isDisable = true;
   }
 
-  ngOnInit() { 
-    console.log(this.item)
-  }
+  ngOnInit() { }
+
 
   openComentar() {
     // console.info('ProfileComponent.openComentar() - Show and open component');
@@ -113,10 +115,37 @@ export class PublicationComponent implements OnInit {
 
   isStatusButton(list: any) {
     return this.mediaService.isStatusButton(list, this.me);
-  } 
+  }
 
-  editStyle(link: String) {
-    console.log(this.image)
-    return link
+  ngShowHidePublic(item: any, status: String) {
+    this.userService.showHidePublication(item, status).subscribe((res: any) => {
+      if (status === 'friends') {
+        item.showPublication.removeStatus = false;
+        item.showPublication.justFriends = true;
+      } else if (status === 'show') {
+        item.showPublication.removeStatus = false;
+        item.showPublication.justFriends = false;
+      } else if (status === 'hide') {
+        item.showPublication.removeStatus = true;
+        item.showPublication.justFriends = false;
+      }
+    })
+  }
+
+  ngShowAgain(item: any, status: String) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.id = "modal-component";
+    dialogConfig.maxWidth = "400px";
+    dialogConfig.data = {
+      item: item,
+      status: status
+    }
+    const modalDialogShowDelete = this.matDialog.open(PublicationShowDeleteComponent, dialogConfig);
+    modalDialogShowDelete.afterClosed().subscribe(result =>{
+      if (result !== null) {
+        this.emit.emit(result);
+      }
+    })
   }
 }

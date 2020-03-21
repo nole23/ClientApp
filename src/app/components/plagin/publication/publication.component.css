@@ -193,3 +193,7 @@
   padding-left: 45%;
   color: #00c928;
 }
+
+.dropdown-item:hover {
+  color: #00c928!important;
+}

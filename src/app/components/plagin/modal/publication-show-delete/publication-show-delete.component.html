@@ -1,0 +1,64 @@
+<div id="modal-content-wrapper">
+  <header id="modal-header">
+  </header>
+
+  <section id="modal-body" class="text-justify" *ngIf="type === 'delete'">
+    <span class="fs-30 fa-green">
+      <i class="fa fa-question-circle" aria-hidden="true"></i>
+    </span>
+    <span i18n="@@ModalQuestionDeleteSpanOne">
+      Da li ste sigurni da zelite da obrisete ovu objavu? Ukoliko obrisete objavu,
+      niko vam vise nece moci lajkovati, komentarisati i uzivati u vasim postovima.
+    </span>
+    <div class="m-t-5 bo-b-1-g m-b-5 w-full"></div>
+    <span i18n="@@ModalQuestionDeleteSpanTwo">
+      Razmislite jos jednom da li zelite da obrisete objavu...
+    </span>
+  </section>
+
+  <section id="modal-body" class="text-justify" *ngIf="type === 'show'">
+    <span class="fs-30 fa-green">
+      <i class="fa fa-question-circle" aria-hidden="true"></i>
+    </span>
+    <span i18n="@@ModalPablicAgain">
+      Da li zelite ponovo da objavite?
+    </span>
+  </section>
+
+  <footer id="modal-footer" class="float-r m-t-10" *ngIf="type === 'delete'">
+    <button
+      id="modal-action-button"
+      class="btn btn-outline-success m-r-5"
+      (click)="closeModal()"
+      i18n="@@ButtonCancel">
+      Odustati
+    </button>
+
+    <button
+      id="modal-cancel-button"
+      class="btn btn-outline-danger"
+      (click)="ngDeleteItem()"
+      i18n="@@ButtonDelete">
+      Obrisati
+    </button>
+  </footer>
+
+  <footer id="modal-footer" class="float-r m-t-10" *ngIf="type === 'show'">
+    <button
+      id="modal-action-button"
+      class="btn btn-outline-success m-r-5"
+      (click)="ngPublicAgain()"
+      i18n="@@ButtonPublic">
+      Objaviti
+    </button>
+
+    <button
+      id="modal-cancel-button"
+      class="btn btn-outline-danger"
+      (click)="ngDeleteItem()"
+      (click)="closeModal()"
+      i18n="@@ButtonCancel">
+      Odustati
+    </button>
+  </footer>
+</div>

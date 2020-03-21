@@ -2256,6 +2256,7 @@
 .text-left {text-align: left;}
 .text-right {text-align: right;}
 .text-middle {vertical-align: middle;}
+.text-justify {text-align: justify!important;}
 
 /* ------------------------------------ */
 .lh-1-0 {line-height: 1.0;}
@@ -2491,6 +2492,7 @@
 .bo-c-1 {border: 1px solid #00c928;}
 .bo-cir-20 {border-radius: 20px;}
 .bo-b-1-d {border-bottom: 1px solid rgba(0, 0, 0, 0.1);}
+.bo-b-1-g {border-bottom: 1px solid #00c928;}
 
 /*[ Transition ]
 -----------------------------------------------------------

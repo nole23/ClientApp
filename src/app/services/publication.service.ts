@@ -16,4 +16,18 @@ export class PublicationService {
         return res;
       }))
   }
+
+  deletePublicaton(item: any) {
+    return this.http.delete('http://localhost:8080/api/publication/' + item._id)
+      .pipe(map(res => {
+        return res;
+      }))
+  }
+
+  publicAgain(item: any) {
+    return this.http.put('http://localhost:8080/api/publication/public-again/' + item._id, {})
+      .pipe(map(res => {
+        return res;
+      }))
+  }
 }

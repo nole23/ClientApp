@@ -162,7 +162,7 @@
         <span class="sr-only">Loading...</span>
       </div>
 
-      <app-publication *ngFor="let item of publication" [item]="item" [user]="user">
+      <app-publication *ngFor="let item of publication" [item]="item" [user]="user" (emit)="onEmitPublic($event)">
       </app-publication>
     </div>
 

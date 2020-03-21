@@ -37,6 +37,7 @@ import { AddLocationComponent } from './components/plagin/modal/add-location/add
 import { AddPictureComponent } from './components/plagin/modal/add-picture/add-picture.component';
 import { PublicationImageComponent } from './components/plagin/modal/publication-image/publication-image.component';
 import { ProfilFriendsComponent } from './components/profil-friends/profil-friends.component';
+import { PublicationShowDeleteComponent } from './components/plagin/modal/publication-show-delete/publication-show-delete.component';
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -104,6 +105,7 @@ const customNotifierOptions: NotifierOptions = {
     AddPictureComponent,
     PublicationImageComponent,
     ProfilFriendsComponent,
+    PublicationShowDeleteComponent,
   ],
   imports: [
     NotifierModule.withConfig(customNotifierOptions),
@@ -131,7 +133,8 @@ const customNotifierOptions: NotifierOptions = {
     UpdateProfilImageComponent,
     AddLocationComponent,
     AddPictureComponent,
-    PublicationImageComponent
+    PublicationImageComponent,
+    PublicationShowDeleteComponent
   ]
 })
 export class AppModule { }

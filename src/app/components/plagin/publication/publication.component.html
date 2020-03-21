@@ -5,7 +5,7 @@
     <div class="cursor-pointer float-l w-60 h-8">
       <img
         src="{{user.otherInformation.publicMedia.profileImage}}" 
-        class="rounded-circle small" 
+        class="rounded-circle small fit-image" 
         alt="" 
         width="45px" 
         height="45px"/>
@@ -19,18 +19,36 @@
       <span 
         class="fs-14 fa-white"
         i18n="@@PublicationIsUpdateProfilImage"
-        *ngIf="item.image !== null && item.location === null">
+        *ngIf="item.type === 'imageProfil'">
         je promenio profilnu sliku
       </span>
 
       <span
         class="fs-14 fa-white"
         i18n="@@PublicationIsVisit"
-        *ngIf="item.image === null && item.location !== null">
+        *ngIf="item.type === 'locatPublic'">
         je posetio 
       </span>
 
-      <span class="fs-14 fa-white" *ngIf="item.image === null && item.location !== null">
+      <span
+        class="fs-14 fa-white"
+        i18n="@@PublicationIsPublicNewPicture"
+        *ngIf="item.type === 'imagePublic'">
+        je objavio novu sliku
+      </span>
+
+      <span
+        class="fs-14 fa-white"
+        i18n="@@PublicationIsReacted"
+        *ngIf="item.type === 'again'">
+        reagovo na staru objavu
+      </span>
+
+      <span class="fs-14 fa-white" *ngIf="item.type === 'locatPublic'">
+        {{' ' + item.location.address.city  + ' - ' + item.location.address.neighbourhood}}
+      </span>
+
+      <span class="fs-14 fa-white" *ngIf="item.type === 'again' && item.location !== null">
         {{' ' + item.location.address.city  + ' - ' + item.location.address.neighbourhood}}
       </span>
 
@@ -39,99 +57,177 @@
           {{item.datePublish | date : 'dd. MMM yyyy. HH:mm'}}
         </span>
         
-        <span class="text-green fs-14 float-l m-l-10 cursor-pointer">
-          <i class="fa fa-globe" aria-hidden="true"></i>
+        <span class="fs-14 float-l m-l-10">
+          <i 
+            class="fa fa-globe fa-white"
+            aria-hidden="true"
+            *ngIf="!item.showPublication.removeStatus && !item.showPublication.justFriends">
+          </i>
+
+          <i 
+            class="fa fa-users fa-white" 
+            aria-hidden="true"
+            *ngIf="!item.showPublication.removeStatus && item.showPublication.justFriends">
+          </i>
+
+          <i 
+            class="fa fa-lock fa-white" 
+            aria-hidden="true"
+            *ngIf="item.showPublication.removeStatus && !item.showPublication.justFriends">
+          </i>
+
+          <div class="float-r dropdown" *ngIf="item.user_id._id === me._id">
+            <span
+              aria-hidden="true"
+              role="button"
+              id="dropdownMenuLink"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false">
+              <i class="fa fa-chevron-down text-green m-l-5 cursor-pointer"></i>
+            </span>
+            <div class="dropdown-menu line-height" *ngIf="item.user_id._id === me._id">
+              <div *ngIf="!isContextMenu">
+                <div class="w-full bo-b-1-d text-center">
+                  <span class="text-black fs-14 w-full">Ko moze ovo videti</span>
+                </div>
+
+                <button 
+                  class="dropdown-item p-t-5 p-r-5 p-b-0 p-l-5 cursor-pointer"
+                  [disabled]="!item.showPublication.removeStatus && !item.showPublication.justFriends"
+                  (click)="ngShowHidePublic(item, 'show')">
+                  <ul class="fs-18">
+                    <li class="float-l w-30">
+                      <i class="fa fa-globe m-r-15" aria-hidden="true"></i>
+                    </li>
+                    <li class="float-l">
+                      Svi
+                    </li>
+                  </ul>
+                </button>
+
+                <button
+                  class="dropdown-item p-t-5 p-r-5 p-b-0 p-l-5 fs-18 cursor-pointer"
+                  [disabled]="!item.showPublication.removeStatus && item.showPublication.justFriends"
+                  (click)="ngShowHidePublic(item, 'friends')">
+                  <ul>
+                    <li class="float-l w-30">
+                      <i class="fa fa-users m-r-15" aria-hidden="true"></i>
+                    </li>
+                    <li class="float-l">
+                      Prijatelji
+                    </li>
+                  </ul>
+                </button>
+
+                <button 
+                  class="dropdown-item p-t-5 p-r-5 p-b-0 p-l-5 fs-18 cursor-pointer"
+                  [disabled]="item.showPublication.removeStatus && !item.showPublication.justFriends"
+                  (click)="ngShowHidePublic(item, 'hide')">
+                  <ul>
+                    <li class="float-l w-30">
+                      <i class="fa fa-lock m-r-15" aria-hidden="true"></i>
+                    </li>
+                    <li class="float-l">
+                      Niko
+                    </li>
+                  </ul>
+                </button>
+
+              </div>
+              <div class="spinner-border text-success m-t-0 m-l-72 m-b-0p m-r-0p fs-12 w-20 h-20p" role="status" *ngIf="isContextMenu">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </div>
+          </div>
+          
         </span>
       </div>
     </div>
 
-    <div class="float-l w-60 h-8">
-      <span class="fs-25 m-t-10 m-r-15 cursor-pointer fa-green-h float-r">
+    <div class="float-l w-60 h-8 dropdown" *ngIf="item.user_id._id === me._id">
+      <span 
+        class="fs-25 m-t-10 m-r-15 cursor-pointer fa-green-h float-r"
+        role="button"
+        id="dropdownMenuLink"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false">
         <i class="fa fa-sliders" aria-hidden="true"></i>
       </span>
+      <div class="dropdown-menu line-height">
+        <div *ngIf="!isContextMenu">
+          <button 
+            class="dropdown-item p-t-5 p-r-5 p-b-0 p-l-5 cursor-pointer"
+            (click)="ngShowAgain(item, 'show')">
+            Obajvi ponovo
+          </button>
+
+          <button 
+            class="dropdown-item p-t-5 p-r-5 p-b-0 p-l-5 cursor-pointer"
+            (click)="ngShowAgain(item, 'delete')">
+            Obrisati
+          </button>
+        </div>
+        <div class="spinner-border text-success m-t-0 m-l-72 m-b-0p m-r-0p fs-12 w-20 h-20p" role="status" *ngIf="isContextMenu">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="tab-item-right w-full h-10 float-l h-m-70">
 
-    <div class="w-full bgblack-sider h-20" *ngIf="item.image !== null && item.location === null">
+  <div class="tab-item-right w-full h-10 float-l">
+
+    <div 
+      class="w-full text-white-f p-l-10 p-t-10 p-r-10 p-b-10 lh-1-0"
+      *ngIf="(item.type === 'imagePublic' || item.type === 'again') && item.text !== null">
+      <span class="fs-14">
+        {{item.text}}
+      </span>
+    </div>
+
+    <div
+      class="w-full bgblack-sider h-20" 
+      *ngIf="item.type === 'imageProfil' || item.type === 'imagePublic'">
+      <a class="cursor-pointer" (click)="openImage(item)">
+        <img src="{{item.image}}" class="sizefull h-f-70 fit-image" alt=""/>
+      </a>
+    </div>
+
+    <div
+      class="w-full bgblack-sider h-20" 
+      *ngIf="item.type === 'again' && item.image !== null">
       <a class="cursor-pointer" (click)="openImage(item)">
         <img src="{{item.image}}" class="sizefull h-f-70 fit-image" alt=""/>
       </a>
     </div>
 
     <div 
-      class="w-full h-10 fa-white p-t-30 p-r-10 p-b-10 p-l-10 text-center"
+      class="w-full h-10 text-white-f p-t-30 p-r-10 p-b-10 p-l-10 text-center"
       [ngClass]="item.text === null ? 'bgblack-sider' : ''" 
-      *ngIf="item.image === null && item.location !== null" >
+      *ngIf="item.type === 'locatPublic'" >
       <samp class="fs-20" *ngIf="item.text !== null">
         {{item.text}}
       </samp>
       <span *ngIf="item.text === null">
-        <i class="fa fa-map fs-90" aria-hidden="true"></i>
-      </span>
-    </div>
-    
-    <!-- Kada dodam novog prijatelja da vide, funkcija ne radi --
-    <div class="item-right-top" *ngIf="item.image === null && item.location === null && test">
-      <span style="color: #00c928;">
-        {{user.firstName + ' ' + user.lastName}}
-      </span> 
-574*752
-      <span style="font-size: 12px; color: #ddd;" i18n="@@proflieNotificateAddFriend"> 
-        je postao prijatelj sa 
-      </span> 
-
-      <span style="color: #00c928; font-weight: 600;">
-        {{item.user.firstName + ' ' + item.user.lastName}}
+        <i class="fa fa-map fs-90 fa-white" aria-hidden="true"></i>
       </span>
     </div>
 
-    <!-- Kada dodam lokaciju da se prikaze, trebali bi da napravimo da radi --
-    <div class="item-right-top" *ngIf="item.image === null && item.location !== null">
-      <span style="color: #00c928; font-weight: 600;">{{item.user_id.firstName + ' '}}</span>
-
-      <span>je posetio</span>
-
-      <span>{{' ' + item.location.address.city  + ' - ' + item.location.address.neighbourhood}}</span>
-    </div>
-
-    <!-- Kada promjenim profilnu sliku --
-    <div class="item-right-top" *ngIf="item.image !== null && item.location === null">
-      <span style="font-size: 12px; color: #ddd;" i18n="@@proflieNotificatePublicationPicture">
-        objavio je 
+    <div 
+      class="w-full h-10 text-white-f p-t-30 p-r-10 p-b-10 p-l-10 text-center"
+      [ngClass]="item.text === null ? 'bgblack-sider' : ''" 
+      *ngIf="item.type === 'again' && item.location !== null" >
+      <samp class="fs-20" *ngIf="item.text !== null">
+        {{item.text}}
+      </samp>
+      <span *ngIf="item.text === null">
+        <i class="fa fa-map fs-90 fa-white" aria-hidden="true"></i>
       </span>
     </div>
-
-    <!-- Trebali bi da prilagodimo kada dodamo samo sliku, to ne postoji --
-    <div class="item-right-top" *ngIf="item.image !== null && test">
-      <!-- <span style="font-size: 12px; color: #ddd;" i18n="@@proflieNotificatePublicationPicture">Objavili ste sliku </span> --
-    </div>
-
-    <div class="item-right-bottom">
-      <span style="font-size: 12px; float: left; margin-top: 0px;">
-        {{item.datePublish | date : 'dd. MMM yyyy. HH:mm'}}
-      </span>
-    </div>
-
-    <div class="item-right-area" *ngIf="item.image !== null && item.location === null">
-      <div>
-
-        <a class="cursor-pointer" (click)="openImage(item)">
-          <img src="{{item.image}}" class="img-area" alt=""/>
-        </a>
-
-        <span *ngIf="item.text !== null">{{item.text}}</span>
-        
-      </div>
-    </div>
-
-    <div class="item-right-area" *ngIf="item.image === null && item.location !== null">
-      <div>
-        <span *ngIf="item.text !== null">{{item.text}}</span>
-      </div>
-    </div>-->
   </div>
   
+  <!-- Ovo je komentar kada se otvori, nije sredjen -->
   <div class="tab-foter">
     <div class="foter-btn-like">
       <button class="btn-like" (click)="likePublication()" *ngIf="!isStatusButton(item.likes)">
