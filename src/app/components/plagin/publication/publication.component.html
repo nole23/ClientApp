@@ -176,7 +176,7 @@
     </div>
   </div>
 
-  <div class="tab-item-right w-full h-10 float-l">
+  <div class="tab-item-right w-full h-10 float-l pos-relative">
 
     <div 
       class="w-full text-white-f p-l-10 p-t-10 p-r-10 p-b-10 lh-1-0"
@@ -187,11 +187,12 @@
     </div>
 
     <div
-      class="w-full bgblack-sider h-20" 
+      class="w-full bgblack-sider h-20 " 
       *ngIf="item.type === 'imageProfil' || item.type === 'imagePublic'">
       <a class="cursor-pointer" (click)="openImage(item)">
         <img src="{{item.image}}" class="sizefull h-f-70 fit-image" alt=""/>
       </a>
+      
     </div>
 
     <div
@@ -225,74 +226,93 @@
         <i class="fa fa-map fs-90 fa-white" aria-hidden="true"></i>
       </span>
     </div>
+
+    <span class="fa-stack pos-absolute fa-green left-10 bottom-5">
+      <i class="fa fa-thumbs-up fa-stack-2x"></i>
+      <span class="fs-20 m-l-35">{{item.likes.length}}</span>
+    </span>
+
+    <span class="fa-stack pos-absolute fa-green right-60 bottom-5">
+      <i class="fa fa-comment fa-stack-2x"></i>
+      <span class="fs-20 m-l-35">{{item.comments.length}}</span>
+    </span>
   </div>
   
   <!-- Ovo je komentar kada se otvori, nije sredjen -->
-  <div class="tab-foter">
-    <div class="foter-btn-like">
-      <button class="btn-like" (click)="likePublication()" *ngIf="!isStatusButton(item.likes)">
-          <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
-          <span i18n="@@proflieLikePublication"> Svidja vam se </span>
-          <span style="font-size: 10px;">{{'(' + item.likes.length + ') '}}</span>
+  <div class="tab-foter bo-b-1-d">
+    <div class="float-l h-full w-50p p-t-1 p-r-1 p-b-1 p-l-1">
+      <button
+        class="sizefull btn btn-white p-t-1 p-r-1 p-b-1 p-l-1 text-center"
+        (click)="ngLikeDislike(!isStatusButton(item.likes))">
+        <i class="fa fa-thumbs-o-up" aria-hidden="true" *ngIf="!isStatusButton(item.likes)"></i>
+        <span *ngIf="!isStatusButton(item.likes)" i18n="@@PublicationBtnLikeIt"> Svidja vam se </span>
+
+        <i class="fa fa-thumbs-o-down" aria-hidden="true" *ngIf="isStatusButton(item.likes)"></i>
+        <span *ngIf="isStatusButton(item.likes)" i18n="@@PublicationBtnDontLikeIt"> Ne svidja vam se </span>
       </button>
-      <button class="btn-like" (click)="disLikePublication()" *ngIf="isStatusButton(item.likes)">
-        <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
-        <span i18n="@@proflieLikePublication"> Ne svidja vam se </span>
-        <span style="font-size: 10px;">{{'(' + item.likes.length + ') '}}</span>
-    </button>
     </div>
-    <div class="foter-btn-like">
-        <button class="btn-like" (click)="openComentar()">
-            <i class="fa fa-comment-o" aria-hidden="true"></i>
-            <span i18n="@@proflieComentPublication"> Komentarisite</span>
-        </button>
-      </div>
+
+    <div class="float-l h-full w-50p p-t-1 p-r-1 p-b-1 p-l-1" >
+      <button
+        class="sizefull btn btn-white p-t-1 p-r-1 p-b-1 p-l-1 text-center"
+        (click)="openComentar()">
+        <i class="fa fa-comment-o" aria-hidden="true"></i>
+        <span i18n="@@PublicationBtnCommentars"> Komentarisite</span>
+      </button>
+    </div>
   </div>
+
+  <div 
+    class="float-l w-full h-min-40 p-t-5 p-l-5 h-max-60 of-auto"
+    id="style-4" 
+    [ngClass]="showerChat">
+
+    <div *ngFor="let comment of item.comments">
+      <div class="float-l w-full m-b-5">
+        <div class="float-l m-r-15">
+          <img 
+            class="w-35 h-35p rounded-circle"
+            src="{{comment.user.otherInformation.publicMedia.profileImage}}" alt="">
+        </div>
   
-  <div class="tab-coment" id="style-4" [ngClass]="showerChat">
-    <div class="text" *ngFor="let comment of item.comments">
-      <div class="coment-left">
-          <img 
-            src="{{comment.user.otherInformation.publicMedia.profileImage}}" 
-            class="rounded-circle" 
-            alt="" 
-            width="35px" 
-            height="35px"/>
-      </div>
-      <div class="coment-right">
-        <div class="comment-text">
-          <span style="color: #fff; font-size: 12px;">{{comment.text}}</span>
-        </div>
-        <div class="comment-date">
-          {{comment.dateComent | date: 'dd.MMMM HH:mm'}}
+        <div class="float-l coment-right">
+          <div class="float-l w-80p lh-1-0 p-t-2 fs-16 fa-white p-r-5 text-justify">
+            <span>{{comment.text}}</span>
+          </div>
+          <div class="float-r w-20p fs-14 text-black">
+            <span>
+              {{comment.dateComent | date: 'dd.MMMM HH:mm'}}
+            </span>
+          </div>
         </div>
       </div>
     </div>
-    <br>
-    <div class="comment-spiner" [ngClass]="isComment">
-      <span class="spinner-border m-l-10" role="status"></span>
-    </div>
-    <div class="text m-t-10">
-      <div class="coment-left">
-          <img 
-            src="{{me.otherInformation.publicMedia.profileImage}}" 
-            class="rounded-circle" 
-            alt="" 
-            width="35px" 
-            height="35px"/>
+
+    <div class="float-l m-t-10 bo-b-1-d w-full p-b-5">
+      <div class="comment-spiner" [ngClass]="isComment">
+        <span class="spinner-border m-l-10" role="status"></span>
       </div>
-      <div class="coment-right" style="padding: 0;">
-          <textarea 
-            class="form-control" 
-            type="text" 
-            name="comment" 
-            [(ngModel)]="addComment" 
-            i18-pleacholder="@@publicAddCommentInput" 
-            placeholder="Unesite neki komentar ..." 
-            (keydown)="sendMessage($event, item)">
-          </textarea>
+
+      <div class="float-l w-55">
+        <img 
+          src="{{me.otherInformation.publicMedia.profileImage}}" 
+          class="rounded-circle" 
+          alt="" 
+          width="35px" 
+          height="35px"/>
+      </div>
+  
+      <div class="float-r coment-right">
+        <textarea 
+          class="form-control " 
+          type="text" 
+          name="comment" 
+          [(ngModel)]="addComment" 
+          i18-pleacholder="@@publicAddCommentInput" 
+          placeholder="Unesite neki komentar ..." 
+          (keydown)="sendMessage($event, item)">
+        </textarea>
       </div>
     </div>
-    
   </div>
 </div>

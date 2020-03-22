@@ -24,6 +24,7 @@ export class PublicationComponent implements OnInit {
   isComment: String;
   isContextMenu: Boolean;
   isDisable: Boolean;
+  isButton: Boolean;
   constructor(
     private userService: UserService,
     public matDialog: MatDialog,
@@ -38,7 +39,9 @@ export class PublicationComponent implements OnInit {
     this.isDisable = true;
   }
 
-  ngOnInit() { }
+  ngOnInit() { 
+    this.isStatusButton(this.item.likes);
+  }
 
 
   openComentar() {
@@ -69,18 +72,18 @@ export class PublicationComponent implements OnInit {
     }
   }
 
-  likePublication() {
-    // console.info('ProfileComponent.likePublication() - Click like/dislike in publication');
-    this.userService.likePublication(this.user, this.item).subscribe(res => {
-      this.item.likes.push(this.user._id);
-    })
-  }
-
-  disLikePublication() {
-    // console.info('ProfileComponent.likePublication() - Click like/dislike in publication');
-    this.userService.dislikePublication(this.user, this.item).subscribe(res => {
-      this.item.likes.splice(this.user._id, 1);
-    })
+  ngLikeDislike(type: Boolean) {
+    if (type) {
+      // console.info('ProfileComponent.likePublication() - Click like/dislike in publication');
+      this.userService.likePublication(this.user, this.item).subscribe(res => {
+        this.item.likes.push(this.me._id);
+      })
+    } else if (!type) {
+      // console.info('ProfileComponent.likePublication() - Click like/dislike in publication');
+      this.userService.dislikePublication(this.user, this.item).subscribe(res => {
+        this.item.likes.splice(this.me._id, 1);
+      })
+    }
   }
 
   openImage(item: String) {
@@ -104,15 +107,15 @@ export class PublicationComponent implements OnInit {
       // This is noting
     } else if (type === 'like') {
       if (this.item._id.toString() === i._id.toString()) {
-        this.item.likes.push(this.me._id)
+        this.item.likes.push(this.me._id);
       }
     } else if (type === 'dislike') {
       if (this.item._id.toString() === i._id.toString()) {
-        this.item.likes.splice(this.me._id, 1)
+        this.item.likes.splice(this.me._id, 1);
       }
     }
   }
-
+  
   isStatusButton(list: any) {
     return this.mediaService.isStatusButton(list, this.me);
   }
