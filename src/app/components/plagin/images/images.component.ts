@@ -1,5 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { ImageGalleryComponent } from '../../plagin/modal/image-gallery/image-gallery.component';
 import { MediaService } from '../../../services/media.service';
+import { AddPictureComponent } from '../../plagin/modal/add-picture/add-picture.component';
 
 @Component({
   selector: 'app-images',
@@ -13,22 +16,30 @@ export class ImagesComponent implements OnInit {
   me: any;
   numberOfImage: any;
   isMe: Boolean;
-  constructor(private mediaService: MediaService) {
+  constructor(
+    public matDialog: MatDialog,
+    private mediaService: MediaService
+  ) {
     this.linkImage = null;
     this.me = JSON.parse(localStorage.getItem('user'));
     this.isMe = false;
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   openImage(link: String, index: any) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.id = "modal-component";
+    dialogConfig.minWidth = "400px"
 
-    this.numberOfImage = index;
-    this.linkImage = link;
-
-    let isStatus = this.isStatusButton(this.linkImage['link']['like'])
-    this.linkImage['link']['isStatus'] = isStatus;    
+    dialogConfig.data = {
+      link: link,
+      index: index,
+      imagesList: this.imagesList
+    }
+    
+    const modalDialogProfile = this.matDialog.open(ImageGalleryComponent, dialogConfig);
   }
 
   closeModal() {
@@ -104,5 +115,25 @@ export class ImagesComponent implements OnInit {
 
   onStatusMe() {
     return this.linkImage['user']._id.toString() === this.me._id.toString();
+  }
+
+  addImage() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.id = "modal-component";
+    dialogConfig.minWidth = "400px"
+
+    const modalDialogAddPicture = this.matDialog.open(AddPictureComponent, dialogConfig);
+    modalDialogAddPicture.afterClosed().subscribe(result =>{
+      // if (result === 'success') {
+      //   this.notifier.notify('success', 'Uspesno ste dodali objavu')
+      // } else if (result === 'error') {
+      //   this.notifier.notify('error', 'Objava nije dodata')
+      // } else if (result !== null) {
+      //   this.notifier.notify('info', 'Pokusajte malo kasnije')
+      // } else {
+        
+      // }
+    })
   }
 }

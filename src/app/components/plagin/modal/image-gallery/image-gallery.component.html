@@ -1,0 +1,46 @@
+<div id="modal-content-wrapper" (keydown)="keyDownFunction($event)">
+  <header 
+    id="modal-header"
+    class="pos-relative h-30p float-n">
+    <button 
+      id="modal-cancel-button"
+      class="modal-x pos-absolute right-0"
+      (click)="closeModal()">
+      <i class="fa fa-times" aria-hidden="true"></i>
+    </button>
+  </header>
+  <section id="modal-body" class="pos-relative">
+    <div class="show-image">
+      <img src="{{linkImage.link}}" alt="">
+
+      <button 
+        type="button"
+        (click)="ngShift('left')"
+        class="btn btn-outline-secondary pos-absolute top-50p left-1">
+        <i class="fa fa-angle-left"></i>
+      </button>
+
+      <button 
+        type="button"
+        (click)="ngShift('right')"
+        class="btn btn-outline-secondary pos-absolute top-50p right-1">
+        <i class="fa fa-angle-right"></i>
+      </button>
+      
+      <span class="fa-stack pos-absolute fa-green left-10 bottom-5">
+        <i class="fa fa-thumbs-up fa-stack-2x"></i>
+        <span class="fs-20 m-l-35" *ngIf="publicInfo !== null">{{publicInfo.likes.length}}</span>
+      </span>
+
+      <button
+        id="modal-action-button"
+        [ngClass]="!isLike ? 'btn-outline-success' : 'btn-outline-danger'"
+        class="btn m-r-5 pos-absolute bottom-5 right-5"
+        (click)="ngLikeDislike()"
+        i18n="@@ButtonCancel">
+        <i class="fa fa-thumbs-up" *ngIf="!isLike"></i>
+        <i class="fa fa-thumbs-o-down" *ngIf="isLike"></i>
+      </button>
+    </div>
+  </section>
+</div>

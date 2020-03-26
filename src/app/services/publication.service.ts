@@ -17,15 +17,22 @@ export class PublicationService {
       }))
   }
 
+  saveText(newText: any) {
+    return this.http.post(this.global.getLink() + 'publication/text', newText)
+      .pipe(map(res => {
+        return res;
+      }))
+  }
+
   deletePublicaton(item: any) {
-    return this.http.delete('http://localhost:8080/api/publication/' + item._id)
+    return this.http.delete(this.global.getLink() + 'publication/' + item._id)
       .pipe(map(res => {
         return res;
       }))
   }
 
   publicAgain(item: any) {
-    return this.http.put('http://localhost:8080/api/publication/public-again/' + item._id, {})
+    return this.http.put(this.global.getLink() + 'publication/public-again/' + item._id, {})
       .pipe(map(res => {
         return res;
       }))

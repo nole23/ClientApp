@@ -31,7 +31,6 @@ export class SidebarComponent implements OnInit {
 
   ngLogout() {
     this.userService.logout().subscribe(res => {
-      console.log(res)
       this.status.emit();
     })
   }

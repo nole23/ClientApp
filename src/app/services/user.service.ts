@@ -24,8 +24,6 @@ export class UserService {
   registration(user: User, userInformation: UserInformation) {
     return this.http.post(this.global.getLink() + 'authentation/sing-up', {user: user, userInformation: userInformation})
     .pipe(map(res => {
-      console.log(res);
-
       return res;
     }))
   }
@@ -216,7 +214,14 @@ export class UserService {
   }
 
   showHidePublication(item: any, type: String) {
-    return this.http.put('http://localhost:8080/api/publication/status/' + type, item)
+    return this.http.put(this.global.getLink() + 'publication/status/' + type, item)
+      .pipe(map(res => {
+        return res;
+      }))
+  }
+
+  getPublicByImage(_id: any) {
+    return this.http.get(this.global.getLink() + 'publication/image/' + _id)
       .pipe(map(res => {
         return res;
       }))

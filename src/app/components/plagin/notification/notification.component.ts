@@ -30,7 +30,6 @@ export class NotificationComponent implements OnInit {
 
     this.notificationService.getAllNotification().subscribe(res => {
       this.notifications = res;
-      console.log(this.notifications)
     });
   }
 

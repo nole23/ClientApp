@@ -1,0 +1,28 @@
+#modal-header {
+    float: right;
+}
+
+.show-image {
+    max-height: 90vh;
+}
+
+.show-image img {
+    max-height: 85vh;
+}
+
+@media (max-width: 768px) {
+    .show-image img {
+        height: 100%;
+        width: 100%;
+    }
+}
+
+.btn-outline-secondary {
+    color: #00c928;
+    border: 1px solid;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #009c1f;
+    color: #ddd
+}

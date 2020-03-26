@@ -1,66 +1,24 @@
+<!-- Page Content -->
 <div class="container">
   <div class="row text-center text-lg-left">
-    <div class="col-lg-2 col-md-4 col-sm-6" *ngFor="let item of imagesList; let i = index">
-      <a
-        class="d-block mb-4 h-100 cursor-pointer"
-        (click)="openImage(item, i)"
-        data-toggle="modal"
-        data-target="#myModal"
-      >
-        <img
-          class="img-fluid img-thumbnail img-height"
-          src="{{ item.link.link }}"
-          alt=""
-        />
+    <div 
+      class="col-lg-3 col-md-4 col-6 max-h-160 min-h-120 m-b-5 p-l-1 p-r-1 bo-d-1">
+
+      <a class="d-block mb-4 h-100 cursor-pointer" (click)="addImage()">
+        <i class="fa fa-plus m-t-35p btn-green m-l-40p fs-50" aria-hidden="true"></i>
       </a>
+
+    </div>
+
+    <div 
+      class="col-lg-3 col-md-4 col-6 max-h-160 min-h-120 m-b-5 p-l-1 p-r-1" 
+      *ngFor="let item of imagesList; let i = index">
+
+      <a class="d-block mb-4 h-100 cursor-pointer" (click)="openImage(item, i)">
+        <img class="img-fluid img-thumbnail sizefull fit-image" src="{{item.link.link}}" alt="">
+      </a>
+
     </div>
   </div>
 </div>
-
-<div
-  id="myModal"
-  class="modal fade"
-  tabindex="-1"
-  role="dialog"
-  aria-labelledby="myModalLabel"
-  aria-hidden="true"
->
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-body" *ngIf="linkImage !== null">
-        <img src="{{ linkImage.link.link }}" class="img-responsive1" />
-        
-        
-
-
-        <button type="button" (click)="likeDislike(linkImage.link.isStatus)" [ngClass]="{'btn-success': !linkImage.link.isStatus, 'btn-warning': linkImage.link.isStatus }" class="btn modal-button-position left-18">
-          <i class="fa fa-thumbs-o-up" *ngIf="!linkImage.link.isStatus"></i>
-          <i class="fa fa-thumbs-o-down" *ngIf="linkImage.link.isStatus"></i>
-        </button>
-
-        <button *ngIf="onStatusMe()" type="button" (click)="addToProfile(linkImage)" class="btn modal-button-position left-60 btn-success">
-          <span>Postavi kao profilnu</span>
-        </button>
-
-        <span class="number-of-likes">
-          Lajkovi: {{linkImage.link.like.length}}
-        </span>
-
-        <button type="button" (click)="ngShift('left')" class="btn btn-outline-secondary modal-button-position-shift left">
-          <i class="fa fa-angle-left"></i>
-        </button>
-        <button type="button" (click)="ngShift('right')" class="btn btn-outline-secondary modal-button-position-shift right">
-          <i class="fa fa-angle-right"></i>
-        </button>
-      </div>
-      <div
-        class="container"
-        style="margin: 50vh 0 0 0; text-align: center;"
-        *ngIf="linkImage === null">
-        <div class="spinner-border text-success" role="status">
-          <span class="sr-only">Loading...</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+<!-- /.container -->

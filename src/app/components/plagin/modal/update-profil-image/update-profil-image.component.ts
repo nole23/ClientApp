@@ -56,7 +56,6 @@ export class UpdateProfilImageComponent implements OnInit {
     this.fd.append('file', this.selectedFilesHeaderImage, name.toString());
 
     this.userService.saveImageProfile(this.fd, name.toString()).subscribe(res => {
-      console.log(res);
       this.ngRestore();
       this.closeModal({status: true});
     })

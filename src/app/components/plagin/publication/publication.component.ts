@@ -39,7 +39,7 @@ export class PublicationComponent implements OnInit {
     this.isDisable = true;
   }
 
-  ngOnInit() { 
+  ngOnInit() {
     this.isStatusButton(this.item.likes);
   }
 

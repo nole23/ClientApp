@@ -1,0 +1,40 @@
+<div id="modal-content-wrapper">
+  <header id="modal-header">
+    <h4 class="modal-title float-l" i18n="@@ModalAddText">O cemu razmisljate?</h4>
+    <button type="button" class="modal-x" (click)="closeModal()">
+      <i class="fa fa-times" aria-hidden="true"></i>
+    </button>
+  </header>
+
+  <br>
+
+  <section id="modal-body">
+    <textarea 
+      class="form-control"
+      type="text"
+      name="text"
+      [(ngModel)]="text"
+      i18-pleacholder="@@ModalAddText"
+      placeholder="O cemu razmisljate?">
+    </textarea>
+  </section>
+
+  <footer id="modal-footer" class="float-r m-t-5">
+    <button
+      id="modal-action-button"
+      class="btn btn-outline-success"
+      (click)="saveText()"
+      i18n="@@ModalPublic"
+      [disabled]="text === null">
+      Objavite
+    </button>
+
+    <button
+      id="modal-cancel-button"
+      class="btn btn-outline-danger m-l-5"
+      (click)="closeModal()"
+      i18n="@@ModalGiveUp">
+      Odustati
+    </button>
+  </footer>
+</div>

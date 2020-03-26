@@ -12,6 +12,7 @@ import { ProfileImagesComponent } from '../plagin/modal/profile-images/profile-i
 import { UpdateProfilImageComponent } from '../plagin/modal/update-profil-image/update-profil-image.component';
 import { AddLocationComponent } from '../plagin/modal/add-location/add-location.component';
 import { AddPictureComponent } from '../plagin/modal/add-picture/add-picture.component';
+import { AddTextComponent } from '../plagin/modal/add-text/add-text.component';
 
 @Component({
   selector: 'app-profile',
@@ -60,7 +61,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    // console.info('ProfileComponent.ngOnInit() - Data initialization');
     this.activatedRoute.params.subscribe(res =>{
       this.setInitOpcion();
       
@@ -86,23 +86,18 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   getPublication() {
-    // console.info('ProfileComponent.getPublication() - get all publication for ' + this.user.firstName);
     this.userService.getPublication(this.user).subscribe((res: [Publication]) => {
       this.publication = res['publication'];
     });
   }
 
   getFriends() {
-    // console.info('ProfileComponent.getFriends() - get list frineds');
-    // this.userList = null;
     this.userService.getFriends(this.user, 0).subscribe((res: [User]) => {
       this.userList = res['listFriends'];
     });
   }
 
   getImage() {
-    // console.info('ProfileComponent.getImage() - get data from server');
-    // this.imagesList = null;
     this.mediaService.getPicture(this.user._id).subscribe((res: any) =>{
       res.user += null;
       res.user = new User(this.user);
@@ -111,7 +106,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   openTab(item: any) {
-    // console.info('ProfileComponent.openTab() - push button in navbar in profile and open tab');
     this.tab = item;
     if (item === 'home') {
       this.activeUser = true;
@@ -145,9 +139,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
       const modalDialogUpdate = this.matDialog.open(UpdateProfilImageComponent, dialogConfig);
       modalDialogUpdate.afterClosed().subscribe(result => {
         if (result !== null) {
-
-          // TODO Ovde mozemo napraviti nesto sto ce omoguciti da se
-          // automatski promjeni slika 
           this.notifier.notify( 'success', 'Uspjesno ste postavili sliku');
         }
       });
@@ -171,11 +162,17 @@ export class ProfileComponent implements OnInit, OnDestroy {
           
         }
       })
+    } else if (type === 'addComent') {
+      const modalDialogAddText = this.matDialog.open(AddTextComponent, dialogConfig);
+      modalDialogAddText.afterClosed().subscribe(result => {
+        if(result !== null) {
+          this.publication.unshift(result)
+        }
+      })
     }
   }
 
   addFriends(user: User) {
-    // console.info('ProfileComponent.addFriends() - push button and add new friends');
     this.btnSave = true;
     this.userService.sendRelationship(user).subscribe(res => {
       if (res['message'] === 'save') {
@@ -192,7 +189,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   removeRelationShip(user: User) {
-    // console.info('ProfileComponent.removeRelationShip() - push button and cancel reqvest friends');
     this.btnCancel = true;
     this.userService.removeRelationship(user).subscribe(res => {
       this.btnCancel = false;
@@ -204,7 +200,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   acceptRelationship(user: User) {
-    // console.info('ProfileComponent.acceptRelationship() - push button and accept friends');
     this.btnSave = true;
     this.userService.acceptRelatuonship(user).subscribe(res => {
       this.btnSave = false;
@@ -215,23 +210,19 @@ export class ProfileComponent implements OnInit, OnDestroy {
     })
   }
 
-  removeFriends(user: User) {
-    // console.info('ProfileComponent.removeFriends() - push button and delete frineds from frineds list');
-    this.btnSave = true;
-    this.userService.deleteFriends(user).subscribe(res => {
-      this.btnSave = false;
-      this.isFriends = false;
-    })
-  }
-
   onEmitPublic(event: any) {
     if (event['type'] === 'public') {
-      // this.publication.unshift(event['public'])
-      console.log(event['public'])
     } else if (event['type'] === 'delete') {
       let index = this.publication.findIndex(x => x._id === event['public']['_id'].toString());
       this.publication.splice(index, 1)
     }
+  }
+
+  onEmitFriends(event: any) {
+    let index = this.userList.findIndex(x => x._id === event['id'].toString());
+    this.userList.splice(index, 1);
+    this.btnSave = true;
+    this.isFriends = false;
   }
 
   ngOnDestroy() {

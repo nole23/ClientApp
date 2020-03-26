@@ -98,7 +98,6 @@ export class AddLocationComponent implements OnInit {
       friends: []
     }
     this.publicationService.setNewLocation(data).subscribe(res =>{
-      this.notifier.notify( 'success', 'Uspjesno ste dodali lokaciju');
       this.closeModal(res);
     }, err => {
       this.notifier.notify( 'warning', 'Niste uspjeli da dodate lokaciju')

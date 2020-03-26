@@ -116,7 +116,6 @@ export class Global {
 
     geIOLing(link: any) {
         let allowedOrigins = link.split('/')[0] + link.split('/')[1] + link.split('/')[2];
-        console.log(allowedOrigins);
         return allowedOrigins;
     }
 
@@ -125,7 +124,7 @@ export class Global {
         
         var newJson = JSON.parse(localStorage.getItem('user'));
 
-        if (object['email']) console.log('Usao ovde')
+        if (object['email']) newJson.email = object['email'];
         if (object['username']) newJson.username = object['username'];
         if (object['about']) newJson.about = object['about'];
         if (object['city']) newJson.address.city = object['city'];
@@ -289,14 +288,11 @@ export class Global {
     }
 
     timeOfSetAddress(setDate: Date) {
-        console.log(setDate)
         const source = timer(1000, 2000);
         let that = this;
         // setTimeout(() => {
-        //     console.log(LocationComponent)
         // }, 5000);
         // const abc = source.subscribe(val => {
-        //     console.log(val, '-');
         //     // this.subscribeTimer = this.timeLeft - val;
         //   });
     }

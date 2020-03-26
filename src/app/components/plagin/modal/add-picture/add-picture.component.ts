@@ -35,7 +35,6 @@ export class AddPictureComponent implements OnInit {
   }
 
   onSelectImgForHeader(event: any) {
-    console.info('ProfileComponent.onSelectImgForHeader() - push button and select image in local file');
     if (event.target.files && event.target.files[0]) {
       var reader = new FileReader();
       reader.readAsDataURL(event.target.files[0]); // read file as data url
@@ -60,31 +59,15 @@ export class AddPictureComponent implements OnInit {
 
     const addPictureConstruct = {
       image: '',
-      text: '',
+      text: this.text,
       cordinate: {}
     };
-    addPictureConstruct.image = name;
-    addPictureConstruct.text = this.text;
-    this.mediaService.addPicture(this.fd, name, addPictureConstruct).subscribe(res => {
-      console.log(res)
+
+    this.mediaService.addPicture(this.fd, name.toString(), addPictureConstruct).subscribe(res => {
       this.ngRestore();
       this.closeModal('success');
     }, err => {
       this.closeModal('error')
-    })
-
-
-
-
-
-    
-    var datetimestamp = Date.now();
-    this.fd.append('file', this.selectedFilesHeaderImage, name.toString());
-
-    this.userService.saveImageProfile(this.fd, name.toString()).subscribe(res => {
-      console.log(res);
-      this.ngRestore();
-      this.closeModal({status: true});
     })
   }
 

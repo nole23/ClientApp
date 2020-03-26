@@ -1,6 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { User } from '../../../models/user';
-import { UserService } from '../../../services/user.service';
+import { DeleteFriendsComponent } from '../modal/delete-friends/delete-friends.component';
 
 @Component({
   selector: 'app-friends',
@@ -9,15 +10,29 @@ import { UserService } from '../../../services/user.service';
 })
 export class FriendsComponent implements OnInit {
 
-  @Input() item: any;
+  @Input() item: User;
   @Input() user: any;
-  constructor(private userService: UserService) { }
+  @Output() emit = new EventEmitter<any>();
 
-  ngOnInit() {
-  }
+  constructor(public matDialog: MatDialog,) { }
 
-  deleteFriends(item: User) {
-    console.log(item)
+  ngOnInit() { }
+
+  deleteFriends() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.id = "modal-component";
+    dialogConfig.minWidth = "400px";
+    dialogConfig.data = {
+      item: this.item
+    }
+    const modalDialogRemoveFriend = this.matDialog.open(DeleteFriendsComponent, dialogConfig);
+    modalDialogRemoveFriend.afterClosed().subscribe(result => {
+      // Ako se sjetim nesto da uradim
+      if (result !== null) {
+        this.emit.emit(result);
+      }
+    })
   }
 
 }

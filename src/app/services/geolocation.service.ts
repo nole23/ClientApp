@@ -69,14 +69,12 @@ export class GeolocationService {
       if (oldGeolocation.cordinates.latitude.toFixed(3) === res.coords.latitude.toFixed(3)) {
           const source = timer(36000000, 2000);
           that.abc = source.subscribe(val => {
-              console.log(val + '-');
               that.startAutomationChangeLocation();
           });
       } else {
         let address = this.getAddressWithCorrdinates([res.coords.longitude, res.coords.latitude]);
 
         address.then(adr => {
-          console.log('dosao service')
           this.setNewLocationServer(res.coords);
           this.setInLocalStorage(adr, res.coords);
         })
@@ -109,9 +107,9 @@ export class GeolocationService {
     }
     this.http.post(this.global.getLink() + 'geolocation/', geocordinate)
       .subscribe(res => {
-        console.log(res)
+        // console.log(res)
       }, err => {
-        console.log(err)
+        // console.log(err)
       })
   }
 }

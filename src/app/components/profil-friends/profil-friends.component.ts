@@ -12,6 +12,7 @@ import { ProfileImagesComponent } from '../plagin/modal/profile-images/profile-i
 import { UpdateProfilImageComponent } from '../plagin/modal/update-profil-image/update-profil-image.component';
 import { AddLocationComponent } from '../plagin/modal/add-location/add-location.component';
 import { AddPictureComponent } from '../plagin/modal/add-picture/add-picture.component';
+import { DeleteFriendsComponent } from '../plagin/modal/delete-friends/delete-friends.component';
 
 @Component({
   selector: 'app-profil-friends',
@@ -228,10 +229,29 @@ export class ProfilFriendsComponent implements OnInit, OnDestroy {
   removeFriends(user: User) {
     // console.info('ProfileComponent.removeFriends() - push button and delete frineds from frineds list');
     this.btnSave = true;
-    this.userService.deleteFriends(user).subscribe(res => {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.id = "modal-component";
+    dialogConfig.minWidth = "400px";
+    dialogConfig.data = {
+      item: user
+    }
+    const modalDialogRemoveFriend = this.matDialog.open(DeleteFriendsComponent, dialogConfig);
+    modalDialogRemoveFriend.afterClosed().subscribe(result => {
+      // Ako se sjetim nesto da uradim
       this.btnSave = false;
       this.isFriends = false;
+      if (result !== null) {
+        this.btnSave = false;
+        this.isFriends = false;
+        this.onEmitFriends(result)
+      }
     })
+  }
+
+  onEmitFriends(event: any) {
+    let index = this.userList.findIndex(x => x._id === event['id'].toString());
+    this.userList.splice(index, 1)
   }
 
   ngOnDestroy() {

@@ -67,9 +67,6 @@ export class HomeComponent implements OnInit {
         this._getFriends(this.listChatFriends, numberOfList);
       },
       (err: any) => {
-        console.log(
-          "ProfileComponent.ngOnInit() - Data initialization - twoway-statusservice not recognization"
-        );
         this._getFriends(this.listChatFriends, numberOfList);
       }
     );
@@ -312,7 +309,6 @@ export class HomeComponent implements OnInit {
   }
 
   onActivate(e, scrollContainer) {
-    console.log('upao')
     scrollContainer.scrollTop = 0;
   }
 

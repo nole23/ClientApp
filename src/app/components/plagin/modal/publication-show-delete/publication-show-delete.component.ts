@@ -22,7 +22,6 @@ export class PublicationShowDeleteComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.data)
     this.type = this.data['status']
   }
 
@@ -31,7 +30,6 @@ export class PublicationShowDeleteComponent implements OnInit {
   }
 
   ngDeleteItem() {
-    console.log('Obrisati objavu')
     this.publicationService.deletePublicaton(this.data['item']).subscribe((res: any) => {
       this.notifier.notify('success', 'Uspjesno ste obrisali')
       this.closeModal({'public' : res['message'], 'type': 'delete'});

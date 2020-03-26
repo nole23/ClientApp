@@ -143,7 +143,8 @@
       <div class="add-publication bo-b-1-d" *ngIf="!status">
         <div 
           class="location bo-c-1 bo-cir-20 m-t-3 m-l-10 p-t-6 p-r-10 p-b-0 p-l-10 m-r-15 float-r cursor-pointer"
-          (click)="openModal(null, 'addLocation')">
+          (click)="openModal(null, 'addLocation')"
+          title="Ostavite lokaciju">
           <div class="float-l">
             <i class="fa fa-map-marker fs-20 text-white-f" aria-hidden="true"></i>
           </div>
@@ -151,9 +152,19 @@
 
         <div 
           class="location bo-c-1 bo-cir-20 m-t-3 m-l-10 p-t-6 p-r-10 p-b-0 p-l-10 float-r cursor-pointer"
-          (click)="openModal(null, 'addPicture')">
+          (click)="openModal(null, 'addPicture')"
+          title="Objavite sliku">
           <div class="float-l">
             <i class="fa fa-picture-o fs-20 text-white-f" aria-hidden="true"></i>
+          </div>
+        </div>
+
+        <div 
+          class="location bo-c-1 bo-cir-20 m-t-3 m-l-10 p-t-6 p-r-10 p-b-0 p-l-10 float-r cursor-pointer"
+          (click)="openModal(null, 'addComent')"
+          title="Napisite nesto">
+          <div class="float-l">
+            <i class="fa fa-text-width fs-20 text-white-f" aria-hidden="true"></i>
           </div>
         </div>
       </div>
@@ -171,7 +182,7 @@
         <span class="sr-only">Loading...</span>
       </div>
 
-      <app-friends *ngFor="let item of userList" [item]="item" [user]="user"></app-friends>
+      <app-friends *ngFor="let item of userList" [item]="item" [user]="user" (emit)="onEmitFriends($event)"></app-friends>
     </div>
 
     <div class="user-tab" id="style-4" *ngIf="tab === 'picture'">
