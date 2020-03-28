@@ -1,31 +1,179 @@
-<div class="container" #search>
-    <h1 class="font-weight-light text-center text-lg-left mt-4 mb-0">Osobe iz okruzenja</h1>
-	<button class="search-button" (click)="ngShowSearch()">
-		<i class="fa fa-search" aria-hidden="true"></i>
-	</button>
-    <input type="text" placeholder="Pretraga..." class="search m-search" name="searchText" [(ngModel)]="searchText" (input)="filter()" [id]="'input-search'">
-    <!--<button><i class="fa fa-search" aria-hidden="true"></i></button>-->
-    <hr class="mt-2 mb-5">
+<div class="my-container h-full m-t-35 of-auto" id="style-4">
+  <div class="w-full h-min-50 float-l pos-relative">
+    <h1 class="text-white-f float-l fs-35 w-50p" i18n="@@SearchPipleInPlace">
+      Osobe iz okruzenja
+    </h1>
+    
+    <button 
+      class="fa-green-h float-r css-media-mobile fs-35 m-r-5"
+      type="button" style="display: none;"
+      (click)="ngOpen()">
+      <i class="fa fa-bars" aria-hidden="true"></i>
+    </button>
 
-    <div class="spinner-border text-success" *ngIf="loading"></div>
-    <div class="row text-center text-lg-left body-style"  id="style-4" *ngIf="searchUsers === null && !loading">
-      <div class="col-lg-3 col-md-4 col-6" *ngFor="let item of listUsers">
-        <a [routerLink]="['/friends/' + item._id]" class="d-block mb-4 h-100" style="cursor: pointer;">
-          <img class="img-fluid img-thumbnail" src="{{item.otherInformation.publicMedia.profileImage}}" alt="">
-          <p>{{item.firstName + ' ' + item.lastName}}</p>
-        </a>
+    <input
+      type="text"
+      class="form-control h-48p min-w-200 max-w-400 float-r"
+      name="searchText"
+      [(ngModel)]="searchText"
+      (input)="filter()"
+      [id]="'input-search'"
+      i18-pleacholder="@@SearchFriends"
+      placeholder="Pretraga...">
+
+    <button 
+      class="fa-green-h float-r css-media-computer fs-35 m-r-5"
+      type="button"  style="display: none;"
+      (click)="ngOpen()">
+      <i class="fa fa-bars" aria-hidden="true"></i>
+    </button>
+
+    <div
+      class="pos-absolute h-10 bo-c-1 top-50 bgwhite right-0 b-t-l-r b-b-r-r b-b-l-r w-setting-call" 
+      style="z-index: 1000;"
+      [ngClass]="cssClass">
+      <div class="float-l w-50p p-t-10 p-r-10 p-b-10 p-l-10 bo-r-1">
+        <span i18n="@@SearchShownWomenOrMen">Prikazati</span>
+
+        <form class="m-t-10">
+          <div class="custom-control custom-checkbox float-l w-40p-calc">
+            <input
+              type="checkbox"
+              class="custom-control-input"
+              id="men"
+              name="men"
+              [(ngModel)]="type.men">
+
+            <label
+              class="custom-control-label"
+              for="men"
+              i18n="@@SearchMen">
+              Mladici
+            </label>
+          </div>
+
+          <div class="custom-control custom-checkbox float-r w-40p-calc">
+            <input
+              type="checkbox"
+              class="custom-control-input"
+              id="women"
+              name="women"
+              [(ngModel)]="type.women">
+
+            <label 
+              class="custom-control-label"
+              for="women"
+              i18n="@@SearchWomen">
+              Zene
+            </label>
+          </div>
+        </form>
       </div>
-      
-    </div>
 
-    <div class="row text-center text-lg-left body-style"  id="style-4" *ngIf="searchUsers !== null && !loading">
-      <div class="col-lg-3 col-md-4 col-6" *ngFor="let item of searchUsers">
-        <a [routerLink]="['/friends/' + item._id]" class="d-block mb-4 h-100" style="cursor: pointer;">
-          <img class="img-fluid img-thumbnail" src="{{item.otherInformation.publicMedia.profileImage}}" alt="">
-          <p>{{item.firstName + ' ' + item.lastName}}</p>
-        </a>
+      <div class="float-l w-50p p-t-10 p-r-10 p-b-10 p-l-10">
+        <span>Gde</span>
+
+        <form class="m-t-10">
+          <div class="col-md-12 mb-12 p-l-0 p-r-0 dropdown">
+            <input 
+              type="text"
+              class="form-control"
+              id="validationServer03"
+              autocomplete="off"
+              name="city"
+              [(ngModel)]="city"
+              (input)="filterCity()"
+              i18-pleacholder="@@SearchCity"
+              placeholder="Grad"
+              role="button"
+              id="dropdownMenuLink"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+              required>
+
+            <div class="dropdown-menu line-height">
+              <div *ngIf="listCity !== null">
+                <button 
+                  class="dropdown-item p-t-5 p-r-5 p-b-0 p-l-5 cursor-pointer"
+                  *ngFor="let item of listCity"
+                  (click)="setiAddress(item)">
+                  <span *ngIf="item.address.city === undefinde">
+                    {{item.address.state}}
+                  </span>
+
+                  <span *ngIf="item.address.city !== undefinde">
+                    {{item.address.city + ' - ' + item.address.country}}
+                  </span>
+                </button>
+              </div>
+              
+              <div
+                class="spinner-border text-success m-t-0 m-l-72 m-b-0p m-r-0p fs-12 w-20 h-20p"
+                role="status"
+                *ngIf="listCity === null">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </div>
+          </div>
+        </form>
       </div>
-      
     </div>
-
   </div>
+
+  <div class="row w-full h-calc p-t-5 p-r-5 p-l-5" id="style-4" >
+    <div 
+      class="col-lg-2 col-md-4 col-6 min-h-160 max-h-230 p-t-5 p-b-5 p-l-5 p-r-5 pos-relative cursor-pointer btn-show"
+      *ngFor="let item of listUsers; let i = index">
+      <img 
+        src="{{item.otherInformation.publicMedia.profileImage}}" 
+        alt="" 
+        class="sizefull fit-image bo-cir-10 op-3">
+
+      <div class="pos-absolute bottom-10 left-10 shift-css lh-0-8">
+        <span class="text-green-b fw-600 fs-16">
+          {{item.firstName + ' ' + item.lastName}}
+        </span>
+
+        <br>
+
+        <span 
+          class="text-white-f fs-12"
+          *ngIf="item.otherInformation.adress.city !== undefinde">
+          {{item.otherInformation.adress.city + ' - ' + item.otherInformation.adress.country}}
+        </span>
+
+        <span 
+          class="text-white-f fs-12"
+          *ngIf="item.otherInformation.adress.city === undefinde">
+          {{item.otherInformation.dateOfBirth | date: 'dd. MMM yyyy.'}}
+        </span>
+      </div>
+      
+      <div class="pos-absolute w-full-cal h-45p bottom-5 bgwhite box-shadow m-l-2 b-t-l-r b-t-r-r btn-show-hover">
+        <button 
+          class="float-l w-50p min-h-full btn btn-outline-success"
+          (click)="addFriend(item, item.request, i)"
+          *ngIf="!item.request">
+          <i class="fa fa-plus" aria-hidden="true" *ngIf="!isLoaderButton"></i>
+          <span class="spinner-border smal" role="status" *ngIf="isLoaderButton"></span>
+        </button>
+
+        <button 
+          class="float-l w-50p min-h-full btn btn-outline-danger"
+          (click)="addFriend(item, item.request, i)"
+          *ngIf="item.request"
+          title="Povuci zahtev">
+          <i class="fa fa-trash" aria-hidden="true" *ngIf="!isLoaderButton"></i>
+          <span class="spinner-border smal" role="status" *ngIf="isLoaderButton"></span>
+        </button>
+
+        <a
+          class="float-l w-50p min-h-full btn btn-outline-info cursor-pointer"
+          [routerLink]="['/friends/' + item._id]">
+          <i class="fa fa-user-o" aria-hidden="true"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

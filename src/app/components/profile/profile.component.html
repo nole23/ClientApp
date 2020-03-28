@@ -186,11 +186,14 @@
     </div>
 
     <div class="user-tab" id="style-4" *ngIf="tab === 'picture'">
-      <div class="spinner-border text-success m-t-50p m-l-50p m-b-0p m-r-0p" role="status" *ngIf="imagesList === null">
+      <div 
+        class="spinner-border text-success m-t-50p m-l-50p m-b-0p m-r-0p"
+        role="status"
+        *ngIf="imagesList === null">
         <span class="sr-only">Loading...</span>
       </div>
       
-      <app-images [imagesList]="imagesList"> </app-images>    
+      <app-images [imagesList]="imagesList" [user]="user"> </app-images>    
     </div>
 
 

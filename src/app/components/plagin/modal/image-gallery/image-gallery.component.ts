@@ -1,7 +1,9 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ɵConsole } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { NotifierService } from 'angular-notifier';
 import { UserService } from '../../../../services/user.service';
 import { MediaService } from '../../../../services/media.service';
+import { Publication } from '../../../../models/publication';
 
 @Component({
   selector: 'app-image-gallery',
@@ -10,18 +12,25 @@ import { MediaService } from '../../../../services/media.service';
 })
 export class ImageGalleryComponent implements OnInit {
 
+  private readonly notifier: NotifierService;
+
   linkImage: String;
   imagesList: []
   index: any;
-  publicInfo: any;
+  publicInfo: Publication;
   isLike: Boolean;
   me: any;
+  linkImageNext: any;
+  linkImageLast: any;
+  isButtonAddPictur: Boolean;
   constructor(
     public dialogRef: MatDialogRef<ImageGalleryComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private userService: UserService,
-    private mediaService: MediaService
+    private mediaService: MediaService,
+    notifier: NotifierService
   ) {
+    this.notifier = notifier;
     this.linkImage = null;
     this.publicInfo = null;
     this.me = JSON.parse(localStorage.getItem('user'));
@@ -31,13 +40,14 @@ export class ImageGalleryComponent implements OnInit {
     this.linkImage = this.data.link.link;
     this.imagesList = this.data.imagesList;
     this.index = this.data.index;
+    this.isButtonAddPictur = (this.me._id === this.data['link']['user']['_id']);
     this.getPublicInfoForImage(this.data['link']['link']['_id'])
   }
 
   getPublicInfoForImage(id: any) {
     this.userService.getPublicByImage(id).subscribe(res =>{
       if (res['publication']['_id'] !== undefined) {
-        this.publicInfo = res['publication']
+        this.publicInfo = new Publication(res['publication'])
         this.isLike = this.isStatusButton(this.publicInfo['likes'])
       } else {
         this.publicInfo = null;
@@ -63,6 +73,7 @@ export class ImageGalleryComponent implements OnInit {
       }
     }
     this.linkImage = this.imagesList[this.index]['link'];
+    this.isButtonAddPictur = (this.me._id === this.imagesList[this.index]['user']['_id']);
     this.getPublicInfoForImage(this.linkImage['_id'])
   }
 
@@ -93,5 +104,15 @@ export class ImageGalleryComponent implements OnInit {
         this.publicInfo.likes.splice(index, 1);
       })
     }
+  }
+
+  addToProfile() {
+    this.userService.updateImageProfile(this.publicInfo).subscribe(res => {
+      this.notifier.notify('success', 'Uspjesno ste postavili profilnu sliku')
+      this.userService.setImageInLocalstorage(this.publicInfo);
+      
+    }, err => {
+      this.notifier.notify('warning', 'Nismo mogli da obradimo ovaj zahtev')
+    })
   }
 }

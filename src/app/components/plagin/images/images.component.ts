@@ -12,10 +12,12 @@ import { AddPictureComponent } from '../../plagin/modal/add-picture/add-picture.
 export class ImagesComponent implements OnInit {
 
   @Input() imagesList: any;
+  @Input() user: any;
   linkImage: String;
   me: any;
   numberOfImage: any;
   isMe: Boolean;
+  showButton: Boolean;
   constructor(
     public matDialog: MatDialog,
     private mediaService: MediaService
@@ -23,9 +25,18 @@ export class ImagesComponent implements OnInit {
     this.linkImage = null;
     this.me = JSON.parse(localStorage.getItem('user'));
     this.isMe = false;
+    this.showButton = false;
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.isButtonFriend();
+  }
+
+  isButtonFriend() {
+    if (this.me._id.toString() === this.user._id.toString()) {
+      this.showButton = true;
+    }
+  }
 
   openImage(link: String, index: any) {
     const dialogConfig = new MatDialogConfig();

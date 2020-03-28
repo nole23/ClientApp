@@ -8,6 +8,7 @@ import { NotifierModule, NotifierOptions } from 'angular-notifier';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NpnSliderModule } from "npn-slider";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -122,7 +123,8 @@ const customNotifierOptions: NotifierOptions = {
     FormsModule,
     MatButtonModule,
     MatDialogModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NpnSliderModule,
   ],
   providers: [
     AuthGuard,

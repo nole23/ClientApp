@@ -2,7 +2,8 @@
 <div class="container">
   <div class="row text-center text-lg-left">
     <div 
-      class="col-lg-3 col-md-4 col-6 max-h-160 min-h-120 m-b-5 p-l-1 p-r-1 bo-d-1">
+      class="col-lg-3 col-md-4 col-6 max-h-160 min-h-120 m-b-5 p-l-1 p-r-1 bo-d-1"
+      *ngIf="showButton">
 
       <a class="d-block mb-4 h-100 cursor-pointer" (click)="addImage()">
         <i class="fa fa-plus m-t-35p btn-green m-l-40p fs-50" aria-hidden="true"></i>

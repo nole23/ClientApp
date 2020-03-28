@@ -112,4 +112,11 @@ export class GeolocationService {
         // console.log(err)
       })
   }
+
+  getAddress(city: any) {
+    return this.http.get(this.global.getLink() + 'geolocation/' + city)
+      .pipe(map(res => {
+        return res;
+      }))
+  }
 }

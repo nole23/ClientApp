@@ -2258,6 +2258,7 @@
 .text-black {color: black;}
 .text-green {color: #00c928}
 .text-white-f {color: #fff;}
+.text-green-b {color: #005f13}
 
 /* ------------------------------------ */
 .text-up {text-transform: uppercase;}
@@ -2270,6 +2271,7 @@
 .text-justify {text-align: justify!important;}
 
 /* ------------------------------------ */
+.lh-0-8 {line-height: 0.8;}
 .lh-1-0 {line-height: 1.0;}
 .lh-1-1 {line-height: 1.1;}
 .lh-1-2 {line-height: 1.2;}
@@ -2339,14 +2341,21 @@
 .w-full {width: 100%;}
 .vw-full {width: 100vw;}
 .h-full {height: 100%;}
-.max-w-full {max-width: 100%;}
-.max-w-75 {max-width: 75%;}
+.h-100pc {height: 100%;}
 .max-h-full {max-height: 100%;}
+.min-h-full {min-height: 100%;}
+.max-h-100 {max-height: 100px!important;}
 .max-h-160 {max-height: 160px;}
+.max-h-230 {max-height: 230px;}
+.min-h-120 {min-height: 120px;}
+.min-h-80 {min-height: 100px;}
+.min-h-160 {min-height: 160px;}
 
 .min-w-full {min-width: 100%;}
-.min-h-full {min-height: 100%;}
-.min-h-120 {min-height: 120px;}
+.max-w-full {max-width: 100%;}
+.max-w-75 {max-width: 75%;}
+.min-w-200 {min-width: 200px;}
+.max-w-400 {max-width: 400px;}
 .h-1 {min-height: 1vh;}
 .h-2 {min-height: 2vh;}
 .h-3 {min-height: 3vh;}
@@ -2368,6 +2377,7 @@
 .h-m-70 {max-height: 70vh;}
 .h-max-60 {max-height: 60vh;}
 .h-min-40 {min-height: 40px;}
+.h-min-50 {min-height: 50px;}
 
 .h-f-70 {height: 70vh;}
 
@@ -2384,6 +2394,15 @@
 .h-38p {height: 38px;}
 .h-39p {height: 39px;}
 .h-40p {height: 40px;}
+.h-41p {height: 41px;}
+.h-42p {height: 42px;}
+.h-43p {height: 43px;}
+.h-44p {height: 44px;}
+.h-45p {height: 45px;}
+.h-46p {height: 46px;}
+.h-47p {height: 47px;}
+.h-48p {height: 48px;}
+.h-49p {height: 49px;}
 .h-50p {height: 50px;}
 .h-60p {height: 60px;}
 .h-70p {height: 70px;}
@@ -2406,6 +2425,7 @@
 .w-39 {width: 39px;}
 .w-40 {width: 40px;}
 .w-50 {width: 50px;}
+.w-51 {width: 51px;}
 .w-60 {width: 60px;}
 .w-70 {width: 70px;}
 .w-80 {width: 80px;}
@@ -2428,6 +2448,7 @@
 .w-70p {width: 70%;}
 .w-80p {width: 80%;}
 .w-90p {width: 90%;}
+.w-100p {width: 100%!important;}
 
 /*[ Top Bottom Left Right ]
 -----------------------------------------------------------
@@ -2743,6 +2764,7 @@
 
 .bo-c-1 {border: 1px solid #00c928;}
 .bo-d-1 {border: 1px dashed #00c928;}
+.bo-r-1 {border-right: 1px solid #00c928;}
 .bo-cir-20 {border-radius: 20px;}
 .bo-cir-10 {border-radius: 10px;}
 .bo-cir-5 {border-radius: 5px;}

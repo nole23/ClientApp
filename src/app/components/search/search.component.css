@@ -1,77 +1,98 @@
-.container {
-    color: #00c928;
-    margin-top: calc(100vh - 111vh);;
+.row {
+	margin-left: 0;
+	margin-right: 0;
 }
-
-.mt-4 {
-    margin-top: 14vh!important;
-    margin-bottom: 2.5vh!important;
+.w-full-cal {
+	width: calc(100% - 15px);
 }
-
-.h-100 p {
-    color: #00c928 !important;
-    font-size: 25px !important;
-    border-bottom: 3px solid #fff;
+.b-t-l-r {
+	border-top-left-radius: 5px
 }
-
-.spinner-border {
-    color: #00c928!important;
-    margin: 30vh 0 0 40vw;
+.b-t-r-r {
+	border-top-right-radius: 5px
 }
-
-.body-style {
-    overflow: auto;
-    height: 81vh !important;
-    margin-top: -5vh;
-    height: 85%;
+.b-b-r-r {
+	border-bottom-right-radius: 5px
 }
-
-.search {
-    position: absolute;
-    top: 7vh;
-    left: 72vw;
-    width: 25vw;
-    height: 5vh;
-    padding: 10px;
-    border-radius: 3px;
+.b-b-l-r {
+	border-bottom-left-radius: 5px
 }
-
-.search-button {
+.box-shadow {
+	box-shadow: 0px 0px 5px 5px;
+}
+.btn-show-hover {
 	display: none;
 }
-
-.m-search {
+.btn-show:hover .btn-show-hover{
+	display: block;
+	transition-delay:5s;
+}
+.btn-show:hover .op-3 {
+	opacity: 0.9;
+}
+.btn-show:hover .shift-css {
+	bottom: 55px!important;
+}
+.op-3 {
+	opacity: 0.7;
+}
+.css-media-mobile {
+	display: none;
+}
+.css-media-computer {
+	display: block
+}
+.w-setting-call {
+	width: 500px;
+}
+.w-40p-calc {
+	width: 40%;
+}
+.show {
 	display: block;
 }
+.hide {
+	display: none;
+}
+@media (min-width: 769px) {
+	.m-t-35 {
+		margin-top: 0;
+	}
 
-@media (max-width: 761px) {
-    .search {
-		top: 9vh;
-		left: 5vw;
-		width: 80vw;
-		height: 4vh;
-    }
-	
-	.m-search {
+	.h-calc {
+		height: calc(100% - 55px);
+	}
+}
+@media (max-width: 768px) {
+	.my-container {
+		padding-right: 15px;
+		padding-left: 15px;
+	}
+	.h-full {
+		height: calc(100% - 55px);;
+	}
+	.min-w-200 {
+		max-width: 100%;
+	}
+	.h-calc {
+		height: calc(100% - 90px);
+	}
+	.css-media-mobile {
+		display: block;
+	}
+	.css-media-computer {
 		display: none;
 	}
-	
-	.search-button {
-		display: block;
-		color: #00c928;
-		position: absolute;
-		top: 55px;
-		right: 25px;
-		font-size: 20px;
+	.w-setting-call {
+		width: 100%;
 	}
-	
-	.container {
-		height: calc(100vh - 60px);
+	.w-40p-calc {
+		width: 100%;
 	}
+}
 
-	.mt-4 {
-		margin-top: 16vh!important;
-		margin-bottom: 0;
-		font-size: 20px;
-	}
+.custom-control-input:checked ~ .custom-control-label::before {
+    color: #fff;
+    border-color: #00c928!important;
+	background-color: #00c928!important;
 }

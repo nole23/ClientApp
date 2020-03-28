@@ -26,21 +26,34 @@
         class="btn btn-outline-secondary pos-absolute top-50p right-1">
         <i class="fa fa-angle-right"></i>
       </button>
-      
-      <span class="fa-stack pos-absolute fa-green left-10 bottom-5">
-        <i class="fa fa-thumbs-up fa-stack-2x"></i>
-        <span class="fs-20 m-l-35" *ngIf="publicInfo !== null">{{publicInfo.likes.length}}</span>
-      </span>
-
-      <button
-        id="modal-action-button"
-        [ngClass]="!isLike ? 'btn-outline-success' : 'btn-outline-danger'"
-        class="btn m-r-5 pos-absolute bottom-5 right-5"
-        (click)="ngLikeDislike()"
-        i18n="@@ButtonCancel">
-        <i class="fa fa-thumbs-up" *ngIf="!isLike"></i>
-        <i class="fa fa-thumbs-o-down" *ngIf="isLike"></i>
-      </button>
     </div>
   </section>
+
+  <footer id="modal-footer" style="margin-top: 2px;" *ngIf="imageLink !== null">
+    <span class="number-of-likes" *ngIf="publicInfo !== null">
+      Lajkovi: {{publicInfo.likes.length}}
+    </span>
+
+    <button
+      type="button" 
+      (click)="addToProfile()" 
+      id="modal-action-button"
+      class="btn btn-outline-success float-r"
+      [disabled]="isDisable"
+      *ngIf="isButtonAddPictur">
+      
+      <span>Postavi kao profilnu</span>
+    </button>
+
+    <button 
+      type="button" 
+      (click)="ngLikeDislike()" 
+      [ngClass]="{'btn-outline-success': !isLike, 'btn-outline-danger': isLike }" 
+      id="modal-action-button"
+      class="btn m-r-5 float-r">
+
+      <i class="fa fa-thumbs-up" *ngIf="!isLike"></i>
+      <i class="fa fa-thumbs-o-down" *ngIf="isLike"></i>
+    </button>
+  </footer>
 </div>

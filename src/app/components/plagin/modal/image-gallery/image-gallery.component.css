@@ -26,3 +26,10 @@
     background-color: #009c1f;
     color: #ddd
 }
+
+.number-of-likes {
+    font-size: 15px;
+    color: #fff;
+    padding: 5px;
+    float: left;
+}
