@@ -2,6 +2,7 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { User } from '../../../models/user';
 import { UserInformation } from '../../../models/user-information';
 import { UserService } from '../../../services/user.service';
+import { LoginService } from '../../../services/login.service';
 
 @Component({
   selector: 'app-registration',
@@ -9,8 +10,7 @@ import { UserService } from '../../../services/user.service';
   styleUrls: ['./registration.component.css']
 })
 export class RegistrationComponent implements OnInit {
-  @Output() ngClose = new EventEmitter<Boolean>();
-  @Output() ngEmailNotCorect = new EventEmitter<Boolean>();
+  @Output() ngClose = new EventEmitter<any>();
 
   user: User;
   userInformation: UserInformation;
@@ -22,18 +22,28 @@ export class RegistrationComponent implements OnInit {
   validateLPass: String;
   validateSex: String;
   isSpiner: Boolean;
-  constructor(private userService: UserService) {
+  userLang: String;
+  iPInfo: any;
+  constructor(private userService: UserService, private loginService: LoginService) {
     this.user = new User();
     this.userInformation = new UserInformation();
     this.worningRegistrationStatus = false;
     this.isSpiner = false;
+    this.userLang = navigator.language;
   }
 
   ngOnInit() {
+    this.IPInfo();
+  }
+
+  IPInfo() {
+    this.loginService.getIPInfo().subscribe(res => {
+      this.iPInfo = res;
+    })
   }
 
   ngLogin() {
-    this.ngClose.emit(true);
+    this.ngClose.emit({status: true, message: 'LOGIN'});
   }
 
   validation() {
@@ -59,19 +69,20 @@ export class RegistrationComponent implements OnInit {
   ngNewRegistration() {
     this.isSpiner = true;
     if (this.validation()) {
-      this.userService.registration(this.user, this.userInformation)
+      this.loginService.registration(this.user, this.userInformation, this.userLang, this.iPInfo)
       .subscribe(res => {
-        this.ngClose.emit(true);
-        this.userInformation = new UserInformation();
-        this.user = new User();
-        this.isSpiner = false;
-      }, err => {
-        if (err['status'] === 400) {
-          this.validation();
-        } else if (err['status'] === 403) {
-          this.ngEmailNotCorect.emit(true);
+        if (res['message'] === 'SUCCESS') {
+          this.userInformation = new UserInformation();
+          this.user = new User();
           this.isSpiner = false;
+          this.ngClose.emit({status: true, message: 'SUCCESS_CREAT_PROFILE'});
+        } else {
+          this.isSpiner = false;
+          this.ngClose.emit({status: false, message: res['message']});
         }
+      }, err => {
+        this.ngClose.emit({status: false, message: 'ERROR_SERVER_NOT_FOUND'});
+        this.isSpiner = false;
       });
     }
   }

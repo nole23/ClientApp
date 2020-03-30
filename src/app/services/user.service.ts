@@ -13,21 +13,6 @@ export class UserService {
 
   constructor(private global: Global, private http: HttpClient) { }
 
-  login(user: User) {
-    return this.http.post(this.global.getLink() + 'authentation/sing-in', {user: user}).pipe(map(res =>{
-      localStorage.setItem('token', JSON.stringify(res['token']));
-      localStorage.setItem('user', JSON.stringify(res['user']));
-      return res['user'];
-    }))
-  }
-
-  registration(user: User, userInformation: UserInformation) {
-    return this.http.post(this.global.getLink() + 'authentation/sing-up', {user: user, userInformation: userInformation})
-    .pipe(map(res => {
-      return res;
-    }))
-  }
-
   restartPassword(user: User) {
     return this.http.put(this.global.getLink() + 'authentation/token-for-restart-passwrod', user)
     .pipe(map(res => {
@@ -181,16 +166,6 @@ export class UserService {
 
   getPicture(user: User) {
     return [{img: ''}];
-  }
-
-  logout() {
-    return this.http.get(this.global.getLinkStatus() + 'status/logout')
-      .pipe(map(res => {
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
-        localStorage.removeItem('address')
-        return res;
-    }))
   }
 
   setImageInLocalstorage(link: any) {

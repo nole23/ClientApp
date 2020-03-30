@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { UserService } from '../../services/user.service';
+import { LoginService } from '../../services/login.service';
 import { User } from '../../models/user';
 
 @Component({
@@ -12,7 +12,7 @@ export class SidebarComponent implements OnInit {
 
   addCals: String;
   user: User;
-  constructor(private userService: UserService) {
+  constructor(private loginService: LoginService) {
     this.addCals = '';
     this.user = new User();
   }
@@ -30,8 +30,7 @@ export class SidebarComponent implements OnInit {
   }
 
   ngLogout() {
-    this.userService.logout().subscribe(res => {
-      this.status.emit();
-    })
+    this.loginService.logout();
+    this.status.emit();
   }
 }

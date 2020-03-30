@@ -317,5 +317,20 @@ export class Global {
         this.isAutoLocation = type;
     }
 
-    
+    getResponse(message: String) {
+        if (
+            message !== 'ERROR_UNAUTHORIZED' && 
+            message !== 'ERROR_NULL_POINTER_EXEPTION' &&
+            message !== 'ERROR_PROFILE_NOT_VERIFY' &&
+            message !== 'ERROR_SERVER_NOT_FOUND' &&
+            message !== 'ERROR_EMAIL_NOT_FREE' &&
+            message !== 'ERROR_NOT_SAVE_INFORMATION' &&
+            message !== 'ERROR_NOT_SAVE_CONFIGURATION' &&
+            message !== 'SUCCESS_CREAT_PROFILE'
+        ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

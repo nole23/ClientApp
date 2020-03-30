@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject, LOCALE_ID, ViewChild } from "@angular/core";
 import { AuthNav } from "./guard/auth-nav";
 import * as io from "socket.io-client";
+import { NotifierService } from 'angular-notifier';
 import { SidebarComponent } from "./components/sidebar/sidebar.component";
 import { Global } from "./global/global";
 
@@ -11,6 +12,7 @@ import { Global } from "./global/global";
 })
 export class AppComponent implements OnInit {
   @ViewChild(SidebarComponent) child;
+  private readonly notifier: NotifierService;
 
   private socket: any;
 
@@ -33,13 +35,16 @@ export class AppComponent implements OnInit {
   btnColorNewFriend: String;
   btnColorNewMessage: String;
   btnColorNewInfo: String;
+
+  statusError: String;
   constructor(
     private auth: AuthNav,
     @Inject(LOCALE_ID) public locale: string,
-    private global: Global
+    private global: Global,
+    notifier: NotifierService,
   ) {
     this.socket = io("https://twoway-chatservice.herokuapp.com");
-
+    this.notifier = notifier;
     this.loading = true;
     this.loginStatus = false;
     this.loginForm = true;
@@ -58,6 +63,7 @@ export class AppComponent implements OnInit {
     this.btnColorNewMessage = "";
     this.btnColorNewInfo = "";
     this.user = null;
+    this.statusError = null
   }
 
   ngOnInit() {
@@ -120,6 +126,14 @@ export class AppComponent implements OnInit {
     this.title = "Ulogujte se";
   }
 
+  ngRegistrationClose(event: any) {
+    if (event['message'] === 'LOGIN') {
+      this.ngHidenClose(true);
+    } else {
+      this.statusError = event['message']
+    }
+  }
+
   ngEmailNotCorect(event: any) {
     this.worningRegistrationStatus = event;
   }
@@ -129,8 +143,12 @@ export class AppComponent implements OnInit {
    * @param event
    */
   ngLoginStatus(event: any) {
-    this.loginStatus = event;
-    this.loading = !event;
+    if (!event.status) {
+      this.statusError = event.message;
+    } else {
+    this.loginStatus = event.status;
+    this.loading = !event.status;
+    }
   }
 
   ngSavePassword(event: any) {

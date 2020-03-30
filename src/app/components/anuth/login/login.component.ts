@@ -1,6 +1,7 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { User } from '../../../models/user';
 import { UserService } from '../../../services/user.service';
+import { LoginService } from '../../../services/login.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,15 +11,14 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   @Output() ngClose = new EventEmitter<Boolean>();
-  @Output() ngLoginStatus = new EventEmitter<Boolean>();
-  @Output() ngEerrorStatus = new EventEmitter<Boolean>();
-  @Output() ngStatusProfile = new EventEmitter<Boolean>();
-  @Output() ngNotActivete = new EventEmitter<Boolean>();
+  @Output() ngLoginStatus = new EventEmitter<any>();
   @Output() ngRestartPassword = new EventEmitter<Boolean>();
 
   user: User;
   isSpiner: Boolean;
-  constructor(private userService: UserService, private router: Router) {
+  constructor(private router: Router,
+    private loginService: LoginService
+  ) {
     this.user = new User();
     this.isSpiner = false;
   }
@@ -32,24 +32,23 @@ export class LoginComponent implements OnInit {
 
   ngLogin() {
     this.isSpiner = true;
-    this.userService.login(this.user)
-    .subscribe(res => {
-      this.ngLoginStatus.emit(true);
-      this.router.navigate(['/home'])
-      this.isSpiner = false;
-    }, err => {
-      if (err['status'] === 401) {
-        this.ngStatusProfile.emit(true);
-      } else if (err['status'] === 404) {
-        this.ngEerrorStatus.emit(true);
-      } else if (err['status'] === 403) {
-        this.ngNotActivete.emit(true);
-      } else if (err['status'] === 400) {
-        this.ngEerrorStatus.emit(true)
-      }
-      this.isSpiner = false;
-      this.user = new User();
-    })
+    this.loginService.login(this.user)
+      .subscribe(res => {
+
+        if (res['message'] !== 'SUCCESS') {
+          this.ngLoginStatus.emit({status: false, message: res['message']});
+          this.isSpiner = false;
+        } else {
+          this.ngLoginStatus.emit({status: true, message: res['message']});
+          this.router.navigate(['/home'])
+          this.isSpiner = false;
+        }
+
+      }, err => {
+        this.ngLoginStatus.emit({status: false, message: 'ERROR_SERVER_NOT_FOUND'});
+        this.user = new User();
+        this.isSpiner = false;
+      })
   }
 
   ngOpenRestartPassword() {

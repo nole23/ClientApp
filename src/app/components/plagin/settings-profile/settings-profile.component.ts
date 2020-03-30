@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Global } from 'src/app/global/global';
 import { Settings } from 'src/app/models/settings';
 import { UserService } from 'src/app/services/user.service';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-settings-profile',
@@ -15,28 +16,57 @@ export class SettingsProfileComponent implements OnInit {
   isStatus: boolean;
   settings: Settings;
   btnSave: Boolean;
-  constructor(public el: ElementRef, private global: Global, private userService: UserService) {
+  constructor(
+    public el: ElementRef,
+    private global: Global,
+    private userService: UserService,
+    private loginService: LoginService
+  ) {
     this.data = null;
     this.isStatus = false;
     this.btnSave = false;
   }
 
   ngOnInit() {
-    console.info('SettingsProfileCommponent.ngOnInit() - Data initialization');
-
     let opcions = this.global.getOptions();
     let user = JSON.parse(localStorage.getItem('user'));
 
     let opcion = this.parseData(user, opcions.GeneralData);
     let account = this.parseData(user, opcions.Account);
-    let privacy = this.parseData(user, opcions.Privacy);
+    // let privacy = this.parseData(user, opcions.Privacy);
     let otherInformations = this.parseData(user, opcions.OtherInformations);
 
-    this.data = [opcion, account, otherInformations, privacy];
+    let options = {
+      title: opcions.OtherInformations.title,
+      icon: opcions.OtherInformations.icon,
+      data: JSON.parse(localStorage.getItem('options'))
+    }
+    let test = this.parseDataOptions(options);
+
+    this.data = [opcion, account, otherInformations, test];
+  }
+
+  parseDataOptions(generalData: any) {
+    let data = {
+      title: generalData.title,
+      icon: generalData.icon,
+      data: []
+    }
+    for (let i = 0 ; i < generalData.data.length; i++) {
+      data['data'].push({
+        image: false,
+        name: generalData.data[i].name,
+        show: true,
+        type: generalData.data[i].type,
+        value: generalData.data[i].idName,
+        idName: generalData.data[i].idName,
+        selectionParameter: generalData.data[i].selectionParameter
+      })
+    }
+    return data
   }
 
   parseData(item: any, generalData: any) {
-    console.info('SettingsProfileCommponent.parseData() - Parsing data for input type');
     let data = {
       title: generalData.title,
       icon: generalData.icon,
@@ -50,14 +80,13 @@ export class SettingsProfileComponent implements OnInit {
         type: generalData.data[i].type,
         value: this.getValue(item, generalData.data[i].idData),
         idName: generalData.data[i].idName,
-		selectionParameter: generalData.data[i].selections
+        selectionParameter: generalData.data[i].selections
       })
     }
     return data;
   }
 
   getValue(value: any, type: any) {
-    console.info('SettingsProfileCommponent.getValue() - Extracting values based on a key ' + type + ' from an object');
     if (type.length === 1) {
       return value[type[0]]
     } else if (type.length === 2) {
@@ -88,7 +117,6 @@ export class SettingsProfileComponent implements OnInit {
   }
 
   ngSetting(i: String) {
-    console.info('SettingsProfileCommponent.ngSetting() - Push button for opne/close settings section');
     let select = this.prod.nativeElement.children['settings-id-' + i];
     for (let j = 1; j<select.children.length - 1; j++) {
       
@@ -123,8 +151,6 @@ export class SettingsProfileComponent implements OnInit {
   }
 
   ngSaveEdit(i: any) {
-    console.info('SettingsProfileCommponent.ngSaveEdit() - Push button for save change date');
-
     this.btnSave = true;
     const select = this.prod.nativeElement.children['settings-id-' + i];
 	
@@ -144,7 +170,7 @@ export class SettingsProfileComponent implements OnInit {
     if (i === 1) {
       this.userService.editAccount(object).subscribe((res: any) => {
         this.btnSave = false;
-        this.userService.logout();
+        this.loginService.logout();
       })
     }
 
@@ -162,7 +188,6 @@ export class SettingsProfileComponent implements OnInit {
   }
 
   editData(object: any, index: any) {
-    console.info('SettingsProfileCommponent.editData() - Edit date after server edit')
     this.data[index].data.forEach((data) => {
       if (object[data.idName]) data.value = object[data.idName];
     })

@@ -15,28 +15,95 @@
         <form class="login100-form validate-form">
         
           <span class="login100-form-title p-b-59" i18n="@@createProfile">
-            <i class="m-r-5"><img src="../assets/picture/icons/logo.png" alt="" width="25px" height="25px"></i>
+            <i class="m-r-5">
+              <img src="../assets/picture/icons/logo.png" alt="" width="25px" height="25px">
+            </i>
             {{title}}
           </span>
+          
+          <span 
+            class="worning"
+            *ngIf="statusError === 'ERROR_PROFILE_NOT_VERIFY'"
+            i18n="@@AppProfilNotVerify">
+            Nalog ne postoji ili je deaktiviran. 
+            Da bi ste ponovo vratili vas nalog posaljite zahtev za aktivaciju naloga
+          </span>
 
-          <span class="worning" *ngIf="worningRegistrationStatus" i18n="@@emailNotFree">Email je zauzet, proverite vas email!</span>
-          <span class="worning" *ngIf="worningStatus" i18n="@@userIsDeactive">Nalog ne postoji ili je deaktiviran. Da bi ste ponovo vratili vas nalog posaljite zahtev za aktivaciju naloga</span>
-          <span class="error" *ngIf="errorStatus" i18n="@@errorLogin">Email ili sifra nisu ispravni. Molimo vas proverite da li ste uneli ispravne podatke</span>
-          <span class="success" *ngIf="successStatus" i18n="@@successLogin">Uspesno ste se registrovali, ostao je poslednji korak da verifikujete nalog. Idite na vas email i verifikujte nalog</span>
-          <span class="worning" *ngIf="emailNotFound" i18n="@@emailNotFound">Email nije pronadjen molimo vas provjerite email</span>
-          <span class="success" *ngIf="passwordRestart" i18n="@@passwordIsChange">Sifra je restartovana, sada se ulogujte sa novom sifrom</span>
-          <span class="worning" *ngIf="codeNotValidate" i18n="@@codeNotCorect">Kod za restartovanje nije dobar, molimo vas provjerite vas kod u porukama</span>
+          <span
+            class="error"
+            *ngIf="statusError === 'ERROR_UNAUTHORIZED'"
+            i18n="@@AppUnauthorized">
+            Email ili sifra nisu ispravni. Molimo vas proverite da li ste uneli ispravne podatke
+          </span>
+
+          <span
+            class="worning"
+            *ngIf="statusError === 'ERROR_NULL_POINTER_EXEPTION'"
+            i18n="@@AppNullPointExeption">
+            Niste popunili sva polja
+          </span>
+
+          <span
+            class="success"
+            *ngIf="statusError === 'SUCCESS_CREAT_PROFILE'"
+            i18n="@@AppSuccessCreatNewProfile">
+            Uspesno ste se registrovali,
+            ostao je poslednji korak da verifikujete nalog.
+            Idite na vas email i verifikujte nalog
+          </span>
+
+          <span 
+            class="error"
+            *ngIf="statusError === 'ERROR_SERVER_NOT_FOUND'"
+            i18n="@@AppServerNotFound">
+            Server je nedostupan, pokusajte malo kasnije. Hvala
+          </span>
+
+          <span
+            class="worning"
+            *ngIf="statusError === 'ERROR_EMAIL_NOT_FREE'"
+            i18n="@@AppEmalNotFree">
+            Email je vec registrovan, da li ste sigurni da nemate nalog ovde.
+            Probajte sa drugim email-om ili pokusate da restartujete sifu
+          </span>
+
+          <span
+            class="worning"
+            *ngIf="statusError === 'ERROR_NOT_SAVE_INFORMATION' || statusError === 'ERROR_NOT_SAVE_CONFIGURATION'"
+            i18n="@@AppSpecificationError">
+            Ne specificirana greska, provjerite podatke i pokusajte ponovo
+          </span>
       
           
-          <app-login *ngIf="loginForm && !loading && !restart && !verify" (ngRestartPassword)="ngRestartPassword($event)" (ngNotActivete)="ngNotActivete($event)" (ngClose)="ngOpenClose($event)" (ngStatusProfile)="ngStatusProfile($event)" (ngLoginStatus)="ngLoginStatus($event)" (ngEerrorStatus)="ngEerrorStatus($event)"></app-login>
-          <app-registration *ngIf="!loginForm  && !loading && !restart && !verify" (ngClose)="ngHidenClose($event)" (ngEmailNotCorect)="ngEmailNotCorect($event)"></app-registration>
-          <app-restart *ngIf="restart && !verify" (ngNotFound)="ngNotFound($event)" (ngClose)="ngHidenClose($event)" (ngStatus)="ngStatus($event)"></app-restart>
-          <app-verify *ngIf="verify && !restart" [email]="email" (ngNotCodeCorect)="ngNotCodeCorect($event)" (ngSavePassword)="ngSavePassword($event)" (ngClose)="ngOpenFirstPage($event)" (ngRestartPassword)="ngRestartPassword($event)"></app-verify>
+          <app-login 
+            *ngIf="loginForm && !loading && !restart && !verify"
+            (ngRestartPassword)="ngRestartPassword($event)"
+            (ngClose)="ngOpenClose($event)"
+            (ngLoginStatus)="ngLoginStatus($event)">
+          </app-login>
+
+          <app-registration 
+            *ngIf="!loginForm  && !loading && !restart && !verify"
+            (ngClose)="ngRegistrationClose($event)">
+          </app-registration>
+
+          <app-restart
+            *ngIf="restart && !verify"
+            (ngNotFound)="ngNotFound($event)"
+            (ngClose)="ngHidenClose($event)"
+            (ngStatus)="ngStatus($event)">
+          </app-restart>
+
+          <app-verify
+            *ngIf="verify && !restart"
+            [email]="email"
+            (ngNotCodeCorect)="ngNotCodeCorect($event)"
+            (ngSavePassword)="ngSavePassword($event)"
+            (ngClose)="ngOpenFirstPage($event)"
+            (ngRestartPassword)="ngRestartPassword($event)">
+          </app-verify>
         </form>
       </div>
-      
-      
-
     </div>
   </div>
 </div>
