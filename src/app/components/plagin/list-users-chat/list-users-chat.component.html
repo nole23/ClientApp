@@ -1,0 +1,85 @@
+<div class="min-w-full h-60p float-l cursor-pointer hover-list" [id]="'item-user-' + item._id">
+  <div 
+    class="w-51 h-100pc float-l p-t-8 p-r-4 p-b-8 p-l-4" 
+    (click)="openChat()">
+    <img 
+      class="sizefull fit-image bo-cir-50p"
+      [ngClass]="item.status ? 'bo-c-2-online' : 'bo-c-2-offline'"
+      src="{{friends.otherInformation.publicMedia.profileImage}}"
+      *ngIf="!isFriends"
+      alt=""/>
+
+      <i 
+        class="fa fa-users fs-35 fa-green"
+        aria-hidden="true"
+        *ngIf="isFriends">
+      </i>
+  </div>
+
+  <div 
+    class="float-l w-list-user-calc h-100pc text-white-f"
+    (click)="openChat()">
+    <div 
+      class="float-l min-w-full h-30p p-t-8 p-l-5 text-full"
+      [ngClass]="!isTrueMessage ? '' : 'fw-900'"  >
+      <span class="fs-18">{{friends.firstName + ' ' + friends.lastName}}</span>
+    </div>
+
+    <div class="float-l min-w-full h-20p fs-12 p-l-5 text-green">
+      <span 
+        class="float-l w-101 text-dot"
+        [ngClass]="!isTrueMessage ? '' : 'fw-900'"  
+        *ngIf="item.message.length !== 0"
+        [innerHTML]="changeText(item.message.text)">
+      </span>
+
+      <span 
+        *ngIf="item.message.length === 0"
+        i18n="@@ListUserChatSendFirstMessage">
+        Posalji prvi poruku
+      </span>
+    </div>
+  </div>
+
+  <div class="float-l h-100pc w-30 dropdown">
+    <button
+      aria-hidden="true"
+      role="button"
+      id="dropdownMenuLink"
+      data-toggle="dropdown"
+      aria-haspopup="true"
+      aria-expanded="false">
+      <span class="fs-20 fa-green disp-hide">
+        <i class="fa fa-cogs m-t-16 m-l-3" aria-hidden="true"></i>
+      </span>
+    </button>
+
+    <div class="hide-circle" *ngIf="isTrueMessage">
+      <i class="fa fa-circle fa-green" aria-hidden="true"></i>
+    </div>
+
+    <div class="dropdown-menu line-height">
+      <div 
+        class="w-200 h-20p p-l-5 dropdown-hover" 
+        (click)="setNotShowMessage()">
+        <span *ngIf="!isTrueMessage">Oznaci kao ne procitano</span>
+        <span *ngIf="isTrueMessage">Oznaci kao procitano</span>
+      </div>
+
+      <hr>
+
+      <div 
+        class="w-200 h-20p p-l-5 m-b-5 dropdown-hover" 
+        (click)="removeChat()"
+        style="display: none;">
+        <span>Obrisati</span>
+      </div>
+
+      <div 
+        class="w-200 h-20p p-l-5 m-b-5 dropdown-hover"
+        style="display: none;">
+        <span>Arhiviraj poruku</span>
+      </div>
+    </div>
+  </div>
+</div>

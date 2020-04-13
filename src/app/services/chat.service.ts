@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { map, catchError  } from 'rxjs/operators';
 import { Global } from '../global/global';
 import { Online } from '../models/online';
@@ -11,43 +11,155 @@ export class ChatService {
 
   constructor(private http: HttpClient, private global: Global) { }
 
-  getChatByUser(_id: String) {
-    return this.http.get(this.global.getChat() + 'chats/' + _id)
+  getAllChater() {
+    return this.http.get(/*this.global.getLink() + */'http://localhost:8084/api/chats/')
+    .pipe(map(res => {
+      return res;
+    }))
+  }
+
+  shetNotShowMessage(chat: any, isType: Boolean) {
+    return this.http.put(/*this.global.getLink() + */'http://localhost:8084/api/chats/', {chat: chat, isType: isType})
+      .pipe(map(res => {
+        if (this.global.getResponseSuccess(res['message'])) {
+          return true;
+        } else {
+          return false;
+        }
+      }))
+  }
+
+  removeMesssage(chat: any) {
+    return this.http.delete(/*this.global.getLink() + */'http://localhost:8084/api/chats/', chat)
       .pipe(map(res => {
         return res;
       }))
   }
 
-  setChat(item: Online, lastElement: any) {
+  getAllMessageOneChat(item: any, page: any) {
+    let params = new HttpParams().set(
+      "item", JSON.stringify(item)
+    ).append(
+      "page", JSON.stringify(page)
+    )
+
+    return this.http.get(/*this.global.getLink() + */'http://localhost:8084/api/chats/' + item._id, {params: params})
+      .pipe(map(res => {
+        if (!this.global.getResponse(res['message'])) {
+          return {message: []};
+        } else {
+          return {message: res['message'], page: res['page']};
+        }
+      }))
+  }
+
+  sendMessage(chat: any, message: String) {
+    return this.http.post(/*this.global.getLink() + */'http://localhost:8084/api/chats/', {chat: chat, message: message})
+      .pipe(map(res => {
+        if (this.global.getResponseSuccess(res['message'])) {
+          return {message: true};
+        } else {
+          return {message: false};
+        }
+      }))
+  }
+
+  removeOneMessage(id: any) {
+    return this.http.delete(/*this.global.getLink() + */'http://localhost:8084/api/chats/' + id)
+      .pipe(map(res => {
+        if (this.global.getResponseSuccess(res['message'])) {
+          return {message: true};
+        } else {
+          return {message: false};
+        }
+      }))
+  }
+
+  setNewChat(messageText: any) {
     
-    const httpOptions = {
-      headers: new HttpHeaders({ 
-        'Access-Control-Allow-Origin':'*',
-      })
+    let regExpLink = this.global.regExpLink(messageText);
+    let regExpSmile = this.global.regExpSmile(messageText);
+    let regExpYt = this.global.regExpYt(messageText);
+    let regExpImg = this.global.regExpImg(messageText);
+
+    let text = ''
+    let linkText = ''
+    let isBgs = false;
+    let isBottom = false;
+
+    if (regExpLink) {
+      if (regExpYt) {
+        if (regExpYt['index'] === 0) {
+          text = this.global.setChatWithoutText(regExpYt[0]);
+          isBgs = true;
+        } else {
+          text = this.global.setChatWithText(
+            messageText.slice(0,regExpYt['index']),
+            regExpYt[0]
+          );
+          isBgs = true; 
+        }
+
+        linkText = this.global.setYtText(regExpYt[0])
+      } else if (regExpImg) {
+        
+        if (regExpImg['index'] === 0) {
+          text = this.global.setChatWithoutText(regExpImg[0]);
+          isBgs = true;
+        } else {
+          text = this.global.setChatWithText(
+            messageText.slice(0,regExpImg['index']),
+            regExpImg[0]
+          );
+          isBgs = true; 
+        }
+
+        linkText = this.global.setImageText(regExpImg[0])
+
+      } else {
+        if (regExpLink['index'] === 0) {
+          text = this.global.setChatWithoutText(regExpLink[0]);
+          isBgs = true;
+          linkText = null;
+        } else {
+          text = this.global.setChatWithText(
+            messageText.slice(0,regExpLink['index']),
+            regExpLink[0]
+          );
+          isBgs = true;
+          linkText = null;
+        }
+      }
+    } else if (regExpSmile) {
+      if (regExpSmile['index'] === 0) {
+        linkText = null;
+        text = messageText;
+        isBgs = false;
+      } else {
+        linkText = null;
+        text = messageText;
+        isBgs = true;
+      }
+    } else {
+      linkText = null;
+      text = messageText;
+      isBgs = true;
+    }
+
+    let textSave = {
+      text: text,
+      dateOfCreate: new Date,
+      isBgs: isBgs,
+      isBottom: isBottom
     };
-    return this.http.post(this.global.getChat() + 'chats/', {body: item, lastElement: lastElement})
-      .pipe(map(res => {
-        return res;
-      }))
-  }
-  pushMessage(chat: any, message: any) {
-    return this.http.post(this.global.getChat() + 'chats/push', {chat: chat, message: message})
-      .pipe(map(res => {
-        return res;
-      }))
-  }
 
-  getMessagesStatus(user: any) {
-    return this.http.post(this.global.getChat() + 'chats/get-status', user)
-      .pipe(map(res => {
-        return res;
-      }))
-  }
+    let imgSave = {
+      text:  linkText,
+      dateOfCreate: new Date,
+      isBgs: false,
+      isBottom: false
+    }
 
-  removeMessageStatus(user: any) {
-    return this.http.get(this.global.getChat() + 'chats/remove-status/' + user)
-      .pipe(map(res => {
-        return res;
-      }))
+    return {text: textSave, imgSave: imgSave, linkText: linkText !== null};
   }
 }

@@ -122,7 +122,7 @@
             <button type="button" [ngClass]="btnColorNewFriend" class="btn btn-color">
               <i class="fa fa-user-plus" aria-hidden="true"></i>
             </button>
-            <button type="button"  [ngClass]="btnColorNewMessage" class="btn btn-color">
+            <button [routerLink]="['/home']" type="button"  [ngClass]="btnColorNewMessage" class="btn btn-color">
               <i class="fa fa-weixin" aria-hidden="true"></i>
             </button>
             <button type="button"  [ngClass]="btnColorNewInfo" class="btn btn-color">
@@ -136,5 +136,7 @@
     <router-outlet>
       <notifier-container></notifier-container>
     </router-outlet>
+    <!-- <router-outlet name="chat"></router-outlet> -->
+    
   </div>
 </div>

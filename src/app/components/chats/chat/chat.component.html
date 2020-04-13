@@ -1,0 +1,177 @@
+
+<div class="w-full h-full float-l" #message>
+  <div 
+    id="sidebar"
+    class="w-calc h-100pc float-l bgsblack"
+    *ngIf="!isMobile">
+    <div 
+      class="min-w-full h-50p float-l text-center text-white-f p-t-10 fs-25 bo-b-1-g">
+      <span i18n="@@ChatChat">Čat</span>
+    </div>
+
+    <div class="float-l min-w-full h-list-calc of-auto" id="style-4">
+
+      <div *ngIf="listChater !== null" [id]="'list-friends'">
+        <app-list-users-chat 
+          *ngFor="let item of listChater; let i = index"
+          [item]="item"
+          [i]="i"
+          (emit)="onEmitListUserChat($event)"
+          [events]="eventsSubject.asObservable()">
+        </app-list-users-chat>
+      </div>
+
+    </div>
+  </div>
+
+  <div 
+    class="float-l h-100pc w-area mobile-hide" 
+    [id]="'chat-area'"
+    (mouseover)="mouseFokus()">
+    <div class="sizefull">
+      <div
+        class="h-50p bo-b-1-g float-l w-100p" 
+        *ngIf="isMobile">
+        <div 
+          class="float-l h-50p w-51 m-l-10 fs-35 p-l-6"
+          (click)="closeChat()">
+          <i class="fa fa-arrow-left fa-green-h" aria-hidden="true"></i>
+        </div>
+
+        <div 
+          class="float-l h-50p w-51 m-l-10 p-t-5 p-r-5 p-b-5 p-l-5"
+          *ngIf="nameChater.length === 1">
+          <img 
+            src="{{nameChater[0].otherInformation.publicMedia.profileImage}}" 
+            alt="" 
+            class="wrap-pic-cir fit-image"
+            width="100%"
+            height="100%" />
+        </div>
+
+        <div
+          class="float-r w-50 h-50p fs-35 text-white-f" >
+          <span *ngFor="let i of nameChater">{{i.firstName}}</span>
+        </div>
+      </div>
+
+      <!-- #scrollMe [scrollTop]="scrollMe.scrollHeight" -->
+      <div 
+        class="w-100p of-y-auto bo-b-1-d p-t-5 h-chat-area" 
+        id="style-4"
+        *ngIf="messages !== null"
+        [id]="'style-4'"
+        (click)="closeSmile()"
+        (scroll)="onScroll($event)"
+         #scrollMe [scrollTop]="scrollBottomNumber">
+        <app-chat-area *ngFor="let item of messages" [item]="item">
+        </app-chat-area>
+
+        <div 
+          class="w-100p  float-l h-typing"
+          *ngIf="isTyping">
+          <div 
+            class="float-l w-50p h-typing"
+            *ngIf="onTyping">
+            <div class="w-100p h-full float-l text-white-f text-wrap">
+              <div 
+                class="float-l h-full bgsblack bo-cir-t-l-5 bo-cir-b-l-20 lh-1-3 bo-cir-b-r-20 bo-cir-t-r-20">
+                <span 
+                  class="sizefull p-t-5 p-r-10 p-b-5 p-l-10 float-l"
+                  i18n="@@ChatTypin">
+                  Kucanje...
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="float-r w-50p h-typing"
+            *ngIf="isSpiner">
+            <div class="w-100p h-full float-r text-white-f text-wrap">
+              <div 
+                class="float-r h-full bgsgreen pos-relative w-70 bo-cir-t-l-20 bo-cir-b-l-20 lh-1-3 bo-cir-b-r-20 bo-cir-t-r-20">
+                <div class="spinner-border pos-absolute top-25p left-35p w-20 h-20p" role="status">
+                  <span class="sr-only">Loading...</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="w-100p of-auto p-t-5 h-chat-area pos-relative"
+          *ngIf="messages.length === 0">
+          <div class="pos-absolute ab-c-m text-center">
+            <span class="fs-35 text-green" i18n="@@ChatWhatAreYouWaiting">
+              Sta cekate?
+            </span>
+
+            <br>
+            
+            <span class="fs-15 text-white-f" i18n="@@ChatStartChating">
+              Posaljite prvi poruku, ostvarite prvi kontakt i uzivajte u druzenju!
+            </span>
+          </div>
+        </div>
+      </div>
+    
+      <div
+        class="w-100p h-150p bo-b-1-d"
+        *ngIf="isSmileShow" 
+        [id]="'center-area'">
+        <div 
+          class="w-100p h-100pc p-t-5 p-l-5 float-l of-auto shadow"
+          id="style-4">
+          <div 
+            class="cursor-pointer float-l w-35 h-35p" 
+            *ngFor="let smile of listSmile"
+            (click)="setSmile(smile)">
+            <img src="../../../../assets/picture/emoticion/first/{{smile}}" alt="" class="hover-smile">
+          </div>
+        </div>
+      </div>
+
+      <div 
+        class="w-100p h-message-area float-l"
+        *ngIf="messages !== null"
+        [id]="'bottom-area'">
+        <div class="float-l w-l-b min-h-full">
+          <button class="css-smile" (click)="opneSmile()">
+            <span>
+              <i class="fa fa-smile-o" aria-hidden="true"></i>
+            </span>
+          </button>
+        </div>
+
+        <div 
+          class="float-l w-c-b min-h-full p-t-10 p-r-10 p-b-10 p-l-10">
+          <form action="">
+            <textarea 
+              class="form-control"
+              [(ngModel)]="textMessage"
+              i18-pleacholder="@@HomeTypeMessages" 
+              placeholder="Unesi poruku..." 
+              name="textMessage"
+              style="height: calc(1.5em + .75rem + 2px);"
+              id="style-4"
+              (keydown.enter)="sendMessage();false"
+              (input)="typing()">
+            </textarea> 
+          </form>
+        </div>
+
+        <div class="float-l w-r-b min-h-full">
+          <button class="css-send" (click)='sendMessage()'>
+            <span>
+              <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+            </span>
+          </button>
+        </div>
+      </div>
+
+
+    </div> 
+
+  </div>
+</div>

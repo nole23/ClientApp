@@ -34,13 +34,6 @@ export class UserService {
     }))
   }
 
-  getAllChater() {
-    return this.http.get(this.global.getLink() + '')
-    .pipe(map(res => {
-      return res;
-    }))
-  }
-
   getUser(id: any) {
     return this.http.get(this.global.getLink() + 'users/' + id)
     .pipe(map(res =>{
@@ -84,7 +77,7 @@ export class UserService {
   }
 
   acceptRelatuonship(user: User) {
-    return this.http.put(this.global.getLink() + 'relationships/' + user._id, {})
+    return this.http.put(/*this.global.getLink() + */'http://localhost:8080/api/relationships/' + user._id, {})
     .pipe(map(res => {
       return res;
     }))

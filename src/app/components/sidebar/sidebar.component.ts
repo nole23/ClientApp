@@ -1,4 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
 import { LoginService } from '../../services/login.service';
 import { User } from '../../models/user';
 
@@ -12,18 +14,26 @@ export class SidebarComponent implements OnInit {
 
   addCals: String;
   user: User;
-  constructor(private loginService: LoginService) {
+  opening: String;
+  href: String;
+  constructor(
+    private router: Router,
+    private loginService: LoginService,
+    private location: Location
+  ) {
     this.addCals = '';
     this.user = new User();
+    this.opening = 'chat'
   }
 
   ngOnInit() {
     this.user = new User(JSON.parse(localStorage.getItem('user')));
+    this.href = this.location.path().split('/')[1];
   }
 
   ngOpenSideBar() {
     if (this.addCals === '') {
-      this.addCals = 'active';
+      this.addCals = 'showSidebar';
     } else {
       this.addCals = ''
     }
@@ -32,5 +42,9 @@ export class SidebarComponent implements OnInit {
   ngLogout() {
     this.loginService.logout();
     this.status.emit();
+  }
+
+  activeRouter() {
+    this.href = this.location.path().split('/')[1];
   }
 }

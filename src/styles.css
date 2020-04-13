@@ -55,6 +55,13 @@ mat-dialog-container#modal-component {
     object-fit: cover;
 }
 
+.text-full {
+    white-space: nowrap;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 @media (max-width: 768px) {
     .show-image img {
         height: 100%;

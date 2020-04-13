@@ -1,0 +1,95 @@
+<div 
+  class="w-100p h-min-35p text-white-f float-l p-l-5 m-b-10"
+  *ngIf="!item.isMe">
+  <div class="float-l w-36 h-35p p-t-3 p-r-3 p-b-3 p-l-3">
+    <img 
+      src="{{item.user.otherInformation.publicMedia.profileImage}}"
+      alt=""
+      class="sizefull fit-image bo-cir-50p">
+  </div>
+
+  <div 
+    class="w-chat-area h-min-35p float-l text-justify p-l-10"
+    #friendMessage>
+
+    <div
+      class="w-100p h-min-35p float-l pos-relative"
+      style="padding-bottom: 1px;"
+      *ngFor="let t of item.message; let i = index"
+      [id]="'friend-message-' + i"
+      (mouseover)="ngShowInfoMessage(i)"
+      (mouseout)="ngHideInfoMessage(i)">
+      <div
+        class="max-w-70 p-t-6 p-r-12 p-b-6 p-l-12 bo-cir-b-r-20 bo-cir-t-r-20 lh-1-3 float-l"
+        [ngClass]="{
+          'bo-cir-b-l-20 ': !t.isBottom,
+          'bo-cir-t-l-5': t.isBottom,
+          'bgsblack': t.isBgs
+        }"
+        [id]="'message-item'">
+
+        <div 
+          class="w-100p h-full float-l text-wrap"
+          [innerHTML]="changeText(t)">
+        </div>
+
+      </div>
+
+      <div 
+        class="pos-absolute w-90 h-20p bo-cir-5 fs-10 text-center p-t-5 m-t-5 bgsgreen hide"
+        [id]="'message-informatiin'">
+        <span>{{t.dateOfCreate | date:'dd. MMM HH:mm'}}</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div 
+  class="w-100p h-min-35p text-white-l float-r"
+  *ngIf="item.isMe">
+  <div 
+    class="w-chat-area h-min-35p float-r text-justify p-r-30"
+    #meMessage>
+
+    <div
+      class="w-100p h-min-35p float-r pos-relative"
+      style="padding-bottom: 1px;"
+      *ngFor="let t of item.message; let i = index"
+      [id]="'me-message-' + i"
+      (mouseover)="ngShowInfoMessageMe(i)"
+      (mouseout)="ngHideInfoMessageMe(i)">
+      <div
+        class="max-w-70 p-t-6 p-r-12 p-b-6 p-l-12 bo-cir-t-r-5 bo-cir-t-l-20 lh-1-3 bo-cir-b-l-20 float-r"
+        [ngClass]="{
+          'bo-cir-b-r-20': !t.isBottom,
+          'bo-cir-b-l-5 bo-cir-b-r-5': t.isBottom,
+          'bgsgreen': t.isBgs
+        }"
+        [id]="'message-item'">
+
+        <div 
+          class="w-100p h-full float-r text-white-f text-wrap"
+          [innerHTML]="changeText(t)">
+        </div>
+
+      </div>
+
+      <div 
+        class="w-90 h-20p bo-cir-5 fs-10 text-center text-white p-t-3 bgsblack float-r m-r-5 hide"
+        [id]="'message-informatiin'">
+        <span>{{t.dateOfCreate | date:'dd. MMM HH:mm'}}</span>
+      </div>
+
+      <div 
+        class="w-51 h-20p bo-cir-5 fs-18 text-center float-r hide"
+        [id]="'message-button'">
+        <span class="cursor-pointer" (click)="removeSendMessage(t)">
+          <i class="fa fa-trash btn-white" aria-hidden="true"></i>
+        </span>
+
+      </div>
+    </div>
+
+  </div>
+</div>

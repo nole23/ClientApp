@@ -1,0 +1,24 @@
+.w-list-user-calc {
+    width: calc(100% - 81px);
+}
+.hover-list:hover {
+    background: #464646;
+}
+.hover-list:hover .disp-hide {
+    display: block;
+}
+.bo-c-2-online {
+    border: 2px solid #00c928;
+}
+.bo-c-2-offline {
+    border: 2px solid red;
+}
+.disp-hide {
+    display: none;
+}
+.dropdown-hover:hover {
+    color: #00c928;
+}
+.hover-list:hover .hide-circle {
+    display: none;
+}

@@ -17,7 +17,6 @@ import { AuthGuard } from './guard/auth.guard';
 import { TokenService } from './guard/token.service';
 import { TokenInterceptor } from './guard/token.interceptor';
 
-import { HomeComponent } from './components/home/home.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { LoginComponent } from './components/anuth/login/login.component';
 import { RegistrationComponent } from './components/anuth/registration/registration.component';
@@ -42,6 +41,7 @@ import { PublicationShowDeleteComponent } from './components/plagin/modal/public
 import { AddTextComponent } from './components/plagin/modal/add-text/add-text.component';
 import { DeleteFriendsComponent } from './components/plagin/modal/delete-friends/delete-friends.component';
 import { ImageGalleryComponent } from './components/plagin/modal/image-gallery/image-gallery.component';
+import { SocketService } from './services/socket.service';
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -88,7 +88,6 @@ const customNotifierOptions: NotifierOptions = {
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
     SidebarComponent,
     LoginComponent,
     RegistrationComponent,
@@ -112,7 +111,7 @@ const customNotifierOptions: NotifierOptions = {
     PublicationShowDeleteComponent,
     AddTextComponent,
     DeleteFriendsComponent,
-    ImageGalleryComponent,
+    ImageGalleryComponent
   ],
   imports: [
     NotifierModule.withConfig(customNotifierOptions),
@@ -124,7 +123,7 @@ const customNotifierOptions: NotifierOptions = {
     MatButtonModule,
     MatDialogModule,
     BrowserAnimationsModule,
-    NpnSliderModule,
+    NpnSliderModule
   ],
   providers: [
     AuthGuard,
@@ -133,7 +132,8 @@ const customNotifierOptions: NotifierOptions = {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true
-    }
+    },
+    SocketService
   ],
   bootstrap: [AppComponent],
   entryComponents: [

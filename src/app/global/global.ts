@@ -18,31 +18,35 @@ export class Global {
     isChangeLocationStatus: Boolean;
     abc: any;
     isAutoLocation: Boolean;
+    linkRegExp = new RegExp (/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/);
+    smileRegExp = new RegExp(/(\:\w+\:|\<[\/\\]?3|[\(\)\\\D|\*\$][\-\^]?[\:\;\=]|[\:\;\=B8][\-\^]?[3DOPp\@\$\*\\\)\(\/\|])(?=\s|[\!\.\?]|$)/)
+    ytRegExp = new RegExp(/(?:https?:\/\/|www\.|m\.|^)youtu(?:be\.com\/watch\?(?:.*?&(?:amp;)?)?v=|\.be\/)([\w‌​\-]+)(?:&(?:amp;)?[\w\?=]*)?/)
+    imgRegExp = new RegExp(/https?:\/\/.*\.(?:png|jpg|gif|jpeg)/)
     constructor() {
         this.isAutoLocation = false;
         this.isChangeLocationStatus = false;
         this.simbol = [
-          ':)', ':joy', ':cry', ':ang', ':P', ':rang', ';)', ':dis', ':<', ':emb',
-          ':O', ':(', ':x', ':$', ':-a', ':-8', ':88', ';-sho', ':-ick', ':#',
-          ':z', ';sur', ':o', ':h', ':-rich', ':666', ':sk', ':-c', ';-ro', ':poo',
-          ':-s', ':g', ':-p', ':-x', ':-ey', ':-o3', ':-C', ':H', ':-%', ':T',':5',
-          ':7', ';-mart', ';pss', ':D', ':y', ':Y', ':>', ':na', ';r', ';O', ';q'
+          ':)', ':joy:', ':cry', ':ang:', ':P', ':rang:', ';)', ':dis:', ':<:', ':emb:',
+          ':O', ':(', ':x:', ':$:', ':-a:', ':-8:', ':88:', ';-sho:', ':-ick:', ':#:',
+          ':z', ';sur:', ':o', ':h', ':-rich:', ':666:', ':sk:', ':-c:', ';-ro:', ':poo:',
+          ':-s:', ':g', ':-p:', ':-x:', ':-ey:', ':-o3:', ':-C:', ':H:', ':-%:', ':T',':5:',
+          ':7:', ';-mart:', ';pss:', ':D', ':y:', ':Y:', ':>:', ':na:', ';r:', ';O:', ';q:'
         ]
         this.listSmile = [
             ['smile', 'assets/picture/emoticion/first/001.svg']
         ];
         this.smile = {
             smile: [
-                "assets/picture/emoticion/first/1.svg","assets/picture/emoticion/first/2.svg","assets/picture/emoticion/first/3.svg","assets/picture/emoticion/first/4.svg","assets/picture/emoticion/first/5.svg",
-                "assets/picture/emoticion/first/6.svg","assets/picture/emoticion/first/7.svg","assets/picture/emoticion/first/8.svg","assets/picture/emoticion/first/9.svg","assets/picture/emoticion/first/10.svg",
-                "assets/picture/emoticion/first/11.svg","assets/picture/emoticion/first/12.svg","assets/picture/emoticion/first/13.svg","assets/picture/emoticion/first/14.svg","assets/picture/emoticion/first/15.svg",
-                "assets/picture/emoticion/first/16.svg","assets/picture/emoticion/first/17.svg","assets/picture/emoticion/first/18.svg","assets/picture/emoticion/first/19.svg","assets/picture/emoticion/first/20.svg",
-                "assets/picture/emoticion/first/21.svg","assets/picture/emoticion/first/22.svg","assets/picture/emoticion/first/23.svg","assets/picture/emoticion/first/24.svg","assets/picture/emoticion/first/25.svg",
-                "assets/picture/emoticion/first/26.svg","assets/picture/emoticion/first/27.svg","assets/picture/emoticion/first/28.svg","assets/picture/emoticion/first/29.svg","assets/picture/emoticion/first/30.svg",
-                "assets/picture/emoticion/first/31.svg","assets/picture/emoticion/first/32.svg","assets/picture/emoticion/first/33.svg","assets/picture/emoticion/first/34.svg","assets/picture/emoticion/first/35.svg",
-                "assets/picture/emoticion/first/36.svg","assets/picture/emoticion/first/37.svg","assets/picture/emoticion/first/38.svg","assets/picture/emoticion/first/39.svg","assets/picture/emoticion/first/40.svg",
-                "assets/picture/emoticion/first/41.svg","assets/picture/emoticion/first/42.svg","assets/picture/emoticion/first/43.svg","assets/picture/emoticion/first/44.svg","assets/picture/emoticion/first/45.svg",
-                "assets/picture/emoticion/first/46.svg","assets/picture/emoticion/first/47.svg","assets/picture/emoticion/first/48.svg","assets/picture/emoticion/first/49.svg","assets/picture/emoticion/first/50.svg"
+                "001.svg","002.svg","003.svg","004.svg","005.svg",
+                "006.svg","007.svg","008.svg","009.svg","010.svg",
+                "011.svg","012.svg","013.svg","014.svg","015.svg",
+                "016.svg","017.svg","018.svg","019.svg","020.svg",
+                "021.svg","022.svg","023.svg","024.svg","025.svg",
+                "026.svg","027.svg","028.svg","029.svg","030.svg",
+                "031.svg","032.svg","033.svg","034.svg","035.svg",
+                "036.svg","037.svg","038.svg","039.svg","040.svg",
+                "041.svg","042.svg","043.svg","044.svg","045.svg",
+                "046.svg","047.svg","048.svg","049.svg","050.svg"
             ]
         };
         this.linkLocalhostChat = 'https://twoway-chatservice.herokuapp.com/api/'
@@ -114,6 +118,11 @@ export class Global {
         return this.linkLocalhostChat;
     }
 
+    getIndexSmile(text: any) {
+        let index = this.smile['smile'].indexOf(text);
+        return this.simbol[index];
+    }
+
     geIOLing(link: any) {
         let allowedOrigins = link.split('/')[0] + link.split('/')[1] + link.split('/')[2];
         return allowedOrigins;
@@ -160,58 +169,64 @@ export class Global {
       }
     }
 
-    ngReplice(s: string) {
+    ngReplice(s: String, type: Boolean) {
+        let css = '';
+        if (!type) {
+            css = 'width="40px" height="40px"'
+        } else if (type) {
+            css = 'width="20px" height="20px"';
+        }
         let emoticons = {
-            a01: '<img src="assets/picture/emoticion/first/1.svg" width="20px" height="20px"/>',
-            a02: '<img src="assets/picture/emoticion/first/2.svg" width="20px" height="20px"/>',
-            a03: '<img src="assets/picture/emoticion/first/3.svg" width="20px" height="20px"/>',
-            a04: '<img src="assets/picture/emoticion/first/4.svg" width="20px" height="20px"/>',
-            a05: '<img src="assets/picture/emoticion/first/5.svg" width="20px" height="20px"/>',
-            a06: '<img src="assets/picture/emoticion/first/6.svg" width="20px" height="20px"/>',
-            a07: '<img src="assets/picture/emoticion/first/7.svg" width="20px" height="20px"/>',
-            a08: '<img src="assets/picture/emoticion/first/8.svg" width="20px" height="20px"/>',
-            a09: '<img src="assets/picture/emoticion/first/9.svg" width="20px" height="20px"/>',
-            a10: '<img src="assets/picture/emoticion/first/10.svg" width="20px" height="20px"/>',
-            a11: '<img src="assets/picture/emoticion/first/11.svg" width="20px" height="20px"/>',
-            a12: '<img src="assets/picture/emoticion/first/12.svg" width="20px" height="20px"/>',
-            a13: '<img src="assets/picture/emoticion/first/13.svg" width="20px" height="20px"/>',
-            a14: '<img src="assets/picture/emoticion/first/14.svg" width="20px" height="20px"/>',
-            a15: '<img src="assets/picture/emoticion/first/15.svg" width="20px" height="20px"/>',
-            a16: '<img src="assets/picture/emoticion/first/16.svg" width="20px" height="20px"/>',
-            a17: '<img src="assets/picture/emoticion/first/17.svg" width="20px" height="20px"/>',
-            a18: '<img src="assets/picture/emoticion/first/18.svg" width="20px" height="20px"/>',
-            a19: '<img src="assets/picture/emoticion/first/19.svg" width="20px" height="20px"/>',
-            a20: '<img src="assets/picture/emoticion/first/20.svg" width="20px" height="20px"/>',
-            a21: '<img src="assets/picture/emoticion/first/21.svg" width="20px" height="20px"/>',
-            a22: '<img src="assets/picture/emoticion/first/22.svg" width="20px" height="20px"/>',
-            a23: '<img src="assets/picture/emoticion/first/23.svg" width="20px" height="20px"/>',
-            a24: '<img src="assets/picture/emoticion/first/24.svg" width="20px" height="20px"/>',
-            a25: '<img src="assets/picture/emoticion/first/25.svg" width="20px" height="20px"/>',
-            a26: '<img src="assets/picture/emoticion/first/26.svg" width="20px" height="20px"/>',
-            a27: '<img src="assets/picture/emoticion/first/27.svg" width="20px" height="20px"/>',
-            a28: '<img src="assets/picture/emoticion/first/28.svg" width="20px" height="20px"/>',
-            a29: '<img src="assets/picture/emoticion/first/29.svg" width="20px" height="20px"/>',
-            a30: '<img src="assets/picture/emoticion/first/30.svg" width="20px" height="20px"/>',
-            a31: '<img src="assets/picture/emoticion/first/31.svg" width="20px" height="20px"/>',
-            a32: '<img src="assets/picture/emoticion/first/32.svg" width="20px" height="20px"/>',
-            a33: '<img src="assets/picture/emoticion/first/33.svg" width="20px" height="20px"/>',
-            a34: '<img src="assets/picture/emoticion/first/34.svg" width="20px" height="20px"/>',
-            a35: '<img src="assets/picture/emoticion/first/35.svg" width="20px" height="20px"/>',
-            a36: '<img src="assets/picture/emoticion/first/36.svg" width="20px" height="20px"/>',
-            a37: '<img src="assets/picture/emoticion/first/37.svg" width="20px" height="20px"/>',
-            a38: '<img src="assets/picture/emoticion/first/38.svg" width="20px" height="20px"/>',
-            a39: '<img src="assets/picture/emoticion/first/39.svg" width="20px" height="20px"/>',
-            a40: '<img src="assets/picture/emoticion/first/40.svg" width="20px" height="20px"/>',
-            a41: '<img src="assets/picture/emoticion/first/41.svg" width="20px" height="20px"/>',
-            a42: '<img src="assets/picture/emoticion/first/42.svg" width="20px" height="20px"/>',
-            a43: '<img src="assets/picture/emoticion/first/43.svg" width="20px" height="20px"/>',
-            a44: '<img src="assets/picture/emoticion/first/44.svg" width="20px" height="20px"/>',
-            a45: '<img src="assets/picture/emoticion/first/45.svg" width="20px" height="20px"/>',
-            a46: '<img src="assets/picture/emoticion/first/46.svg" width="20px" height="20px"/>',
-            a47: '<img src="assets/picture/emoticion/first/47.svg" width="20px" height="20px"/>',
-            a48: '<img src="assets/picture/emoticion/first/48.svg" width="20px" height="20px"/>',
-            a49: '<img src="assets/picture/emoticion/first/49.svg" width="20px" height="20px"/>',
-            a50: '<img src="assets/picture/emoticion/first/50.svg" width="20px" height="20px"/>',
+            a01: '<img src="assets/picture/emoticion/first/001.svg"' + css + ' />',
+            a02: '<img src="assets/picture/emoticion/first/2.svg" width="20px"' + css + ' />',
+            a03: '<img src="assets/picture/emoticion/first/3.svg" width="20px"' + css + ' />',
+            a04: '<img src="assets/picture/emoticion/first/4.svg" width="20px"' + css + ' />',
+            a05: '<img src="assets/picture/emoticion/first/5.svg" width="20px"' + css + ' />',
+            a06: '<img src="assets/picture/emoticion/first/6.svg" width="20px"' + css + ' />',
+            a07: '<img src="assets/picture/emoticion/first/7.svg" width="20px"' + css + ' />',
+            a08: '<img src="assets/picture/emoticion/first/8.svg" width="20px"' + css + ' />',
+            a09: '<img src="assets/picture/emoticion/first/9.svg" width="20px"' + css + ' />',
+            a10: '<img src="assets/picture/emoticion/first/10.svg" width="20px"' + css + ' />',
+            a11: '<img src="assets/picture/emoticion/first/11.svg" width="20px"' + css + ' />',
+            a12: '<img src="assets/picture/emoticion/first/12.svg" width="20px"' + css + ' />',
+            a13: '<img src="assets/picture/emoticion/first/13.svg" width="20px"' + css + ' />',
+            a14: '<img src="assets/picture/emoticion/first/14.svg" width="20px"' + css + ' />',
+            a15: '<img src="assets/picture/emoticion/first/15.svg" width="20px"' + css + ' />',
+            a16: '<img src="assets/picture/emoticion/first/16.svg" width="20px"' + css + ' />',
+            a17: '<img src="assets/picture/emoticion/first/17.svg" width="20px"' + css + ' />',
+            a18: '<img src="assets/picture/emoticion/first/18.svg" width="20px"' + css + ' />',
+            a19: '<img src="assets/picture/emoticion/first/19.svg" width="20px"' + css + ' />',
+            a20: '<img src="assets/picture/emoticion/first/20.svg" width="20px"' + css + ' />',
+            a21: '<img src="assets/picture/emoticion/first/21.svg" width="20px"' + css + ' />',
+            a22: '<img src="assets/picture/emoticion/first/22.svg" width="20px"' + css + ' />',
+            a23: '<img src="assets/picture/emoticion/first/23.svg" width="20px"' + css + ' />',
+            a24: '<img src="assets/picture/emoticion/first/24.svg" width="20px"' + css + ' />',
+            a25: '<img src="assets/picture/emoticion/first/25.svg" width="20px"' + css + ' />',
+            a26: '<img src="assets/picture/emoticion/first/26.svg" width="20px"' + css + ' />',
+            a27: '<img src="assets/picture/emoticion/first/27.svg" width="20px"' + css + ' />',
+            a28: '<img src="assets/picture/emoticion/first/28.svg" width="20px"' + css + ' />',
+            a29: '<img src="assets/picture/emoticion/first/29.svg" width="20px"' + css + ' />',
+            a30: '<img src="assets/picture/emoticion/first/30.svg" width="20px"' + css + ' />',
+            a31: '<img src="assets/picture/emoticion/first/31.svg" width="20px"' + css + ' />',
+            a32: '<img src="assets/picture/emoticion/first/32.svg" width="20px"' + css + ' />',
+            a33: '<img src="assets/picture/emoticion/first/33.svg" width="20px"' + css + ' />',
+            a34: '<img src="assets/picture/emoticion/first/34.svg" width="20px"' + css + ' />',
+            a35: '<img src="assets/picture/emoticion/first/35.svg" width="20px"' + css + ' />',
+            a36: '<img src="assets/picture/emoticion/first/36.svg" width="20px"' + css + ' />',
+            a37: '<img src="assets/picture/emoticion/first/37.svg" width="20px"' + css + ' />',
+            a38: '<img src="assets/picture/emoticion/first/38.svg" width="20px"' + css + ' />',
+            a39: '<img src="assets/picture/emoticion/first/39.svg" width="20px"' + css + ' />',
+            a40: '<img src="assets/picture/emoticion/first/40.svg" width="20px"' + css + ' />',
+            a41: '<img src="assets/picture/emoticion/first/41.svg" width="20px"' + css + ' />',
+            a42: '<img src="assets/picture/emoticion/first/42.svg" width="20px"' + css + ' />',
+            a43: '<img src="assets/picture/emoticion/first/43.svg" width="20px"' + css + ' />',
+            a44: '<img src="assets/picture/emoticion/first/44.svg" width="20px"' + css + ' />',
+            a45: '<img src="assets/picture/emoticion/first/45.svg" width="20px"' + css + ' />',
+            a46: '<img src="assets/picture/emoticion/first/46.svg" width="20px"' + css + ' />',
+            a47: '<img src="assets/picture/emoticion/first/47.svg" width="20px"' + css + ' />',
+            a48: '<img src="assets/picture/emoticion/first/48.svg" width="20px"' + css + ' />',
+            a49: '<img src="assets/picture/emoticion/first/49.svg" width="20px"' + css + ' />',
+            a50: '<img src="assets/picture/emoticion/first/50.svg" width="20px"' + css + ' />',
         };
 
         let patterns = {
@@ -287,6 +302,10 @@ export class Global {
             .replace(patterns.a50, emoticons.a50);
     }
 
+    getSimboles() {
+        return this.simbol;
+    }
+
     timeOfSetAddress(setDate: Date) {
         const source = timer(1000, 2000);
         let that = this;
@@ -295,6 +314,56 @@ export class Global {
         // const abc = source.subscribe(val => {
         //     // this.subscribeTimer = this.timeLeft - val;
         //   });
+    }
+
+    regExpLink(text: String) {
+        return text.match(this.linkRegExp);
+    }
+
+    regExpSmile(text: String) {
+        return text.match(this.smileRegExp);
+    }
+
+    regExpYt(text: String) {
+        return text.match(this.ytRegExp);
+    }
+
+    regExpImg(text: String) {
+        return text.match(this.imgRegExp);
+    }
+
+    setChatWithoutText(text: String) {
+        return '<a class="btn-white-f" href="' + text + '" target="_blank">' + text + '</a>'
+    }
+
+    setChatWithText(text: String, link: String) {
+        return text + '<br>' + '<a class="btn-white-f" href="' + link + '" target="_blank">' + link +'</a>'
+    }
+
+    setImageText(link: String) {
+        return '<a class="btn-white-f" href="' + link + '" target="_blank">' +
+                '<img class="cursor-pointer float-r bo-cir-b-l-20 bo-cir-t-l-20 bo-cir-t-r-20 bo-cir-b-r-20 fit-image w-100p h-180p" src="' +
+                link + '" /></a>'
+    }
+
+    setYtText(link: String) {
+        let nameYt = link.split('/')
+        let nameVide = ''
+        if (nameYt[0] === 'https:' || nameYt[0] === 'http:') {
+            nameVide = nameYt[3]
+        } else {
+            let first = nameYt[1].split('&')[0];
+            let name = first.split('=')[1]
+            nameVide = name;
+        }
+
+        return '<div class="w-100p pos-relative h-180p">' +
+                    '<a class="sizefull btn-white-f" href="' + link + '" target="_blank">' +
+                        '<img class="cursor-pointer float-r bo-cir-b-l-20 bo-cir-t-l-20 bo-cir-t-r-20 bo-cir-b-r-20 fit-image w-100p h-180p" src="' +
+                        'https://img.youtube.com/vi/' + nameVide + '/0.jpg" />' +
+                        '<i class="fa fa-play-circle-o pos-absolute ab-c-m fa-green-h fs-50" aria-hidden="true"></i>' +
+                    '</a>' +
+                '</div>'
     }
 
     /**
@@ -326,11 +395,33 @@ export class Global {
             message !== 'ERROR_EMAIL_NOT_FREE' &&
             message !== 'ERROR_NOT_SAVE_INFORMATION' &&
             message !== 'ERROR_NOT_SAVE_CONFIGURATION' &&
-            message !== 'SUCCESS_CREAT_PROFILE'
+            message !== 'SUCCESS_CREAT_PROFILE' &&
+            message !== 'ERROR_NOT_FIND_ITEM'
         ) {
             return true;
         } else {
             return false;
         }
+    }
+
+    getResponseSuccess(message: String) {
+        if (
+            message === 'SUCCESS_SAVE' || 
+            message === 'CREATE_PARTICIPANTS' ||
+            message === 'SUCCESS_CREAT_PROFILE' ||
+            message === 'SUCCESS_SAVE_REMOVE' ||
+            message === 'SUCCESS_SAVE_ADD'
+        ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    playAudi() {
+        let audio = new Audio();
+        audio.src = "../../assets/sonds/insight.mp3";
+        audio.load();
+        audio.play();
     }
 }

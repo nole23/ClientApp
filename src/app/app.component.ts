@@ -4,6 +4,7 @@ import * as io from "socket.io-client";
 import { NotifierService } from 'angular-notifier';
 import { SidebarComponent } from "./components/sidebar/sidebar.component";
 import { Global } from "./global/global";
+import { SocketService } from './services/socket.service';
 
 @Component({
   selector: "app-root",
@@ -15,6 +16,7 @@ export class AppComponent implements OnInit {
   private readonly notifier: NotifierService;
 
   private socket: any;
+  private socketLogin: any;
 
   user: any;
   title: String;
@@ -42,8 +44,9 @@ export class AppComponent implements OnInit {
     @Inject(LOCALE_ID) public locale: string,
     private global: Global,
     notifier: NotifierService,
+    private socketService: SocketService
   ) {
-    this.socket = io("https://twoway-chatservice.herokuapp.com");
+    // this.socketLogin = io("http://localhost:8082");
     this.notifier = notifier;
     this.loading = true;
     this.loginStatus = false;
@@ -62,27 +65,28 @@ export class AppComponent implements OnInit {
     this.btnColorNewFriend = "";
     this.btnColorNewMessage = "";
     this.btnColorNewInfo = "";
-    this.user = null;
+    this.user = JSON.parse(localStorage.getItem("user"));;
     this.statusError = null
   }
 
   ngOnInit() {
     this.status();
-
-    this.user = JSON.parse(localStorage.getItem("user"));
     if (this.user !== null) {
-      this.socket.on("chat-" + this.user._id, (data: any) => {
-        this._playAudio();
-      });
+      this.socketService.setupSocketConnection();
+      
+      this.socketService.setupSocketConnectionMessage();
+
+      this.socketService.socketMessage.on("new-message-" + this.user._id, (data: any) => {
+        let resData = JSON.parse(data);
+        if (resData.message.author.toString() !== this.user._id.toString()) {
+          this.global.playAudi();
+        }
+      })
     }
   }
 
-  _playAudio() {
-    let audio = new Audio();
-    audio.src = "../assets/sonds/insight.mp3";
-    audio.load();
-    audio.play();
-    this.btnColorNewMessage = "green-color";
+  onEmitListUserChat(event: any) {
+    console.log(event)
   }
 
   status() {
@@ -146,8 +150,9 @@ export class AppComponent implements OnInit {
     if (!event.status) {
       this.statusError = event.message;
     } else {
-    this.loginStatus = event.status;
-    this.loading = !event.status;
+      this.socketService.setupSocketConnection();
+      this.loginStatus = event.status;
+      this.loading = !event.status;
     }
   }
 

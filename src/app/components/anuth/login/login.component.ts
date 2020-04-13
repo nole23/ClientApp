@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
           this.isSpiner = false;
         } else {
           this.ngLoginStatus.emit({status: true, message: res['message']});
-          this.router.navigate(['/home'])
+          this.router.navigate(['/chat/list-user'])
           this.isSpiner = false;
         }
 

@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
-import {  HttpClient, HttpHeaders, HttpClientModule } from '@angular/common/http';
-import { map, catchError } from 'rxjs/operators';
+import {  HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
 import { Global } from '../global/global';
 import { User } from '../models/user';
 import { UserInformation } from '../models/user-information';
-import { Publication } from '../models/publication';
 
 interface IPInfo {
 	latitude: string;
@@ -24,7 +23,7 @@ export class LoginService {
   ) { }
 
   login(user: User) {
-    return this.http.post(this.global.getLink() + 'authentation/sing-in', {user: user})
+    return this.http.post(/*this.global.getLink() + */'http://localhost:8080/api/authentation/sing-in', {user: user})
     .pipe(map(res => {
       if (this.global.getResponse(res['message'])) {
         localStorage.setItem('user', JSON.stringify(res['message']['user']));
@@ -70,5 +69,4 @@ export class LoginService {
     //     return res;
     // }))
   }
-
 }

@@ -97,14 +97,12 @@ export class ProfilFriendsComponent implements OnInit, OnDestroy {
   }
 
   getPublication() {
-    // console.info('ProfileComponent.getPublication() - get all publication for ' + this.user.firstName);
     this.userService.getPublication(this.user).subscribe((res: [Publication]) => {
       this.publication = res['publication'];
     });
   }
 
   getFriends() {
-    // console.info('ProfileComponent.getFriends() - get list frineds');
     this.userList = null;
     this.userService.getFriends(this.user, 0).subscribe((res: [User]) => {
       this.userList = res['listFriends'];
@@ -112,7 +110,6 @@ export class ProfilFriendsComponent implements OnInit, OnDestroy {
   }
 
   getImage() {
-    // console.info('ProfileComponent.getImage() - get data from server');
     this.imagesList = null;
     this.mediaService.getPicture(this.user._id).subscribe((res: any) =>{
       res.user += null;
@@ -122,7 +119,6 @@ export class ProfilFriendsComponent implements OnInit, OnDestroy {
   }
 
   openTab(item: any) {
-    // console.info('ProfileComponent.openTab() - push button in navbar in profile and open tab');
     this.tab = item;
     if (item === 'home') {
       this.activeUser = true;
@@ -186,7 +182,6 @@ export class ProfilFriendsComponent implements OnInit, OnDestroy {
   }
 
   addFriends(user: User) {
-    // console.info('ProfileComponent.addFriends() - push button and add new friends');
     this.btnSave = true;
     this.userService.sendRelationship(user).subscribe(res => {
       if (res['message'] === 'save') {
@@ -203,7 +198,6 @@ export class ProfilFriendsComponent implements OnInit, OnDestroy {
   }
 
   removeRelationShip(user: User) {
-    // console.info('ProfileComponent.removeRelationShip() - push button and cancel reqvest friends');
     this.btnCancel = true;
     this.userService.removeRelationship(user).subscribe(res => {
       this.btnCancel = false;
@@ -215,7 +209,6 @@ export class ProfilFriendsComponent implements OnInit, OnDestroy {
   }
 
   acceptRelationship(user: User) {
-    // console.info('ProfileComponent.acceptRelationship() - push button and accept friends');
     this.btnSave = true;
     this.userService.acceptRelatuonship(user).subscribe(res => {
       this.btnSave = false;
@@ -227,7 +220,6 @@ export class ProfilFriendsComponent implements OnInit, OnDestroy {
   }
 
   removeFriends(user: User) {
-    // console.info('ProfileComponent.removeFriends() - push button and delete frineds from frineds list');
     this.btnSave = true;
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
