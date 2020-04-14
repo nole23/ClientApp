@@ -12,14 +12,14 @@ export class ChatService {
   constructor(private http: HttpClient, private global: Global) { }
 
   getAllChater() {
-    return this.http.get(/*this.global.getLink() + */'http://localhost:8084/api/chats/')
+    return this.http.get(this.global.getChat() + 'chats/')
     .pipe(map(res => {
       return res;
     }))
   }
 
   shetNotShowMessage(chat: any, isType: Boolean) {
-    return this.http.put(/*this.global.getLink() + */'http://localhost:8084/api/chats/', {chat: chat, isType: isType})
+    return this.http.put(this.global.getChat() + 'chats/', {chat: chat, isType: isType})
       .pipe(map(res => {
         if (this.global.getResponseSuccess(res['message'])) {
           return true;
@@ -30,7 +30,7 @@ export class ChatService {
   }
 
   removeMesssage(chat: any) {
-    return this.http.delete(/*this.global.getLink() + */'http://localhost:8084/api/chats/', chat)
+    return this.http.delete(this.global.getChat() + 'chats/', chat)
       .pipe(map(res => {
         return res;
       }))
@@ -43,7 +43,7 @@ export class ChatService {
       "page", JSON.stringify(page)
     )
 
-    return this.http.get(/*this.global.getLink() + */'http://localhost:8084/api/chats/' + item._id, {params: params})
+    return this.http.get(this.global.getChat() + 'chats/' + item._id, {params: params})
       .pipe(map(res => {
         if (!this.global.getResponse(res['message'])) {
           return {message: []};
@@ -54,7 +54,7 @@ export class ChatService {
   }
 
   sendMessage(chat: any, message: String) {
-    return this.http.post(/*this.global.getLink() + */'http://localhost:8084/api/chats/', {chat: chat, message: message})
+    return this.http.post(this.global.getChat() + 'chats/', {chat: chat, message: message})
       .pipe(map(res => {
         if (this.global.getResponseSuccess(res['message'])) {
           return {message: true};
@@ -65,7 +65,7 @@ export class ChatService {
   }
 
   removeOneMessage(id: any) {
-    return this.http.delete(/*this.global.getLink() + */'http://localhost:8084/api/chats/' + id)
+    return this.http.delete(this.global.getChat() + 'chats/' + id)
       .pipe(map(res => {
         if (this.global.getResponseSuccess(res['message'])) {
           return {message: true};

@@ -69,7 +69,7 @@
     height: 6%;
   }
   .h-chat-area {
-    height: calc(94vh - 50px);
+    height: calc(94vh - 115px);
   }
   .h-chat-area-open-smile {
     height: calc(94% - 200px)!important;

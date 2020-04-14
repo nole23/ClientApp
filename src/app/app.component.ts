@@ -37,7 +37,7 @@ export class AppComponent implements OnInit {
   btnColorNewFriend: String;
   btnColorNewMessage: String;
   btnColorNewInfo: String;
-
+  countMessage: any;
   statusError: String;
   constructor(
     private auth: AuthNav,
@@ -46,7 +46,6 @@ export class AppComponent implements OnInit {
     notifier: NotifierService,
     private socketService: SocketService
   ) {
-    // this.socketLogin = io("http://localhost:8082");
     this.notifier = notifier;
     this.loading = true;
     this.loginStatus = false;
@@ -67,13 +66,30 @@ export class AppComponent implements OnInit {
     this.btnColorNewInfo = "";
     this.user = JSON.parse(localStorage.getItem("user"));;
     this.statusError = null
+    this.countMessage = 0
   }
 
-  ngOnInit() {
-    this.status();
-    if (this.user !== null) {
+  ngOnInit(status: Boolean = false) {
+    if (!status) {
+      this.status();
+      if (this.user !== null) {
+        this.socketService.setupSocketConnection();
+        this.socketService.setupSocketConnectionMessage();
+
+        this.socketService.socketMessage.on("new-message-" + this.user._id, (data: any) => {
+          let resData = JSON.parse(data);
+          if (resData.message.author.toString() !== this.user._id.toString()) {
+            this.global.playAudi();
+            this.btnColorNewMessage = 'green-color';
+            if (this.countMessage < 11) {
+              this.countMessage = this.countMessage + 1;
+            }
+          }
+        })
+      }
+    } else {
+      this.user = JSON.parse(localStorage.getItem('user'));
       this.socketService.setupSocketConnection();
-      
       this.socketService.setupSocketConnectionMessage();
 
       this.socketService.socketMessage.on("new-message-" + this.user._id, (data: any) => {
@@ -150,9 +166,11 @@ export class AppComponent implements OnInit {
     if (!event.status) {
       this.statusError = event.message;
     } else {
-      this.socketService.setupSocketConnection();
+      // this.socketService.setupSocketConnection();
+      // this.socketService.setupSocketConnectionMessage();
       this.loginStatus = event.status;
       this.loading = !event.status;
+      this.ngOnInit(true)
     }
   }
 

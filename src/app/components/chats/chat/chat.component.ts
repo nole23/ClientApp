@@ -1,12 +1,11 @@
 import { Component, OnInit, ViewChild, ElementRef, HostListener } from "@angular/core";
 import { Router, ActivatedRoute } from '@angular/router';
 import * as io from "socket.io-client";
-import { Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { NotifierService } from 'angular-notifier';
 import { User } from "../../../models/user";
 import { UserService } from "../../../services/user.service";
 import { ChatService } from "../../../services/chat.service";
-import { Online } from "../../../models/online";
 import { Global } from "../../../global/global";
 import { SocketService } from '../../../services/socket.service';
 
@@ -45,7 +44,6 @@ export class ChatComponent implements OnInit {
   isLoadNewData: Boolean;
   constructor(
     notifier: NotifierService,
-    private userService: UserService,
     private chatService: ChatService,
     private global: Global,
     private router: Router,
@@ -105,33 +103,38 @@ export class ChatComponent implements OnInit {
   }
 
   editSocketMessage(resData: any) {
-    let lastChat = this.messages[this.messages.length - 1]
-    let newChat = this.chatService.setNewChat(resData.message.text);
-    if (lastChat.isMe) {
-      let user = resData.chat.participants.find(x => x._id.toString() === resData.message.author.toString());
-      var object = {
-        user: user,
-        isMe: false,
-        message: []
+    if (this.messages !== null) {
+      let lastChat = this.messages[this.messages.length - 1]
+      let newChat = this.chatService.setNewChat(resData.message.text);
+      if (lastChat.isMe) {
+        let user = resData.chat.participants.find(x => x._id.toString() === resData.message.author.toString());
+        var object = {
+          user: user,
+          isMe: false,
+          message: []
+        }
+        
+        object.message.push(newChat.text);
+        if (newChat.linkText) {
+          object.message.push(newChat.imgSave);
+        }
+  
+        this.messages.push(object);
+      } else {
+        if (this.messages[this.messages.length - 1].message[this.messages[this.messages.length - 1].message.length - 1].isBgs) {
+          this.messages[this.messages.length - 1].message[this.messages[this.messages.length - 1].message.length - 1].isBottom = true;
+        }
+  
+        this.messages[this.messages.length - 1].message.push(newChat.text);
+        if (newChat.linkText) {
+          this.messages[this.messages.length - 1].message.push(newChat.imgSave);
+        }
       }
-      
-      object.message.push(newChat.text);
-      if (newChat.linkText) {
-        object.message.push(newChat.imgSave);
-      }
+      this.scrollBottomNumber = this.scrollMe.nativeElement.scrollHeight;
+    } 
 
-      this.messages.push(object);
-    } else {
-      if (this.messages[this.messages.length - 1].message[this.messages[this.messages.length - 1].message.length - 1].isBgs) {
-        this.messages[this.messages.length - 1].message[this.messages[this.messages.length - 1].message.length - 1].isBottom = true;
-      }
-
-      this.messages[this.messages.length - 1].message.push(newChat.text);
-      if (newChat.linkText) {
-        this.messages[this.messages.length - 1].message.push(newChat.imgSave);
-      }
-    }
-    this.scrollBottomNumber = this.scrollMe.nativeElement.scrollHeight;
+    let testiram = this.listChater.map(function(x) {return x._id; }).indexOf(resData.chat._id);
+    this.setListChater(this.listChater[testiram], resData.message.text);
   }
 
   getAllsmile() {
@@ -259,7 +262,9 @@ export class ChatComponent implements OnInit {
     this.onTyping = status;
     this.isTyping= status;
     clearTimeout(this.timer);
-    this.timer = setTimeout(() => {this.setTyping(false) },1000);
+    if (status) {
+      this.timer = setTimeout(() => {this.setTyping(false) },1000);
+    }
   }
 
   sendMessage() {

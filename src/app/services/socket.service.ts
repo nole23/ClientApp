@@ -16,11 +16,11 @@ export class SocketService {
   constructor(private http: HttpClient, private global: Global) { }
 
   setupSocketConnectionMessage() {
-    this.socketMessage = io('http://localhost:8084');
+    this.socketMessage = io('https://twoway-chatservice.herokuapp.com');
   }
 
   setupSocketConnection() {
-    this.socket = io('http://localhost:8082');
+    this.socket = io('https://twoway-statusservice.herokuapp.com');
     if (JSON.parse(localStorage.getItem('user'))) {
       this.emitStatusOnline();
     }
@@ -51,7 +51,7 @@ export class SocketService {
       "me", JSON.stringify(onMe._id)
     )
 
-    return this.http.get(/*this.global.getLink() + */ 'http://localhost:8082/api/status/', {params: params})
+    return this.http.get(this.global.getLinkStatus() + 'status/', {params: params})
       .pipe(map(res => {
         return res
       }))

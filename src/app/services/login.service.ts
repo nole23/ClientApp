@@ -23,7 +23,7 @@ export class LoginService {
   ) { }
 
   login(user: User) {
-    return this.http.post(/*this.global.getLink() + */'http://localhost:8080/api/authentation/sing-in', {user: user})
+    return this.http.post(this.global.getLink() + 'authentation/sing-in', {user: user})
     .pipe(map(res => {
       if (this.global.getResponse(res['message'])) {
         localStorage.setItem('user', JSON.stringify(res['message']['user']));

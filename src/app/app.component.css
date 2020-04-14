@@ -33,7 +33,7 @@
     height: 100vh;
     display: flex;
     align-items: stretch;
-    background: #464646;
+    /* background: #464646; */
 }
 .mobile-nav-bar {
     display: none;

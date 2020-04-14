@@ -122,8 +122,23 @@
             <button type="button" [ngClass]="btnColorNewFriend" class="btn btn-color">
               <i class="fa fa-user-plus" aria-hidden="true"></i>
             </button>
-            <button [routerLink]="['/home']" type="button"  [ngClass]="btnColorNewMessage" class="btn btn-color">
-              <i class="fa fa-weixin" aria-hidden="true"></i>
+            <button 
+              [routerLink]="['/chat/list-user']"
+              type="button"
+              [ngClass]="btnColorNewMessage"
+              class="btn btn-color">
+              <i class="fa fa-weixin pos-relative" aria-hidden="true">
+                <span 
+                  class="pos-absolute fs-13 text-green bottom-8 left-12 bo-cir p-t-3 p-r-3 p-b-3 p-l-3"
+                  *ngIf="countMessage > 0 && countMessage < 10">
+                  {{countMessage}}
+                </span>
+                <span 
+                  class="pos-absolute fs-13 text-green bottom-8 left-12 bo-cir p-t-3 p-r-3 p-b-3 p-l-3"
+                  *ngIf="countMessage === 10">
+                  9+
+                </span>
+              </i>
             </button>
             <button type="button"  [ngClass]="btnColorNewInfo" class="btn btn-color">
               <i class="fa fa-bell" aria-hidden="true"></i>
