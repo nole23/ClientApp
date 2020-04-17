@@ -17,7 +17,8 @@
           [item]="item"
           [i]="i"
           (emit)="onEmitListUserChat($event)"
-          [events]="eventsSubject.asObservable()">
+          [events]="eventsSubject.asObservable()"
+          [editMessage]="eventsEditNewMessage.asObservable()">
         </app-list-users-chat>
       </div>
 
@@ -50,8 +51,8 @@
         </div>
 
         <div
-          class="float-r w-50 h-50p fs-35 text-white-f" >
-          <span *ngFor="let i of nameChater">{{i.firstName}}</span>
+          class="float-r w-50 h-50p fs-35 text-white-f m-r-10">
+          <span class="float-r" *ngFor="let i of nameChater">{{i.firstName}}</span>
         </div>
       </div>
 

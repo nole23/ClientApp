@@ -58,8 +58,11 @@ export class GeolocationService {
   }
 
   startAutomationChangeLocation() {
-
-    if (this.global.isAutoLocationStart()) this.abc.unsubscribe();
+    if (this.global.isAutoLocationStart()) { 
+      if (this.abc !== undefined) {
+        this.abc.unsubscribe()
+      }
+    }
     this.global.isSetAutoLocationStart(true);
     let that = this;
 

@@ -84,7 +84,7 @@ export class UserService {
   }
 
   editGeneralData(data: any) {
-    console.info('UserService.editGeneralData() - send date in server');
+    // console.info('UserService.editGeneralData() - send date in server');
     return this.http.put(this.global.getLink() + 'users/', data)
       .pipe(map(res => {
         return res;
@@ -92,7 +92,7 @@ export class UserService {
   }
 
   editAccount(data: any) {
-    console.info('UserService.editGeneralData() - send date in server');
+    // console.info('UserService.editGeneralData() - send date in server');
     return this.http.put(this.global.getLink() + 'users/password', data)
       .pipe(map(res => {
         return res;
@@ -100,7 +100,7 @@ export class UserService {
   }
 
   editOtherInformation(data: any) {
-    console.info('UserService.editOtherInformation() - send date in server');
+    // console.info('UserService.editOtherInformation() - send date in server');
     return this.http.put(this.global.getLink() + 'users/information', data)
       .pipe(map(res => {
         return res;

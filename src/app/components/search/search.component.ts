@@ -128,6 +128,6 @@ export class SearchComponent implements OnInit {
       this.options['type'] = this.type;
     }
 
-    console.log(this.options)
+    // console.log(this.options)
   }
 }

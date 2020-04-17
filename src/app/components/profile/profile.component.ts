@@ -146,7 +146,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       const modalDialogAddLocation = this.matDialog.open(AddLocationComponent, dialogConfig);
       modalDialogAddLocation.afterClosed().subscribe(result =>{
         if (result !== null) {
-          this.publication.unshift(result)
+          this.publication.unshift(result.message)
         }
       })
     } else if (type === 'addPicture') {
@@ -166,7 +166,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       const modalDialogAddText = this.matDialog.open(AddTextComponent, dialogConfig);
       modalDialogAddText.afterClosed().subscribe(result => {
         if(result !== null) {
-          this.publication.unshift(result)
+          this.publication.unshift(result.message)
         }
       })
     }

@@ -16,6 +16,7 @@ export class ListUsersChatComponent implements OnInit {
   @Output() emit = new EventEmitter<any>();
   @Output() remove = new EventEmitter<any>();
   @Input() events: Observable<void>;
+  @Input() editMessage: Observable<void>;
 
   private readonly notifier: NotifierService;
 
@@ -34,9 +35,19 @@ export class ListUsersChatComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.global.setNumberOfMessage(this.item._id)
+    
     this.events.subscribe(() => {
       this.isTrueMessage = false;
+      this.global.setNullOfMessage(this.item._id);
     });
+
+    this.editMessage.subscribe(res =>{
+      if (res === this.item._id.toString()) {
+        this.isTrueMessage = !this.isTrueMessage;
+      }
+    })
+
     this.editUserList();
   }
 
@@ -51,13 +62,16 @@ export class ListUsersChatComponent implements OnInit {
         this.item.message.listViewUser.forEach(element => {
           if (element.toString() === this.me._id.toString()) {
             this.isTrueMessage = false;
-          }  
+            this.global.setNullOfMessage(this.item._id)
+          }
         });
       } else {
         this.isTrueMessage = false;
+        this.global.setNullOfMessage(this.item._id)
       }
     } else {
       this.isFriends = true;
+      
     }
   }
 

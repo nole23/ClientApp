@@ -1,10 +1,15 @@
 import { Injectable } from '@angular/core';
-import { timer } from 'rxjs';
+import { timer, Subject } from 'rxjs';
+import { AppComponent } from '../app.component';
 
 @Injectable({
     providedIn: 'root'
 })
 export class Global {
+
+    private appComponent: AppComponent;
+    private testComponentSource = new Subject<boolean>();
+    testComponent$ = this.testComponentSource.asObservable();
 
     linkLocalhostChat: String;
     linkLocalhostStatus: String;
@@ -22,6 +27,7 @@ export class Global {
     smileRegExp = new RegExp(/(\:\w+\:|\<[\/\\]?3|[\(\)\\\D|\*\$][\-\^]?[\:\;\=]|[\:\;\=B8][\-\^]?[3DOPp\@\$\*\\\)\(\/\|])(?=\s|[\!\.\?]|$)/)
     ytRegExp = new RegExp(/(?:https?:\/\/|www\.|m\.|^)youtu(?:be\.com\/watch\?(?:.*?&(?:amp;)?)?v=|\.be\/)([\w‌​\-]+)(?:&(?:amp;)?[\w\?=]*)?/)
     imgRegExp = new RegExp(/https?:\/\/.*\.(?:png|jpg|gif|jpeg)/)
+    numberOfMessage: any;
     constructor() {
         this.isAutoLocation = false;
         this.isChangeLocationStatus = false;
@@ -49,10 +55,16 @@ export class Global {
                 "046.svg","047.svg","048.svg","049.svg","050.svg"
             ]
         };
-        this.linkLocalhostChat = 'https://twoway-chatservice.herokuapp.com/api/'
-        this.linkLocalhost = 'https://twoway-usersservice.herokuapp.com/api/';
-        this.linkLocalhostMedia = 'https://twoway-mediaservice.herokuapp.com/api/';
-        this.linkLocalhostStatus = 'https://twoway-statusservice.herokuapp.com/api/';
+        this.linkLocalhostChat = 'http://localhost:8085/chat/api/'
+        this.linkLocalhost = 'http://localhost:8085/users/api/';
+        this.linkLocalhostMedia = 'http://localhost:8085/media/api/';
+        this.linkLocalhostStatus = 'http://localhost:8085/status/api/';
+
+        // this.linkLocalhostChat = 'chat/api/'
+        // this.linkLocalhost = 'users/api/';
+        // this.linkLocalhostMedia = 'media/api/';
+        // this.linkLocalhostStatus = 'status/api/';
+
         this.linkWebhost = 'https:';
         this.panleOptions = {
             GeneralData: {
@@ -96,6 +108,7 @@ export class Global {
                 ]
             }
         }
+        this.numberOfMessage = [];
     }
 
     getLink() {
@@ -129,7 +142,7 @@ export class Global {
     }
 
     editLocalStorage(object: any) {
-        console.info('Global.editLocalStorage() - Edit localstorage when update profile for client')
+        // console.info('Global.editLocalStorage() - Edit localstorage when update profile for client')
         
         var newJson = JSON.parse(localStorage.getItem('user'));
 
@@ -423,5 +436,20 @@ export class Global {
         audio.src = "../../assets/sonds/insight.mp3";
         audio.load();
         audio.play();
+    }
+
+    setNumberOfMessage(id: any) {
+        this.numberOfMessage.push(id);
+        this.testComponentSource.next(null);
+    }
+
+    getNumberOfMessage() {
+        return this.numberOfMessage;
+    }
+
+    setNullOfMessage(id: any) {
+        let index = this.numberOfMessage.indexOf(id)
+        this.numberOfMessage.splice(index, 1);
+        this.testComponentSource.next(null);
     }
 }

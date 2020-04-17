@@ -28,6 +28,7 @@
     "core-js": "^2.5.4",
     "express": "^4.17.1",
     "hammerjs": "^2.0.8",
+    "http-proxy-middleware": "^1.0.3",
     "i": "^0.3.6",
     "ngx-scroll-event": "^1.0.8",
     "npm": "^6.13.1",

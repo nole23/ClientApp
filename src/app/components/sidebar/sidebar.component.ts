@@ -29,6 +29,7 @@ export class SidebarComponent implements OnInit {
   ngOnInit() {
     this.user = new User(JSON.parse(localStorage.getItem('user')));
     this.href = this.location.path().split('/')[1];
+    console.log(this.href)
   }
 
   ngOpenSideBar() {

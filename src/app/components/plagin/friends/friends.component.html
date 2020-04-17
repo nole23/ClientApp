@@ -7,10 +7,10 @@
     </div>
 
     <div class="float-l w-calc-center h-70p">
-      <div class="float-l w-full h-35p p-t-5 p-l-10 fs-22 text-white-f">
+      <div class="float-l w-full h-35p p-t-5 p-l-10 fs-22 text-white-f text-dot">
         <span>{{item.firstName + ' ' + item.lastName}}</span>
       </div>
-      <div class="float-l w-full h-35p p-b-10 p-l-10 fs-12 text-green">
+      <div class="float-l w-full h-35p p-b-10 p-l-10 fs-12 text-green text-dot">
         <span *ngIf="item.otherInformation.dateOfBirth === null">
           {{item.otherInformation.adress.city + ' - ' + item.otherInformation.address.country}}
         </span>
@@ -21,7 +21,7 @@
       </div>
     </div>
 
-    <div class="float-r w-200 h-70p">
+    <div class="float-r w-150 h-70p">
       <button 
         class="btn btn-success h-30p w-full m-b-2 m-t-2"
         [routerLink]="['/friends/' + item._id]"

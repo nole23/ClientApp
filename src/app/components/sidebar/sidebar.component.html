@@ -18,7 +18,7 @@
                 <span class="activ-text-width" i18n="@@ahrefChating">Chatovanje</span>
             </a>
         </li>
-        <li [ngClass]="href === 'profile' ? 'active': ''" (click)="activeRouter()">
+        <li [ngClass]="{'active': href === 'profile'}" (click)="activeRouter()">
             <a [routerLink]="['/profile/' + user._id]" >
                 <i class="fa fa-user-circle-o" aria-hidden="true"></i>
                 <span class="activ-text-width" i18n="@@ahrefProfil"> Profil </span>

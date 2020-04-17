@@ -15,15 +15,19 @@ export class SocketService {
   me: any;
   constructor(private http: HttpClient, private global: Global) { }
 
+  setSocket() {
+    this.socket = io('http://localhost:8085');
+  }
+
   setupSocketConnectionMessage() {
-    this.socketMessage = io('https://twoway-chatservice.herokuapp.com');
+    // this.socketMessage = io('https://twoway-chatservice.herokuapp.com');
   }
 
   setupSocketConnection() {
-    this.socket = io('https://twoway-statusservice.herokuapp.com');
-    if (JSON.parse(localStorage.getItem('user'))) {
-      this.emitStatusOnline();
-    }
+    // this.socket = io('https://twoway-statusservice.herokuapp.com');
+    // if (JSON.parse(localStorage.getItem('user'))) {
+    //   this.emitStatusOnline();
+    // }
   }
 
   emitStatusOnline() {
@@ -31,7 +35,7 @@ export class SocketService {
   }
 
   emitTyping(chater: any, user: any) {
-    this.socketMessage.emit('typing', {chater: chater._id, user: user._id});
+    this.socket.emit('typing', {chater: chater._id, user: user._id});
   }
 
   getStatusOnline(listChater: any) {

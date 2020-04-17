@@ -54,7 +54,7 @@ export class ImagesComponent implements OnInit {
   }
 
   closeModal() {
-    console.info('ProfileComponent.closeModal() - push button and close image in modal');
+    // console.info('ProfileComponent.closeModal() - push button and close image in modal');
     if (this.linkImage !== null) {
       this.linkImage = null;
     }

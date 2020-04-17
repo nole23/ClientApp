@@ -58,7 +58,7 @@ export class LocationComponent implements OnInit {
      */
 
     this.isShowMap = false;
-    console.info('LocationComponetn - Init geolocation of users');
+    // console.info('LocationComponetn - Init geolocation of users');
     this.statusSave = (this.user._id.toString() === this.me._id.toString());
     if (this.statusSave) {
       // Posto lokaciju poziva vise komponenti,

@@ -1,6 +1,6 @@
 <div class="my-container h-full m-t-35 of-auto" id="style-4">
   <div class="w-full h-min-50 float-l pos-relative">
-    <h1 class="text-white-f float-l fs-35 w-50p" i18n="@@SearchPipleInPlace">
+    <h1 class="text-white-f float-l fs-35 mobil-width" i18n="@@SearchPipleInPlace">
       Osobe iz okruzenja
     </h1>
     
@@ -131,20 +131,20 @@
         class="sizefull fit-image bo-cir-10 op-3">
 
       <div class="pos-absolute bottom-10 left-10 shift-css lh-0-8">
-        <span class="text-green-b fw-600 fs-16">
+        <span class="text-white-f fw-900 fs-25">
           {{item.firstName + ' ' + item.lastName}}
         </span>
 
         <br>
 
         <span 
-          class="text-white-f fs-12"
+          class="text-green fs-14"
           *ngIf="item.otherInformation.adress.city !== undefinde">
           {{item.otherInformation.adress.city + ' - ' + item.otherInformation.adress.country}}
         </span>
 
         <span 
-          class="text-white-f fs-12"
+          class="text-green fs-14"
           *ngIf="item.otherInformation.adress.city === undefinde">
           {{item.otherInformation.dateOfBirth | date: 'dd. MMM yyyy.'}}
         </span>

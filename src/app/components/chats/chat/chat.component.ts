@@ -4,7 +4,6 @@ import * as io from "socket.io-client";
 import { Subject } from 'rxjs';
 import { NotifierService } from 'angular-notifier';
 import { User } from "../../../models/user";
-import { UserService } from "../../../services/user.service";
 import { ChatService } from "../../../services/chat.service";
 import { Global } from "../../../global/global";
 import { SocketService } from '../../../services/socket.service';
@@ -18,6 +17,7 @@ export class ChatComponent implements OnInit {
   @ViewChild('message') message: ElementRef;
   @ViewChild('scrollMe') scrollMe: ElementRef;
   eventsSubject: Subject<void> = new Subject<void>();
+  eventsEditNewMessage: Subject<void> = new Subject<void>();
 
   private readonly notifier: NotifierService;
 
@@ -72,23 +72,22 @@ export class ChatComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.socketService.socketMessage.on('new-message-' + this.me._id, (data: any) =>{
+    this.socketService.socket.on('new-message-' + this.me._id, (data: any) =>{
       let resData = JSON.parse(data);
       if (resData.message.author.toString() !== this.me._id.toString()) {
         this.editSocketMessage(resData);
       }
     });
-
+    
     this.socketService.socket.on('user-is-online-' + this.me._id, (data: any) => {
       if (this.listChater !== null) {
-        this.listChater.forEach(element => {
+        this.listChater.forEach((element: any) => {
           let index = element.participants.findIndex(x => x._id.toString() === data.user._id.toString())
           if (index !== -1) {
             element.status = data.status;
           }
         });
       }
-      
     })
 
     this.getAllChater();
@@ -131,7 +130,9 @@ export class ChatComponent implements OnInit {
         }
       }
       this.scrollBottomNumber = this.scrollMe.nativeElement.scrollHeight;
-    } 
+    } else {
+      this.eventsEditNewMessage.next(resData.chat._id)
+    }
 
     let testiram = this.listChater.map(function(x) {return x._id; }).indexOf(resData.chat._id);
     this.setListChater(this.listChater[testiram], resData.message.text);
@@ -181,6 +182,8 @@ export class ChatComponent implements OnInit {
       });
 
       this.openChat(item, i, false);
+    } else {
+      this.destroy();
     }
   }
 
@@ -250,15 +253,16 @@ export class ChatComponent implements OnInit {
       }
     });
 
-    this.socketService.socketMessage.on('typing-' + this.chater._id, (data: any) =>{
+    this.socketService.socket.on('typing-' + this.chater._id, (data: any) =>{
       if (data.toString() !== this.me._id.toString()) {
         this.setTyping(true);
       }
-    })
+    });
+
+    this.global.setNullOfMessage(item._id);
   }
 
   setTyping(status: Boolean) {
-    console.log('dosao')
     this.onTyping = status;
     this.isTyping= status;
     clearTimeout(this.timer);
@@ -278,6 +282,7 @@ export class ChatComponent implements OnInit {
       this.setListChater(this.chater, text);
     });
     this.textMessage = '';
+    this.global.setNullOfMessage(this.chater._id)
   }
 
   setListChater(chater: any, text: String) {
@@ -327,8 +332,8 @@ export class ChatComponent implements OnInit {
 
   closeChat() {
     this.destroy();
-    this.message.nativeElement.children['chat-area'].classList.add('mobile-hide');
     this.isMobile = !this.isMobile;
+    this.message.nativeElement.children['chat-area'].classList.add('mobile-hide');
     this.router.navigate(['chat/list-user'])
   }
 
@@ -385,5 +390,6 @@ export class ChatComponent implements OnInit {
     this.nameChater = [];
     this.countFokus = 0;
     this.closeSmile();
+    this.isMobile = false;
   }
 }

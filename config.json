@@ -1,0 +1,20 @@
+{
+    "routes": [
+      {
+        "route": "/users",
+        "address": "http://localhost:8080"
+      },
+      {
+          "route": "/media",
+          "address": "http://localhost:8081"
+      },
+      {
+        "route": "/status",
+        "address": "http://localhost:8082"
+      },
+      {
+          "route": "/chat",
+          "address": "http://localhost:8084"
+      }
+    ]
+}

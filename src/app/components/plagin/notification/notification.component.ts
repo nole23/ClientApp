@@ -22,8 +22,7 @@ export class NotificationComponent implements OnInit {
 
   getAllNotification() {
     this.notificationService.getAllNotification().subscribe(res => {
-      this.notifications = res;
-      console.log(this.notifications)
+      this.notifications = res['message'];
     });
   }
 }

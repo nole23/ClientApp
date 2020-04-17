@@ -8,14 +8,12 @@ import { SearchComponent } from './components/search/search.component';
 import { SettingsProfileComponent } from './components/plagin/settings-profile/settings-profile.component';
 import { NotificationComponent } from './components/plagin/notification/notification.component';
 import { ProfilFriendsComponent } from './components/profil-friends/profil-friends.component';
-import { ChatAreaModule } from './chat-area/chat-area.module';
+// import { ChatAreaModule } from './chat-area/chat-area.module';
+import { ChatComponent } from './components/chats/chat/chat.component';
 
 const routes: Routes = [
   // { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
-  {
-    path: 'chat',
-    loadChildren: () => ChatAreaModule
-  },
+  { path: 'chat/:id', component: ChatComponent, canActivate: [AuthGuard] },
   { path: 'profile/:username', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'search', component: SearchComponent, canActivate: [AuthGuard] },
   { path: 'settings', component: SettingsProfileComponent, canActivate: [AuthGuard] },

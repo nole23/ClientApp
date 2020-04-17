@@ -2,12 +2,22 @@
   <div class="wp-300">
     <div class="m-t-20 m-r-50 m-b-20 m-l-50 image-phone">
       <!-- redirect to settings -->
-      <div class="mobile-button w-20p float-l">
-        <button class="settings m-l-20 m-t-0 w-50 h-50p" [routerLink]="['/settings']"><i class="fa fa-cog fa-green fs-40"></i></button>
+      <div
+        class="mobile-button w-20p float-l"
+        *ngIf="!isFriends && !status && !isRequester && !isResponder">
+        <button 
+          class="settings m-l-20 m-t-0 w-50 h-50p" 
+          [routerLink]="['/settings']">
+          <i class="fa fa-cog fa-green fs-47"></i>
+        </button>
       </div>
 
-      <div class="mobile-button-right w-20p h-50p float-r pos-absolute">
-        <button class="btn-mobile-image fs-35 text-green" (click)="openModal(null, 'updateImage')">
+      <div 
+        class="mobile-button-right w-20p h-50p float-r pos-absolute"
+        *ngIf="!isFriends && !status && !isRequester && !isResponder">
+        <button 
+          class="btn-mobile-image fs-35 text-green float-r m-r-20" 
+          (click)="openModal(null, 'updateImage')">
           <i class="fa fa-camera fa-green fs-37"></i>
         </button>
       </div>
@@ -39,7 +49,7 @@
         </p>
         
         <button 
-            class="btn btn-outline-success "
+            class="btn btn-success "
             (click)="addFriends(user)"
             *ngIf="!isFriends && status && !isRequester && !isResponder"
             i18n="@@ProfilAddFriends">
@@ -48,7 +58,7 @@
         </button>
 
         <button 
-            class="btn btn-outline-danger"
+            class="btn btn-danger"
             (click)="removeRelationShip(user)"
             *ngIf="status && isRequester && !isResponder"
             i18n="@@ProfilCancelRequest">
@@ -57,7 +67,7 @@
         </button>
 
         <button
-            class="btn btn-outline-danger"
+            class="btn btn-danger"
             (click)="removeRelationShip(user)"
             *ngIf="status && !isRequester && isResponder"
             i18n="@@ProfilNotAddFriends">
@@ -66,7 +76,7 @@
         </button>
 
         <button
-            class="btn btn-outline-success"
+            class="btn btn-success"
             (click)="acceptRelationship(user)"
             *ngIf="status && !isRequester && isResponder"
             i18n="@@ProfilAcceptFriends">
@@ -75,16 +85,25 @@
         </button>
 
         <button
-            class="btn btn-outline-danger"
+            class="btn btn-danger mobile-width"
             (click)="removeFriends(user)"
             *ngIf="isFriends && status && !isRequester && !isResponder"
             i18n="@@ProfilRemoveFrineds">
             Izbrisi prijatelja 
             <span class="spinner-border smal" role="status" *ngIf="btnSave"></span>
         </button>
+
+        <button
+            class="btn btn-success m-l-10-edit mobile-width" 
+            *ngIf="isFriends && status && !isRequester && !isResponder" 
+            [routerLink]="['/settings']"
+            i18n="@@ProfilSendMessage">
+            Posalji poruku 
+            <span class="spinner-border smal" role="status" *ngIf="btnSave"></span>
+        </button>
         
         <button
-            class="btn btn-outline-success btn-hide-mobile" 
+            class="btn btn-success btn-hide-mobile" 
             *ngIf="!isFriends && !status && !isRequester && !isResponder" 
             [routerLink]="['/settings']"
             i18n="@@ProfilUpdateProfile">

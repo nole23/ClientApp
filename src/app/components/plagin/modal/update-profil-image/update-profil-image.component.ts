@@ -31,7 +31,7 @@ export class UpdateProfilImageComponent implements OnInit {
   }
 
   onSelectImgForHeader(event: any) {
-    console.info('ProfileComponent.onSelectImgForHeader() - push button and select image in local file');
+    // console.info('ProfileComponent.onSelectImgForHeader() - push button and select image in local file');
     if (event.target.files && event.target.files[0]) {
       var reader = new FileReader();
       reader.readAsDataURL(event.target.files[0]); // read file as data url
@@ -50,7 +50,7 @@ export class UpdateProfilImageComponent implements OnInit {
   }
 
   saveImages() {
-    console.info('ModalDialog.ngSaveImageHeader() - push button and save selected images');
+    // console.info('ModalDialog.ngSaveImageHeader() - push button and save selected images');
     var datetimestamp = Date.now();
     let name = this.me.username + '.' + this.me._id + '.' + datetimestamp;
     this.fd.append('file', this.selectedFilesHeaderImage, name.toString());

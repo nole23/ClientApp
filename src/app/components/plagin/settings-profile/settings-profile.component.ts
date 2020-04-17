@@ -183,7 +183,7 @@ export class SettingsProfileComponent implements OnInit {
     }
 
     if (i === 3) {
-      console.log('privatne inforamcije')
+      // console.log('privatne inforamcije')
     }
   }
 

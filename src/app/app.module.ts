@@ -42,6 +42,9 @@ import { AddTextComponent } from './components/plagin/modal/add-text/add-text.co
 import { DeleteFriendsComponent } from './components/plagin/modal/delete-friends/delete-friends.component';
 import { ImageGalleryComponent } from './components/plagin/modal/image-gallery/image-gallery.component';
 import { SocketService } from './services/socket.service';
+import { ChatComponent } from './components/chats/chat/chat.component';
+import { ListUsersChatComponent } from './components/plagin/list-users-chat/list-users-chat.component';
+import { ChatAreaComponent } from './components/plagin/chat-area/chat-area.component';
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -111,7 +114,10 @@ const customNotifierOptions: NotifierOptions = {
     PublicationShowDeleteComponent,
     AddTextComponent,
     DeleteFriendsComponent,
-    ImageGalleryComponent
+    ImageGalleryComponent,
+    ChatComponent,
+    ListUsersChatComponent,
+    ChatAreaComponent
   ],
   imports: [
     NotifierModule.withConfig(customNotifierOptions),

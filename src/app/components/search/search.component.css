@@ -34,7 +34,7 @@
 	bottom: 55px!important;
 }
 .op-3 {
-	opacity: 0.7;
+	opacity: 0.5;
 }
 .css-media-mobile {
 	display: none;
@@ -87,6 +87,10 @@
 		width: 100%;
 	}
 	.w-40p-calc {
+		width: 100%;
+	}	
+	.mobil-width {
+		text-align: center;
 		width: 100%;
 	}
 }

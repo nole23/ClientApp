@@ -35,9 +35,10 @@ export class AppComponent implements OnInit {
   passwordRestart: Boolean;
   codeNotValidate: Boolean;
   btnColorNewFriend: String;
-  btnColorNewMessage: String;
   btnColorNewInfo: String;
+  btnColorChat: String;
   countMessage: any;
+  isCount: Boolean;
   statusError: String;
   constructor(
     private auth: AuthNav,
@@ -62,47 +63,61 @@ export class AppComponent implements OnInit {
     this.picture = "../assets/picture/bg-01.jpg";
     this.title = "Ulogujte se";
     this.btnColorNewFriend = "";
-    this.btnColorNewMessage = "";
     this.btnColorNewInfo = "";
+    this.btnColorChat = 'green-color';
     this.user = JSON.parse(localStorage.getItem("user"));;
     this.statusError = null
     this.countMessage = 0
+    this.isCount = false;
+    this.global.testComponent$.subscribe(res => {
+      this.serviceCall()
+    })
   }
 
   ngOnInit(status: Boolean = false) {
+    this.socketService.setSocket();
     if (!status) {
       this.status();
       if (this.user !== null) {
-        this.socketService.setupSocketConnection();
-        this.socketService.setupSocketConnectionMessage();
+        this.socketService.emitStatusOnline();
 
-        this.socketService.socketMessage.on("new-message-" + this.user._id, (data: any) => {
+        this.socketService.socket.on("new-message-" + this.user._id, (data: any) => {
           let resData = JSON.parse(data);
           if (resData.message.author.toString() !== this.user._id.toString()) {
             this.global.playAudi();
-            this.btnColorNewMessage = 'green-color';
-            if (this.countMessage < 11) {
-              this.countMessage = this.countMessage + 1;
-            }
+            this.global.setNumberOfMessage(resData._id)
           }
         })
       }
     } else {
       this.user = JSON.parse(localStorage.getItem('user'));
-      this.socketService.setupSocketConnection();
-      this.socketService.setupSocketConnectionMessage();
+      this.socketService.emitStatusOnline();
 
-      this.socketService.socketMessage.on("new-message-" + this.user._id, (data: any) => {
+      this.socketService.socket.on("new-message-" + this.user._id, (data: any) => {
         let resData = JSON.parse(data);
         if (resData.message.author.toString() !== this.user._id.toString()) {
           this.global.playAudi();
+          this.global.setNumberOfMessage(resData._id)
         }
       })
     }
   }
 
+  serviceCall() {
+    let item = this.global.getNumberOfMessage()
+    setTimeout(() => {
+      this.countMessage = item.length;
+      if (this.countMessage > 0) {
+        this.isCount = true;
+      } else {
+        this.isCount = false;
+      }
+    }, 10)
+  }
+
+
   onEmitListUserChat(event: any) {
-    console.log(event)
+    // console.log(event)
   }
 
   status() {
@@ -166,8 +181,6 @@ export class AppComponent implements OnInit {
     if (!event.status) {
       this.statusError = event.message;
     } else {
-      // this.socketService.setupSocketConnection();
-      // this.socketService.setupSocketConnectionMessage();
       this.loginStatus = event.status;
       this.loading = !event.status;
       this.ngOnInit(true)
