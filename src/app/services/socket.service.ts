@@ -16,7 +16,7 @@ export class SocketService {
   constructor(private http: HttpClient, private global: Global) { }
 
   setSocket() {
-    this.socket = io('http://localhost:8085');
+    this.socket = io('http://twoway1.herokuapp.com');
   }
 
   setupSocketConnectionMessage() {
