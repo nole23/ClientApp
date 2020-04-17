@@ -2,19 +2,19 @@
     "routes": [
       {
         "route": "/users",
-        "address": "http://localhost:8080"
+        "address": "https://twoway-usersservice.herokuapp.com"
       },
       {
           "route": "/media",
-          "address": "http://localhost:8081"
+          "address": "https://twoway-mediaservice.herokuapp.com"
       },
       {
         "route": "/status",
-        "address": "http://localhost:8082"
+        "address": "https://twoway-statusservice.herokuapp.com"
       },
       {
           "route": "/chat",
-          "address": "http://localhost:8084"
+          "address": "https://twoway-chatservice.herokuapp.com"
       }
     ]
 }
