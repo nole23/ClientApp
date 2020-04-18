@@ -13,7 +13,7 @@
         "address": "https://twoway-statusservice.herokuapp.com"
       },
       {
-          "route": "/chat",
+          "route": "/chats",
           "address": "https://twoway-chatservice.herokuapp.com"
       }
     ]
