@@ -71,7 +71,7 @@ app.get('*', function(req, res) {
 var http = require('http').Server(app);
 
 var io = require('socket.io')(http);
-io.set('origins', 'http://twoway1.herokuapp.com');
+// io.set('origins', 'http://twoway1.herokuapp.com');
 io.on('connection', function (socket) {
     socket.on('setOnline', (data) =>{
         service.requestMethod(

@@ -16,7 +16,7 @@ export class SocketService {
   constructor(private http: HttpClient, private global: Global) { }
 
   setSocket() {
-    this.socket = io('http://twoway1.herokuapp.com');
+    this.socket = io('https://twoway1.herokuapp.com');
   }
 
   setupSocketConnectionMessage() {
