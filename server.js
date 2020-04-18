@@ -45,7 +45,11 @@ for (route of routes) {
                 }
             },
             onProxyRes: (proxyRes, req, res) => {
-                if (!(req.method.toString() != 'GET') || (req.method.toString() != 'OPTIONS')) {
+                if (
+                    (req.method.toString() == 'POST') || 
+                    (req.method.toString() == 'PUT') || 
+                    (req.method.toString() == 'DELETE')
+                ) {
                     proxyRes.on('data', (data) => {
                         var rData = JSON.parse(data.toString('utf-8'));
                         if (rData.socket.toString() != 'SOCKET_NULL_POINT') {
@@ -71,7 +75,6 @@ app.get('*', function(req, res) {
 var http = require('http').Server(app);
 
 var io = require('socket.io')(http);
-// io.set('origins', 'http://twoway1.herokuapp.com');
 io.on('connection', function (socket) {
     socket.on('setOnline', (data) =>{
         service.requestMethod(

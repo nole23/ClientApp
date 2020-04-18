@@ -6,9 +6,13 @@
   float: left;
   width: 100%;
   margin: 0;
-  border-bottom: 2px solid #00c928;
+  /* border-bottom: 2px solid #00c928; */
   min-height: 10vh;
   padding: 0;
+  margin-bottom: 5px;
+  background: #6a6a6a;
+  border-radius: 5px;
+
 }
 
 .tab-foter {

@@ -1,30 +1,55 @@
-.container {
+.wp-user {
+    width: 350px;
+}
+.wp-body {
+    width: calc(100% - 350px);
+}
+.width-profile {
+    max-width: 1440px;
+}
+.nav-bar {
+    width: 100%;
+    height: 50px;
+    border-bottom: 3px solid #fff;
+}
+.p-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
     padding: 0;
     margin: 0;
+    transform-origin: center center;
+    transform: translateX(calc((100% / 2) * (-1))) translateY(calc((100% / 2) * (-1)));
 }
-
+.height-picture {
+    height: 250px;
+}
 .mobile-button {
     display: none;
 }
-
-.wp-300 {
-    width: 300px;
-    min-width: 300px;
-    max-width: 300px;
-    float: left;
-    margin: 0;
+.height-location {
+    height: 200px;
 }
-
-.wp-r-300 {
-    float: left;
-    margin: 0;
-    width: calc(100vw - 600px)!important;
+.height-info {
+    height: calc(100% - 450px);
 }
-
+.position-calc {
+    top: 116px;
+    left: 78px;
+    background-color: black;
+}
+.hover-edit {
+    display: none;
+    z-index: 9999;
+}
+.hover-edit:hover {
+    display: block;
+    z-index: 9999;
+}
 #btn {
     position: absolute;
-    top: 115px;
-    left: 318px;
+    top: 117px;
+    left: 78px;
     color: white;
     font-size: 16px;
     padding: 12px 24px;
@@ -32,15 +57,12 @@
     cursor: pointer;
     border-bottom-left-radius: 208px;
     border-bottom-right-radius: 208px;
-    width: 193px;
-    height: 104px;
+    width: 194px;
+    height: 105px;
     text-align: center;
     opacity: 0.9;
 }
 .btn-hide {
-    display: none;
-}
-.btn-hide-mobile {
     display: none;
 }
 #btn:hover .btn-hide {
@@ -49,46 +71,22 @@
 #btn:hover{
     background-color: black;
 }
-
-.rounded-circle {
-    border: 3px solid #00c928;
-}
-
 .btn-success {
-    width: 100%;
+    width: 95%;
 }
 .btn-danger {
-    width: 100%;
+    width: 95%;
 }
 .btn-success:hover {
     background-color: #00c928;
 }
-
-.nav-bar {
-    border-top: 1px solid #00c928;
-    width: calc(100% - 100px);
-    height: 35px;
-    border-bottom: 3px solid #fff;
+.container {
+    padding: 0;
+    margin: 0;
 }
-
-.user-tab {
-    margin-left: 50px;
-    height: calc(100vh - 59px);
-    background: #6a6a6a;
-    border-radius: 3px;
-    overflow: auto;
-    width: calc(100% - 100px);
+.rounded-circle {
+    border: 3px solid #00c928;
 }
-
-.background {
-    background: #464646;
-}
-
-.privat-information {
-    width: 100%;
-    height: calc(100vh - 470px);
-}
-
 .add-publication {
     width: 100%;
     height: 40px;
@@ -105,135 +103,62 @@
 .add-publication .location:hover .add-publication i{
     color: #fff   
 }
-
-.btn-mobile-image {
-    display: block;
-}
-
-@media (min-width: 768px) and (max-width: 1250px) {
-    .nav-bar {
-        width: calc(100% - 55px);
+@media (min-width: 1440px) {
+    .width-profile {
+        margin-left: calc((100% - 1440px) / 2);
     }
-
-    .user-tab {
-        width: calc(100vw - 650px)
+    .my-container {
+        max-width: 100%!important;
+    }
+    .wp-user {
+        width: 450px;
+    }
+    .wp-body {
+        width: calc(100% - 450px);
+    }
+    .height-location {
+        height: 350px;
+    }
+    .height-info {
+        height: 350px;
+    }
+    #btn {
+        left: 128px;
     }
 }
-
-@media (min-width: 769px) {
-    .btn-mobile-image {
+@media (max-width: 768px) {
+    .wp-user {
+        width: 100%;
+    }
+    .wp-body {
+        width: 100%;
+    }
+    .mobile-button {
+        display: block;
+    }
+    .height-location {
+        height: 130px;
+    }
+    .height-info {
+        height: calc(100% - 380px);
+    }
+    .no-mobile-button {
         display: none;
     }
-
-    .wp-300 {
-        height: 100vh;
-    }
-
-    .privat-information {
-        position: absolute;
-        border: 1px solid rgba(0,0,0,.1);
-        display: block;
-        margin: 0 0px 0 -50px;
-        width: 335px !important;
-        height: calc(100vh - 410px) !important;
-    }
-
-    .btn-hide-mobile {
-        display: block;
-    }
-}
-
-@media (max-width: 768px) {
-
-    .privat-information {
-        height: calc(100vh - 435px);
-    }
-
     .container {
         margin-right: auto;
         margin-left: auto;
     }
-
-    .wp-300 {
-        width: 100%;
-        min-width: 100%;
-        float: left;
-        height: calc(100vh - 163px);
-    }
-
-    .wp-r-300 {
-        width: 100% !important;
-        margin-top: 60px;
-    }
-
-    .user-tab  {
-        margin-left: 0;
-        width: 100% !important;
-    }
-
-    .nav-bar {
-        width: 100%;
-        margin-left: 0;
-        margin-top: 0;
-    }
-
-    .image-phone {
-        background-position: center !important;
-        background-repeat: no-repeat !important;
-        background-size: 100% 300px !important;
-        width: 100% !important;
-        height: 300px !important;
-        margin: 0 !important;
-    }
-
-    .image-phone img {
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-        margin-top: 20px;
-    }
-
     #btn {
         display: none;
     }
-    
-    .mobile-button {
-        display: block;
-    }
-
-    .mobile-button .settings {
-        display: block;
-        margin-right: -20px;
-        margin-bottom: -70px;
-    }
-
-    .mobile-button-right {
-        right: 0px;
-    }
-
     .m-l-10-edit {
         margin-left: 10px;
     }
-
     .mobile-width {
         width: 45%!important;
     }
-}
-
-@media (min-width: 1441px) {
-    .wp-300 {
-        min-width: 500px;
-    }
-
-    .wp-r-300 {
-        width: calc(100% - 500px)!important;
-    }
-
-    .rounded-circle {
-        margin: auto 25%
-    }
-
-    .privat-information {
-        width: 530px !important;
+    .btn-hide-mobile {
+        display: none;
     }
 }

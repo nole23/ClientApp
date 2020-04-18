@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { map, catchError  } from 'rxjs/operators';
 import { Global } from '../global/global';
 import { User } from '../models/user';
@@ -41,11 +41,14 @@ export class UserService {
     }))
   }
 
-  getPublication(user: User) {
-    return this.http.get(this.global.getLink() + 'publication/' + user._id)
-    .pipe(map(res =>{
-      return res;
-    }))
+  getPublication(user: User, page: any) {
+    let params = new HttpParams().set(
+      "page", JSON.stringify(page)
+    )
+    return this.http.get(this.global.getLink() + 'publication/' + user._id, {params: params})
+      .pipe(map(res =>{
+        return res;
+      }))
   }
 
   getFriends(user: User, pagination: any) {

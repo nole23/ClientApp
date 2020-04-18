@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { User } from '../../models/user';
 import { Images } from '../../models/images';
@@ -39,6 +39,9 @@ export class ProfilFriendsComponent implements OnInit, OnDestroy {
   isResponder: Boolean;
   isFriends: Boolean;
   typeLocation: String;
+  numberOfPage: any;
+  awaitToResposn: Boolean;
+  isLastElement: any;
   constructor(
     notifier: NotifierService,
     private activatedRoute: ActivatedRoute,
@@ -60,6 +63,13 @@ export class ProfilFriendsComponent implements OnInit, OnDestroy {
     this.typeLocation = 'userProfile';
     this.notifier = notifier;
     this.me = JSON.parse(localStorage.getItem('user'));
+    this.numberOfPage = 0;
+    this.awaitToResposn = false;
+    this.isLastElement = {
+      publication: true,
+      friend: true,
+      picture: true
+    }
   }
 
   ngOnInit() {
@@ -97,8 +107,9 @@ export class ProfilFriendsComponent implements OnInit, OnDestroy {
   }
 
   getPublication() {
-    this.userService.getPublication(this.user).subscribe((res: [Publication]) => {
+    this.userService.getPublication(this.user, this.numberOfPage).subscribe((res: [Publication]) => {
       this.publication = res['publication'];
+      this.numberOfPage = this.numberOfPage + 1;
     });
   }
 
@@ -248,5 +259,31 @@ export class ProfilFriendsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.setInitOpcion();
+  }
+
+  @HostListener('scroll', ['$event'])
+  onScroll(event: any) {
+    if (event.target.offsetHeight + event.target.scrollTop >= (event.target.scrollHeight - 500)) {
+      if (!this.awaitToResposn) {
+        this.userService.getPublication(this.user, this.numberOfPage).subscribe((res: [Publication]) => {
+          if (res['publication'].length !== 0) {
+            res['publication'].forEach(element => {
+              this.publication.push(element);
+            });
+            this.numberOfPage = this.numberOfPage + 1;
+            this.awaitToResposn = false;
+          } else {
+            this.isLastElement.publication = !this.isLastElement.publication;
+          }
+          
+        });
+      }
+
+      if (this.isLastElement.publication) {
+        this.awaitToResposn = true;
+      } else {
+        this.awaitToResposn = false;
+      }
+    }
   }
 }

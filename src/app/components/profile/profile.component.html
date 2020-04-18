@@ -1,221 +1,242 @@
-<div class="my-container" *ngIf="user !== null">
-  <div class="wp-300">
-    <div class="m-t-20 m-r-50 m-b-20 m-l-50 image-phone">
-      <!-- redirect to settings -->
-      <div
-        class="mobile-button w-20p float-l"
-        *ngIf="!isFriends && !status && !isRequester && !isResponder">
-        <button 
-          class="settings m-l-20 m-t-0 w-50 h-50p" 
-          [routerLink]="['/settings']">
-          <i class="fa fa-cog fa-green fs-47"></i>
-        </button>
-      </div>
+<div class="my-container sizefull" style="overflow: auto;" id="style-4" *ngIf="user !== null">
+  <div class="sizefull width-profile" style="max-width: 1440px;">
 
-      <div 
-        class="mobile-button-right w-20p h-50p float-r pos-absolute"
-        *ngIf="!isFriends && !status && !isRequester && !isResponder">
-        <button 
-          class="btn-mobile-image fs-35 text-green float-r m-r-20" 
-          (click)="openModal(null, 'updateImage')">
-          <i class="fa fa-camera fa-green fs-37"></i>
-        </button>
-      </div>
+    <div class="wp-user float-l h-100pc">
+      <div class="height-picture pos-relative">
+        <div
+          class="mobile-button pos-absolute left-15 top-10"
+          *ngIf="!isFriends && !status && !isRequester && !isResponder">
+          <button 
+            class="w-50 h-50p" 
+            [routerLink]="['/settings']">
+            <i class="fa fa-cog fa-green fs-47"></i>
+          </button>
+        </div>
 
-      <!-- Profil link -->
-      <img src="{{user.otherInformation.publicMedia.profileImage}}"
-          class="rounded-circle cursor-pointer fit-image"
+        <div 
+          class="mobile-button pos-absolute right-15 top-10"
+          *ngIf="!isFriends && !status && !isRequester && !isResponder">
+          <button 
+            class="w-50 h-50p" 
+            (click)="openModal(null, 'updateImage')">
+            <i class="fa fa-camera fa-green fs-37"></i>
+          </button>
+        </div>
+
+        <img src="{{user.otherInformation.publicMedia.profileImage}}"
+          class="rounded-circle cursor-pointer ab-c-m fit-image"
           (click)="openModal(user.otherInformation.publicMedia.profileImage, 'profilImage')"
           alt=""
           width="200px"
-          height="200px">
-      
-      <button id="btn" class="" (click)="openModal(null, 'updateImage')" *ngIf="!status">
-        <i class="fa fa-camera-retro btn-hide" aria-hidden="true"></i>
-        <span class="btn-hide" i18n="@@ProfilUpdateImage">Azurirati sliku</span>
-      </button>
-
-      <div class="m-t-10 text-white-f text-center">
-        <h4>{{user.firstName + ' ' + user.lastName}}</h4>
-        <p class="text-green fs-12">
-            <i class="fa fa-map-signs fa-white"aria-hidden="true"></i> 
-            {{user.otherInformation.adress.city}} - 
-            {{user.otherInformation.adress.region}} - 
-            {{user.otherInformation.adress.country}} <br>
-            <i class="fa fa-shopping-bag fa-white" aria-hidden="true"></i> 
-            {{user.otherInformation.jobs.name}} - 
-            {{user.otherInformation.jobs.nameCompany}} - 
-            {{user.otherInformation.jobs.places}}
-        </p>
+          height="200px" />
         
-        <button 
-            class="btn btn-success "
-            (click)="addFriends(user)"
-            *ngIf="!isFriends && status && !isRequester && !isResponder"
-            i18n="@@ProfilAddFriends">
-            Dodati prijatelja 
-            <span class="spinner-border smal" role="status" *ngIf="btnSave"></span>
+        <button id="btn" class="" (click)="openModal(null, 'updateImage')" *ngIf="!status">
+          <i class="fa fa-camera-retro btn-hide" aria-hidden="true"></i>
+          <span class="btn-hide" i18n="@@ProfilUpdateImage">Azurirati sliku</span>
         </button>
-
-        <button 
-            class="btn btn-danger"
-            (click)="removeRelationShip(user)"
-            *ngIf="status && isRequester && !isResponder"
-            i18n="@@ProfilCancelRequest">
-            Povuci zahtjev 
-            <span class="spinner-border smal" role="status" *ngIf="btnSave"></span>
-        </button>
-
-        <button
-            class="btn btn-danger"
-            (click)="removeRelationShip(user)"
-            *ngIf="status && !isRequester && isResponder"
-            i18n="@@ProfilNotAddFriends">
-            Odbi zahtjev
-            <span class="spinner-border smal" role="status" *ngIf="btnCancel"></span>
-        </button>
-
-        <button
-            class="btn btn-success"
-            (click)="acceptRelationship(user)"
-            *ngIf="status && !isRequester && isResponder"
-            i18n="@@ProfilAcceptFriends">
-            Prihvati 
-            <span class="spinner-border smal" role="status" *ngIf="btnSave"></span>
-        </button>
-
-        <button
-            class="btn btn-danger mobile-width"
-            (click)="removeFriends(user)"
-            *ngIf="isFriends && status && !isRequester && !isResponder"
-            i18n="@@ProfilRemoveFrineds">
-            Izbrisi prijatelja 
-            <span class="spinner-border smal" role="status" *ngIf="btnSave"></span>
-        </button>
-
-        <button
-            class="btn btn-success m-l-10-edit mobile-width" 
-            *ngIf="isFriends && status && !isRequester && !isResponder" 
-            [routerLink]="['/settings']"
-            i18n="@@ProfilSendMessage">
-            Posalji poruku 
-            <span class="spinner-border smal" role="status" *ngIf="btnSave"></span>
-        </button>
-        
-        <button
-            class="btn btn-success btn-hide-mobile" 
-            *ngIf="!isFriends && !status && !isRequester && !isResponder" 
-            [routerLink]="['/settings']"
-            i18n="@@ProfilUpdateProfile">
-            Azurirati profil 
-            <span class="spinner-border smal" role="status" *ngIf="btnSave"></span>
-        </button>
-        
-        <hr>
-        <div class="privat-information">
-            <app-location [typeLocation]="typeLocation" [user]="user"></app-location>
-        </div>
       </div>
-      
-    </div>
-  </div>
-  <div class="wp-r-300 background h-100">
-    <div class="nav-bar m-l-50 m-t-20 float-l">
-      <div class="row m-r-0">
-        <div [ngClass]="!status ? 'col-4' : 'col-6'">
-          <p 
-            (click)="openTab('home')" 
-            i18n="@@proflieNavHome"
-            class="text-center text-white-f cursor-pointer fs-15"
-            [ngClass]="activeUser ? 'active' : ''"
-            i18n="@@ProfilHomeBtn">
-            Pocetna
+
+      <div class="height-info w-100p pos-relative" style="clear: both;">
+        <div class="sizefull float-l text-white-f text-center">
+          <div class="float-l w-100p h-40pc">
+            <h4>{{user.firstName + ' ' + user.lastName}}</h4>
+            <p class="text-green fs-12">
+              <i class="fa fa-map-signs fa-white"aria-hidden="true"></i> 
+              {{user.otherInformation.adress.city}} - 
+              {{user.otherInformation.adress.region}} - 
+              {{user.otherInformation.adress.country}} <br>
+              <i class="fa fa-shopping-bag fa-white" aria-hidden="true"></i> 
+              {{user.otherInformation.jobs.name}} - 
+              {{user.otherInformation.jobs.nameCompany}} - 
+              {{user.otherInformation.jobs.places}}
           </p>
-        </div>
-
-        <div class="col-4" *ngIf="!status">
-          <p 
-            (click)="openTab('friend')" 
-            i18n="@@proflieNavFriend" 
-            class="text-center text-white-f cursor-pointer fs-15"
-            [ngClass]="activePicture ? 'active' : ''"
-            i18n="@@ProfilFrinedsBtn">
-            Prijatelji
-          </p>
-        </div>
-
-        <div [ngClass]="!status ? 'col-4' : 'col-6'">
-          <p 
-            (click)="openTab('picture')" 
-            i18n="@@proflieNavPicture" 
-            class="text-center text-white-f cursor-pointer fs-15"
-            [ngClass]="activeFriend ? 'active' : ''"
-            i18n="@@ProfilPictureBtn">
-            Slike
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <div class="user-tab" id="style-4" *ngIf="tab === 'home'">
-
-      <div class="add-publication bo-b-1-d" *ngIf="!status">
-        <div 
-          class="location bo-c-1 bo-cir-20 m-t-3 m-l-10 p-t-6 p-r-10 p-b-0 p-l-10 m-r-15 float-r cursor-pointer"
-          (click)="openModal(null, 'addLocation')"
-          title="Ostavite lokaciju">
-          <div class="float-l">
-            <i class="fa fa-map-marker fs-20 text-white-f" aria-hidden="true"></i>
           </div>
-        </div>
 
-        <div 
-          class="location bo-c-1 bo-cir-20 m-t-3 m-l-10 p-t-6 p-r-10 p-b-0 p-l-10 float-r cursor-pointer"
-          (click)="openModal(null, 'addPicture')"
-          title="Objavite sliku">
-          <div class="float-l">
-            <i class="fa fa-picture-o fs-20 text-white-f" aria-hidden="true"></i>
-          </div>
-        </div>
+          <div class="float-l w-100p h-60pc">
+            <button
+              class="btn btn-success btn-hide-mobile" 
+              *ngIf="!isFriends && !status && !isRequester && !isResponder" 
+              [routerLink]="['/settings']"
+              i18n="@@ProfilUpdateProfile">
+              Azurirati profil 
+              <span class="spinner-border smal" role="status" *ngIf="btnSave"></span>
+            </button>
 
-        <div 
-          class="location bo-c-1 bo-cir-20 m-t-3 m-l-10 p-t-6 p-r-10 p-b-0 p-l-10 float-r cursor-pointer"
-          (click)="openModal(null, 'addComent')"
-          title="Napisite nesto">
-          <div class="float-l">
-            <i class="fa fa-text-width fs-20 text-white-f" aria-hidden="true"></i>
+            <button
+              class="btn btn-danger mobile-width m-b-5"
+              (click)="removeFriends(user)"
+              *ngIf="isFriends && status && !isRequester && !isResponder"
+              i18n="@@ProfilRemoveFrineds">
+              Izbrisi prijatelja 
+              <span class="spinner-border smal" role="status" *ngIf="btnSave"></span>
+            </button>
+
+            <button
+              class="btn btn-success m-l-10-edit mobile-width m-b-5" 
+              *ngIf="isFriends && status && !isRequester && !isResponder" 
+              [routerLink]="['/settings']"
+              i18n="@@ProfilSendMessage">
+              Posalji poruku 
+              <span class="spinner-border smal" role="status" *ngIf="btnSave"></span>
+            </button>
+
+            <button 
+              class="btn btn-success m-b-5"
+              (click)="addFriends(user)"
+              *ngIf="!isFriends && status && !isRequester && !isResponder"
+              i18n="@@ProfilAddFriends">
+              Dodati prijatelja 
+              <span class="spinner-border smal" role="status" *ngIf="btnSave"></span>
+            </button>
+
+            <button 
+              class="btn btn-danger m-l-10-edit mobile-width m-b-5"
+              (click)="removeRelationShip(user)"
+              *ngIf="status && isRequester && !isResponder"
+              i18n="@@ProfilCancelRequest">
+              Povuci zahtjev 
+              <span class="spinner-border smal" role="status" *ngIf="btnSave"></span>
+            </button>
+
+            <button
+              class="btn btn-danger m-l-10-edit mobile-width m-b-5"
+              (click)="removeRelationShip(user)"
+              *ngIf="status && !isRequester && isResponder"
+              i18n="@@ProfilNotAddFriends">
+              Odbi zahtjev
+              <span class="spinner-border smal" role="status" *ngIf="btnCancel"></span>
+            </button>
+
+            <button
+              class="btn btn-success m-l-10-edit mobile-width m-b-5"
+              (click)="acceptRelationship(user)"
+              *ngIf="status && !isRequester && isResponder"
+              i18n="@@ProfilAcceptFriends">
+              Prihvati 
+              <span class="spinner-border smal" role="status" *ngIf="btnSave"></span>
+            </button>
           </div>
         </div>
       </div>
 
-      <div class="spinner-border text-success m-t-50p m-l-50p m-b-0p m-r-0p" role="status" *ngIf="publication === null">
-        <span class="sr-only">Loading...</span>
+      <div class="height-location w-100p pos-relative ">
+        <div class="sizefull" style="height: 100%;">
+          <app-location [typeLocation]="typeLocation" [user]="user"></app-location>
+        </div>
       </div>
-
-      <app-publication *ngFor="let item of publication" [item]="item" [user]="user" (emit)="onEmitPublic($event)">
-      </app-publication>
     </div>
 
-    <div class="user-tab" id="style-4" *ngIf="tab === 'friend'">
-      <div class="spinner-border text-success m-t-50p m-l-50p m-b-0p m-r-0p" role="status" *ngIf="userList === null">
-        <span class="sr-only">Loading...</span>
+    <div class="wp-body h-100 float-r">
+      <div class="nav-bar float-l">
+        <div class="row m-r-0 m-l-0 w-100p h-100pc">
+          <div 
+            [ngClass]="{'col-4': !status, 'col-6': status, 'bgnav': activeUser}"
+            (click)="openTab('home')">
+            <p  
+              i18n="@@proflieNavHome"
+              class="text-center text-white-f cursor-pointer fs-15 p-center"
+              [ngClass]="activeUser ? 'active' : ''"
+              i18n="@@ProfilHomeBtn">
+              Pocetna
+            </p>
+          </div>
+
+          <div 
+            class="col-4" 
+            *ngIf="!status" 
+            [ngClass]="{'bgnav': activePicture}"
+            (click)="openTab('friend')">
+            <p  
+              i18n="@@proflieNavFriend" 
+              class="text-center text-white-f cursor-pointer fs-15 p-center"
+              [ngClass]="activePicture ? 'active' : ''"
+              i18n="@@ProfilFrinedsBtn">
+              Prijatelji
+            </p>
+          </div>
+
+          <div 
+            [ngClass]="{'col-4': !status, 'col-6': status, 'bgnav': activeFriend}"
+            (click)="openTab('picture')">
+            <p  
+              i18n="@@proflieNavPicture" 
+              class="text-center text-white-f cursor-pointer fs-15 p-center"
+              [ngClass]="activeFriend ? 'active' : ''"
+              i18n="@@ProfilPictureBtn">
+              Slike
+            </p>
+          </div>
+        </div>
       </div>
 
-      <app-friends *ngFor="let item of userList" [item]="item" [user]="user" (emit)="onEmitFriends($event)"></app-friends>
-    </div>
+      <div class="w-100p float-l p-t-5 p-r-5 p-b-5 p-l-5">
+        <div class="float-l sizefull" *ngIf="tab === 'home'">
+          <div class="add-publication bo-b-1-d" *ngIf="!status">
+            <div 
+              class="location bo-c-1 bo-cir-20 m-t-3 m-l-10 p-t-6 p-r-10 p-b-0 p-l-10 m-r-15 float-r cursor-pointer"
+              (click)="openModal(null, 'addLocation')"
+              title="Ostavite lokaciju">
+              <div class="float-l">
+                <i class="fa fa-map-marker fs-20 text-white-f" aria-hidden="true"></i>
+              </div>
+            </div>
+  
+            <div 
+              class="location bo-c-1 bo-cir-20 m-t-3 m-l-10 p-t-6 p-r-10 p-b-0 p-l-10 float-r cursor-pointer"
+              (click)="openModal(null, 'addPicture')"
+              title="Objavite sliku">
+              <div class="float-l">
+                <i class="fa fa-picture-o fs-20 text-white-f" aria-hidden="true"></i>
+              </div>
+            </div>
+  
+            <div 
+              class="location bo-c-1 bo-cir-20 m-t-3 m-l-10 p-t-6 p-r-10 p-b-0 p-l-10 float-r cursor-pointer"
+              (click)="openModal(null, 'addComent')"
+              title="Napisite nesto">
+              <div class="float-l">
+                <i class="fa fa-text-width fs-20 text-white-f" aria-hidden="true"></i>
+              </div>
+            </div>
+          </div>
 
-    <div class="user-tab" id="style-4" *ngIf="tab === 'picture'">
-      <div 
-        class="spinner-border text-success m-t-50p m-l-50p m-b-0p m-r-0p"
-        role="status"
-        *ngIf="imagesList === null">
-        <span class="sr-only">Loading...</span>
+          <div 
+            class="spinner-border text-success m-t-50p m-l-50p m-b-0p m-r-0p" 
+            role="status" *ngIf="publication === null">
+            <span class="sr-only">Loading...</span>
+          </div>
+  
+          <app-publication *ngFor="let item of publication" [item]="item" [user]="user" (emit)="onEmitPublic($event)">
+          </app-publication>
+        </div>
+
+        <div *ngIf="tab === 'friend'">
+          <div 
+            class="spinner-border text-success m-t-50p m-l-50p m-b-0p m-r-0p" 
+            role="status" *ngIf="userList === null">
+            <span class="sr-only">Loading...</span>
+          </div>
+
+          <app-friends 
+            *ngFor="let item of userList" 
+            [item]="item" 
+            [user]="user" 
+            (emit)="onEmitFriends($event)">
+          </app-friends>
+        </div>
+
+        <div *ngIf="tab === 'picture'">
+          <div 
+            class="spinner-border text-success m-t-50p m-l-50p m-b-0p m-r-0p"
+            role="status"
+            *ngIf="imagesList === null">
+            <span class="sr-only">Loading...</span>
+          </div>
+          
+          <app-images [imagesList]="imagesList" [user]="user"> </app-images>
+        </div>
       </div>
-      
-      <app-images [imagesList]="imagesList" [user]="user"> </app-images>    
     </div>
-
-
   </div>
 </div>
 

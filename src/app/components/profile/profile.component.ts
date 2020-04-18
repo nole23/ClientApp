@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { User } from '../../models/user';
 import { Images } from '../../models/images';
@@ -37,6 +37,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
   isResponder: Boolean;
   isFriends: Boolean;
   typeLocation: String;
+  awaitToResposn: Boolean;
+  numberOfPage: any;
+  isLastElement: any;
   constructor(
     notifier: NotifierService,
     private activatedRoute: ActivatedRoute,
@@ -55,9 +58,17 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.isRequester = false;
     this.isResponder = false;
     this.userList = null;
+    this.imagesList = null;
     this.isFriends = false;
     this.typeLocation = 'userProfile';
     this.notifier = notifier;
+    this.awaitToResposn = false;
+    this.numberOfPage = 0;
+    this.isLastElement = {
+      publication: true,
+      friend: true,
+      picture: true
+    }
   }
 
   ngOnInit() {
@@ -86,8 +97,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   getPublication() {
-    this.userService.getPublication(this.user).subscribe((res: [Publication]) => {
+    this.userService.getPublication(this.user, this.numberOfPage).subscribe((res: [Publication]) => {
       this.publication = res['publication'];
+      this.numberOfPage = this.numberOfPage + 1;
     });
   }
 
@@ -107,21 +119,28 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   openTab(item: any) {
     this.tab = item;
+
     if (item === 'home') {
       this.activeUser = true;
       this.activeFriend = false;
       this.activePicture = false;
-      this.getPublication();
+      if (this.publication === null) {
+        this.getPublication();
+      }
     } else if (item === 'picture') {
       this.activeUser = false;
       this.activeFriend = true;
       this.activePicture = false;
-      this.getImage();
+      if (this.imagesList === null) {
+        this.getImage();
+      }
     } else if (item === 'friend') {
       this.activeUser = false;
       this.activeFriend = false;
       this.activePicture = true;
-      this.getFriends();
+      if (this.userList === null) {
+        this.getFriends();
+      }
     }
   }
 
@@ -227,5 +246,31 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.setInitOpcion();
+  }
+
+  @HostListener('scroll', ['$event'])
+  onScroll(event: any) {
+    if (event.target.offsetHeight + event.target.scrollTop >= (event.target.scrollHeight - 500)) {
+      if (!this.awaitToResposn) {
+        this.userService.getPublication(this.user, this.numberOfPage).subscribe((res: [Publication]) => {
+          if (res['publication'].length !== 0) {
+            res['publication'].forEach(element => {
+              this.publication.push(element);
+            });
+            this.numberOfPage = this.numberOfPage + 1;
+            this.awaitToResposn = false;
+          } else {
+            this.isLastElement.publication = !this.isLastElement.publication;
+          }
+          
+        });
+      }
+
+      if (this.isLastElement.publication) {
+        this.awaitToResposn = true;
+      } else {
+        this.awaitToResposn = false;
+      }
+    }
   }
 }
