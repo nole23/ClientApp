@@ -9,7 +9,9 @@ export class Global {
 
     private appComponent: AppComponent;
     private testComponentSource = new Subject<boolean>();
+    private sidebarComponentSource = new Subject<String>();
     testComponent$ = this.testComponentSource.asObservable();
+    sidebarComponent$ = this.sidebarComponentSource.asObservable();
 
     linkLocalhostChat: String;
     linkLocalhostStatus: String;
@@ -55,15 +57,15 @@ export class Global {
                 "046.svg","047.svg","048.svg","049.svg","050.svg"
             ]
         };
-        // this.linkLocalhostChat = 'http://localhost:8085/chats/api/'
-        // this.linkLocalhost = 'http://localhost:8085/users/api/';
-        // this.linkLocalhostMedia = 'http://localhost:8085/media/api/';
-        // this.linkLocalhostStatus = 'http://localhost:8085/status/api/';
+        this.linkLocalhostChat = 'http://localhost:8085/chats/api/'
+        this.linkLocalhost = 'http://localhost:8085/users/api/';
+        this.linkLocalhostMedia = 'http://localhost:8085/media/api/';
+        this.linkLocalhostStatus = 'http://localhost:8085/status/api/';
 
-        this.linkLocalhostChat = 'chats/api/'
-        this.linkLocalhost = 'users/api/';
-        this.linkLocalhostMedia = 'media/api/';
-        this.linkLocalhostStatus = 'status/api/';
+        // this.linkLocalhostChat = 'chats/api/'
+        // this.linkLocalhost = 'users/api/';
+        // this.linkLocalhostMedia = 'media/api/';
+        // this.linkLocalhostStatus = 'status/api/';
 
         this.linkWebhost = 'https:';
         this.panleOptions = {
@@ -417,6 +419,24 @@ export class Global {
         }
     }
 
+    getResponseError(message: String) {
+        if (
+            message === 'ERROR_UNAUTHORIZED' ||
+            message === 'ERROR_NULL_POINTER_EXEPTION' ||
+            message === 'ERROR_PROFILE_NOT_VERIFY' ||
+            message === 'ERROR_SERVER_NOT_FOUND' ||
+            message === 'ERROR_EMAIL_NOT_FREE' ||
+            message === 'ERROR_NOT_SAVE_INFORMATION' ||
+            message === 'ERROR_NOT_SAVE_CONFIGURATION' ||
+            message === 'SUCCESS_CREAT_PROFILE' ||
+            message === 'ERROR_NOT_FIND_ITEM'
+        ) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     getResponseSuccess(message: String) {
         if (
             message === 'SUCCESS_SAVE' || 
@@ -451,5 +471,9 @@ export class Global {
         let index = this.numberOfMessage.indexOf(id)
         this.numberOfMessage.splice(index, 1);
         this.testComponentSource.next(null);
+    }
+
+    setSidebar(name: String) {
+        this.sidebarComponentSource.next(name);
     }
 }

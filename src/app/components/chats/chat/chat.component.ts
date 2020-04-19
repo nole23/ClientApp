@@ -92,6 +92,8 @@ export class ChatComponent implements OnInit {
 
     this.getAllChater();
     this.getAllsmile();
+
+    this.global.setSidebar('chat');
   }
 
   setOnline(data: any) {

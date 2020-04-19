@@ -44,6 +44,8 @@ export class SettingsProfileComponent implements OnInit {
     let test = this.parseDataOptions(options);
 
     this.data = [opcion, account, otherInformations, test];
+
+    this.global.setSidebar('settings');
   }
 
   parseDataOptions(generalData: any) {

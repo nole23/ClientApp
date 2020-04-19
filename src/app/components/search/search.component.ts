@@ -4,6 +4,7 @@ import { User } from '../../models/user';
 import { SearchService } from '../../services/search.service';
 import { UserService } from '../../services/user.service';
 import { GeolocationService } from '../../services/geolocation.service';
+import { Global } from '../../global/global';
 
 @Component({
   selector: 'app-search',
@@ -31,7 +32,8 @@ export class SearchComponent implements OnInit {
     notifier: NotifierService,
     private searchService: SearchService,
     private userService: UserService,
-    private geolocationService: GeolocationService
+    private geolocationService: GeolocationService,
+    private global: Global
   ) {
     this.notifier = notifier;
     this.searchText = null;
@@ -57,7 +59,7 @@ export class SearchComponent implements OnInit {
 
   ngOnInit() {
     this.getAllUser();
-    // pozvati opcije nekad
+    this.global.setSidebar('profile');
   }
 
   getAllUser() {

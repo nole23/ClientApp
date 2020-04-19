@@ -18,6 +18,15 @@ export class Publication {
         this.comments = item.comments;
         this.likes = item.likes;
     }
+
+    getList(Array: any) {
+        let list = [];
+        Array.forEach((element: any) => {
+            list.push(new Publication(element))
+        });
+
+        return list;
+    }
 }
 
 export class Comments {

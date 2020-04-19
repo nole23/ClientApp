@@ -1,4 +1,4 @@
-<div class="my-container sizefull" style="overflow: auto;" id="style-4" *ngIf="user !== null">
+<div class="my-container sizefull" style="overflow: auto;" id="style-4" (scroll)="onScroll($event)" *ngIf="user !== null">
   <div class="sizefull width-profile" style="max-width: 1440px;">
 
     <div class="wp-user float-l h-100pc">
@@ -74,7 +74,7 @@
             <button
               class="btn btn-success m-l-10-edit mobile-width m-b-5" 
               *ngIf="isFriends && status && !isRequester && !isResponder" 
-              [routerLink]="['/settings']"
+              [routerLink]="['/chat/list-user']"
               i18n="@@ProfilSendMessage">
               Posalji poruku 
               <span class="spinner-border smal" role="status" *ngIf="btnSave"></span>
@@ -130,8 +130,23 @@
       <div class="nav-bar float-l">
         <div class="row m-r-0 m-l-0 w-100p h-100pc">
           <div 
-            [ngClass]="{'col-4': !status, 'col-6': status, 'bgnav': activeUser}"
-            (click)="openTab('home')">
+            class="col-4"
+            *ngIf="!status"
+            [ngClass]="{'bgnav': activeUser}"
+            [routerLink]="['/' + user.username + '/profile']">
+            <p  
+              i18n="@@proflieNavHome"
+              class="text-center text-white-f cursor-pointer fs-15 p-center"
+              [ngClass]="activeUser ? 'active' : ''"
+              i18n="@@ProfilHomeBtn">
+              Pocetna
+            </p>
+          </div>
+          <div 
+            class="col-6"
+            *ngIf="status"
+            [ngClass]="{'bgnav': activeUser}"
+            [routerLink]="['/f/' + user.username + '/profile']">
             <p  
               i18n="@@proflieNavHome"
               class="text-center text-white-f cursor-pointer fs-15 p-center"
@@ -144,24 +159,39 @@
           <div 
             class="col-4" 
             *ngIf="!status" 
-            [ngClass]="{'bgnav': activePicture}"
-            (click)="openTab('friend')">
+            [ngClass]="{'bgnav': activeFriend}"
+            [routerLink]="['/' + user.username + '/friend']">
             <p  
               i18n="@@proflieNavFriend" 
               class="text-center text-white-f cursor-pointer fs-15 p-center"
-              [ngClass]="activePicture ? 'active' : ''"
+              [ngClass]="activeFriend ? 'active' : ''"
               i18n="@@ProfilFrinedsBtn">
               Prijatelji
             </p>
           </div>
 
           <div 
-            [ngClass]="{'col-4': !status, 'col-6': status, 'bgnav': activeFriend}"
-            (click)="openTab('picture')">
+            class="col-4" 
+            *ngIf="!status" 
+            [ngClass]="{'bgnav': activePicture}"
+            [routerLink]="['/' + user.username + '/picture']">
             <p  
               i18n="@@proflieNavPicture" 
               class="text-center text-white-f cursor-pointer fs-15 p-center"
-              [ngClass]="activeFriend ? 'active' : ''"
+              [ngClass]="activePicture ? 'active' : ''"
+              i18n="@@ProfilPictureBtn">
+              Slike
+            </p>
+          </div>
+          <div 
+            class="col-6" 
+            *ngIf="status"
+            [ngClass]="{'bgnav': activePicture}"
+            [routerLink]="['/f/' + user.username + '/picture']">
+            <p  
+              i18n="@@proflieNavPicture" 
+              class="text-center text-white-f cursor-pointer fs-15 p-center"
+              [ngClass]="activePicture ? 'active' : ''"
               i18n="@@ProfilPictureBtn">
               Slike
             </p>
@@ -170,7 +200,7 @@
       </div>
 
       <div class="w-100p float-l p-t-5 p-r-5 p-b-5 p-l-5">
-        <div class="float-l sizefull" *ngIf="tab === 'home'">
+        <div class="float-l sizefull" *ngIf="tab === 'profile'">
           <div class="add-publication bo-b-1-d" *ngIf="!status">
             <div 
               class="location bo-c-1 bo-cir-20 m-t-3 m-l-10 p-t-6 p-r-10 p-b-0 p-l-10 m-r-15 float-r cursor-pointer"
@@ -226,14 +256,31 @@
         </div>
 
         <div *ngIf="tab === 'picture'">
-          <div 
-            class="spinner-border text-success m-t-50p m-l-50p m-b-0p m-r-0p"
-            role="status"
-            *ngIf="imagesList === null">
-            <span class="sr-only">Loading...</span>
-          </div>
+          <div class="float-l sizefull" #images>
+            <div 
+              class="col-lg-3 col-md-4 col-6 m-b-5 p-l-1 p-r-1 bo-d-1 float-l image-size"
+              [id]="'item'"
+              *ngIf="!isFriends && !status && !isRequester && !isResponder && imagesList !== null">
+
+              <a class="d-block mb-4 h-100 cursor-pointer" (click)="openModal(null, 'addPicture')">
+                <i class="fa fa-plus btn-green fs-50 pos-absolute ab-c-m" aria-hidden="true"></i>
+              </a>
+
+            </div>
+
+            <div 
+              class="spinner-border text-success m-t-50p m-l-50p m-b-0p m-r-0p"
+              role="status"
+              *ngIf="imagesList === null">
+              <span class="sr-only">Loading...</span>
+            </div>
           
-          <app-images [imagesList]="imagesList" [user]="user"> </app-images>
+            <app-images 
+              *ngFor="let item of imagesList" 
+              [item]="item" 
+              [imagesList]="imagesList">
+            </app-images>
+          </div>
         </div>
       </div>
     </div>

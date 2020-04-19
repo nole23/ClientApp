@@ -12,25 +12,25 @@
 
     <ul class="list-unstyled components">
 
-        <li [ngClass]="href === 'chat' ? 'active': ''" (click)="activeRouter()">
+        <li [ngClass]="{'active': onStatus.isChat}" (click)="activeRouter()">
             <a [routerLink]="['/chat/list-user']" routerLinkActive="on">
                 <i class="fa fa-weixin" aria-hidden="true"></i>
                 <span class="activ-text-width" i18n="@@ahrefChating">Chatovanje</span>
             </a>
         </li>
-        <li [ngClass]="{'active': href === 'profile'}" (click)="activeRouter()">
-            <a [routerLink]="['/profile/' + user._id]" >
+        <li [ngClass]="{'active': onStatus.isProfile}" (click)="activeRouter()">
+            <a [routerLink]="['/' + user.username + '/profile']" >
                 <i class="fa fa-user-circle-o" aria-hidden="true"></i>
                 <span class="activ-text-width" i18n="@@ahrefProfil"> Profil </span>
             </a>
         </li>
-        <li [ngClass]="href === 'search' ? 'active': ''" (click)="activeRouter()">
+        <li [ngClass]="{'active': onStatus.isSearch}" (click)="activeRouter()">
             <a [routerLink]="['/search']" >
                 <i class="fa fa-podcast" aria-hidden="true"></i>
                 <span class="activ-text-width" i18n="@@ahrefSearch"> Pretraga </span>
             </a>
         </li>
-        <li [ngClass]="href === 'notification' ? 'active': ''" (click)="activeRouter()">
+        <li [ngClass]="{'active': onStatus.isNotification}" (click)="activeRouter()">
             <a [routerLink]="['/notification']" >
                 <i class="fa fa-bell" aria-hidden="true"></i>
                 <span class="activ-text-width"> Obavestenje </span>
@@ -39,7 +39,7 @@
     </ul>
 
     <ul class="list-unstyled">
-        <li [ngClass]="href === 'settings' ? 'active': ''" (click)="activeRouter()">
+        <li [ngClass]="{'active': onStatus.isSettings}" (click)="activeRouter()">
             <a [routerLink]="['/settings']" >
                 <i class="fa fa-cogs" aria-hidden="true"></i>
                 <span class="activ-text-width" i18n="@@ahrefSetting"> Podesavanja </span>

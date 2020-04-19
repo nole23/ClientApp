@@ -1,10 +1,11 @@
-import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { User } from '../../models/user';
 import { Images } from '../../models/images';
 import { Publication } from '../../models/publication';
 import { UserService } from '../../services/user.service';
 import { MediaService } from '../../services/media.service';
+import { Global } from '../../global/global';
 import { NotifierService } from 'angular-notifier';
 
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
@@ -21,49 +22,70 @@ import { AddTextComponent } from '../plagin/modal/add-text/add-text.component';
 })
 export class ProfileComponent implements OnInit, OnDestroy {
   private readonly notifier: NotifierService;
+  @ViewChild('images') images: ElementRef;
 
   user: User;
-  userList: [User];
-  status: Boolean;
-  publication: [Publication];
   tab: String;
+  numberOfPage: any;
+  publication: [Publication];
+  imagesList: any;
+  userList: [User];
+  typeLocation: String;
   activeUser: Boolean;
   activePicture: Boolean;
   activeFriend: Boolean;
   btnSave: Boolean;
   btnCancel: Boolean;
-  imagesList: any;
   isRequester: Boolean;
   isResponder: Boolean;
   isFriends: Boolean;
-  typeLocation: String;
   awaitToResposn: Boolean;
-  numberOfPage: any;
+  status: Boolean;
   isLastElement: any;
   constructor(
     notifier: NotifierService,
     private activatedRoute: ActivatedRoute,
     private userService: UserService,
     private mediaService: MediaService,
-    public matDialog: MatDialog
+    public matDialog: MatDialog,
+    private global: Global
   ) {
-    this.user = null;
-    this.status = false;
-    this.tab = 'home';
+    this.notifier = notifier;
+    this.user = new User(JSON.parse(localStorage.getItem('user')));
+    this.tab = 'profile';
+    this.typeLocation = 'userProfile';
+    this.publication = null;
+    this.imagesList = null;
+    this.userList = null;
+  }
+
+  ngOnInit() {
+    this.activatedRoute.params.subscribe(res =>{
+      this.setInitOpcion();
+      this.openTab(res['status']);
+    });
+    this.global.setSidebar('profile');
+  }
+
+  /**
+   * Setujemo sve potrebne opcije za datu stranicu 
+   * na defaultne vrijednosti kako bi novi korisnik mogao 
+   * koji dolazi imao samo svoje opcije
+   * 
+   * Ovde se ne restartuju liste koje su od znacaja za brzi rad
+   */
+  setInitOpcion() {
+    this.numberOfPage = 0;
     this.activeUser = true;
-    this.activeFriend = false;
     this.activePicture = false;
+    this.activeFriend = false;
     this.btnSave = false;
     this.btnCancel = false;
     this.isRequester = false;
     this.isResponder = false;
-    this.userList = null;
-    this.imagesList = null;
     this.isFriends = false;
-    this.typeLocation = 'userProfile';
-    this.notifier = notifier;
     this.awaitToResposn = false;
-    this.numberOfPage = 0;
+    this.status = false;
     this.isLastElement = {
       publication: true,
       friend: true,
@@ -71,34 +93,41 @@ export class ProfileComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngOnInit() {
-    this.activatedRoute.params.subscribe(res =>{
-      this.setInitOpcion();
-      
-      this.status = false;
-      this.user = new User(JSON.parse(localStorage.getItem('user')));
-      this.getPublication();
-    });
-  }
+  /**
+   * Provjerimo koji tab treba da otvorimo i ucitamo te podatke,
+   * pri tome ne ucitavamo ponovo podatke ukoliko su jednom ucitani
+   * @param item 
+   */
+  openTab(item: any) {
+    this.tab = item;
 
-  setInitOpcion() {
-    this.user = null;
-    this.status = false;
-    this.tab = 'home';
-    this.activeUser = true;
-    this.btnSave = false;
-    this.btnCancel = false;
-    this.isRequester = false;
-    this.isResponder = false;
-    this.userList = null;
-    this.isFriends = false;
-    this.activeFriend = false;
-    this.activePicture = false;
+    if (item === 'profile') {
+      this.activeUser = true;
+      this.activeFriend = false;
+      this.activePicture = false;
+      if (this.publication === null) {
+        this.getPublication();
+      }
+    } else if (item === 'picture') {
+      this.activeUser = false;
+      this.activeFriend = false;
+      this.activePicture = true;
+      if (this.imagesList === null) {
+        this.getImage();
+      }
+    } else if (item === 'friend') {
+      this.activeUser = false;
+      this.activeFriend = true;
+      this.activePicture = false;
+      if (this.userList === null) {
+        this.getFriends();
+      }
+    }
   }
 
   getPublication() {
-    this.userService.getPublication(this.user, this.numberOfPage).subscribe((res: [Publication]) => {
-      this.publication = res['publication'];
+    this.userService.getPublication(this.user, this.numberOfPage).subscribe(res => {
+      this.publication = res['message'];
       this.numberOfPage = this.numberOfPage + 1;
     });
   }
@@ -115,33 +144,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
       res.user = new User(this.user);
       this.imagesList = new Images(res).settingListImages();
     })
-  }
-
-  openTab(item: any) {
-    this.tab = item;
-
-    if (item === 'home') {
-      this.activeUser = true;
-      this.activeFriend = false;
-      this.activePicture = false;
-      if (this.publication === null) {
-        this.getPublication();
-      }
-    } else if (item === 'picture') {
-      this.activeUser = false;
-      this.activeFriend = true;
-      this.activePicture = false;
-      if (this.imagesList === null) {
-        this.getImage();
-      }
-    } else if (item === 'friend') {
-      this.activeUser = false;
-      this.activeFriend = false;
-      this.activePicture = true;
-      if (this.userList === null) {
-        this.getFriends();
-      }
-    }
   }
 
   openModal(link: String, type: String) {
@@ -191,44 +193,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
     }
   }
 
-  addFriends(user: User) {
-    this.btnSave = true;
-    this.userService.sendRelationship(user).subscribe(res => {
-      if (res['message'] === 'save') {
-        this.btnSave = false;
-        this.status = true;
-        this.isRequester = true;
-        this.isResponder = false;
-      } else {
-        this.btnSave = false;
-      }
-    }, err => {
-      this.btnSave = false;
-    })
-  }
-
-  removeRelationShip(user: User) {
-    this.btnCancel = true;
-    this.userService.removeRelationship(user).subscribe(res => {
-      this.btnCancel = false;
-      this.isRequester = false;
-      this.isResponder = false;
-    }, err => {
-      this.btnCancel = false;
-    })
-  }
-
-  acceptRelationship(user: User) {
-    this.btnSave = true;
-    this.userService.acceptRelatuonship(user).subscribe(res => {
-      this.btnSave = false;
-      this.isRequester = false;
-      this.isResponder = false;
-      this.status = true;
-      this.isFriends = true;
-    })
-  }
-
   onEmitPublic(event: any) {
     if (event['type'] === 'public') {
     } else if (event['type'] === 'delete') {
@@ -244,33 +208,51 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.isFriends = false;
   }
 
-  ngOnDestroy() {
-    this.setInitOpcion();
-  }
-
   @HostListener('scroll', ['$event'])
   onScroll(event: any) {
     if (event.target.offsetHeight + event.target.scrollTop >= (event.target.scrollHeight - 500)) {
-      if (!this.awaitToResposn) {
-        this.userService.getPublication(this.user, this.numberOfPage).subscribe((res: [Publication]) => {
-          if (res['publication'].length !== 0) {
-            res['publication'].forEach(element => {
-              this.publication.push(element);
-            });
-            this.numberOfPage = this.numberOfPage + 1;
-            this.awaitToResposn = false;
-          } else {
-            this.isLastElement.publication = !this.isLastElement.publication;
-          }
-          
-        });
-      }
 
-      if (this.isLastElement.publication) {
-        this.awaitToResposn = true;
-      } else {
-        this.awaitToResposn = false;
+      if (this.tab === 'profile') {
+        if (!this.awaitToResposn) {
+          this.userService.getPublication(this.user, this.numberOfPage).subscribe((res: any) => {
+  
+            if (res['message'].length !== 0) {
+              res['message'].forEach(element => {
+                this.publication.push(element);
+              });
+              this.numberOfPage = this.numberOfPage + 1;
+              this.awaitToResposn = false;
+            } else {
+              this.isLastElement.publication = !this.isLastElement.publication;
+            }
+            
+          });
+        }
+  
+        if (this.isLastElement.publication) {
+          this.awaitToResposn = true;
+        } else {
+          this.awaitToResposn = false;
+        }
+      } else if (this.tab === 'friend') {
+        console.log('prijatelji')
+      } else if (this.tab === 'picture') {
+        console.log('slike')
       }
     }
+  }
+
+  /**
+   * Restartujemo sve opcije pa i one koje su nam bitne za brzi rad
+   * kako bi se oslobodila memorija koja je koristena za dati tab
+   */
+  ngOnDestroy() {
+    this.user = null;
+    this.tab = 'profile';
+    this.typeLocation = 'userProfile';
+    this.publication = null;
+    this.imagesList = null;
+    this.userList = null;
+    this.setInitOpcion();
   }
 }

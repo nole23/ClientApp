@@ -47,7 +47,11 @@ export class UserService {
     )
     return this.http.get(this.global.getLink() + 'publication/' + user._id, {params: params})
       .pipe(map(res =>{
-        return res;
+        if (this.global.getResponseError(res['publication'])) {
+          return {message: res['publication']}
+        } else {
+          return {message: [new Publication]}
+        }
       }))
   }
 

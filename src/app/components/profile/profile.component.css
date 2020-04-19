@@ -103,6 +103,10 @@
 .add-publication .location:hover .add-publication i{
     color: #fff   
 }
+.image-size {
+    width: calc(100% / 5);
+    height: calc(100vh / 5);
+}
 @media (min-width: 1440px) {
     .width-profile {
         margin-left: calc((100% - 1440px) / 2);
@@ -124,6 +128,11 @@
     }
     #btn {
         left: 128px;
+    }
+    .image-size {
+        min-width: 163px;
+        max-width: 163px; 
+        height: 163px;
     }
 }
 @media (max-width: 768px) {

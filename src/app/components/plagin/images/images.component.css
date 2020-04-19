@@ -61,6 +61,18 @@
     right: 20px;
 }
 
+.image-size {
+    width: calc(100% / 5);
+    height: calc(100vh / 5);
+}
+@media (min-width: 1440px) {
+    .image-size {
+        min-width: 163px;
+        max-width: 163px; 
+        height: 163px;
+    }
+}
+
 @media (max-width: 768px) {
 
     .modal-dialog {
