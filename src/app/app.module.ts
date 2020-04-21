@@ -29,7 +29,7 @@ import { PublicationComponent } from './components/plagin/publication/publicatio
 import { FriendsComponent } from './components/plagin/friends/friends.component';
 import { ImagesComponent } from './components/plagin/images/images.component';
 import { SettingsProfileComponent } from './components/plagin/settings-profile/settings-profile.component';
-import { NotificationComponent } from './components/plagin/notification/notification.component';
+import { NotificationComponent } from './components/notification/notification.component';
 import { LocationComponent } from './components/plagin/location/location.component';
 import { ProfileImagesComponent } from './components/plagin/modal/profile-images/profile-images.component';
 import { UpdateProfilImageComponent } from './components/plagin/modal/update-profil-image/update-profil-image.component';
@@ -45,6 +45,8 @@ import { SocketService } from './services/socket.service';
 import { ChatComponent } from './components/chats/chat/chat.component';
 import { ListUsersChatComponent } from './components/plagin/list-users-chat/list-users-chat.component';
 import { ChatAreaComponent } from './components/plagin/chat-area/chat-area.component';
+import { ListNotificationComponent } from './components/plagin/list-notification/list-notification.component';
+import { ListNotificationVisitorComponent } from './components/plagin/list-notification-visitor/list-notification-visitor.component';
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -117,7 +119,9 @@ const customNotifierOptions: NotifierOptions = {
     ImageGalleryComponent,
     ChatComponent,
     ListUsersChatComponent,
-    ChatAreaComponent
+    ChatAreaComponent,
+    ListNotificationComponent,
+    ListNotificationVisitorComponent
   ],
   imports: [
     NotifierModule.withConfig(customNotifierOptions),

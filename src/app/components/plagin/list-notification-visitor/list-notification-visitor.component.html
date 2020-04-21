@@ -1,0 +1,31 @@
+
+<div 
+  class="float-l pos-relative cursor-pointer height-size widht-item p-l-5 p-r-5 p-t-5 p-b-5">
+
+  <div class="sizefull bo-cir-t-l-5 bo-cir-b-l-5 bo-cir-t-r-5 bo-cir-b-r-5 bgnav">
+    <div class="float-l w-100p h-70pc">
+      <div class="float-l w-100p pos-relative height-image">
+        <img 
+            src="{{item.friend.otherInformation.publicMedia.profileImage}}" 
+            alt="" 
+            class="ab-c-m w-85 h-85p fit-image bo-cir" />
+      </div>
+
+      <div class="float-l w-100p h-40p">
+        <span class="float-l w-100p fs-18 fw-600 text-center text-green">
+          {{item.friend.firstName + ' ' + item.friend.lastName}}
+        </span>
+
+        <span class="float-l w-100p fs-12 fw-100 text-center text-white-f">
+          {{item.dateNotification | date: 'dd. MMM yyyy HH:mm'}}
+        </span>
+      </div>
+    </div>
+
+    <div class="float-l w-100p h-30pc pos-relative fa-white text-center">
+      <div class="float-l w-100p h-100pc pos-absolute top-15">
+        <span>Novi Sad</span>
+      </div>
+    </div>
+  </div>
+</div>

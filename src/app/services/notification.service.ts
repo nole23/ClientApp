@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { map, catchError  } from 'rxjs/operators';
 import { Global } from '../global/global';
 
@@ -10,9 +10,26 @@ export class NotificationService {
 
   constructor(private global: Global, private http: HttpClient) { }
 
-  getAllNotification() {
-    return this.http.get(this.global.getLink() + 'notification/')
+  getAllNotification(page: any) {
+    let params = new HttpParams().set(
+      "page", JSON.stringify(page)
+    ).append(
+      "type", JSON.stringify('publication')
+    )
+    return this.http.get(this.global.getLink() + 'notification/', {params: params})
       .pipe(map(res => {
+        return res;
+      }))
+  }
+
+  getAllVisitors(page: any) {
+    let params = new HttpParams().set(
+      "page", JSON.stringify(page)
+    ).append(
+      "type", JSON.stringify('visitors')
+    )
+    return this.http.get(this.global.getLink() + 'notification/', {params: params})
+      .pipe(map(res =>{
         return res;
       }))
   }

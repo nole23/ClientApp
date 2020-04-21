@@ -1,0 +1,30 @@
+.body-search {
+	max-width: 1440px;
+    height: 100%;
+}
+.w-50pp {
+    width: 50%;
+}
+.b-botton-3 {
+    border-bottom: 3px solid #fff;
+}
+@media (min-width: 1440px) {
+    .my-container {
+		max-width: 100%!important;
+	}
+	.body-search {
+		margin-left: calc((100% - 1440px) / 2);
+	}
+}
+@media (max-width: 768px) {
+    .w-50p {
+        width: 100%;
+    }
+    .sm-text-center {
+        display: none;
+    }
+}
+/* .my-container {
+	padding-left: 15px!important;
+    padding-right: 15px!important;
+} */

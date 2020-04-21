@@ -1,4 +1,121 @@
-<div class="my-container h-full m-t-35 of-auto" id="style-4">
+<div
+  class="my-container sizefull" 
+  style="overflow: auto;"
+  id="style-4">
+  <div class="body-search">
+    <div class="float-l w-100p min-h-50 p-t-5 p-b-5">
+      <h1 class="text-white-f float-l fs-35 mobil-width" i18n="@@SearchPipleInPlace">
+        Osobe iz okruzenja
+      </h1>
+
+      <input
+        type="text"
+        class="form-control h-48p min-w-200 max-w-400 float-r"
+        name="searchText"
+        [(ngModel)]="searchText"
+        (input)="filter()"
+        [id]="'input-search'"
+        i18-pleacholder="@@SearchFriends"
+        placeholder="Pretraga..." />
+        
+        <button 
+          class="fa-green-h float-r fs-40 p-r-5"
+          style="margin-top: -10px; display: none;"
+          type="button"
+          (click)="ngOpen()">
+          <i class="fa fa-sort-desc" aria-hidden="true"></i>
+        </button>
+    </div>
+
+    <div class="float-l w-100p h-100pc row m-l-0 m-r-0 p-t-10 p-r-5 p-l-5">
+
+      <div 
+        class="float-l pos-relative cursor-pointer height-size widht-item p-l-5 p-r-5 p-t-5 p-b-5"
+        *ngFor="let item of listUsers; let i = index">
+
+        <div class="sizefull bo-cir-t-l-5 bo-cir-b-l-5 bo-cir-t-r-5 bo-cir-b-r-5 bgnav">
+          <div class="float-l w-100p h-70pc">
+            <div class="float-l w-100p pos-relative height-image">
+              <img 
+                  src="{{item.user.otherInformation.publicMedia.profileImage}}" 
+                  alt="" 
+                  class="ab-c-m w-85 h-85p fit-image bo-cir" />
+            </div>
+
+            <div class="float-l w-100p h-40p">
+              <span class="float-l w-100p fs-18 fw-600 text-center text-green">
+                {{item.user.firstName + ' ' + item.user.lastName}}
+              </span>
+
+              <span class="float-l w-100p fs-12 fw-100 text-center text-white-f">
+                {{item.user.otherInformation.address}}
+              </span>
+            </div>
+          </div>
+
+          <div class="float-l w-100p h-30pc">
+            <div class="float-l w-100p h-40pc">
+              
+            </div>
+
+            <div class="float-l w-100p h-60pc text-white-f">
+              <button 
+                class="float-l h-100pc btn btn btn-success w-30p"
+                *ngIf="!item.isResOrReq && item.isRelationship && !item.isFriends && !item.isMe"
+                (click)="addFriend(item, true, i)">
+                <i class="fa fa-check" aria-hidden="true"></i>
+                <span class="spinner-border smal" role="status" *ngIf="isLoaderButton"></span>
+              </button>
+
+              <button 
+                class="float-l w-30p h-100pc btn btn btn-danger"
+                title="Povuci ili odustani"
+                *ngIf="item.isResOrReq && item.isRelationship && !item.isFriends && !item.isMe"
+                (click)="addFriend(item, false, i)">
+                <i class="fa fa-times" aria-hidden="true"></i>
+                <span class="spinner-border smal" role="status" *ngIf="isLoaderButton"></span>
+              </button>
+
+              <button 
+                class="float-l w-30p h-100pc btn btn btn-danger"
+                title="Povuci ili odustani"
+                *ngIf="!item.isResOrReq && item.isRelationship && !item.isFriends && !item.isMe"
+                (click)="addFriend(item, false, i)">
+                <i class="fa fa-trash" aria-hidden="true"></i>
+                <span class="spinner-border smal" role="status" *ngIf="isLoaderButton"></span>
+              </button>
+
+              <button 
+                class="float-l w-50p h-100pc btn btn btn-success"
+                *ngIf="!item.isRelationship && !item.isFriends">
+                <i class="fa fa-plus" aria-hidden="true" *ngIf="!isLoaderButton && !item.isMe"></i>
+                <span class="spinner-border smal" role="status" *ngIf="isLoaderButton"></span>
+              </button>
+
+              <a
+                class="float-l h-100pc btn btn-info cursor-pointer"
+                *ngIf="!item.isMe"
+                [ngClass]="{'w-30p': item.isRelationship, 'w-50p': !item.isRelationship, 'w-100p': item.isFriends}"
+                [routerLink]="['/f/' + item.user.username + '/profile']">
+                <i class="fa fa-user-o" aria-hidden="true"></i>
+              </a>
+
+              <a
+                class="float-l h-100pc btn btn-info cursor-pointer w-100p"
+                *ngIf="item.isMe"
+                [routerLink]="['/' + item.user.username + '/profile']">
+                <i class="fa fa-user-o" aria-hidden="true"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+<!-- <div class="my-container h-full m-t-35 of-auto" id="style-4">
   <div class="w-full h-min-50 float-l pos-relative">
     <h1 class="text-white-f float-l fs-35 mobil-width" i18n="@@SearchPipleInPlace">
       Osobe iz okruzenja
@@ -176,4 +293,4 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->

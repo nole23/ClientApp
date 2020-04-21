@@ -28,6 +28,7 @@ export class SearchComponent implements OnInit {
   setCity: any;
   type: any;
   options: any;
+  page: any;
   constructor(
     notifier: NotifierService,
     private searchService: SearchService,
@@ -55,6 +56,7 @@ export class SearchComponent implements OnInit {
       address: null,
       type: null
     }
+    this.page = 0;
   }
 
   ngOnInit() {
@@ -64,8 +66,8 @@ export class SearchComponent implements OnInit {
 
   getAllUser() {
     this.loading = true;
-    this.searchService.getOtherUser().subscribe((res: [User]) => {
-      this.listUsers = res['users'];
+    this.searchService.getOtherUser(this.page).subscribe(res => {
+      this.listUsers = res['message'];
       this.loading = false;
     })
   }
@@ -83,24 +85,27 @@ export class SearchComponent implements OnInit {
   }
 
   addFriend(item: any, status: boolean, index: any) {
-    this.isLoaderButton = true;
-    if (!status) {
-      this.userService.removeRelationship(item).subscribe(res => {
-        this.listUsers[index]['request'] = true;
-        this.isLoaderButton = false;
-        this.notifier.notify( 'info', 'Zahtev je povucen');
-      }, err => {
-        this.notifier.notify( 'info', 'Server nedostupan');
-      })
-    } else {
-      this.userService.sendRelationship(item).subscribe(res => {
-        this.listUsers[index]['request'] = false;
-        this.isLoaderButton = false;
-        this.notifier.notify( 'success', 'Zahtev za prijateljstvo je poslat');
-      }, err => {
-        this.notifier.notify( 'info', 'Server nedostupan');
-      })
-    }
+    console.log(item)
+    console.log(status)
+    console.log(index)
+    // this.isLoaderButton = true;
+    // if (!status) {
+    //   this.userService.removeRelationship(item).subscribe(res => {
+    //     // this.listUsers[index]['request'] = true;
+    //     // this.isLoaderButton = false;
+    //     // this.notifier.notify( 'info', 'Zahtev je povucen');
+    //   }, err => {
+    //     this.notifier.notify( 'info', 'Server nedostupan');
+    //   })
+    // } else {
+    //   this.userService.sendRelationship(item).subscribe(res => {
+    //     // this.listUsers[index]['request'] = false;
+    //     // this.isLoaderButton = false;
+    //     // this.notifier.notify( 'success', 'Zahtev za prijateljstvo je poslat');
+    //   }, err => {
+    //     this.notifier.notify( 'info', 'Server nedostupan');
+    //   })
+    // }
   }
 
   onSliderChange(selectedValues: number[]) {

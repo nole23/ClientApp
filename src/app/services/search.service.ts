@@ -10,10 +10,13 @@ export class SearchService {
 
   constructor(private global: Global, private http: HttpClient) { }
 
-  getOtherUser() {
-    return this.http.get(this.global.getLink() + 'users/all-other/0')
+  getOtherUser(page: any) {
+    return this.http.get(this.global.getLink() + 'users/all-other/' + page)
     .pipe(map(res => {
-      return res;
+      if (this.global.getResponseError(res['message'])) {
+        return {message: res['message']}
+      }
+      return {message: []};
     }))
   }
 

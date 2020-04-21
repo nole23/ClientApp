@@ -1,0 +1,63 @@
+<div
+  class="my-container sizefull" 
+  style="overflow: auto;"
+  id="style-4">
+  <div class="body-search">
+    <div class="flout-l w-100p h-50p p-t-5 p-b-5 bo-b-1-d">
+      <h1 class="text-white-f float-l fs-35 mobil-width sm-text-center" i18n="@@SearchPipleInPlace">
+        {{title}}
+      </h1>
+
+      <div class="float-r w-50p h-100pc text-white-f fs-18 b-botton-3">
+        <div 
+          class="float-l w-50pp h-100pc pos-relative cursor-pointer" 
+          [ngClass]="{'bgnav': title === 'Obavjestenja'}"
+          (click)="openTab('notification')" >
+          <span class="ab-c-m">Obavjestenja</span>
+        </div>
+
+        <div 
+          class="float-l w-50pp h-100pc pos-relative cursor-pointer" 
+          [ngClass]="{'bgnav': title === 'Posjetioci'}"
+          (click)="openTab('visitor')">
+          <span class="ab-c-m">Posetioci</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="float-l sizefull">
+      <div class="float-l sizefull pos-relative" *ngIf="title === 'Obavjestenja'">
+        <div 
+          class="spinner-border text-success ab-c-full" 
+          role="status"
+          *ngIf="notifications === null">
+          <span class="sr-only">Loading...</span>
+        </div>
+
+        <div class="sizefull" *ngIf="notifications !== null">
+          <app-list-notification 
+            *ngFor="let item of notifications" 
+            [item]="item">
+          </app-list-notification>
+        </div>
+      </div>
+
+
+      <div class="float-l sizefull pos-relative" *ngIf="title === 'Posjetioci'">
+        <div 
+          class="spinner-border text-success ab-c-full" 
+          role="status"
+          *ngIf="visitors === null">
+          <span class="sr-only">Loading...</span>
+        </div>
+
+        <div class="sizefull" *ngIf="visitors !== null">
+          <app-list-notification-visitor
+            *ngFor="let item of visitors" 
+            [item]="item">
+          </app-list-notification-visitor>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

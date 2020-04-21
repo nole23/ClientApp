@@ -2356,13 +2356,13 @@
 .w-full {width: 100%;}
 .vw-full {width: 100vw;}
 .h-full {height: 100%;}
-.h-100pc {height: 100%;}
 .max-h-full {max-height: 100%;}
 .min-h-full {min-height: 100%;}
 .max-h-100 {max-height: 100px!important;}
 .h-106 {height: 106px;}
 .max-h-160 {max-height: 160px;}
 .max-h-230 {max-height: 230px;}
+.min-h-50 {min-height: 50px;}
 .min-h-120 {min-height: 120px;}
 .min-h-80 {min-height: 100px;}
 .min-h-160 {min-height: 160px;}
@@ -2390,9 +2390,16 @@
 .h-50 {min-height: 50vh;}
 .h-90 {height: 86vh;}
 .h-100 {height: 100vh;}
-.h-100pc {height: 100%;}
+.h-10pc {height: 10%;}
+.h-20pc {height: 20%;}
+.h-30pc {height: 30%;}
 .h-40pc {height: 40%;}
+.h-50pc {height: 50%;}
 .h-60pc {height: 60%;}
+.h-70pc {height: 70%;}
+.h-80pc {height: 80%;}
+.h-90pc {height: 90%;}
+.h-100pc {height: 100%;}
 
 .h-m-70 {max-height: 70vh;}
 .h-max-60 {max-height: 60vh;}
@@ -2429,6 +2436,7 @@
 .h-60p {height: 60px;}
 .h-70p {height: 70px;}
 .h-80p {height: 80px;}
+.h-85p {height: 85px;}
 .h-90p {height: 90px;}
 .h-10p {height: 100px;}
 .h-150p {height: 150px;}
@@ -2453,6 +2461,7 @@
 .w-60 {width: 60px;}
 .w-70 {width: 70px;}
 .w-80 {width: 80px;}
+.w-85 {width: 85px;}
 .w-90 {width: 90px;}
 .w-100 {width: 100px;}
 .w-101 {width: 101px;}
@@ -2467,7 +2476,7 @@
 
 .w-10p {width: 10%;}
 .w-20p {width: 20%;}
-.w-30p {width: 30%;}
+.w-30p {width: 33%;}
 .w-40p {width: 40%;}
 .w-50p {width: 50%;}
 .w-60p {width: 60%;}
@@ -3350,6 +3359,12 @@
 /*[ Absolute ]
 -----------------------------------------------------------
 */
+.ab-c-full {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+}
+
 .ab-c-m {
 	position: absolute;
 	top: 50%;
