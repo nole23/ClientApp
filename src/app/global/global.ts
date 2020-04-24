@@ -58,15 +58,15 @@ export class Global {
                 "046.svg","047.svg","048.svg","049.svg","050.svg"
             ]
         };
-        this.linkLocalhostChat = 'http://localhost:8085/chats/api/'
-        this.linkLocalhost = 'http://localhost:8085/users/api/';
-        this.linkLocalhostMedia = 'http://localhost:8085/media/api/';
-        this.linkLocalhostStatus = 'http://localhost:8085/status/api/';
+        // this.linkLocalhostChat = 'http://localhost:8085/chats/api/'
+        // this.linkLocalhost = 'http://localhost:8085/users/api/';
+        // this.linkLocalhostMedia = 'http://localhost:8085/media/api/';
+        // this.linkLocalhostStatus = 'http://localhost:8085/status/api/';
 
-        // this.linkLocalhostChat = 'chats/api/'
-        // this.linkLocalhost = 'users/api/';
-        // this.linkLocalhostMedia = 'media/api/';
-        // this.linkLocalhostStatus = 'status/api/';
+        this.linkLocalhostChat = 'chats/api/'
+        this.linkLocalhost = 'users/api/';
+        this.linkLocalhostMedia = 'media/api/';
+        this.linkLocalhostStatus = 'status/api/';
 
         this.linkWebhost = 'https:';
         this.panleOptions = {
