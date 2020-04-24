@@ -1,0 +1,779 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="sr" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="SidebarLogoText" datatype="html">
+        <source>
+            <x id="TAG_IMG" ctype="image" equiv-text="&lt;img/&gt;"/>
+            TwoWay1
+        </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/sidebar/sidebar.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="SidebarPopulat" datatype="html">
+        <source>Popularnost: </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/sidebar/sidebar.component.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ahrefChating" datatype="html">
+        <source>Chatovanje</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/sidebar/sidebar.component.html</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ahrefProfil" datatype="html">
+        <source> Profil </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/sidebar/sidebar.component.html</context>
+          <context context-type="linenumber">41</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ahrefSearch" datatype="html">
+        <source> Pretraga </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/sidebar/sidebar.component.html</context>
+          <context context-type="linenumber">47</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ahrefSetting" datatype="html">
+        <source> Podesavanja </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/sidebar/sidebar.component.html</context>
+          <context context-type="linenumber">62</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ahrefLogiout" datatype="html">
+        <source> Odjavite se </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/sidebar/sidebar.component.html</context>
+          <context context-type="linenumber">68</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="createProfile" datatype="html">
+        <source>
+            <x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i&gt;"/>
+              <x id="TAG_IMG" ctype="image" equiv-text="&lt;img/&gt;"/>
+            <x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/>
+            <x id="INTERPOLATION" equiv-text="{{title}}"/>
+          </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/app.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="AppProfilNotVerify" datatype="html">
+        <source>
+            Nalog ne postoji ili je deaktiviran. 
+            Da bi ste ponovo vratili vas nalog posaljite zahtev za aktivaciju naloga
+          </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/app.component.html</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="AppUnauthorized" datatype="html">
+        <source>
+            Email ili sifra nisu ispravni. Molimo vas proverite da li ste uneli ispravne podatke
+          </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/app.component.html</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="AppNullPointExeption" datatype="html">
+        <source>
+            Niste popunili sva polja
+          </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/app.component.html</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="AppSuccessCreatNewProfile" datatype="html">
+        <source>
+            Uspesno ste se registrovali,
+            ostao je poslednji korak da verifikujete nalog.
+            Idite na vas email i verifikujte nalog
+          </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/app.component.html</context>
+          <context context-type="linenumber">49</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="AppServerNotFound" datatype="html">
+        <source>
+            Server je nedostupan, pokusajte malo kasnije. Hvala
+          </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/app.component.html</context>
+          <context context-type="linenumber">58</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="AppEmalNotFree" datatype="html">
+        <source>
+            Email je vec registrovan, da li ste sigurni da nemate nalog ovde.
+            Probajte sa drugim email-om ili pokusate da restartujete sifu
+          </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/app.component.html</context>
+          <context context-type="linenumber">65</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="AppSpecificationError" datatype="html">
+        <source>
+            Ne specificirana greska, provjerite podatke i pokusajte ponovo
+          </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/app.component.html</context>
+          <context context-type="linenumber">73</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="email" datatype="html">
+        <source>Email</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/anuth/login/login.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/anuth/restart/restart.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="password" datatype="html">
+        <source>Sifra</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/anuth/login/login.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/anuth/verify/verify.component.html</context>
+          <context context-type="linenumber">41</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="loginBtn" datatype="html">
+        <source>
+      Ulogujte se <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span&gt;"/><x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/>
+    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/anuth/login/login.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/anuth/restart/restart.component.html</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/anuth/verify/verify.component.html</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/anuth/verify/verify.component.html</context>
+          <context context-type="linenumber">60</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="registrationBtn" datatype="html">
+        <source>
+    Napraviti nalog
+    <x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i&gt;"/><x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/>
+  </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/anuth/login/login.component.html</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="passwordForgetText" datatype="html">
+        <source>
+      Ukoliko ste zaboravili sifru, kliknite <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span&gt;"/> ovde <x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/> i restartujte sifur
+    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/anuth/login/login.component.html</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="AppFirstName" datatype="html">
+        <source>Ime</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/anuth/registration/registration.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="AppLastName" datatype="html">
+        <source>Prezime</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/anuth/registration/registration.component.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="AppEmail" datatype="html">
+        <source>Email</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/anuth/registration/registration.component.html</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="AppPassword" datatype="html">
+        <source>Sifra</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/anuth/registration/registration.component.html</context>
+          <context context-type="linenumber">57</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="AppAgainPassword" datatype="html">
+        <source>Ponovite Sifru</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/anuth/registration/registration.component.html</context>
+          <context context-type="linenumber">67</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="AppDateOfBirth" datatype="html">
+        <source>Datum rodjenja</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/anuth/registration/registration.component.html</context>
+          <context context-type="linenumber">82</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="AppSex" datatype="html">
+        <source>Pol</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/anuth/registration/registration.component.html</context>
+          <context context-type="linenumber">99</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="AppMen" datatype="html">
+        <source>Musko  </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/anuth/registration/registration.component.html</context>
+          <context context-type="linenumber">106</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="AppWomen" datatype="html">
+        <source>Zena  </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/anuth/registration/registration.component.html</context>
+          <context context-type="linenumber">113</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="AppAniting" datatype="html">
+        <source>Ostalo </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/anuth/registration/registration.component.html</context>
+          <context context-type="linenumber">120</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="AppRegistrationText" datatype="html">
+        <source>
+      Ako kliknete na dugme Regustruje se, 
+      prihvatate nase uslove koriscenja, 
+      politiku o podacima i politiku o kolacicima.
+    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/anuth/registration/registration.component.html</context>
+          <context context-type="linenumber">125</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="AppBtnNewProfile" datatype="html">
+        <source>
+      Napraviti nalog 
+      <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span&gt;"/>
+      <x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/>
+    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/anuth/registration/registration.component.html</context>
+          <context context-type="linenumber">141</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="AppBtnLogin" datatype="html">
+        <source>
+    <x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i&gt;"/><x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/>
+    Ulogujte se
+  </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/anuth/registration/registration.component.html</context>
+          <context context-type="linenumber">155</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="restartText" datatype="html">
+        <source>
+        Unesite vas email kako bi vam poslali kod za restart sifre
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/anuth/restart/restart.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="sendCodeBtn" datatype="html">
+        <source>
+        Posaljite kod <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span&gt;"/><x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/>
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/anuth/restart/restart.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/anuth/verify/verify.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="checkCodeText" datatype="html">
+        <source>
+        Unesite kod koji ste dobili u email porukuc, ukoliko niste dobili kod molimo vas kliknite <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span&gt;"/> ovde <x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/> kako bi ponovo poslali kod
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/anuth/verify/verify.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="code" datatype="html">
+        <source>Unesite kod</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/anuth/verify/verify.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="newPasswordText" datatype="html">
+        <source>
+        Molimo vas unesite novu sifru
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/anuth/verify/verify.component.html</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="againPassword" datatype="html">
+        <source>Ponovite sifru</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/anuth/verify/verify.component.html</context>
+          <context context-type="linenumber">47</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="updatePasswordBtn" datatype="html">
+        <source>
+        Azurirajte sifru <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span&gt;"/><x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/>
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/anuth/verify/verify.component.html</context>
+          <context context-type="linenumber">55</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ModalAddText" datatype="html">
+        <source>O cemu razmisljate?</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/plagin/modal/add-text/add-text.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ModalPublic" datatype="html">
+        <source>
+      Objavite
+    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/plagin/modal/add-text/add-text.component.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ModalGiveUp" datatype="html">
+        <source>
+      Odustati
+    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/plagin/modal/add-text/add-text.component.html</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ProfilUpdateImage" datatype="html">
+        <source>Azurirati sliku</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/profile/profile.component.html</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/profile/profile.component.html</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ProfilUpdateProfile" datatype="html">
+        <source>
+              Azurirati profil 
+              <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span&gt;"/><x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/>
+            </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/profile/profile.component.html</context>
+          <context context-type="linenumber">60</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/profile/profile.component.html</context>
+          <context context-type="linenumber">60</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ProfilRemoveFrineds" datatype="html">
+        <source>
+              Izbrisi prijatelja 
+              <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span&gt;"/><x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/>
+            </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/profile/profile.component.html</context>
+          <context context-type="linenumber">69</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/profile/profile.component.html</context>
+          <context context-type="linenumber">69</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ProfilSendMessage" datatype="html">
+        <source>
+              Posalji poruku 
+              <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span&gt;"/><x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/>
+            </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/profile/profile.component.html</context>
+          <context context-type="linenumber">78</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/profile/profile.component.html</context>
+          <context context-type="linenumber">78</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ProfilAddFriends" datatype="html">
+        <source>
+              Dodati prijatelja 
+              <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span&gt;"/><x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/>
+            </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/profile/profile.component.html</context>
+          <context context-type="linenumber">87</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/profile/profile.component.html</context>
+          <context context-type="linenumber">87</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ProfilCancelRequest" datatype="html">
+        <source>
+              Povuci zahtjev 
+              <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span&gt;"/><x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/>
+            </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/profile/profile.component.html</context>
+          <context context-type="linenumber">96</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/profile/profile.component.html</context>
+          <context context-type="linenumber">96</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ProfilNotAddFriends" datatype="html">
+        <source>
+              Odbi zahtjev
+              <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span&gt;"/><x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/>
+            </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/profile/profile.component.html</context>
+          <context context-type="linenumber">105</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/profile/profile.component.html</context>
+          <context context-type="linenumber">105</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ProfilAcceptFriends" datatype="html">
+        <source>
+              Prihvati 
+              <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span&gt;"/><x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/>
+            </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/profile/profile.component.html</context>
+          <context context-type="linenumber">114</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/profile/profile.component.html</context>
+          <context context-type="linenumber">114</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="proflieNavHome" datatype="html">
+        <source>
+              Pocetna
+            </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/profile/profile.component.html</context>
+          <context context-type="linenumber">141</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/profile/profile.component.html</context>
+          <context context-type="linenumber">154</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/profile/profile.component.html</context>
+          <context context-type="linenumber">141</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/profile/profile.component.html</context>
+          <context context-type="linenumber">154</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="proflieNavFriend" datatype="html">
+        <source>
+              Prijatelji
+            </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/profile/profile.component.html</context>
+          <context context-type="linenumber">168</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/profile/profile.component.html</context>
+          <context context-type="linenumber">168</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="proflieNavPicture" datatype="html">
+        <source>
+              Slike
+            </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/profile/profile.component.html</context>
+          <context context-type="linenumber">182</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/profile/profile.component.html</context>
+          <context context-type="linenumber">195</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/profile/profile.component.html</context>
+          <context context-type="linenumber">182</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/profile/profile.component.html</context>
+          <context context-type="linenumber">195</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="SearchPipleInPlace" datatype="html">
+        <source>
+        Osobe iz okruzenja
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/search/search.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/notification/notification.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ModalQuestionDeleteSpanOne" datatype="html">
+        <source>
+      Da li ste sigurni da zelite da obrisete ovu objavu? Ukoliko obrisete objavu,
+      niko vam vise nece moci lajkovati, komentarisati i uzivati u vasim postovima.
+    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/plagin/modal/publication-show-delete/publication-show-delete.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ModalQuestionDeleteSpanTwo" datatype="html">
+        <source>
+      Razmislite jos jednom da li zelite da obrisete objavu...
+    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/plagin/modal/publication-show-delete/publication-show-delete.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ModalPablicAgain" datatype="html">
+        <source>
+      Da li zelite ponovo da objavite?
+    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/plagin/modal/publication-show-delete/publication-show-delete.component.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ButtonCancel" datatype="html">
+        <source>
+      Odustati
+    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/plagin/modal/publication-show-delete/publication-show-delete.component.html</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/plagin/modal/publication-show-delete/publication-show-delete.component.html</context>
+          <context context-type="linenumber">60</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/plagin/modal/delete-friends/delete-friends.component.html</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ButtonDelete" datatype="html">
+        <source>
+      Obrisati
+    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/plagin/modal/publication-show-delete/publication-show-delete.component.html</context>
+          <context context-type="linenumber">41</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/plagin/modal/delete-friends/delete-friends.component.html</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ButtonPublic" datatype="html">
+        <source>
+      Objaviti
+    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/plagin/modal/publication-show-delete/publication-show-delete.component.html</context>
+          <context context-type="linenumber">51</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="PublicationIsUpdateProfilImage" datatype="html">
+        <source>
+        je promenio profilnu sliku
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/plagin/publication/publication.component.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="PublicationIsVisit" datatype="html">
+        <source>
+        je posetio 
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/plagin/publication/publication.component.html</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="PublicationIsPublicNewPicture" datatype="html">
+        <source>
+        je objavio novu sliku
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/plagin/publication/publication.component.html</context>
+          <context context-type="linenumber">37</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="PublicationIsReacted" datatype="html">
+        <source>
+        je reagovo na staru objavu
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/plagin/publication/publication.component.html</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="PublicationIsWritenAnything" datatype="html">
+        <source>
+        je napisao nesto!
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/plagin/publication/publication.component.html</context>
+          <context context-type="linenumber">51</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="PublicationBtnLikeIt" datatype="html">
+        <source> Svidja vam se </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/plagin/publication/publication.component.html</context>
+          <context context-type="linenumber">265</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="PublicationBtnDontLikeIt" datatype="html">
+        <source> Ne svidja vam se </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/plagin/publication/publication.component.html</context>
+          <context context-type="linenumber">268</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="PublicationBtnCommentars" datatype="html">
+        <source> Komentarisite</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/plagin/publication/publication.component.html</context>
+          <context context-type="linenumber">277</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ModalQuestionDeleteFriendsOne" datatype="html">
+        <source>
+      Da li ste sigurni da zelite da uklonite 
+    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/plagin/modal/delete-friends/delete-friends.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ModalQuestionDeleteFriendsTwo" datatype="html">
+        <source>
+      iz liste prijatelja?
+    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/plagin/modal/delete-friends/delete-friends.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="FriendsVisitProfisFriends" datatype="html">
+        <source>
+        Pogledati profi
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/plagin/friends/friends.component.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="FriendsRemoveFriends" datatype="html">
+        <source>
+        Izbrisati prijatelja
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/plagin/friends/friends.component.html</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ChatChat" datatype="html">
+        <source>Čat</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/chats/chat/chat.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ChatTypin" datatype="html">
+        <source>
+                  Kucanje...
+                </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/chats/chat/chat.component.html</context>
+          <context context-type="linenumber">82</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ChatWhatAreYouWaiting" datatype="html">
+        <source>
+              Sta cekate?
+            </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/chats/chat/chat.component.html</context>
+          <context context-type="linenumber">107</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ChatStartChating" datatype="html">
+        <source>
+              Posaljite prvi poruku, ostvarite prvi kontakt i uzivajte u druzenju!
+            </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/chats/chat/chat.component.html</context>
+          <context context-type="linenumber">113</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ListUserChatSendFirstMessage" datatype="html">
+        <source>
+        Posalji prvi poruku
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/plagin/list-users-chat/list-users-chat.component.html</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

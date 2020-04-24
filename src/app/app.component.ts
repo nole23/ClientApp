@@ -5,6 +5,7 @@ import { NotifierService } from 'angular-notifier';
 import { SidebarComponent } from "./components/sidebar/sidebar.component";
 import { Global } from "./global/global";
 import { SocketService } from './services/socket.service';
+import { ClientService } from './services/client.service';
 
 @Component({
   selector: "app-root",
@@ -45,7 +46,8 @@ export class AppComponent implements OnInit {
     @Inject(LOCALE_ID) public locale: string,
     private global: Global,
     notifier: NotifierService,
-    private socketService: SocketService
+    private socketService: SocketService,
+    private clientService: ClientService
   ) {
     this.notifier = notifier;
     this.loading = true;
@@ -75,6 +77,11 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(status: Boolean = false) {
+    this.clientService.openSmile().subscribe(res => {
+      // console.log(res['message'])
+      this.global.setLinkClient(res['message']);
+    })
+    
     this.socketService.setSocket();
     if (!status) {
       this.status();

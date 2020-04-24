@@ -7,6 +7,7 @@ import { User } from "../../../models/user";
 import { ChatService } from "../../../services/chat.service";
 import { Global } from "../../../global/global";
 import { SocketService } from '../../../services/socket.service';
+import { ClientService } from '../../../services/client.service';
 
 @Component({
   selector: "app-chat",
@@ -42,13 +43,15 @@ export class ChatComponent implements OnInit {
   scrollBottomNumber: any;
   timer: any;
   isLoadNewData: Boolean;
+  linkImage: any;
   constructor(
     notifier: NotifierService,
     private chatService: ChatService,
     private global: Global,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private socketService: SocketService
+    private socketService: SocketService,
+    private clientService: ClientService
   ) {
     this.isOnline = true;
     this.listChater = null;
@@ -190,6 +193,7 @@ export class ChatComponent implements OnInit {
   }
 
   opneSmile() {
+    this.linkImage = this.global.linkClient;
     if (!this.isSmileShow) {
       this.message.nativeElement.children['chat-area'].querySelector('#style-4').classList.add('h-chat-area-open-smile')
     } else {
@@ -278,13 +282,18 @@ export class ChatComponent implements OnInit {
     this.isSpiner = true;
     this.isTyping = true;
 
-    let text = this.textMessage;
-    this.chatService.sendMessage(this.chater, this.textMessage).subscribe(res => {
-      this.setMessigPrivate(res['message'], text);
-      this.setListChater(this.chater, text);
-    });
-    this.textMessage = '';
-    this.global.setNullOfMessage(this.chater._id)
+    if (this.textMessage.length > 0) {
+      let text = this.textMessage; 
+      this.chatService.sendMessage(this.chater, this.textMessage).subscribe(res => {
+        this.setMessigPrivate(res['message'], text);
+        this.setListChater(this.chater, text);
+      });
+      this.textMessage = '';
+      this.global.setNullOfMessage(this.chater._id)
+    } else {
+      this.isSpiner = false;
+      this.isTyping = false;
+    }
   }
 
   setListChater(chater: any, text: String) {

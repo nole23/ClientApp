@@ -24,11 +24,10 @@ import { RestartComponent } from './components/anuth/restart/restart.component';
 import { VerifyComponent } from './components/anuth/verify/verify.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { SearchComponent } from './components/search/search.component';
-import { SettingsComponent } from './components/settings/settings.component';
 import { PublicationComponent } from './components/plagin/publication/publication.component';
 import { FriendsComponent } from './components/plagin/friends/friends.component';
 import { ImagesComponent } from './components/plagin/images/images.component';
-import { SettingsProfileComponent } from './components/plagin/settings-profile/settings-profile.component';
+import { SettingsProfileComponent } from './components/settings-profile/settings-profile.component';
 import { NotificationComponent } from './components/notification/notification.component';
 import { LocationComponent } from './components/plagin/location/location.component';
 import { ProfileImagesComponent } from './components/plagin/modal/profile-images/profile-images.component';
@@ -100,7 +99,6 @@ const customNotifierOptions: NotifierOptions = {
     VerifyComponent,
     ProfileComponent,
     SearchComponent,
-    SettingsComponent,
     PublicationComponent,
     FriendsComponent,
     ImagesComponent,

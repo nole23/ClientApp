@@ -10,6 +10,7 @@ import { ImageGalleryComponent } from '../../plagin/modal/image-gallery/image-ga
 export class ImagesComponent implements OnInit {
 
   @Input() item: any;
+  @Input() i: any;
   @Input() imagesList: any;
   me: any;
 

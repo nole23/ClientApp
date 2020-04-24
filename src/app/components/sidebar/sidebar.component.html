@@ -2,11 +2,28 @@
 
 <nav id="sidebar" [ngClass]="addCals">
     <div class="sidebar-header">
-        <h3 class="activ-text-width"><img src="{{user.otherInformation.publicMedia.profileImage}}" class="rounded-circle" alt="" width="45px" height="45px" i18n="@@logoText"> TwoWay</h3>
-        <strong><img src="{{user.otherInformation.publicMedia.profileImage}}" class="rounded-circle" alt="" width="45px" height="45px"></strong>
-        <div class="popularity">
-            <span>Popularnost: </span>
-            <span class="type"> Niska</span>
+        <h3 class="activ-text-width" i18n="@@SidebarLogoText">
+            <img 
+                src="{{user.otherInformation.publicMedia.profileImage}}" 
+                class="rounded-circle fit-image w-45 h-45p" 
+                alt="" />
+            TwoWay
+        </h3>
+
+        <strong>
+            <img 
+                src="{{user.otherInformation.publicMedia.profileImage}}" 
+                class="rounded-circle fit-image w-45 h-45p" 
+                alt="" />
+        </strong>
+
+        <div class="popularity" *ngIf="state !== null">
+            <span i18n="@@SidebarPopulat">Popularnost: </span>
+            <span 
+                class="type" 
+                [ngClass]="{'red': state.type === 'sm', 'orange': state.type === 'md', 'green': state.type === 'lg'}">
+                {{state.text}}
+            </span>
         </div>
     </div>
 

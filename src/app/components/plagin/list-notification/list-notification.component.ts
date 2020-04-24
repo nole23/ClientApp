@@ -11,7 +11,6 @@ export class ListNotificationComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.item)
   }
 
 }

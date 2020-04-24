@@ -1,0 +1,356 @@
+<div
+  class="my-container sizefull" 
+  style="overflow: auto;"
+  id="style-4">
+  <div class="body-search">
+    <div class="float-l w-100p h-50p text-center fs-12 text-white-f b-botton-3" >
+      <div 
+        class="float-l calc-dimension pos-relative cursor-pointer"
+        (click)="opneTab('first')"
+        [ngClass]="{'bgnav': tab === 'first'}">
+        <span class="ab-c-m">Opste</span>
+      </div>
+
+      <div 
+        class="float-l calc-dimension pos-relative cursor-pointer"
+        (click)="opneTab('second')"
+        [ngClass]="{'bgnav': tab === 'second'}">
+        <span class="ab-c-m">Bezbednost</span>
+      </div>
+
+      <div 
+        class="float-l calc-dimension pos-relative cursor-pointer" 
+        (click)="opneTab('third')"
+        [ngClass]="{'bgnav': tab === 'third'}">
+        <span class="ab-c-m">Privatnost</span>
+      </div>
+
+      <div 
+        class="float-l calc-dimension pos-relative cursor-pointer" 
+        (click)="opneTab('fourth')"
+        [ngClass]="{'bgnav': tab === 'fourth'}">
+        <span class="ab-c-m">Neke opcije</span>
+      </div>
+    </div>
+
+    <div class="float-l sizefull fa-white" style="height: calc(100% - 100px);">
+      <div class="float-l w-100p p-l-5 fs-35 bo-b-1-g" style="height: 50px;">
+        <span *ngIf="tab === 'first'">Osnovna podesavanja naloga</span>
+        <span *ngIf="tab === 'second'">Bezbednost i prijavljivanje</span>
+        <span *ngIf="tab === 'third'">Privatnost</span>
+        <span *ngIf="tab === 'fourth'">Ostale privatne opcije</span>
+
+        <button class="float-r p-r-10 fa-green-h" (click)="isEditValue = !isEditValue">
+          <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+        </button>
+      </div>
+
+      <div 
+        class="float-l sizefull text-white-f"
+        #firstTab
+        *ngIf="tab === 'first'">
+
+        <div 
+          class="float-l w-100p h-40p bo-b-1-d fs-14"
+          *ngFor="let item of otherInformation.data; let i = index"
+          [id]="'input-value-' + item.idName">
+          <div class="float-l h-100pc pos-relative" style="width: 30%;">
+            <span class="ab-c-m">{{item.name}}</span>
+          </div>
+          
+          <div class="float-l h-100pc pos-relative w-70p" *ngIf="isEditValue">
+            <span class="ab-c-m" *ngIf="item.type !== 'Date'">{{item.value}}</span>
+            <span class="ab-c-m" *ngIf="item.type === 'Date'">{{item.value | date: 'dd. MMM yyyy'}}</span>
+          </div>
+
+          <div class="float-l h-100pc pos-relative w-70p p-t-5 p-r-5 p-b-5 p-l-5" *ngIf="!isEditValue">
+            <input 
+              type="{{item.type}}"
+              [id]="'item-' + item.idName"
+              class="form-control"
+              value="{{item.value}}"
+              name="{{item.idName}}"
+              style="height: 100%;"
+              *ngIf="item.idName !== 'dateOfBirth' && item.idName !== 'sex'"/>
+            
+            <select
+              name="day"  
+              class="form-control float-l select-setting w-20p h-100pc" 
+              [id]="'input-value-day'"
+              style="padding: 0; height: 30px;"
+              *ngIf="item.idName === 'dateOfBirth'">
+              <option value="">dan</option>
+              <option *ngFor="let i of data" value="{{i}}">{{i}}</option>
+            </select>
+
+            <select 
+              name="mount" 
+              class="form-control float-l select-setting w-40p h-100pc" 
+              [id]="'input-value-mount'"
+              style="padding: 0; height: 30px;"
+              *ngIf="item.idName === 'dateOfBirth'">
+              <option value="">meseci</option>
+              <option *ngFor="let i of mount" value="{{i.i}}">{{i.item}}</option>
+            </select>
+
+            <select 
+              name="year"
+              class="form-control float-l w-30p h-100pc" 
+              [id]="'input-value-year'"
+              style="padding: 0; height: 30px;"
+              *ngIf="item.idName === 'dateOfBirth'">
+              <option value="">godine</option>
+              <option *ngFor="let i of year" value="{{i}}">{{i}}</option>
+            </select>
+
+            <select 
+              name="sex"
+              class="form-control float-l w-100p h-100pc" 
+              [id]="'input-value-sex'"
+              style="padding: 0; height: 30px;"
+              *ngIf="item.idName === 'sex'">
+              <option value="">pol</option>
+              <option *ngFor="let i of sex" value="{{i.type}}">{{i.item}}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="float-l w-100p h-40p fs-14 m-t-5 " *ngIf="!isEditValue">
+          <button class="btn btn-success float-r" (click)="saveEdit(tab)">
+            Sacuvajte
+            <span class="spinner-border smal" role="status" *ngIf="isLoader"></span>
+          </button>
+        </div>
+      </div>
+
+      <div 
+        class="float-l sizefull pos-relative"
+        #secondTab
+        *ngIf="tab === 'second'">
+
+        <div 
+          class="float-l w-100p h-40p bo-b-1-d fs-14"
+          *ngFor="let item of securityInformation.data"
+          [id]="'input-value-' + item.idName">
+          <div class="float-l h-100pc pos-relative" style="width: 30%;">
+            <span class="ab-c-m">{{item.name}}</span>
+          </div>
+          
+          <div class="float-l h-100pc pos-relative w-70p" *ngIf="isEditValue">
+            <span class="ab-c-m">{{item.value}}</span>
+          </div>
+
+          <div class="float-l h-100pc pos-relative w-70p p-t-5 p-r-5 p-b-5 p-l-5" *ngIf="!isEditValue">
+            <input 
+              type="{{item.type}}"
+              [id]="'item-' + item.idName"
+              class="form-control"
+              value="{{item.value}}"
+              name="{{item.idName}}"
+              style="height: 100%;"/>
+          </div>
+        </div>
+
+        <div class="float-l w-100p h-40p fs-14 m-t-5 " *ngIf="!isEditValue">
+          <button class="btn btn-success float-r" (click)="saveEdit(tab)">
+            Sacuvajte
+            <span class="spinner-border smal" role="status" *ngIf="isLoader"></span>
+          </button>
+        </div>
+      </div>
+
+      <div 
+        class="float-l sizefull pos-relative" 
+        #thirdTab
+        *ngIf="tab === 'third'">
+        
+        <div 
+          class="float-l w-100p h-40p bo-b-1-d fs-14"
+          *ngFor="let item of privateInformation.data"
+          [id]="'input-value-' + item.idName">
+
+          <div 
+            class="float-l h-100pc pos-relative" 
+            style="width: 30%;" >
+            <span class="ab-c-m">{{item.name}}</span>
+          </div>
+          
+          <div class="float-l h-100pc pos-relative w-70p" *ngIf="isEditValue">
+            <span class="ab-c-m" *ngIf="item.idName !== 'address'">{{item.value}}</span>
+            <span class="ab-c-m" *ngIf="item.idName === 'address'">
+              {{item.value.country + ' - ' + item.value.region + ' - ' + item.value.city}}
+            </span>
+          </div>
+
+          <div class="float-l h-100pc w-70p p-t-5 p-r-5 p-b-5 p-l-5 dropdown" *ngIf="!isEditValue">
+            <input 
+              type="{{item.type}}"
+              [id]="'item-' + item.idName"
+              class="form-control"
+              value="{{item.value}}"
+              name="{{item.idName}}"
+              style="height: 100%;"
+              *ngIf="item.idName !== 'address'"/>
+
+            <input
+              type="text"
+              [id]="'item-' + item.idName"
+              name="city"
+              class="form-control"
+              style="height: 100%;"
+              placeholder="Unesite naziv grada"
+              (input)="filterCity(true)"
+              [(ngModel)]="city"
+              *ngIf="item.idName === 'address'"
+              role="button"
+              autocomplete="off"
+              id="dropdownMenuLink"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false">
+
+              <div class="dropdown-menu line-height">
+                <button 
+                  class="dropdown-item p-t-5 p-r-5 p-b-0 p-l-5 cursor-pointer"
+                  *ngFor="let item of listCity"
+                  (click)="setiAddress(item)">
+                  <span *ngIf="item.address.city === undefinde">
+                    {{item.address.state}}
+                  </span>
+
+                  <span *ngIf="item.address.city !== undefinde">
+                    {{item.address.city + ' - ' + item.address.country}}
+                  </span>
+                </button>
+              </div>
+          </div>
+        </div>
+
+        <div class="float-l w-100p h-40p fs-14 m-t-5 " *ngIf="!isEditValue">
+          <button class="btn btn-success float-r" (click)="saveEdit(tab)">
+            Sacuvajte
+            <span class="spinner-border smal" role="status" *ngIf="isLoader"></span>
+          </button>
+        </div>
+      </div>
+
+      <div 
+        class="float-l sizefull pos-relative text-center" 
+        #fourthTab
+        *ngIf="tab === 'fourth'">
+        <div 
+          class="float-l w-100p h-40p bo-b-1-d fs-14"
+          *ngFor="let item of otherPrivateInformation.data"
+          [id]="'input-value-' + item.idName">
+          <div 
+            class="float-l h-100pc pos-relative" 
+            style="width: 30%;" >
+            <span class="ab-c-m">{{item.name}}</span>
+          </div>
+
+          <div class="float-l h-100pc pos-relative w-70p" *ngIf="isEditValue">
+            <span class="ab-c-m">{{item.value}}</span>
+          </div>
+
+          <div class="float-l h-100pc pos-relative w-70p p-t-5 p-r-5 p-b-5 p-l-5" *ngIf="!isEditValue">
+            <input 
+              type="{{item.type}}"
+              [id]="'item-' + item.idName"
+              class="form-control"
+              value="{{item.value}}"
+              name="{{item.idName}}"
+              style="height: 100%;"
+              *ngIf="item.type !== 'Select' && item.type !== 'Boolean' && item.idName !== 'languag'"/>
+
+            <section class="float-l w-100p h-100pc" *ngIf="item.type === 'Boolean'">
+              <div class="float-l w-100p h-100pc" *ngIf="item.idName === 'birdthDay'">
+                <div class="form-check float-l">
+                  <input 
+                    class="form-check-input" 
+                    type="radio" 
+                    name="{{item.idName}}"
+                    [id]="'item-' + item.idName"
+                    [(ngModel)]="birdthDay"
+                    value="true"
+                    [checked]="item.value"/>
+                  <label class="form-check-label" for="{{item.idName}}">
+                    prikazati
+                  </label>
+                </div>
+                <div class="form-check float-r m-l-10">
+                  <input 
+                    class="form-check-input" 
+                    type="radio" 
+                    name="{{item.idName}}" 
+                    [id]="'item-' + item.idName" 
+                    [(ngModel)]="birdthDay"
+                    value="false" 
+                    [checked]="!item.value"/>
+                  <label class="form-check-label" for="{{item.idName}}">
+                    sakriti
+                  </label>
+                </div>
+              </div>
+
+              <div class="float-l w-100p h-100pc" *ngIf="item.idName === 'jab'">
+                <div class="form-check float-l">
+                  <input 
+                    class="form-check-input" 
+                    type="radio" 
+                    name="{{item.idName}}"
+                    [id]="'item-' + item.idName"
+                    [(ngModel)]="jab"
+                    value="true"
+                    [checked]="item.value"/>
+                  <label class="form-check-label" for="{{item.idName}}">
+                    prikazati
+                  </label>
+                </div>
+                <div class="form-check float-r m-l-10">
+                  <input 
+                    class="form-check-input" 
+                    type="radio" 
+                    name="{{item.idName}}" 
+                    [id]="'item-' + item.idName" 
+                    [(ngModel)]="jab"
+                    value="false" 
+                    [checked]="!item.value"/>
+                  <label class="form-check-label" for="{{item.idName}}">
+                    sakriti
+                  </label>
+                </div>
+              </div>
+            </section>
+
+            <select 
+              name="sex"
+              class="form-control float-l w-100p h-100pc" 
+              [id]="'item-' + item.idName"
+              style="padding: 0; height: 30px;"
+              *ngIf="item.type === 'Select'">
+              <option value="">Odaberite</option>
+              <option *ngFor="let i of typeIsVisit" value="{{i.type}}">{{i.name}}</option>
+            </select>
+
+            <select 
+              name="sex"
+              class="form-control float-l w-100p h-100pc" 
+              [id]="'item-' + item.idName"
+              style="padding: 0; height: 30px;"
+              *ngIf="item.idName === 'languag'">
+              <option value="">Odaberite drzavu</option>
+              <option *ngFor="let i of listLanguage" value="{{i.type}}">{{i.name}}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="float-l w-100p h-40p fs-14 m-t-5 " *ngIf="!isEditValue">
+          <button class="btn btn-success float-r" (click)="saveEdit(tab)">
+            Sacuvajte
+            <span class="spinner-border smal" role="status" *ngIf="isLoader"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -128,7 +128,7 @@
             class="cursor-pointer float-l w-35 h-35p" 
             *ngFor="let smile of listSmile"
             (click)="setSmile(smile)">
-            <img src="../../../../assets/picture/emoticion/first/{{smile}}" alt="" class="hover-smile">
+            <img src="{{linkImage + smile}}" alt="" class="hover-smile">
           </div>
         </div>
       </div>

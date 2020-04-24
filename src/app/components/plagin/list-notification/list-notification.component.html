@@ -4,28 +4,36 @@
   </div>
 
   <div class="float-l width-centar h-100pc p-t-4 p-b-5 fa-white fs-14">
-    <span class="text-green">
-      {{item.friend.firstName + ' ' + item.friend.lastName}}
-    </span>
-
-    <span *ngIf="item.type === 'comment'">
-      je comentarisao vasu objavu 
-      <span class="text-white-f" *ngIf="item.publication.text !== null">
-        {{'"' + item.publication.text + '"'}}
+    <section class="float-l p-r-5" *ngIf="item.friend !== null">
+      <span class="text-green">
+        {{item.friend.firstName + ' ' + item.friend.lastName}}
       </span>
-    </span>
+    </section>
 
-    <span *ngIf="item.type === 'like'">
-      je lajkovao vasu objavu
-      <span class="text-white-f" *ngIf="item.publication.text !== null">
-        {{'"' + item.publication.text + '"'}}
+    <section class="float-l p-r-5" *ngIf="item.publication !== null">
+      <span *ngIf="item.type === 'comment'">
+        je comentarisao vasu objavu 
+        <span class="text-white-f" *ngIf="item.publication.text !== null">
+          {{'"' + item.publication.text + '"'}}
+        </span>
       </span>
-    </span>
+    </section>
 
-    <span *ngIf="item.publication.type === 'again'">
-      <img src="{{item.publication.image}}" alt="" class="w-35 h-20p fit-image">
-      <span *ngIf="item.publication.text !== null">{{item.publication.text}}</span>
-    </span>
+    <section class="float-l p-r-5" *ngIf="item.publication !== null">
+      <span *ngIf="item.type === 'like'">
+        je lajkovao vasu objavu
+          <span class="text-white-f" *ngIf="item.publication.text !== null">
+            {{'"' + item.publication.text + '"'}}
+          </span>
+      </span>
+    </section>
+
+    <section class="float-l p-r-5" *ngIf="item.publication !== null">
+      <span *ngIf="item.publication.type === 'again'">
+        <img src="{{item.publication.image}}" alt="" class="w-35 h-20p fit-image">
+        <span *ngIf="item.publication.text !== null">{{item.publication.text}}</span>
+      </span>
+    </section>
   </div>
 
   <div class="float-l w-101 h-100pc text-center">

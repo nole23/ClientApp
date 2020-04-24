@@ -263,10 +263,6 @@ a.article:hover {
         /* border: 1px solid red; */
         width: 80px;
     }
-    .popularity .type {
-        font-size: 8px;
-        color: red;
-    }
 }
 
 @media (min-width: 762px) {
@@ -282,8 +278,14 @@ a.article:hover {
         left: -50px;
         font-size: 12px;
     }
-    .popularity .type {
-        color: red;
-        font-size: 10px;    
-    }
+}
+
+.red {
+    color: red
+}
+.orange {
+    color: orange
+}
+.green {
+    color: #00c928
 }

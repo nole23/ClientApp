@@ -21,6 +21,7 @@ export class Global {
     panleOptions: any;
     listSmile: any;
     smile: any;
+    linkClient: any;
     simbol: any;
     isChangeLocationStatus: Boolean;
     abc: any;
@@ -57,15 +58,15 @@ export class Global {
                 "046.svg","047.svg","048.svg","049.svg","050.svg"
             ]
         };
-        // this.linkLocalhostChat = 'http://localhost:8085/chats/api/'
-        // this.linkLocalhost = 'http://localhost:8085/users/api/';
-        // this.linkLocalhostMedia = 'http://localhost:8085/media/api/';
-        // this.linkLocalhostStatus = 'http://localhost:8085/status/api/';
+        this.linkLocalhostChat = 'http://localhost:8085/chats/api/'
+        this.linkLocalhost = 'http://localhost:8085/users/api/';
+        this.linkLocalhostMedia = 'http://localhost:8085/media/api/';
+        this.linkLocalhostStatus = 'http://localhost:8085/status/api/';
 
-        this.linkLocalhostChat = 'chats/api/'
-        this.linkLocalhost = 'users/api/';
-        this.linkLocalhostMedia = 'media/api/';
-        this.linkLocalhostStatus = 'status/api/';
+        // this.linkLocalhostChat = 'chats/api/'
+        // this.linkLocalhost = 'users/api/';
+        // this.linkLocalhostMedia = 'media/api/';
+        // this.linkLocalhostStatus = 'status/api/';
 
         this.linkWebhost = 'https:';
         this.panleOptions = {
@@ -93,24 +94,21 @@ export class Global {
                 icon: 'fa fa-pencil-square-o fa-2x',
                 data: [
                     {name: 'O meni', type: 'String', idData: ['otherInformation', 'about'], idName: 'about'},
-                    {name: 'Drzava', type: 'String', idData: ['otherInformation', 'adress', 'country'], idName: 'country'},
-                    {name: 'Regija', type: 'String', idData: ['otherInformation', 'adress', 'region'], idName: 'region'},
-                    {name: 'Grad', type: 'String', idData: ['otherInformation', 'adress', 'city'], idName: 'city'},
+                    {name: 'Adresa', type: 'String', idData: ['otherInformation', 'adress'], idName: 'address'},
+                    // {name: 'Regija', type: 'String', idData: ['otherInformation', 'adress', 'region'], idName: 'region'},
+                    // {name: 'Grad', type: 'String', idData: ['otherInformation', 'adress', 'city'], idName: 'city'},
                     {name: 'Profesija', type: 'String', idData: ['otherInformation', 'jobs', 'name'], idName: 'name'},
                     {name: 'Gde radite?', type: 'String', idData: ['otherInformation', 'jobs', 'nameCompany'], idName: 'nameCompany'},
                     {name: 'Mesto', type: 'String', idData: ['otherInformation', 'jobs', 'places'], idName: 'places'},
                 ]
-            },
-            Privacy: {
-                title: 'Privatnost',
-                icon: 'fa fa-pencil-square-o fa-2x',
-                data: [
-                    {name: 'Posetioci', type: 'String', idData: ['accept'], idName: 'accept'},
-                    {name: 'Ko moze da mi posalje poruku', type: 'String', idData: ['all'], idName: 'all'},
-                ]
             }
         }
         this.numberOfMessage = [];
+        this.linkClient = '';
+    }
+
+    setLinkClient(link: String) {
+        this.linkClient = link + '/images/emotion01/';
     }
 
     getLink() {
@@ -144,9 +142,9 @@ export class Global {
     }
 
     editLocalStorage(object: any) {
-        // console.info('Global.editLocalStorage() - Edit localstorage when update profile for client')
-        
+        console.log(object)
         var newJson = JSON.parse(localStorage.getItem('user'));
+        localStorage.removeItem('user');
 
         if (object['email']) newJson.email = object['email'];
         if (object['username']) newJson.username = object['username'];
@@ -164,7 +162,6 @@ export class Global {
         if (object['dateOfBirth']) newJson['otherInformation'].dateOfBirth = object['dateOfBirth'];
         if (object['sex']) newJson['otherInformation'].sex = object['sex'];
         
-        localStorage.removeItem('user');
         localStorage.setItem('user', JSON.stringify(newJson));
     }
 
@@ -192,56 +189,56 @@ export class Global {
             css = 'width="20px" height="20px"';
         }
         let emoticons = {
-            a01: '<img src="assets/picture/emoticion/first/001.svg"' + css + ' />',
-            a02: '<img src="assets/picture/emoticion/first/2.svg" width="20px"' + css + ' />',
-            a03: '<img src="assets/picture/emoticion/first/3.svg" width="20px"' + css + ' />',
-            a04: '<img src="assets/picture/emoticion/first/4.svg" width="20px"' + css + ' />',
-            a05: '<img src="assets/picture/emoticion/first/5.svg" width="20px"' + css + ' />',
-            a06: '<img src="assets/picture/emoticion/first/6.svg" width="20px"' + css + ' />',
-            a07: '<img src="assets/picture/emoticion/first/7.svg" width="20px"' + css + ' />',
-            a08: '<img src="assets/picture/emoticion/first/8.svg" width="20px"' + css + ' />',
-            a09: '<img src="assets/picture/emoticion/first/9.svg" width="20px"' + css + ' />',
-            a10: '<img src="assets/picture/emoticion/first/10.svg" width="20px"' + css + ' />',
-            a11: '<img src="assets/picture/emoticion/first/11.svg" width="20px"' + css + ' />',
-            a12: '<img src="assets/picture/emoticion/first/12.svg" width="20px"' + css + ' />',
-            a13: '<img src="assets/picture/emoticion/first/13.svg" width="20px"' + css + ' />',
-            a14: '<img src="assets/picture/emoticion/first/14.svg" width="20px"' + css + ' />',
-            a15: '<img src="assets/picture/emoticion/first/15.svg" width="20px"' + css + ' />',
-            a16: '<img src="assets/picture/emoticion/first/16.svg" width="20px"' + css + ' />',
-            a17: '<img src="assets/picture/emoticion/first/17.svg" width="20px"' + css + ' />',
-            a18: '<img src="assets/picture/emoticion/first/18.svg" width="20px"' + css + ' />',
-            a19: '<img src="assets/picture/emoticion/first/19.svg" width="20px"' + css + ' />',
-            a20: '<img src="assets/picture/emoticion/first/20.svg" width="20px"' + css + ' />',
-            a21: '<img src="assets/picture/emoticion/first/21.svg" width="20px"' + css + ' />',
-            a22: '<img src="assets/picture/emoticion/first/22.svg" width="20px"' + css + ' />',
-            a23: '<img src="assets/picture/emoticion/first/23.svg" width="20px"' + css + ' />',
-            a24: '<img src="assets/picture/emoticion/first/24.svg" width="20px"' + css + ' />',
-            a25: '<img src="assets/picture/emoticion/first/25.svg" width="20px"' + css + ' />',
-            a26: '<img src="assets/picture/emoticion/first/26.svg" width="20px"' + css + ' />',
-            a27: '<img src="assets/picture/emoticion/first/27.svg" width="20px"' + css + ' />',
-            a28: '<img src="assets/picture/emoticion/first/28.svg" width="20px"' + css + ' />',
-            a29: '<img src="assets/picture/emoticion/first/29.svg" width="20px"' + css + ' />',
-            a30: '<img src="assets/picture/emoticion/first/30.svg" width="20px"' + css + ' />',
-            a31: '<img src="assets/picture/emoticion/first/31.svg" width="20px"' + css + ' />',
-            a32: '<img src="assets/picture/emoticion/first/32.svg" width="20px"' + css + ' />',
-            a33: '<img src="assets/picture/emoticion/first/33.svg" width="20px"' + css + ' />',
-            a34: '<img src="assets/picture/emoticion/first/34.svg" width="20px"' + css + ' />',
-            a35: '<img src="assets/picture/emoticion/first/35.svg" width="20px"' + css + ' />',
-            a36: '<img src="assets/picture/emoticion/first/36.svg" width="20px"' + css + ' />',
-            a37: '<img src="assets/picture/emoticion/first/37.svg" width="20px"' + css + ' />',
-            a38: '<img src="assets/picture/emoticion/first/38.svg" width="20px"' + css + ' />',
-            a39: '<img src="assets/picture/emoticion/first/39.svg" width="20px"' + css + ' />',
-            a40: '<img src="assets/picture/emoticion/first/40.svg" width="20px"' + css + ' />',
-            a41: '<img src="assets/picture/emoticion/first/41.svg" width="20px"' + css + ' />',
-            a42: '<img src="assets/picture/emoticion/first/42.svg" width="20px"' + css + ' />',
-            a43: '<img src="assets/picture/emoticion/first/43.svg" width="20px"' + css + ' />',
-            a44: '<img src="assets/picture/emoticion/first/44.svg" width="20px"' + css + ' />',
-            a45: '<img src="assets/picture/emoticion/first/45.svg" width="20px"' + css + ' />',
-            a46: '<img src="assets/picture/emoticion/first/46.svg" width="20px"' + css + ' />',
-            a47: '<img src="assets/picture/emoticion/first/47.svg" width="20px"' + css + ' />',
-            a48: '<img src="assets/picture/emoticion/first/48.svg" width="20px"' + css + ' />',
-            a49: '<img src="assets/picture/emoticion/first/49.svg" width="20px"' + css + ' />',
-            a50: '<img src="assets/picture/emoticion/first/50.svg" width="20px"' + css + ' />',
+            a01: '<img src="' + this.linkClient + '/001.svg"' + css + ' />',
+            a02: '<img src="' + this.linkClient + '/002.svg"' + css + ' />',
+            a03: '<img src="' + this.linkClient + '/003.svg"' + css + ' />',
+            a04: '<img src="' + this.linkClient + '/004.svg"' + css + ' />',
+            a05: '<img src="' + this.linkClient + '/005.svg"' + css + ' />',
+            a06: '<img src="' + this.linkClient + '/006.svg"' + css + ' />',
+            a07: '<img src="' + this.linkClient + '/007.svg"' + css + ' />',
+            a08: '<img src="' + this.linkClient + '/008.svg"' + css + ' />',
+            a09: '<img src="' + this.linkClient + '/009.svg"' + css + ' />',
+            a10: '<img src="' + this.linkClient + '/010.svg"' + css + ' />',
+            a11: '<img src="' + this.linkClient + '/011.svg"' + css + ' />',
+            a12: '<img src="' + this.linkClient + '/012.svg"' + css + ' />',
+            a13: '<img src="' + this.linkClient + '/013.svg"' + css + ' />',
+            a14: '<img src="' + this.linkClient + '/014.svg"' + css + ' />',
+            a15: '<img src="' + this.linkClient + '/015.svg"' + css + ' />',
+            a16: '<img src="' + this.linkClient + '/016.svg"' + css + ' />',
+            a17: '<img src="' + this.linkClient + '/017.svg"' + css + ' />',
+            a18: '<img src="' + this.linkClient + '/018.svg"' + css + ' />',
+            a19: '<img src="' + this.linkClient + '/019.svg"' + css + ' />',
+            a20: '<img src="' + this.linkClient + '/020.svg"' + css + ' />',
+            a21: '<img src="' + this.linkClient + '/021.svg"' + css + ' />',
+            a22: '<img src="' + this.linkClient + '/022.svg"' + css + ' />',
+            a23: '<img src="' + this.linkClient + '/023.svg"' + css + ' />',
+            a24: '<img src="' + this.linkClient + '/024.svg"' + css + ' />',
+            a25: '<img src="' + this.linkClient + '/025.svg"' + css + ' />',
+            a26: '<img src="' + this.linkClient + '/026.svg"' + css + ' />',
+            a27: '<img src="' + this.linkClient + '/027.svg"' + css + ' />',
+            a28: '<img src="' + this.linkClient + '/028.svg"' + css + ' />',
+            a29: '<img src="' + this.linkClient + '/029.svg"' + css + ' />',
+            a30: '<img src="' + this.linkClient + '/030.svg"' + css + ' />',
+            a31: '<img src="' + this.linkClient + '/031.svg"' + css + ' />',
+            a32: '<img src="' + this.linkClient + '/032.svg"' + css + ' />',
+            a33: '<img src="' + this.linkClient + '/033.svg"' + css + ' />',
+            a34: '<img src="' + this.linkClient + '/034.svg"' + css + ' />',
+            a35: '<img src="' + this.linkClient + '/035.svg"' + css + ' />',
+            a36: '<img src="' + this.linkClient + '/036.svg"' + css + ' />',
+            a37: '<img src="' + this.linkClient + '/037.svg"' + css + ' />',
+            a38: '<img src="' + this.linkClient + '/038.svg"' + css + ' />',
+            a39: '<img src="' + this.linkClient + '/039.svg"' + css + ' />',
+            a40: '<img src="' + this.linkClient + '/040.svg"' + css + ' />',
+            a41: '<img src="' + this.linkClient + '/041.svg"' + css + ' />',
+            a42: '<img src="' + this.linkClient + '/042.svg"' + css + ' />',
+            a43: '<img src="' + this.linkClient + '/043.svg"' + css + ' />',
+            a44: '<img src="' + this.linkClient + '/044.svg"' + css + ' />',
+            a45: '<img src="' + this.linkClient + '/045.svg"' + css + ' />',
+            a46: '<img src="' + this.linkClient + '/046.svg"' + css + ' />',
+            a47: '<img src="' + this.linkClient + '/047.svg"' + css + ' />',
+            a48: '<img src="' + this.linkClient + '/048.svg"' + css + ' />',
+            a49: '<img src="' + this.linkClient + '/049.svg"' + css + ' />',
+            a50: '<img src="' + this.linkClient + '/050.svg"' + css + ' />',
         };
 
         let patterns = {

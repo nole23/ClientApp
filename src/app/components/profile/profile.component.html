@@ -276,9 +276,10 @@
             </div>
           
             <app-images 
-              *ngFor="let item of imagesList" 
+              *ngFor="let item of imagesList; let i = index" 
               [item]="item" 
-              [imagesList]="imagesList">
+              [imagesList]="imagesList"
+              [i]="i">
             </app-images>
           </div>
         </div>

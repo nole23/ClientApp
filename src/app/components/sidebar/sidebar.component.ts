@@ -18,6 +18,7 @@ export class SidebarComponent implements OnInit {
   opening: String;
   href: String;
   onStatus: any;
+  state: any;
   constructor(
     private router: Router,
     private loginService: LoginService,
@@ -36,10 +37,15 @@ export class SidebarComponent implements OnInit {
     };
     this.global.sidebarComponent$.subscribe(res => {
       this.getStatusLink();
-    })
+    });
+    this.state = null;
   }
 
   ngOnInit() {
+    // this.state = {
+    //   text: 'visoka',
+    //   type: 'lg'
+    // }
     this.getStatusLink();
   }
 

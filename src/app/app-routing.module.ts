@@ -5,10 +5,9 @@ import { AuthGuard } from './guard/auth.guard';
 
 import { ProfileComponent } from './components/profile/profile.component';
 import { SearchComponent } from './components/search/search.component';
-import { SettingsProfileComponent } from './components/plagin/settings-profile/settings-profile.component';
+import { SettingsProfileComponent } from './components/settings-profile/settings-profile.component';
 import { NotificationComponent } from './components/notification/notification.component';
 import { ProfilFriendsComponent } from './components/profil-friends/profil-friends.component';
-// import { ChatAreaModule } from './chat-area/chat-area.module';
 import { ChatComponent } from './components/chats/chat/chat.component';
 
 const routes: Routes = [

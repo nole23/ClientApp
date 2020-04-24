@@ -90,6 +90,18 @@ export class UserService {
     }))
   }
 
+  editProfile(type: String, data: any) {
+    return this.http.put(this.global.getLink() + 'users/' + type, data)
+      .pipe(map(res => {
+        if(this.global.getResponseSuccess(res['message'])) {
+          this.autoUpdate(type, data);
+          return {message: true}
+        } else {
+          return {message: false}
+        }
+      }))
+  }
+
   editGeneralData(data: any) {
     // console.info('UserService.editGeneralData() - send date in server');
     return this.http.put(this.global.getLink() + 'users/', data)
@@ -200,5 +212,24 @@ export class UserService {
       .pipe(map(res => {
         return res;
       }))
+  }
+
+  autoUpdate(type: String, data: any) {
+    if (type === '') {
+      this.global.editLocalStorage(data);
+    } else if (type === 'information') {
+      this.global.editLocalStorage(data);
+    } else if (type === 'configuration') {
+      let item = JSON.parse(localStorage.getItem('options'));
+      localStorage.removeItem('options')
+      
+      item.forEach(element => {
+        if (data[element.idName]) {
+          element.value = data[element.idName];
+        }
+      });
+
+      localStorage.setItem('options', JSON.stringify(item))
+    }
   }
 }

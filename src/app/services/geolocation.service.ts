@@ -122,4 +122,18 @@ export class GeolocationService {
         return res;
       }))
   }
+
+  getServerAddress(city: any) {
+    return this.http.get('http://localhost:8085/api/client/' + city)
+      .pipe(map(res =>{
+        return res;
+      }))
+  }
+
+  getAllLanguage() {
+    return this.http.get('http://localhost:8085/api/client/list-language')
+      .pipe(map(res =>{
+        return res;
+      }))
+  }
 }
