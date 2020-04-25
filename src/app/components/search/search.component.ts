@@ -5,6 +5,8 @@ import { SearchService } from '../../services/search.service';
 import { UserService } from '../../services/user.service';
 import { GeolocationService } from '../../services/geolocation.service';
 import { Global } from '../../global/global';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { DeleteFriendsComponent } from '../plagin/modal/delete-friends/delete-friends.component';
 
 @Component({
   selector: 'app-search',
@@ -34,7 +36,8 @@ export class SearchComponent implements OnInit {
     private searchService: SearchService,
     private userService: UserService,
     private geolocationService: GeolocationService,
-    private global: Global
+    private global: Global,
+    public matDialog: MatDialog
   ) {
     this.notifier = notifier;
     this.searchText = null;

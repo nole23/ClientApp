@@ -99,7 +99,6 @@ export class ProfilFriendsComponent implements OnInit, OnDestroy {
   }
 
   openTab(item: any) {
-    console.log(item)
     this.tab = item;
     if (item === 'profile') {
       this.activeUser = true;
@@ -118,6 +117,7 @@ export class ProfilFriendsComponent implements OnInit, OnDestroy {
 
   getPublication() {
     this.userService.getPublication(this.user, this.numberOfPage).subscribe((res: any) => {
+      
       this.publication = res['message'];
       this.numberOfPage = this.numberOfPage + 1;
     });
@@ -237,30 +237,23 @@ export class ProfilFriendsComponent implements OnInit, OnDestroy {
 
   @HostListener('scroll', ['$event'])
   onScroll(event: any) {
+    
     if (event.target.offsetHeight + event.target.scrollTop >= (event.target.scrollHeight - 500)) {
-
+      
       if (this.tab === 'profile') {
         if (!this.awaitToResposn) {
+          this.awaitToResposn = true;
           this.userService.getPublication(this.user, this.numberOfPage).subscribe((res: any) => {
-  
             if (res['message'].length !== 0) {
               res['message'].forEach(element => {
                 this.publication.push(element);
               });
               this.numberOfPage = this.numberOfPage + 1;
               this.awaitToResposn = false;
-            } else {
-              this.isLastElement.publication = !this.isLastElement.publication;
             }
-            
           });
         }
   
-        if (this.isLastElement.publication) {
-          this.awaitToResposn = true;
-        } else {
-          this.awaitToResposn = false;
-        }
       } else if (this.tab === 'friend') {
         console.log('prijatelji')
       } else if (this.tab === 'picture') {

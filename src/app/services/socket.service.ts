@@ -19,17 +19,6 @@ export class SocketService {
     this.socket = io('https://twoway1.herokuapp.com');
   }
 
-  setupSocketConnectionMessage() {
-    // this.socketMessage = io('https://twoway-chatservice.herokuapp.com');
-  }
-
-  setupSocketConnection() {
-    // this.socket = io('https://twoway-statusservice.herokuapp.com');
-    // if (JSON.parse(localStorage.getItem('user'))) {
-    //   this.emitStatusOnline();
-    // }
-  }
-
   emitStatusOnline() {
     this.socket.emit('setOnline', localStorage.getItem('user'));
   }

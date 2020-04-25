@@ -213,32 +213,39 @@ export class ProfileComponent implements OnInit, OnDestroy {
     if (event.target.offsetHeight + event.target.scrollTop >= (event.target.scrollHeight - 500)) {
 
       if (this.tab === 'profile') {
-        if (!this.awaitToResposn) {
-          this.userService.getPublication(this.user, this.numberOfPage).subscribe((res: any) => {
-  
-            if (res['message'].length !== 0) {
-              res['message'].forEach(element => {
-                this.publication.push(element);
-              });
-              this.numberOfPage = this.numberOfPage + 1;
-              this.awaitToResposn = false;
-            } else {
-              this.isLastElement.publication = !this.isLastElement.publication;
-            }
-            
-          });
-        }
-  
-        if (this.isLastElement.publication) {
-          this.awaitToResposn = true;
-        } else {
-          this.awaitToResposn = false;
-        }
+        this.updatePublication();
       } else if (this.tab === 'friend') {
-        console.log('prijatelji')
+        this.updateFriends();
       } else if (this.tab === 'picture') {
-        console.log('slike')
+        this.updatePicture();
       }
+    }
+  }
+
+  updateFriends() {
+    console.log('Nothing implement')
+  }
+
+  updatePicture() {
+    console.log('Nothing implement')
+  }
+
+  updatePublication() {
+    if (!this.awaitToResposn) {
+      this.awaitToResposn = true;
+      this.userService.getPublication(this.user, this.numberOfPage).subscribe((res: any) => {
+        if (res['message'].length !== 0) {
+          res['message'].forEach(element => {
+            this.publication.push(element);
+          });
+          this.numberOfPage = this.numberOfPage + 1;
+          this.awaitToResposn = false;
+        } else {
+          if (this.publication === null) {
+            this.publication = undefined;
+          }
+        }
+      });
     }
   }
 

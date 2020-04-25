@@ -40,6 +40,8 @@ export class SettingsProfileComponent implements OnInit {
   listLanguage: any;
   birdthDay: Boolean;
   jab: Boolean;
+  address: Boolean;
+  location: Boolean;
   constructor(
     notifier: NotifierService,
     public el: ElementRef,

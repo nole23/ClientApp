@@ -34,6 +34,18 @@ export class NotificationService {
       }))
   }
 
+  getAllRelationship(page: any) {
+    let params = new HttpParams().set(
+      "page", JSON.stringify(page)
+    ).append(
+      "type", JSON.stringify('relationship')
+    )
+    return this.http.get(this.global.getLink() + 'notification/', {params: params})
+      .pipe(map(res =>{
+        return res;
+      }))
+  }
+
   saveNotification(type: String, method: String) {
     let notification = localStorage.getItem('notification');
     let isLocalstorage = notification ? true : false;

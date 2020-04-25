@@ -1,13 +1,11 @@
 import { Injectable } from '@angular/core';
-import { timer, Subject } from 'rxjs';
-import { AppComponent } from '../app.component';
+import { Subject } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
 })
 export class Global {
 
-    private appComponent: AppComponent;
     private testComponentSource = new Subject<boolean>();
     private sidebarComponentSource = new Subject<String>();
     testComponent$ = this.testComponentSource.asObservable();
@@ -58,16 +56,16 @@ export class Global {
                 "046.svg","047.svg","048.svg","049.svg","050.svg"
             ]
         };
-        // this.linkLocalhostChat = 'http://localhost:8085/chats/api/'
-        // this.linkLocalhost = 'http://localhost:8085/users/api/';
-        // this.linkLocalhostMedia = 'http://localhost:8085/media/api/';
-        // this.linkLocalhostStatus = 'http://localhost:8085/status/api/';
-
-        this.linkLocalhostChat = 'chats/api/'
-        this.linkLocalhost = 'users/api/';
-        this.linkLocalhostMedia = 'media/api/';
-        this.linkLocalhostStatus = 'status/api/';
-
+        // this.linkLocalhostChat = 'https://twoway1.herokuapp.com/chats/api/'
+        // this.linkLocalhost = 'https://twoway1.herokuapp.com/users/api/';
+        // this.linkLocalhostMedia = 'https://twoway1.herokuapp.com/media/api/';
+        // this.linkLocalhostStatus = 'https://twoway1.herokuapp.com/status/api/';
+        
+        this.linkLocalhostChat = 'http://localhost:8085/chats/api/'
+        this.linkLocalhost = 'http://localhost:8085/users/api/';
+        this.linkLocalhostMedia = 'http://localhost:8085/media/api/';
+        this.linkLocalhostStatus = 'http://localhost:8085/status/api/';
+        
         this.linkWebhost = 'https:';
         this.panleOptions = {
             GeneralData: {
@@ -95,8 +93,6 @@ export class Global {
                 data: [
                     {name: 'O meni', type: 'String', idData: ['otherInformation', 'about'], idName: 'about'},
                     {name: 'Adresa', type: 'String', idData: ['otherInformation', 'adress'], idName: 'address'},
-                    // {name: 'Regija', type: 'String', idData: ['otherInformation', 'adress', 'region'], idName: 'region'},
-                    // {name: 'Grad', type: 'String', idData: ['otherInformation', 'adress', 'city'], idName: 'city'},
                     {name: 'Profesija', type: 'String', idData: ['otherInformation', 'jobs', 'name'], idName: 'name'},
                     {name: 'Gde radite?', type: 'String', idData: ['otherInformation', 'jobs', 'nameCompany'], idName: 'nameCompany'},
                     {name: 'Mesto', type: 'String', idData: ['otherInformation', 'jobs', 'places'], idName: 'places'},
@@ -109,6 +105,10 @@ export class Global {
 
     setLinkClient(link: String) {
         this.linkClient = link + '/images/emotion01/';
+        // this.linkLocalhostChat = link + '/chats/api/'
+        // this.linkLocalhost = link + '/users/api/';
+        // this.linkLocalhostMedia = link + '/media/api/';
+        // this.linkLocalhostStatus = link + '/status/api/';
     }
 
     getLink() {
@@ -142,7 +142,6 @@ export class Global {
     }
 
     editLocalStorage(object: any) {
-        console.log(object)
         var newJson = JSON.parse(localStorage.getItem('user'));
         localStorage.removeItem('user');
 
@@ -318,16 +317,6 @@ export class Global {
         return this.simbol;
     }
 
-    timeOfSetAddress(setDate: Date) {
-        const source = timer(1000, 2000);
-        let that = this;
-        // setTimeout(() => {
-        // }, 5000);
-        // const abc = source.subscribe(val => {
-        //     // this.subscribeTimer = this.timeLeft - val;
-        //   });
-    }
-
     regExpLink(text: String) {
         return text.match(this.linkRegExp);
     }
@@ -378,9 +367,6 @@ export class Global {
                 '</div>'
     }
 
-    /**
-     * Metoda koja provjerada va li je addressa sacuvana ili nije u localstorage
-     */
     isChangeLocation() {
         let isStatus = localStorage.getItem('address') ? true : false;
         return isStatus;

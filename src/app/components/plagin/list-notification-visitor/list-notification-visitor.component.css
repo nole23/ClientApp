@@ -7,6 +7,9 @@
 .widht-item {
 	width: calc(100% / 6);
 }
+.w-33pc {
+	width: 33.33%;
+}
 @media (min-width: 1440px) {
 	.height-size {
 		height: calc(100% / 4);

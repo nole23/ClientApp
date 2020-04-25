@@ -23,8 +23,43 @@
     </div>
 
     <div class="float-l w-100p h-30pc pos-relative fa-white text-center">
-      <div class="float-l w-100p h-100pc pos-absolute top-15">
+      <div 
+        class="float-l w-100p"
+        [ngClass]="{'h-100pc pos-absolute top-15': item.type !== 'relationship', 'h-50pc': item.type === 'relationship'}">
         <span>Novi Sad</span>
+      </div>
+
+      <div 
+        class="float-l w-100p"
+        [ngClass]="{'h-100pc pos-absolute top-15': item.type !== 'relationship', 'h-50pc pos-relative': item.type === 'relationship'}"
+        *ngIf="item.type === 'relationship'">
+        <div class="float-l w-33pc h-100pc">
+          <button 
+            class="float-l sizefull btn btn btn-danger"
+            title="Odbi zahtev"
+            (click)="addFriend(item, false)">
+            <i class="fa fa-trash" aria-hidden="true" *ngIf="!isDelete"></i>
+            <span class="spinner-border smal" role="status" *ngIf="isDelete"></span>
+          </button>
+        </div>
+
+        <div class="float-l w-33pc h-100pc">
+          <button 
+            class="float-l sizefull btn btn btn-success"
+            title="Prihvati zahtev"
+            (click)="addFriend(item, true)">
+            <i class="fa fa-check" aria-hidden="true" *ngIf="!isAdd"></i>
+            <span class="spinner-border smal" role="status" *ngIf="isAdd"></span>
+          </button>
+        </div>
+
+        <div class="float-l w-33pc h-100pc">
+          <a
+            class="float-l sizefull btn btn-info cursor-pointer"
+            [routerLink]="['/f/' + item.friend.username + '/profile']">
+            <i class="fa fa-user-o" aria-hidden="true"></i>
+          </a>
+        </div>
       </div>
     </div>
   </div>

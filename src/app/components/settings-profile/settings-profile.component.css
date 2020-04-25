@@ -13,6 +13,15 @@
 .select-setting {
     margin-right: 3.5%;
 }
+.left-ab {
+    width: 100%;
+    padding: 5px;
+}
+.right-ab {
+    width: 100%;
+    text-align: center;
+    color: #ddd;
+}
 @media (min-width: 1440px) {
     .my-container {
 		max-width: 100%!important;

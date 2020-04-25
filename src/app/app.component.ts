@@ -78,7 +78,6 @@ export class AppComponent implements OnInit {
 
   ngOnInit(status: Boolean = false) {
     this.clientService.openSmile().subscribe(res => {
-      // console.log(res['message'])
       this.global.setLinkClient(res['message']);
     })
     

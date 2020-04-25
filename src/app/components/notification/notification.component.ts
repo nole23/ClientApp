@@ -11,10 +11,12 @@ export class NotificationComponent implements OnInit, OnDestroy {
 
   notifications: any;
   visitors: any;
+  relationship: any;
   me: any;
   title: String;
   pageNoti: any;
   pageVisit: any;
+  pageRelationship: any;
   isNewNoti: Boolean;
   constructor(
     private notificationService: NotificationService,
@@ -24,8 +26,10 @@ export class NotificationComponent implements OnInit, OnDestroy {
     this.title = 'Obavjestenja';
     this.notifications = null;
     this.visitors = null;
+    this.relationship = null;
     this.pageNoti = 0;
     this.pageVisit = 0;
+    this.pageRelationship = 0;
     this.isNewNoti = true;
   }
 
@@ -48,6 +52,13 @@ export class NotificationComponent implements OnInit, OnDestroy {
     });
   }
 
+  getAllRelationship() {
+    this.notificationService.getAllRelationship(this.pageRelationship).subscribe(res => {
+      this.relationship = res['message']
+      this.pageRelationship = this.pageRelationship + 1;
+    })
+  }
+
   openTab(type: String) {
     this.isNewNoti = true;
     if (type === 'notification') {
@@ -57,8 +68,13 @@ export class NotificationComponent implements OnInit, OnDestroy {
       }
     } else if (type === 'visitor') {
       this.title = 'Posjetioci';
-      if (this,this.visitors === null) {
+      if (this.visitors === null) {
         this.getAllVisitors();
+      }
+    } else if (type === 'Request') {
+      this.title = 'Zahtevi za prijateljstvo';
+      if (this.relationship === null) {
+        this.getAllRelationship();
       }
     }
   }
