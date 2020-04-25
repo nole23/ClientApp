@@ -2,7 +2,7 @@
     "routes": [
       {
         "route": "/users",
-        "address": "https://twoway-usersservice.herokuapp.com"
+        "address": "http://localhost:8080"
       },
       {
           "route": "/media",

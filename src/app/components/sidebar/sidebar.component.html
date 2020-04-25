@@ -30,8 +30,9 @@
     <ul class="list-unstyled components">
 
         <li [ngClass]="{'active': onStatus.isChat}" (click)="activeRouter()">
-            <a [routerLink]="['/chat/list-user']" routerLinkActive="on">
+            <a class="pos-relative" [routerLink]="['/chat/list-user']" routerLinkActive="on">
                 <i class="fa fa-weixin" aria-hidden="true"></i>
+                <span class="pos-absolute style-notification" *ngIf="isChat"></span>
                 <span class="activ-text-width" i18n="@@ahrefChating">Chatovanje</span>
             </a>
         </li>
@@ -48,8 +49,9 @@
             </a>
         </li>
         <li [ngClass]="{'active': onStatus.isNotification}" (click)="activeRouter()">
-            <a [routerLink]="['/notification']" >
+            <a class="pos-relative" [routerLink]="['/notification']" >
                 <i class="fa fa-bell" aria-hidden="true"></i>
+                <span class="pos-absolute style-notification" *ngIf="isNotification"></span>
                 <span class="activ-text-width"> Obavestenje </span>
             </a>
         </li>

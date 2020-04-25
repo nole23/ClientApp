@@ -46,6 +46,13 @@ export class NotificationService {
       }))
   }
 
+  setShowNotification(type: String) {
+    return this.http.put(this.global.getLink() + 'notification/' + type, {type: type})
+      .pipe(map(res =>{
+        return res;
+      }))
+  }
+
   saveNotification(type: String, method: String) {
     let notification = localStorage.getItem('notification');
     let isLocalstorage = notification ? true : false;

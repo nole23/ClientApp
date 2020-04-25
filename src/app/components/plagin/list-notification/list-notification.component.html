@@ -1,11 +1,13 @@
-<div class="w-100p h-50p m-b-5 text-white-f bo-b-1-d">
+<div 
+  class="w-100p h-50p m-b-5 text-white-f bo-b-1-d"
+  [ngClass]="{'fw-600 bgnav': !item.isStatus}">
   <div class="float-l h-100pc w-51 bo-cir p-t-5 p-r-5 p-b-5 p-l-5">
-    <img class="sizefull bo-cir fit-image" src="../../../../assets/picture/avatar1.png" alt="">
+    <img class="sizefull bo-cir fit-image" src="{{item.friend.otherInformation.publicMedia.profileImage}}" alt="">
   </div>
 
   <div class="float-l width-centar h-100pc p-t-4 p-b-5 fa-white fs-14">
     <section class="float-l p-r-5" *ngIf="item.friend !== null">
-      <span class="text-green">
+      <span class="text-green" [ngClass]="{'fs-18': !item.isStatus}">
         {{item.friend.firstName + ' ' + item.friend.lastName}}
       </span>
     </section>

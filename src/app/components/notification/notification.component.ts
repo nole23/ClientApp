@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { NotificationService } from '../../services/notification.service';
 import { Global } from '../../global/global';
+import { timeout } from 'rxjs/operators';
 
 @Component({
   selector: 'app-notification',
@@ -42,6 +43,11 @@ export class NotificationComponent implements OnInit, OnDestroy {
     this.notificationService.getAllNotification(this.pageNoti).subscribe(res => {
       this.notifications = res['message'];
       this.pageNoti = this.pageNoti + 1;
+
+      console.log(this.notifications)
+      setTimeout(() => {
+        this.setShowNotification('publication');
+      },1000);
     });
   }
 
@@ -49,6 +55,10 @@ export class NotificationComponent implements OnInit, OnDestroy {
     this.notificationService.getAllVisitors(this.pageVisit).subscribe(res => {
       this.visitors = res['message'];
       this.pageVisit = this.pageVisit + 1;
+
+      setTimeout(() => {
+        this.setShowNotification('visitors');
+      },1000);
     });
   }
 
@@ -109,6 +119,20 @@ export class NotificationComponent implements OnInit, OnDestroy {
         
       }
     }
+  }
+
+  setShowNotification(type: String) {
+    this.notificationService.setShowNotification(type).subscribe(res =>{
+      if (type === 'publication') {
+        this.notifications.forEach(element => {
+          element.isStatus = true;
+        });
+      } else if (type === 'visitors') {
+        this.visitors.forEach(element => {
+          element.isStatus = true;
+        });
+      }
+    })
   }
 
   ngOnDestroy() {
