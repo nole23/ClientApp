@@ -11,6 +11,15 @@
 .b-botton-3 {
     border-bottom: 3px solid #fff;
 }
+.number-noti {
+    border: 1px solid #00c928;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #00c928;
+    right: 0;
+    font-weight: 900;
+}
 @media (min-width: 1440px) {
     .my-container {
 		max-width: 100%!important;

@@ -21,7 +21,9 @@ export class DeleteFriendsComponent implements OnInit {
   }
 
 
-  ngOnInit() { }
+  ngOnInit() { 
+    console.log(this.data)
+  }
 
   closeModal(_id: any = null) {
     this.dialogRef.close(_id);

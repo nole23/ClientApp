@@ -40,13 +40,16 @@ export class SidebarComponent implements OnInit {
     this.global.sidebarComponent$.subscribe(res => {
       this.getStatusLink();
     });
+    this.global.sidebarComponentRemove$.subscribe(res => {
+      this.removeNotification(res);
+    });
     this.state = null;
-    this.isNotification = false;
+    this.isNotification = true;
     this.isChat = false;
   }
 
   ngOnInit() {
-    this.getStatusLink();
+    this.setNotification(JSON.parse(localStorage.getItem('notification')));
   }
 
   getStatusLink() {
@@ -99,6 +102,24 @@ export class SidebarComponent implements OnInit {
         isNotification: false,
         isSettings: true
       };
+    }
+  }
+
+  setNotification(item: any) {
+    let i = item.notification.isNotificaton;
+    i = i + item.notification.isVisitor;
+    i = i + item.relationship;
+
+    if (i > 0) {
+      this.isNotification = true;
+    } else {
+      this.isNotification = false;
+    }
+  }
+
+  removeNotification(isStatys: Boolean) {
+    if (isStatys) {
+      this.setNotification(JSON.parse(localStorage.getItem('notification')))
     }
   }
 

@@ -6,6 +6,7 @@ import { Publication } from '../../models/publication';
 import { UserService } from '../../services/user.service';
 import { MediaService } from '../../services/media.service';
 import { Global } from '../../global/global';
+import { NotificationService } from '../../services/notification.service';
 import { NotifierService } from 'angular-notifier';
 
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
@@ -46,7 +47,8 @@ export class ProfilFriendsComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private mediaService: MediaService,
     public matDialog: MatDialog,
-    private global: Global
+    private global: Global,
+    private notificationService: NotificationService
   ) {
     this.notifier = notifier;
     this.me = JSON.parse(localStorage.getItem('user'));
@@ -68,7 +70,6 @@ export class ProfilFriendsComponent implements OnInit, OnDestroy {
     });
     this.global.setSidebar('profile');
   }
-
   setInitOpcion() {
     this.numberOfPage = 0;
     this.activeUser = true;
@@ -95,6 +96,7 @@ export class ProfilFriendsComponent implements OnInit, OnDestroy {
       this.isFriends = resUser['isFriends'];
       this.status = true;
       this.openTab(res['status']);
+      this.notificationService.setShowFriendProfile(this.user);
     })
   }
 
@@ -175,7 +177,7 @@ export class ProfilFriendsComponent implements OnInit, OnDestroy {
   addFriends(user: User) {
     this.btnSave = true;
     this.userService.sendRelationship(user).subscribe(res => {
-      if (res['message'] === 'save') {
+      if (res) {
         this.btnSave = false;
         this.status = true;
         this.isRequester = true;

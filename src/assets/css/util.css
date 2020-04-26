@@ -2366,6 +2366,7 @@
 .min-h-120 {min-height: 120px;}
 .min-h-80 {min-height: 100px;}
 .min-h-160 {min-height: 160px;}
+.min-h-50vh {min-height: 50vh;}
 
 .min-w-full {min-width: 100%;}
 .max-w-full {max-width: 100%;}

@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { NotificationService } from '../../services/notification.service';
 import { Global } from '../../global/global';
-import { timeout } from 'rxjs/operators';
+import { NotifierService } from 'angular-notifier';
 
 @Component({
   selector: 'app-notification',
@@ -9,6 +9,7 @@ import { timeout } from 'rxjs/operators';
   styleUrls: ['./notification.component.css']
 })
 export class NotificationComponent implements OnInit, OnDestroy {
+  private readonly notifier: NotifierService;
 
   notifications: any;
   visitors: any;
@@ -19,11 +20,16 @@ export class NotificationComponent implements OnInit, OnDestroy {
   pageVisit: any;
   pageRelationship: any;
   isNewNoti: Boolean;
+  numberOfNotification: any;
+  numberOfVisitor: any;
+  numberOfRequest: any;
   constructor(
     private notificationService: NotificationService,
-    private global: Global
+    private global: Global,
+    notifier: NotifierService
   ) {
     this.me = JSON.parse(localStorage.getItem('user'));
+    this.notifier = notifier;
     this.title = 'Obavjestenja';
     this.notifications = null;
     this.visitors = null;
@@ -32,11 +38,19 @@ export class NotificationComponent implements OnInit, OnDestroy {
     this.pageVisit = 0;
     this.pageRelationship = 0;
     this.isNewNoti = true;
+    this.numberOfNotification = 0;
+    this.numberOfVisitor = 0;
+    this.numberOfRequest = 0;
+    this.global.sidebarComponentRemove$.subscribe(res => {
+      this.setNotification()
+    });
   }
 
   ngOnInit() {
     this.getAllNotification();
+    this.setNotification();
     this.global.setSidebar('notiification');
+    this.global.setRemoveNotification(true);
   }
 
   getAllNotification() {
@@ -44,11 +58,17 @@ export class NotificationComponent implements OnInit, OnDestroy {
       this.notifications = res['message'];
       this.pageNoti = this.pageNoti + 1;
 
-      console.log(this.notifications)
       setTimeout(() => {
         this.setShowNotification('publication');
       },1000);
     });
+  }
+
+  setNotification() {
+    let item = JSON.parse(localStorage.getItem('notification'))
+    this.numberOfNotification = item.notification.isNotificaton;
+    this.numberOfVisitor = item.notification.isNotificaton;
+    this.numberOfRequest = item.relationship;
   }
 
   getAllVisitors() {
@@ -64,8 +84,14 @@ export class NotificationComponent implements OnInit, OnDestroy {
 
   getAllRelationship() {
     this.notificationService.getAllRelationship(this.pageRelationship).subscribe(res => {
-      this.relationship = res['message']
-      this.pageRelationship = this.pageRelationship + 1;
+      if (res['message'].length === 0) {
+        this.global.editViewNotification('Requester');
+        this.relationship = [];
+        this.global.setRemoveNotification(true)
+      } else {
+        this.relationship = res['message']
+        this.pageRelationship = this.pageRelationship + 1;
+      }
     })
   }
 
@@ -76,16 +102,19 @@ export class NotificationComponent implements OnInit, OnDestroy {
       if (this.notifications === null) {
         this.getAllNotification();
       }
+      this.global.setRemoveNotification(true)
     } else if (type === 'visitor') {
       this.title = 'Posjetioci';
       if (this.visitors === null) {
         this.getAllVisitors();
       }
+      this.global.setRemoveNotification(true)
     } else if (type === 'Request') {
       this.title = 'Zahtevi za prijateljstvo';
       if (this.relationship === null) {
         this.getAllRelationship();
       }
+      // this.global.setRemoveNotification({name: 'notification', type: 'Request'})
     }
   }
 
@@ -133,6 +162,30 @@ export class NotificationComponent implements OnInit, OnDestroy {
         });
       }
     })
+  }
+
+  onEmitRelationship(event: any) {
+    if (event.type === 'accept') {
+      if (event.status) {
+        if (this.relationship.length > 1) {
+          let index = this.relationship.indexOf(event.item);
+          this.relationship.splice(index, 1);
+          this.numberOfRequest = this.relationship.length;
+          this.global.setRemoveNotification(true)
+        }
+      } else {
+        this.notifier.notify('warning', 'Server nije dostupan, osvezite stranicu pa pokusajte ponovo')
+      }
+    } else if (event.type === 'remove') {
+      if (event.status) {
+        let index = this.relationship.indexOf(event.item);
+        this.relationship.splice(index, 1);
+        this.numberOfRequest = this.relationship.length;
+        this.global.setRemoveNotification(true)
+      } else {
+        this.notifier.notify('warning', 'Server nije dostupan, osvezite stranicu pa pokusajte ponovo')
+      }
+    }
   }
 
   ngOnDestroy() {

@@ -8,8 +8,10 @@ export class Global {
 
     private testComponentSource = new Subject<boolean>();
     private sidebarComponentSource = new Subject<String>();
+    private sidebarComponentRemoveSource = new Subject<Boolean>();
     testComponent$ = this.testComponentSource.asObservable();
     sidebarComponent$ = this.sidebarComponentSource.asObservable();
+    sidebarComponentRemove$ = this.sidebarComponentRemoveSource.asObservable();
 
     linkLocalhostChat: String;
     linkLocalhostStatus: String;
@@ -426,7 +428,8 @@ export class Global {
             message === 'CREATE_PARTICIPANTS' ||
             message === 'SUCCESS_CREAT_PROFILE' ||
             message === 'SUCCESS_SAVE_REMOVE' ||
-            message === 'SUCCESS_SAVE_ADD'
+            message === 'SUCCESS_SAVE_ADD' ||
+            message === 'SUCCESS_ACCEPT_NEW_FRIEND'
         ) {
             return true;
         } else {
@@ -458,5 +461,48 @@ export class Global {
 
     setSidebar(name: String) {
         this.sidebarComponentSource.next(name);
+    }
+
+    setRemoveNotification(name: any) {
+        this.sidebarComponentRemoveSource.next(name);
+    }
+
+    editViewNotification(type: String) {
+        let item = JSON.parse(localStorage.getItem('notification'));
+        localStorage.removeItem('notification')
+
+        if (type === 'chat') {
+
+        } else {
+            if (type === 'notification') {
+                item.notification.isNotificaton = 0;
+            } else if (type === 'visitor') {
+                item.notification.isVisitor = 0;
+            } else if (type === 'Requester') {
+                if (item.relationship > 1) {
+                    item.relationship = item.relationship - 1;
+                } else {
+                    item.relationship = 0;
+                }
+            }
+        }
+
+        localStorage.setItem('notification', JSON.stringify(item));
+    }
+
+    setNewNotification(data: any, type: String) {
+        let item = JSON.parse(localStorage.getItem('notification'));
+        localStorage.removeItem('notification');
+
+        if (type === 'chat') {
+
+        } else {
+            if (type === 'Requester') {
+                item.relationship = item.relationship + 1;
+            }
+        }
+
+        localStorage.setItem('notification', JSON.stringify(item));
+        this.setRemoveNotification(true);
     }
 }

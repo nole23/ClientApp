@@ -49,8 +49,26 @@ export class NotificationService {
   setShowNotification(type: String) {
     return this.http.put(this.global.getLink() + 'notification/' + type, {type: type})
       .pipe(map(res =>{
-        return res;
+        if (this.global.getResponseSuccess(res['message'])) {
+          this.global.editViewNotification(type);
+          return true;
+        } else {
+          return false;
+        }
       }))
+  }
+
+  setShowFriendProfile(user: any) {
+    let object = {
+      friends: user,
+      type: 'visitor',
+      publication: null,
+      cordinate: null,
+      image: null
+    }
+    this.http.post(this.global.getLink() + 'notification/', object).subscribe(res => {
+      console.log(res)
+    })
   }
 
   saveNotification(type: String, method: String) {

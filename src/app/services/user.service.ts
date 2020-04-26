@@ -65,14 +65,23 @@ export class UserService {
   sendRelationship(user: User) {
     return this.http.post(this.global.getLink() + 'relationships/', {user: user})
     .pipe(map(res => {
-      return res;
+      if (this.global.getResponseSuccess(res['message'])) {
+        return true;
+      } else {
+        return false;
+      }
     }))
   }
 
   removeRelationship(user: User) {
     return this.http.delete(this.global.getLink() + 'relationships/' + user._id)
     .pipe(map(res => {
-      return res;
+      if (this.global.getResponseSuccess(res['message'])) {
+        this.global.editViewNotification('Requester');
+        return {message: true}
+      } else {
+        return {message: false}
+      }
     }))
   }
 
@@ -86,7 +95,13 @@ export class UserService {
   acceptRelatuonship(user: User) {
     return this.http.put(this.global.getLink() + 'relationships/' + user._id, {})
     .pipe(map(res => {
-      return res;
+      console.log(res)
+      if (this.global.getResponseSuccess(res['message'])) {
+        this.global.editViewNotification('Requester');
+        return {message: true}
+      } else {
+        return {message: false}
+      }
     }))
   }
 

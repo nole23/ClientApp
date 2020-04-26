@@ -15,6 +15,7 @@
           [ngClass]="{'bgnav': title === 'Obavjestenja'}"
           (click)="openTab('notification')" >
           <span class="ab-c-m">Obavjestenja</span>
+          <span class="pos-absolute number-noti" *ngIf="numberOfNotification > 0">{{numberOfNotification}}</span>
         </div>
 
         <div 
@@ -22,6 +23,7 @@
           [ngClass]="{'bgnav': title === 'Zahtevi za prijateljstvo'}"
           (click)="openTab('Request')">
           <span class="ab-c-m">Zahtev za prijateljstvo</span>
+          <span class="pos-absolute number-noti" *ngIf="numberOfRequest > 0">{{numberOfRequest}}</span>
         </div>
 
         <div 
@@ -29,20 +31,21 @@
           [ngClass]="{'bgnav': title === 'Posjetioci'}"
           (click)="openTab('visitor')">
           <span class="ab-c-m">Posetioci</span>
+          <span class="pos-absolute number-noti" *ngIf="numberOfVisitor > 0">{{numberOfVisitor}}</span>
         </div>
       </div>
     </div>
 
     <div class="float-l sizefull">
-      <div class="float-l sizefull pos-relative" *ngIf="title === 'Obavjestenja'">
+      <div class="float-l w-100p min-h-50vh pos-relative" *ngIf="title === 'Obavjestenja'">
         <div 
           class="spinner-border text-success ab-c-full" 
           role="status"
           *ngIf="notifications === null">
           <span class="sr-only">Loading...</span>
         </div>
-
-        <div class="sizefull" *ngIf="notifications !== null">
+        
+        <div class="float-l w-100p min-h-full" *ngIf="notifications !== null">
           <app-list-notification 
             *ngFor="let item of notifications" 
             [item]="item">
@@ -77,7 +80,8 @@
         <div class="sizefull" *ngIf="relationship !== null">
           <app-list-notification-visitor
             *ngFor="let item of relationship" 
-            [item]="item">
+            [item]="item"
+            (emit)="onEmitRelationship($event)">
           </app-list-notification-visitor>
         </div>
       </div>

@@ -29,6 +29,14 @@
     color: #00c928 !important;
 }
 
+.style-notification {
+    background-color: red;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    right: 10px;
+}
+
 .wrapper {
     height: 100vh;
     display: flex;

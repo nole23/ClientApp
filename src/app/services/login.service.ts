@@ -29,6 +29,7 @@ export class LoginService {
         localStorage.setItem('user', JSON.stringify(res['message']['user']));
         localStorage.setItem('token', JSON.stringify(res['message']['token']));
         localStorage.setItem('options', JSON.stringify(res['message']['defaultOptions']))
+        localStorage.setItem('notification', JSON.stringify(res['message']['statusNotification']))
         return {message: 'SUCCESS'};
       } else {
         return {message: res['message']};
@@ -66,6 +67,7 @@ export class LoginService {
     localStorage.removeItem('user');
     localStorage.removeItem('address');
     localStorage.removeItem('options');
+    localStorage.removeItem('notification')
     //     return res;
     // }))
   }

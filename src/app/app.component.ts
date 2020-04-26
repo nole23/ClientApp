@@ -74,6 +74,9 @@ export class AppComponent implements OnInit {
     this.global.testComponent$.subscribe(res => {
       this.serviceCall()
     })
+    this.global.sidebarComponentRemove$.subscribe(res => {
+      this.removeNotification(res);
+    });
   }
 
   ngOnInit(status: Boolean = false) {
@@ -94,6 +97,12 @@ export class AppComponent implements OnInit {
             this.global.setNumberOfMessage(resData._id)
           }
         })
+
+        this.socketService.socket.on('new-relationship-' + this.user._id, (data: any) => {
+          this.global.setNewNotification(data, 'Requester');
+        })
+
+        this.setNotification(JSON.parse(localStorage.getItem('notification')));
       }
     } else {
       this.user = JSON.parse(localStorage.getItem('user'));
@@ -106,6 +115,8 @@ export class AppComponent implements OnInit {
           this.global.setNumberOfMessage(resData._id)
         }
       })
+
+      this.setNotification(JSON.parse(localStorage.getItem('notification')));
     }
   }
 
@@ -121,6 +132,21 @@ export class AppComponent implements OnInit {
     }, 10)
   }
 
+  setNotification(item: any) {
+    let i = item.notification.isNotificaton;
+    i = i + item.notification.isVisitor;
+    i = i + item.relationship;
+
+    if (i > 0) {
+      this.btnColorNewInfo = 'green-color';
+    } else {
+      this.btnColorNewInfo = '';
+    }
+  }
+
+  removeNotification(status: Boolean) {
+    this.setNotification(JSON.parse(localStorage.getItem('notification')));
+  }
 
   onEmitListUserChat(event: any) {
     // console.log(event)
