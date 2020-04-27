@@ -58,17 +58,17 @@ export class Global {
                 "046.svg","047.svg","048.svg","049.svg","050.svg"
             ]
         };
-        // this.linkLocalhostChat = 'https://twoway1.herokuapp.com/chats/api/'
-        // this.linkLocalhost = 'https://twoway1.herokuapp.com/users/api/';
-        // this.linkLocalhostMedia = 'https://twoway1.herokuapp.com/media/api/';
-        // this.linkLocalhostStatus = 'https://twoway1.herokuapp.com/status/api/';
+        this.linkLocalhostChat = 'https://twoway1.herokuapp.com/chats/api/'
+        this.linkLocalhost = 'https://twoway1.herokuapp.com/users/api/';
+        this.linkLocalhostMedia = 'https://twoway1.herokuapp.com/media/api/';
+        this.linkLocalhostStatus = 'https://twoway1.herokuapp.com/status/api/';
         
-        this.linkLocalhostChat = 'http://localhost:8085/chats/api/'
-        this.linkLocalhost = 'http://localhost:8085/users/api/';
-        this.linkLocalhostMedia = 'http://localhost:8085/media/api/';
-        this.linkLocalhostStatus = 'http://localhost:8085/status/api/';
+        // this.linkLocalhostChat = 'http://localhost:8085/chats/api/'
+        // this.linkLocalhost = 'http://localhost:8085/users/api/';
+        // this.linkLocalhostMedia = 'http://localhost:8085/media/api/';
+        // this.linkLocalhostStatus = 'http://localhost:8085/status/api/';
         
-        this.linkWebhost = 'https:';
+        this.linkWebhost = 'https://twoway1.herokuapp.com';
         this.panleOptions = {
             GeneralData: {
                 title: 'Podaci o tebi',
@@ -107,10 +107,10 @@ export class Global {
 
     setLinkClient(link: String) {
         this.linkClient = link + '/images/emotion01/';
-        // this.linkLocalhostChat = link + '/chats/api/'
-        // this.linkLocalhost = link + '/users/api/';
-        // this.linkLocalhostMedia = link + '/media/api/';
-        // this.linkLocalhostStatus = link + '/status/api/';
+        this.linkLocalhostChat = link + '/chats/api/'
+        this.linkLocalhost = link + '/users/api/';
+        this.linkLocalhostMedia = link + '/media/api/';
+        this.linkLocalhostStatus = link + '/status/api/';
     }
 
     getLink() {
@@ -131,6 +131,10 @@ export class Global {
 
     getChat() {
         return this.linkLocalhostChat;
+    }
+
+    getLinkClient() {
+        return this.linkWebhost;
     }
 
     getIndexSmile(text: any) {
@@ -474,9 +478,9 @@ export class Global {
         if (type === 'chat') {
 
         } else {
-            if (type === 'notification') {
+            if (type === 'publication') {
                 item.notification.isNotificaton = 0;
-            } else if (type === 'visitor') {
+            } else if (type === 'visitors') {
                 item.notification.isVisitor = 0;
             } else if (type === 'Requester') {
                 if (item.relationship > 1) {
@@ -488,6 +492,7 @@ export class Global {
         }
 
         localStorage.setItem('notification', JSON.stringify(item));
+        this.setRemoveNotification(true)
     }
 
     setNewNotification(data: any, type: String) {
@@ -497,8 +502,10 @@ export class Global {
         if (type === 'chat') {
 
         } else {
-            if (type === 'Requester') {
+            if (type.toString() === 'Requester') {
                 item.relationship = item.relationship + 1;
+            } else if (type.toString() === 'visitor') {
+                item.notification.isVisitor = item.notification.isVisitor + 1;
             }
         }
 

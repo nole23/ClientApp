@@ -38,4 +38,16 @@ router
                 return res.status(200).send({message: result, socket: 'SOCKET_NULL_POINT'});
             })
     })
+    .post('/', function(req, res) {
+        var data = req.body;
+        var io = req.app.get('socket-io');
+
+        data.participants.forEach(element => {
+            io.emit(data.link.toString() + element,
+                JSON.stringify(data.data)
+            )
+        });
+
+        return res.status(200).send({message: 'success request'})
+    })
 module.exports = router;

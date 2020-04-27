@@ -50,7 +50,6 @@ export class NotificationComponent implements OnInit, OnDestroy {
     this.getAllNotification();
     this.setNotification();
     this.global.setSidebar('notiification');
-    this.global.setRemoveNotification(true);
   }
 
   getAllNotification() {
@@ -67,7 +66,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
   setNotification() {
     let item = JSON.parse(localStorage.getItem('notification'))
     this.numberOfNotification = item.notification.isNotificaton;
-    this.numberOfVisitor = item.notification.isNotificaton;
+    this.numberOfVisitor = item.notification.isVisitor;
     this.numberOfRequest = item.relationship;
   }
 
@@ -85,9 +84,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
   getAllRelationship() {
     this.notificationService.getAllRelationship(this.pageRelationship).subscribe(res => {
       if (res['message'].length === 0) {
-        this.global.editViewNotification('Requester');
         this.relationship = [];
-        this.global.setRemoveNotification(true)
       } else {
         this.relationship = res['message']
         this.pageRelationship = this.pageRelationship + 1;
@@ -102,19 +99,18 @@ export class NotificationComponent implements OnInit, OnDestroy {
       if (this.notifications === null) {
         this.getAllNotification();
       }
-      this.global.setRemoveNotification(true)
+      this.global.editViewNotification('publication');
     } else if (type === 'visitor') {
       this.title = 'Posjetioci';
       if (this.visitors === null) {
         this.getAllVisitors();
       }
-      this.global.setRemoveNotification(true)
+      this.global.editViewNotification('visitors');
     } else if (type === 'Request') {
       this.title = 'Zahtevi za prijateljstvo';
       if (this.relationship === null) {
         this.getAllRelationship();
       }
-      // this.global.setRemoveNotification({name: 'notification', type: 'Request'})
     }
   }
 
@@ -171,7 +167,6 @@ export class NotificationComponent implements OnInit, OnDestroy {
           let index = this.relationship.indexOf(event.item);
           this.relationship.splice(index, 1);
           this.numberOfRequest = this.relationship.length;
-          this.global.setRemoveNotification(true)
         }
       } else {
         this.notifier.notify('warning', 'Server nije dostupan, osvezite stranicu pa pokusajte ponovo')
@@ -181,7 +176,6 @@ export class NotificationComponent implements OnInit, OnDestroy {
         let index = this.relationship.indexOf(event.item);
         this.relationship.splice(index, 1);
         this.numberOfRequest = this.relationship.length;
-        this.global.setRemoveNotification(true)
       } else {
         this.notifier.notify('warning', 'Server nije dostupan, osvezite stranicu pa pokusajte ponovo')
       }
@@ -189,5 +183,16 @@ export class NotificationComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.title = 'Obavjestenja';
+    this.notifications = null;
+    this.visitors = null;
+    this.relationship = null;
+    this.pageNoti = 0;
+    this.pageVisit = 0;
+    this.pageRelationship = 0;
+    this.isNewNoti = true;
+    this.numberOfNotification = 0;
+    this.numberOfVisitor = 0;
+    this.numberOfRequest = 0;
   }
 }

@@ -102,6 +102,11 @@ export class AppComponent implements OnInit {
           this.global.setNewNotification(data, 'Requester');
         })
 
+        this.socketService.socket.on('new-notification-' + this.user._id, (data: any) => {
+          let jsonData = JSON.parse(data)
+          this.global.setNewNotification(jsonData.user, jsonData.type);
+        })
+
         this.setNotification(JSON.parse(localStorage.getItem('notification')));
       }
     } else {

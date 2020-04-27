@@ -11,7 +11,7 @@ export class ClientService {
   constructor(private global: Global, private http: HttpClient) { }
 
   openSmile() {
-    return this.http.get('http://localhost:8085/api/client/get-host')
+    return this.http.get(/*'this.global.getLinkClient()' + */'/api/client/get-host')
       .pipe(map(res =>{
         return res;
       }))

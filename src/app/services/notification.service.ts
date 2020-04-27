@@ -42,7 +42,12 @@ export class NotificationService {
     )
     return this.http.get(this.global.getLink() + 'notification/', {params: params})
       .pipe(map(res =>{
-        return res;
+        if (this.global.getResponseError(res['message'])) {
+          this.global.editViewNotification('Requester');
+          return {message: res['message']}
+        } else {
+          return {message: []}
+        }
       }))
   }
 
@@ -50,7 +55,6 @@ export class NotificationService {
     return this.http.put(this.global.getLink() + 'notification/' + type, {type: type})
       .pipe(map(res =>{
         if (this.global.getResponseSuccess(res['message'])) {
-          this.global.editViewNotification(type);
           return true;
         } else {
           return false;

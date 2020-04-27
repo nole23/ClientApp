@@ -14,7 +14,7 @@
           class="float-l w-33pp h-100pc pos-relative cursor-pointer" 
           [ngClass]="{'bgnav': title === 'Obavjestenja'}"
           (click)="openTab('notification')" >
-          <span class="ab-c-m">Obavjestenja</span>
+          <span class="ab-c-m text-center">Obavjestenja</span>
           <span class="pos-absolute number-noti" *ngIf="numberOfNotification > 0">{{numberOfNotification}}</span>
         </div>
 
@@ -22,7 +22,7 @@
           class="float-l w-33pp h-100pc pos-relative cursor-pointer" 
           [ngClass]="{'bgnav': title === 'Zahtevi za prijateljstvo'}"
           (click)="openTab('Request')">
-          <span class="ab-c-m">Zahtev za prijateljstvo</span>
+          <span class="ab-c-m text-center">Zahtev za prijateljstvo</span>
           <span class="pos-absolute number-noti" *ngIf="numberOfRequest > 0">{{numberOfRequest}}</span>
         </div>
 
@@ -30,7 +30,7 @@
           class="float-l w-33pp h-100pc pos-relative cursor-pointer" 
           [ngClass]="{'bgnav': title === 'Posjetioci'}"
           (click)="openTab('visitor')">
-          <span class="ab-c-m">Posetioci</span>
+          <span class="ab-c-m text-center">Posetioci</span>
           <span class="pos-absolute number-noti" *ngIf="numberOfVisitor > 0">{{numberOfVisitor}}</span>
         </div>
       </div>
