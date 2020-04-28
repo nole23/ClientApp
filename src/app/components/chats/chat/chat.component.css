@@ -30,6 +30,9 @@
   width: 35px;
   height: 35px;
 }
+.height-text {
+  height: calc(1.5em + .75rem + 2px);
+}
 .smile-size-chat {
   width: 20px;
   height: 20px;
@@ -57,10 +60,10 @@
     padding-top: 5px;
   }
   .w-l-b {
-    width: 120px;
+    width: 70px;
   }
   .w-c-b {
-    width: calc(100% - 190px);
+    width: calc(100% - 140px);
   }
   .w-r-b {
     width: 70px;
@@ -69,7 +72,8 @@
     height: 6%;
   }
   .h-chat-area {
-    height: calc(94vh - 115px);
+    height: calc(94vh - 120px);
+    font-weight: 300;
   }
   .h-chat-area-open-smile {
     height: calc(94% - 200px)!important;
@@ -89,13 +93,16 @@
     width: 100%;
     height: 50px;
   }
+  .height-text {
+    height: 100%;
+  }
 }
 @media (min-width: 769px) {
   .w-l-b {
-    width: 160px;
+    width: 120px;
   }
   .w-c-b {
-    width: calc(100% - 280px);
+    width: calc(100% - 240px);
   }
   .w-r-b {
     width: 120px;

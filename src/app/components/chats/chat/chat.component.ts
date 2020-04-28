@@ -44,6 +44,8 @@ export class ChatComponent implements OnInit {
   timer: any;
   isLoadNewData: Boolean;
   linkImage: any;
+  isSeen: Boolean;
+  lastMessage: any;
   constructor(
     notifier: NotifierService,
     private chatService: ChatService,
@@ -72,6 +74,8 @@ export class ChatComponent implements OnInit {
     this.nameChater = [];
     this.countFokus = 0;
     this.isLoadNewData = false;
+    this.isSeen = false;
+    this.lastMessage = null;
   }
 
   ngOnInit() {
@@ -90,6 +94,13 @@ export class ChatComponent implements OnInit {
             element.status = data.status;
           }
         });
+      }
+    })
+
+    this.socketService.socket.on('show-message-' + this.me._id, (data: any) => {
+      let jsonData = JSON.parse(data);
+      if (jsonData._id.toString() !== this.me._id.toString()) {
+        this.isSeen = true;
       }
     })
 
@@ -243,6 +254,12 @@ export class ChatComponent implements OnInit {
           this.messages = res['message'];
           item['page'] = (res['page'] + 1)
 
+          if (this.messages.length > 0) {
+            this.lastMessage = this.messages[this.messages.length -1]
+            if (this.lastMessage.isMe) {
+              this.setIsViewLastMessage();
+            }
+          }
           setTimeout(() => {
             this.scrollBottomNumber = this.scrollMe.nativeElement.scrollHeight;
           }, 50);
@@ -268,6 +285,16 @@ export class ChatComponent implements OnInit {
     this.global.setNullOfMessage(item._id);
   }
 
+  setIsViewLastMessage() {
+    let listViewUser = this.lastMessage.message[this.lastMessage.message.length - 1].listViewUser;
+    let index = listViewUser.indexOf(this.me._id.toString());
+    if (index !== -1) {
+      if (listViewUser.length > 1) {
+        this.isSeen = true;
+      }
+    }
+  }
+
   setTyping(status: Boolean) {
     this.onTyping = status;
     this.isTyping= status;
@@ -287,6 +314,7 @@ export class ChatComponent implements OnInit {
       this.chatService.sendMessage(this.chater, this.textMessage).subscribe(res => {
         this.setMessigPrivate(res['message'], text);
         this.setListChater(this.chater, text);
+        this.isSeen = false;
       });
       this.textMessage = '';
       this.global.setNullOfMessage(this.chater._id)
@@ -338,7 +366,7 @@ export class ChatComponent implements OnInit {
     
     this.isSpiner = false;
     this.isTyping = false;
-    this.scrollBottomNumber = this.scrollMe.nativeElement.scrollHeight;
+    this.scrollBottomNumber = (this.scrollMe.nativeElement.scrollHeight + 100);
   }
 
   closeChat() {

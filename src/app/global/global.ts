@@ -62,13 +62,14 @@ export class Global {
         this.linkLocalhost = 'https://twoway1.herokuapp.com/users/api/';
         this.linkLocalhostMedia = 'https://twoway1.herokuapp.com/media/api/';
         this.linkLocalhostStatus = 'https://twoway1.herokuapp.com/status/api/';
+        this.linkWebhost = 'https://twoway1.herokuapp.com/api/client';
         
-        // this.linkLocalhostChat = 'http://localhost:8085/chats/api/'
-        // this.linkLocalhost = 'http://localhost:8085/users/api/';
-        // this.linkLocalhostMedia = 'http://localhost:8085/media/api/';
-        // this.linkLocalhostStatus = 'http://localhost:8085/status/api/';
-        
-        this.linkWebhost = 'https://twoway1.herokuapp.com';
+        // this.linkLocalhostChat = 'http://192.168.137.1:8085/chats/api/'
+        // this.linkLocalhost = 'http://192.168.137.1:8085/users/api/';
+        // this.linkLocalhostMedia = 'http://192.168.137.1:8085/media/api/';
+        // this.linkLocalhostStatus = 'http://192.168.137.1:8085/status/api/';
+        // this.linkWebhost = 'http://192.168.137.1:8085';
+
         this.panleOptions = {
             GeneralData: {
                 title: 'Podaci o tebi',
@@ -107,10 +108,10 @@ export class Global {
 
     setLinkClient(link: String) {
         this.linkClient = link + '/images/emotion01/';
-        this.linkLocalhostChat = link + '/chats/api/'
-        this.linkLocalhost = link + '/users/api/';
-        this.linkLocalhostMedia = link + '/media/api/';
-        this.linkLocalhostStatus = link + '/status/api/';
+        // this.linkLocalhostChat = link + '/chats/api/'
+        // this.linkLocalhost = link + '/users/api/';
+        // this.linkLocalhostMedia = link + '/media/api/';
+        // this.linkLocalhostStatus = link + '/status/api/';
     }
 
     getLink() {
@@ -248,55 +249,55 @@ export class Global {
 
         let patterns = {
             a01: /:\)/gm,
-            a02: /:joy/gm,
+            a02: /:joy:/gm,
             a03: /:cry/gm,
-            a04: /:ang/gm,
+            a04: /:ang:/gm,
             a05: /:P/gm,
-            a06: /:rang/gm,
+            a06: /:rang:/gm,
             a07: /;\)/gm,
-            a08: /:dis/gm,
-            a09: /:\</gm,
-            a10: /:emb/gm,
+            a08: /:dis:/gm,
+            a09: /:\<:/gm,
+            a10: /:emb:/gm,
             a11: /:O/gm,
             a12: /:\(/gm,
-            a13: /:x/gm,
-            a14: /:\$/gm,
-            a15: /:-a/gm,
-            a16: /:-8/gm,
-            a17: /:88/gm,
-            a18: /;-sho/gm,
-            a19: /:-ick/gm,
-            a20: /:#/gm,
+            a13: /:x:/gm,
+            a14: /:\$:/gm,
+            a15: /:-a:/gm,
+            a16: /:-8:/gm,
+            a17: /:88:/gm,
+            a18: /;-sho:/gm,
+            a19: /:-ick:/gm,
+            a20: /:#:/gm,
             a21: /:z/gm,
-            a22: /;sur/gm,
+            a22: /;sur:/gm,
             a23: /:o/gm,
             a24: /:h/gm,
-            a25: /:-rich/gm,
-            a26: /:666/gm,
-            a27: /:sk/gm,
-            a28: /:-c/gm,
-            a29: /;-ro/gm,
-            a30: /:poo/gm,
-            a31: /:-s/gm,
+            a25: /:-rich:/gm,
+            a26: /:666:/gm,
+            a27: /:sk:/gm,
+            a28: /:-c:/gm,
+            a29: /;-ro:/gm,
+            a30: /:poo:/gm,
+            a31: /:-s:/gm,
             a32: /:g/gm,
-            a33: /:-p/gm,
-            a34: /:-x/gm,
-            a35: /:-ey/gm,
-            a36: /:-o3/gm,
-            a37: /:-C/gm,
-            a38: /:H/gm,
-            a39: /:-%/gm,
+            a33: /:-p:/gm,
+            a34: /:-x:/gm,
+            a35: /:-ey:/gm,
+            a36: /:-o3:/gm,
+            a37: /:-C:/gm,
+            a38: /:H:/gm,
+            a39: /:-%:/gm,
             a40: /:T/gm, // ne radi
-            a41: /:5/gm,
-            a42: /:7/gm,
-            a43: /;-mart/gm,
-            a44: /;pss/gm,
+            a41: /:5:/gm,
+            a42: /:7:/gm,
+            a43: /;-mart:/gm,
+            a44: /;pss:/gm,
             a45: /:D/gm,
-            a46: /:y/gm, //ne radi
-            a47: /:Y/gm,
-            a48: /:\>/gm,
-            a49: /:na/gm,
-            a50: /;r/gm
+            a46: /:y:/gm, //ne radi
+            a47: /:Y:/gm,
+            a48: /:\>:/gm,
+            a49: /:na:/gm,
+            a50: /;r:/gm
         }
 
         return s && s.replace(patterns.a01, emoticons.a01)
@@ -511,5 +512,10 @@ export class Global {
 
         localStorage.setItem('notification', JSON.stringify(item));
         this.setRemoveNotification(true);
+    }
+
+    setDevice(type: any) {
+        localStorage.removeItem('device');
+        localStorage.setItem('device', JSON.stringify({isMobile: type}));
     }
 }

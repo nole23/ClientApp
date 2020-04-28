@@ -41,6 +41,7 @@ export class AppComponent implements OnInit {
   countMessage: any;
   isCount: Boolean;
   statusError: String;
+  toMatch = new RegExp (/Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone/i);
   constructor(
     private auth: AuthNav,
     @Inject(LOCALE_ID) public locale: string,
@@ -80,6 +81,11 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(status: Boolean = false) {
+    if (navigator.userAgent.match(this.toMatch)) {
+      this.global.setDevice(true)
+    } else {
+      this.global.setDevice(false)
+    }
     this.clientService.openSmile().subscribe(res => {
       this.global.setLinkClient(res['message']);
     })

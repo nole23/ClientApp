@@ -69,6 +69,14 @@
         </app-chat-area>
 
         <div 
+          class="float-l w-100p h-20p pos-relative"
+          *ngIf="lastMessage.isMe && isSeen">
+          <div class="float-r text-green m-r-35 pos-absolute right-0 bottom-5 fs-12">
+            SeeN
+          </div>
+        </div>
+
+        <div 
           class="w-100p  float-l h-typing"
           *ngIf="isTyping">
           <div 
@@ -149,12 +157,11 @@
           class="float-l w-c-b min-h-full p-t-10 p-r-10 p-b-10 p-l-10">
           <form action="">
             <textarea 
-              class="form-control"
+              class="form-control height-text"
               [(ngModel)]="textMessage"
               i18-pleacholder="@@HomeTypeMessages" 
               placeholder="Unesi poruku..." 
               name="textMessage"
-              style="height: calc(1.5em + .75rem + 2px);"
               id="style-4"
               (keydown.enter)="sendMessage();false"
               (input)="typing()">
