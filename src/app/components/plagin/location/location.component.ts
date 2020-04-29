@@ -83,16 +83,18 @@ export class LocationComponent implements OnInit {
 
   getCordinate() {
     navigator.geolocation.getCurrentPosition(res => {
+      console.log(res)
       this.cordinates = res.coords;
       this.cordinates.type = 'client';
       this.geolocationService.setNewLocationServer(this.cordinates);
       this.openMap(true);
     }, err => {
+      console.log(err)
       if (err.code === 1) {
-        if (this.notificationService.isNotification('warning', 'locatOFF')) {
-          this.notificationService.saveNotification('warning', 'locatOFF')
-          this.notifier.notify( 'warning', 'Lokacija je iskljucena na ovom uredjaju 1')
-        }
+        // if (this.notificationService.isNotification('warning', 'locatOFF')) {
+        //   this.notificationService.saveNotification('warning', 'locatOFF')
+        //   this.notifier.notify( 'warning', 'Lokacija je iskljucena na ovom uredjaju 1')
+        // }
         this.getLocationInLocastorage('server');
       }
     })

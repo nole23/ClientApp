@@ -157,22 +157,27 @@ export class UserService {
   }
 
   likePublication(user: User, publication: Publication) {
-    return this.http.put(this.global.getLink() + 'publication/', {user: user._id, publication: publication._id})
+    return this.http.put(this.global.getLink() + 'publication/like', {user: user, publication: publication._id})
       .pipe(map(res => {
-        return res;
+        if (this.global.getResponseSuccess(res['message'])) {
+          return true;
+        } else {
+          return false;
+        }
       }))
   }
 
   dislikePublication(user: User, publication: Publication) {
     return this.http.put(this.global.getLink() + 'publication/remove', {user: user._id, publication: publication._id})
       .pipe(map(res => {
-        return res;
+        return res
       }))
   }
 
   addComment(item: any, object: any) {
     return this.http.post(this.global.getLink() + 'publication/', {item: item, object: object})
       .pipe(map(res => {
+        console.log(res)
         return res;
       }))
   }

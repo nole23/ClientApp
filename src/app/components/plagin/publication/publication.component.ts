@@ -81,7 +81,8 @@ export class PublicationComponent implements OnInit {
     } else if (!type) {
       // console.info('ProfileComponent.likePublication() - Click like/dislike in publication');
       this.userService.dislikePublication(this.user, this.item).subscribe(res => {
-        this.item.likes.splice(this.me._id, 1);
+        let index = this.item.likes.indexOf(res['publication']._id)
+        this.item.likes.splice(index, 1);
       })
     }
   }

@@ -536,7 +536,6 @@ export class Global {
     }
 
     getSocketFromCommponent(commponent: String, type: String, data: any) {
-        console.log(type)
         if (commponent === 'chat') {
             
             if (type === 'newNessage') {
