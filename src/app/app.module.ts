@@ -155,7 +155,8 @@ const customNotifierOptions: NotifierOptions = {
     PublicationShowDeleteComponent,
     AddTextComponent,
     DeleteFriendsComponent,
-    ImageGalleryComponent
+    ImageGalleryComponent,
+    ChatMobileComponent
   ]
 })
 export class AppModule { }

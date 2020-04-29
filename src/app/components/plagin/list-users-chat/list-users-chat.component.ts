@@ -44,7 +44,7 @@ export class ListUsersChatComponent implements OnInit {
 
     this.editMessage.subscribe(res =>{
       if (res === this.item._id.toString()) {
-        this.isTrueMessage = !this.isTrueMessage;
+        this.isTrueMessage = true;
       }
     })
 

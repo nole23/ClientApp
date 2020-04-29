@@ -76,38 +76,52 @@ export class ChatComponent implements OnInit {
     this.isLoadNewData = false;
     this.isSeen = false;
     this.lastMessage = null;
+    this.global.chatChomponentSocketMessage$.subscribe(res => {
+      this.isSeen = false;
+      this.editSocketMessage(res);
+    });
+    this.global.chatChomponentSocketTyping$.subscribe(res => {
+      this.getTyping(res);
+    });
+    this.global.chatChomponentSocketIsOnline$.subscribe(res => {
+      this.isOnlineUser(res);
+    });
+    this.global.chatChomponentSocketShowMessage$.subscribe(res => {
+      this.showMessage(res);
+    })
   }
 
   ngOnInit() {
-    this.socketService.socket.on('new-message-' + this.me._id, (data: any) =>{
-      let resData = JSON.parse(data);
-      if (resData.message.author.toString() !== this.me._id.toString()) {
-        this.editSocketMessage(resData);
-      }
-    });
-    
-    this.socketService.socket.on('user-is-online-' + this.me._id, (data: any) => {
-      if (this.listChater !== null) {
-        this.listChater.forEach((element: any) => {
-          let index = element.participants.findIndex(x => x._id.toString() === data.user._id.toString())
-          if (index !== -1) {
-            element.status = data.status;
-          }
-        });
-      }
-    })
-
-    this.socketService.socket.on('show-message-' + this.me._id, (data: any) => {
-      let jsonData = JSON.parse(data);
-      if (jsonData._id.toString() !== this.me._id.toString()) {
-        this.isSeen = true;
-      }
-    })
-
     this.getAllChater();
     this.getAllsmile();
-
     this.global.setSidebar('chat');
+  }
+
+  getTyping(data: any) {
+    if (this.chater !== null) {
+      if (data.chater.toString() === this.chater._id.toString()) {
+        this.setTyping(true);
+      }
+    }
+  }
+
+  isOnlineUser(data: any) {
+    if (this.listChater !== null) {
+      this.listChater.forEach((element: any) => {
+        let index = element.participants.findIndex(x => x._id.toString() === data.user._id.toString())
+        if (index !== -1) {
+          element.status = data.status;
+        }
+      });
+    }
+  }
+
+  showMessage(data: any) {
+    let jsonData = JSON.parse(data);
+    if (jsonData._id.toString() !== this.me._id.toString()) {
+      this.isSeen = true;
+      console.log(jsonData)
+    }
   }
 
   setOnline(data: any) {
@@ -119,33 +133,43 @@ export class ChatComponent implements OnInit {
 
   editSocketMessage(resData: any) {
     if (this.messages !== null) {
-      let lastChat = this.messages[this.messages.length - 1]
-      let newChat = this.chatService.setNewChat(resData.message.text);
-      if (lastChat.isMe) {
-        let user = resData.chat.participants.find(x => x._id.toString() === resData.message.author.toString());
-        var object = {
-          user: user,
-          isMe: false,
-          message: []
-        }
-        
-        object.message.push(newChat.text);
-        if (newChat.linkText) {
-          object.message.push(newChat.imgSave);
-        }
-  
-        this.messages.push(object);
-      } else {
-        if (this.messages[this.messages.length - 1].message[this.messages[this.messages.length - 1].message.length - 1].isBgs) {
-          this.messages[this.messages.length - 1].message[this.messages[this.messages.length - 1].message.length - 1].isBottom = true;
-        }
-  
-        this.messages[this.messages.length - 1].message.push(newChat.text);
-        if (newChat.linkText) {
-          this.messages[this.messages.length - 1].message.push(newChat.imgSave);
+
+      if (this.chater !== null) {
+
+        if (this.chater._id.toString() === resData.chat._id.toString()) {
+
+          let lastChat = this.messages[this.messages.length - 1]
+          let newChat = this.chatService.setNewChat(resData.message.text);
+
+          if (lastChat.isMe) {
+
+            let user = resData.chat.participants.find(x => x._id.toString() === resData.message.author.toString());
+            
+            let object = {
+              user: user,
+              isMe: false,
+              message: []
+            }
+            
+            object.message.push(newChat.text);
+            if (newChat.linkText) {
+              object.message.push(newChat.imgSave);
+            }
+      
+            this.messages.push(object);
+          } else {
+            if (this.messages[this.messages.length - 1].message[this.messages[this.messages.length - 1].message.length - 1].isBgs) {
+              this.messages[this.messages.length - 1].message[this.messages[this.messages.length - 1].message.length - 1].isBottom = true;
+            }
+      
+            this.messages[this.messages.length - 1].message.push(newChat.text);
+            if (newChat.linkText) {
+              this.messages[this.messages.length - 1].message.push(newChat.imgSave);
+            }
+          }
+          this.scrollBottomNumber = this.scrollMe.nativeElement.scrollHeight; 
         }
       }
-      this.scrollBottomNumber = this.scrollMe.nativeElement.scrollHeight;
     } else {
       this.eventsEditNewMessage.next(resData.chat._id)
     }
@@ -276,12 +300,6 @@ export class ChatComponent implements OnInit {
       }
     });
 
-    this.socketService.socket.on('typing-' + this.chater._id, (data: any) =>{
-      if (data.toString() !== this.me._id.toString()) {
-        this.setTyping(true);
-      }
-    });
-
     this.global.setNullOfMessage(item._id);
   }
 
@@ -378,6 +396,7 @@ export class ChatComponent implements OnInit {
 
   mouseFokus() {
     this.countFokus += 1;
+    
     if ( this.countFokus === 35) {
       this.setShowMessage();
     } else if (this.countFokus === 250) {
@@ -397,7 +416,7 @@ export class ChatComponent implements OnInit {
   }
 
   typing() {
-    this.socketService.emitTyping(this.chater, this.me);
+    this.socketService.emitTyping(this.chater, this.nameChater);
   }
 
   onScroll(event: any) {
@@ -424,11 +443,26 @@ export class ChatComponent implements OnInit {
   }
 
   destroy() {
-    this.chater = null;
+    this.socketService.disconnect();
+    this.closeSmile();
+
+    this.isOnline = true;
+    this.isMobile = false;
     this.messages = null;
+    this.textMessage = '';
+    this.isTyping = false;
+    this.onTyping = false;
+    this.isSpiner = false;
+    this.idOpenUser = null;
+    this.chater = null;
+    this.status = null;
+    this.isSmileShow = false;
+    this.listSmile = null;
+    this.testText = '';
     this.nameChater = [];
     this.countFokus = 0;
-    this.closeSmile();
-    this.isMobile = false;
+    this.isLoadNewData = false;
+    this.isSeen = false;
+    this.lastMessage = null;
   }
 }

@@ -109,6 +109,7 @@ export class NotificationService {
   isNotification(type: String, method: String) {
     let notifications = JSON.parse(localStorage.getItem('notification'));
     let status = false;
+    console.log(notifications)
     if (notifications !== null) {
       notifications.forEach((element: any) => {
         if (element.method === method) {

@@ -95,37 +95,13 @@ export class AppComponent implements OnInit {
       this.status();
       if (this.user !== null) {
         this.socketService.emitStatusOnline();
-
-        this.socketService.socket.on("new-message-" + this.user._id, (data: any) => {
-          let resData = JSON.parse(data);
-          if (resData.message.author.toString() !== this.user._id.toString()) {
-            this.global.playAudi();
-            this.global.setNumberOfMessage(resData._id)
-          }
-        })
-
-        this.socketService.socket.on('new-relationship-' + this.user._id, (data: any) => {
-          this.global.setNewNotification(data, 'Requester');
-        })
-
-        this.socketService.socket.on('new-notification-' + this.user._id, (data: any) => {
-          let jsonData = JSON.parse(data)
-          this.global.setNewNotification(jsonData.user, jsonData.type);
-        })
-
+        this.socketService.setSocketLink();
         this.setNotification(JSON.parse(localStorage.getItem('notification')));
       }
     } else {
       this.user = JSON.parse(localStorage.getItem('user'));
       this.socketService.emitStatusOnline();
-
-      this.socketService.socket.on("new-message-" + this.user._id, (data: any) => {
-        let resData = JSON.parse(data);
-        if (resData.message.author.toString() !== this.user._id.toString()) {
-          this.global.playAudi();
-          this.global.setNumberOfMessage(resData._id)
-        }
-      })
+      this.socketService.setSocketLink();
 
       this.setNotification(JSON.parse(localStorage.getItem('notification')));
     }

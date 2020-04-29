@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
+import { User } from '../models/user';
 
 @Injectable({
     providedIn: 'root'
@@ -9,9 +10,17 @@ export class Global {
     private testComponentSource = new Subject<boolean>();
     private sidebarComponentSource = new Subject<String>();
     private sidebarComponentRemoveSource = new Subject<Boolean>();
+    private chatChomponentSocketMessage = new Subject<any>();
+    private chatChomponentSocketTyping = new Subject<any>();
+    private chatChomponentSocketIsOnline = new Subject<any>();
+    private chatChomponentSocketShowMessage = new Subject<any>();
     testComponent$ = this.testComponentSource.asObservable();
     sidebarComponent$ = this.sidebarComponentSource.asObservable();
     sidebarComponentRemove$ = this.sidebarComponentRemoveSource.asObservable();
+    chatChomponentSocketMessage$ = this.chatChomponentSocketMessage.asObservable();
+    chatChomponentSocketTyping$ = this.chatChomponentSocketTyping.asObservable();
+    chatChomponentSocketIsOnline$ = this.chatChomponentSocketIsOnline.asObservable();
+    chatChomponentSocketShowMessage$ = this.chatChomponentSocketShowMessage.asObservable();
 
     linkLocalhostChat: String;
     linkLocalhostStatus: String;
@@ -30,7 +39,9 @@ export class Global {
     smileRegExp = new RegExp(/(\:\w+\:|\<[\/\\]?3|[\(\)\\\D|\*\$][\-\^]?[\:\;\=]|[\:\;\=B8][\-\^]?[3DOPp\@\$\*\\\)\(\/\|])(?=\s|[\!\.\?]|$)/)
     ytRegExp = new RegExp(/(?:https?:\/\/|www\.|m\.|^)youtu(?:be\.com\/watch\?(?:.*?&(?:amp;)?)?v=|\.be\/)([\w‌​\-]+)(?:&(?:amp;)?[\w\?=]*)?/)
     imgRegExp = new RegExp(/https?:\/\/.*\.(?:png|jpg|gif|jpeg)/)
+    toMatch = new RegExp (/Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone/i)
     numberOfMessage: any;
+    me: User;
     constructor() {
         this.isAutoLocation = false;
         this.isChangeLocationStatus = false;
@@ -64,11 +75,11 @@ export class Global {
         this.linkLocalhostStatus = 'https://twoway1.herokuapp.com/status/api/';
         this.linkWebhost = 'https://twoway1.herokuapp.com/api/client';
         
-        // this.linkLocalhostChat = 'http://192.168.137.1:8085/chats/api/'
-        // this.linkLocalhost = 'http://192.168.137.1:8085/users/api/';
-        // this.linkLocalhostMedia = 'http://192.168.137.1:8085/media/api/';
-        // this.linkLocalhostStatus = 'http://192.168.137.1:8085/status/api/';
-        // this.linkWebhost = 'http://192.168.137.1:8085';
+        // this.linkLocalhostChat = 'http://192.168.0.148:8085/chats/api/'
+        // this.linkLocalhost = 'http://192.168.0.148:8085/users/api/';
+        // this.linkLocalhostMedia = 'http://192.168.0.148:8085/media/api/';
+        // this.linkLocalhostStatus = 'http://192.168.0.148:8085/status/api/';
+        // this.linkWebhost = 'http://192.168.0.148:8085';
 
         this.panleOptions = {
             GeneralData: {
@@ -450,7 +461,10 @@ export class Global {
     }
 
     setNumberOfMessage(id: any) {
-        this.numberOfMessage.push(id);
+        let index = this.numberOfMessage.indexOf(id)
+        if (index === -1) {
+            this.numberOfMessage.push(id);
+        }
         this.testComponentSource.next(null);
     }
 
@@ -460,7 +474,9 @@ export class Global {
 
     setNullOfMessage(id: any) {
         let index = this.numberOfMessage.indexOf(id)
-        this.numberOfMessage.splice(index, 1);
+        if (index !== -1) {
+            this.numberOfMessage.splice(index, 1);
+        }
         this.testComponentSource.next(null);
     }
 
@@ -517,5 +533,21 @@ export class Global {
     setDevice(type: any) {
         localStorage.removeItem('device');
         localStorage.setItem('device', JSON.stringify({isMobile: type}));
+    }
+
+    getSocketFromCommponent(commponent: String, type: String, data: any) {
+        console.log(type)
+        if (commponent === 'chat') {
+            
+            if (type === 'newNessage') {
+                this.chatChomponentSocketMessage.next(data);
+            } else if (type === 'typing') {
+                this.chatChomponentSocketTyping.next(data);
+            } else if (type === 'userIsOnline') {
+                this.chatChomponentSocketIsOnline.next(data);
+            } else if (type === 'showMessage') {
+                this.chatChomponentSocketShowMessage.next(data);
+            }
+        }
     }
 }

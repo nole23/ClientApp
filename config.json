@@ -14,7 +14,7 @@
       },
       {
           "route": "/chats",
-          "address": "https://twoway-chatservice.herokuapp.com"
+          "address": "http://twoway-chatservice.herokuapp.com"
       }
     ]
 }

@@ -93,7 +93,10 @@ io.on('connection', function (socket) {
     })
 
     socket.on('typing', (data) =>{
-        io.emit('typing-' + data.chater.toString(), data.user);
+        data.user.forEach(element => {
+            io.emit('typing-' + element._id, {chater: data.chater});
+        })
+        
     })
 
     socket.on('disconnect', function(){
