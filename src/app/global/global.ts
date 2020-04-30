@@ -69,17 +69,17 @@ export class Global {
                 "046.svg","047.svg","048.svg","049.svg","050.svg"
             ]
         };
-        // this.linkLocalhostChat = 'https://twoway1.herokuapp.com/chats/api/'
-        // this.linkLocalhost = 'https://twoway1.herokuapp.com/users/api/';
-        // this.linkLocalhostMedia = 'https://twoway1.herokuapp.com/media/api/';
-        // this.linkLocalhostStatus = 'https://twoway1.herokuapp.com/status/api/';
-        // this.linkWebhost = 'https://twoway1.herokuapp.com/api/client';
+        this.linkLocalhostChat = 'https://twoway1.herokuapp.com/chats/api/'
+        this.linkLocalhost = 'https://twoway1.herokuapp.com/users/api/';
+        this.linkLocalhostMedia = 'https://twoway1.herokuapp.com/media/api/';
+        this.linkLocalhostStatus = 'https://twoway1.herokuapp.com/status/api/';
+        this.linkWebhost = 'https://twoway1.herokuapp.com/api/client';
         
-        this.linkLocalhostChat = 'http://192.168.0.148:8085/chats/api/'
-        this.linkLocalhost = 'http://192.168.0.148:8085/users/api/';
-        this.linkLocalhostMedia = 'http://192.168.0.148:8085/media/api/';
-        this.linkLocalhostStatus = 'http://192.168.0.148:8085/status/api/';
-        this.linkWebhost = 'http://192.168.0.148:8085';
+        // this.linkLocalhostChat = 'http://192.168.0.148:8085/chats/api/'
+        // this.linkLocalhost = 'http://192.168.0.148:8085/users/api/';
+        // this.linkLocalhostMedia = 'http://192.168.0.148:8085/media/api/';
+        // this.linkLocalhostStatus = 'http://192.168.0.148:8085/status/api/';
+        // this.linkWebhost = 'http://192.168.0.148:8085';
 
         this.panleOptions = {
             GeneralData: {
