@@ -2,7 +2,7 @@
     "routes": [
       {
         "route": "/users",
-        "address": "http://localhost:8080"
+        "address": "https://twoway-usersservice.herokuapp.com"
       },
       {
           "route": "/media",
@@ -14,7 +14,7 @@
       },
       {
           "route": "/chats",
-          "address": "http://twoway-chatservice.herokuapp.com"
+          "address": "https://twoway-chatservice.herokuapp.com"
       }
     ]
 }

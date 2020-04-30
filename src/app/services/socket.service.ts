@@ -31,29 +31,6 @@ export class SocketService {
     this.socket.emit('typing', {chater: chater._id, user: user});
   }
 
-  getStatusOnline(listChater: any) {
-    let listFriends = [];
-    let onMe = JSON.parse(localStorage.getItem('user'));
-    listChater.forEach((element: any) => {
-      element.participants.forEach((friend: any) => {
-        if (friend._id.toString() !== onMe._id.toString()) {
-          listFriends.push({chater: element._id, friend: friend._id});
-        }
-      });
-    });
-
-    let params = new HttpParams().set(
-      "item", JSON.stringify(listFriends)
-    ).append(
-      "me", JSON.stringify(onMe._id)
-    )
-
-    return this.http.get(this.global.getLinkStatus() + 'status/', {params: params})
-      .pipe(map(res => {
-        return res
-      }))
-  }
-
   setSocketLink() {
     this.me = JSON.parse(localStorage.getItem('user'));
 

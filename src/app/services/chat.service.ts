@@ -9,12 +9,20 @@ import { Online } from '../models/online';
 })
 export class ChatService {
 
-  constructor(private http: HttpClient, private global: Global) { }
+  listChater: any;
+  constructor(private http: HttpClient, private global: Global) {
+    this.listChater = null;
+  }
 
   getAllChater() {
     return this.http.get(this.global.getChat() + 'chats/')
     .pipe(map(res => {
-      return res;
+      if (this.global.getResponseError(res['message'])) {
+        this.listChater = res['message'];
+        return {message: this.listChater};
+      } else {
+        return {message: []}
+      }
     }))
   }
 
@@ -56,10 +64,10 @@ export class ChatService {
   sendMessage(chat: any, message: String) {
     return this.http.post(this.global.getChat() + 'chats/', {chat: chat, message: message})
       .pipe(map(res => {
-        if (this.global.getResponseSuccess(res['message'])) {
-          return {message: true};
+        if (this.global.getResponseError(res['message'])) {
+          return {message: true, data: res['message']}
         } else {
-          return {message: false};
+          return {message: false, data: null}
         }
       }))
   }
@@ -75,7 +83,43 @@ export class ChatService {
       }))
   }
 
-  setNewChat(messageText: any) {
+  getStatusOnline(listChater: any) {
+    let listFriends = [];
+    let onMe = JSON.parse(localStorage.getItem('user'));
+    listChater.forEach((element: any) => {
+      element.participants.forEach((friend: any) => {
+        if (friend._id.toString() !== onMe._id.toString()) {
+          listFriends.push({chater: element._id, friend: friend._id});
+        }
+      });
+    });
+
+    let params = new HttpParams().set(
+      "item", JSON.stringify(listFriends)
+    ).append(
+      "me", JSON.stringify(onMe._id)
+    )
+
+    return this.http.get(this.global.getLinkStatus() + 'status/', {params: params})
+      .pipe(map(res => {
+        if (this.global.getResponseError(res['message'])) {
+
+          if (this.listChater !== null) {
+            for (let i = 0; i < this.listChater.length; i++) {
+              let index = res['message'].find(x => x.chater.toString() === this.listChater[i]._id.toString());
+              this.listChater[i].status = index.status;
+            }
+          }
+
+          return true
+
+        } else {
+          return false;
+        }
+      }))
+  }
+
+  setNewChat(messageText: any, id: any) {
     
     let regExpLink = this.global.regExpLink(messageText);
     let regExpSmile = this.global.regExpSmile(messageText);
@@ -147,6 +191,7 @@ export class ChatService {
     }
 
     let textSave = {
+      _id: id,
       text: text,
       dateOfCreate: new Date,
       isBgs: isBgs,
@@ -154,6 +199,7 @@ export class ChatService {
     };
 
     let imgSave = {
+      _id: id,
       text:  linkText,
       dateOfCreate: new Date,
       isBgs: false,
@@ -161,5 +207,24 @@ export class ChatService {
     }
 
     return {text: textSave, imgSave: imgSave, linkText: linkText !== null};
+  }
+
+  getListChater() {
+    if (this.listChater === null) {
+      return []
+    } else {
+      return this.listChater
+    }
+  }
+
+  setOnlineUser(data: any) {
+    if (this.listChater !== null) {
+      for (let i = 0; i < this.listChater.length; i++) {
+        let index = this.listChater[i].participants.findIndex(x => x._id.toString() === data.user._id.toString());
+        if (index !== -1) {
+          this.listChater[i].status = data.status;
+        }
+      }
+    }
   }
 }

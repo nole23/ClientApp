@@ -120,14 +120,16 @@ export class AppComponent implements OnInit {
   }
 
   setNotification(item: any) {
-    let i = item.notification.isNotificaton;
-    i = i + item.notification.isVisitor;
-    i = i + item.relationship;
+    if (item !== null) {
+      let i = item.notification.isNotificaton;
+      i = i + item.notification.isVisitor;
+      i = i + item.relationship;
 
-    if (i > 0) {
-      this.btnColorNewInfo = 'green-color';
-    } else {
-      this.btnColorNewInfo = '';
+      if (i > 0) {
+        this.btnColorNewInfo = 'green-color';
+      } else {
+        this.btnColorNewInfo = '';
+      }
     }
   }
 

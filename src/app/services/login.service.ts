@@ -29,7 +29,10 @@ export class LoginService {
         localStorage.setItem('user', JSON.stringify(res['message']['user']));
         localStorage.setItem('token', JSON.stringify(res['message']['token']));
         localStorage.setItem('options', JSON.stringify(res['message']['defaultOptions']))
-        localStorage.setItem('notification', JSON.stringify(res['message']['statusNotification']))
+        
+        let notification = res['message']['statusNotification'];
+        notification.chat = [];
+        localStorage.setItem('notification', JSON.stringify(notification))
         return {message: 'SUCCESS'};
       } else {
         return {message: res['message']};

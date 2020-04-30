@@ -82,6 +82,7 @@ export class ChatAreaComponent implements OnInit {
       if (res['message']) {
         let index = this.item.message.indexOf(message);
         this.item.message.splice(index, 1)
+        console.log(this.item)
       }
     })
   }

@@ -17,7 +17,7 @@ import { ClientService } from '../../../services/client.service';
 export class ChatComponent implements OnInit {
   @ViewChild('message') message: ElementRef;
   @ViewChild('scrollMe') scrollMe: ElementRef;
-  eventsSubject: Subject<void> = new Subject<void>();
+  eventsSubject: Subject<any> = new Subject<any>();
   eventsEditNewMessage: Subject<void> = new Subject<void>();
 
   private readonly notifier: NotifierService;
@@ -106,29 +106,18 @@ export class ChatComponent implements OnInit {
   }
 
   isOnlineUser(data: any) {
-    if (this.listChater !== null) {
-      this.listChater.forEach((element: any) => {
-        let index = element.participants.findIndex(x => x._id.toString() === data.user._id.toString())
-        if (index !== -1) {
-          element.status = data.status;
-        }
-      });
-    }
+    this.chatService.setOnlineUser(data);
   }
 
   showMessage(data: any) {
     let jsonData = JSON.parse(data);
     if (jsonData._id.toString() !== this.me._id.toString()) {
       this.isSeen = true;
-      console.log(jsonData)
     }
   }
 
-  setOnline(data: any) {
-    this.listChater.forEach(element => {
-      let index = data.find(x => x.chater.toString() === element._id.toString());
-      element.status = index.status;
-    });
+  setOnline() {
+    let item = this.chatService.getListChater();
   }
 
   editSocketMessage(resData: any) {
@@ -139,10 +128,9 @@ export class ChatComponent implements OnInit {
         if (this.chater._id.toString() === resData.chat._id.toString()) {
 
           let lastChat = this.messages[this.messages.length - 1]
-          let newChat = this.chatService.setNewChat(resData.message.text);
+          let newChat = this.chatService.setNewChat(resData.message.text, resData.message._id);
 
           if (lastChat.isMe) {
-
             let user = resData.chat.participants.find(x => x._id.toString() === resData.message.author.toString());
             
             let object = {
@@ -167,7 +155,10 @@ export class ChatComponent implements OnInit {
               this.messages[this.messages.length - 1].message.push(newChat.imgSave);
             }
           }
-          this.scrollBottomNumber = this.scrollMe.nativeElement.scrollHeight; 
+          this.scrollBottomNumber = this.scrollMe.nativeElement.scrollHeight;
+          this.global.setNullOfMessage(this.chater._id);
+        } else {
+          this.eventsEditNewMessage.next(resData.chat._id)
         }
       }
     } else {
@@ -193,13 +184,23 @@ export class ChatComponent implements OnInit {
   }
 
   getAllChater() {
-    this.chatService.getAllChater().subscribe(res => {
-      this.listChater = res['message'];
-      this.socketService.getStatusOnline(this.listChater).subscribe(res => {
-        this.setOnline(res['message'])
+    this.listChater = this.chatService.getListChater();
+    if (this.listChater.length === 0) {
+      this.chatService.getAllChater().subscribe(res => {
+        this.listChater = res['message'];
+        
+        this.chatService.getStatusOnline(this.listChater).subscribe(res => {
+          if (res) {
+            // this.setOnline()
+          }
+        })
+
+        this.listChater = this.chatService.getListChater();
+        this.getActivateRoute();
       })
-      this.getActivateRoute();
-    })
+    } else {
+      this.getActivateRoute();      
+    }
   }
 
   getActivateRoute() {
@@ -330,7 +331,7 @@ export class ChatComponent implements OnInit {
     if (this.textMessage.length > 0) {
       let text = this.textMessage; 
       this.chatService.sendMessage(this.chater, this.textMessage).subscribe(res => {
-        this.setMessigPrivate(res['message'], text);
+        this.setMessigPrivate(res['message'], res['data']);
         this.setListChater(this.chater, text);
         this.isSeen = false;
       });
@@ -353,30 +354,41 @@ export class ChatComponent implements OnInit {
 
   setMessigPrivate(res: any, newText: any) {
     if (res) {
+      let index = this.messages.length > 0 ? this.messages.length - 1 : null;
+
       var object = {
         user: this.me,
         isMe: true,
         message: []
       }
 
-      let newChat = this.chatService.setNewChat(newText);
-      let lastStyle = false;
-  
-      if (this.messages[this.messages.length - 1]) {
-        lastStyle = true;
-      }
+      let newChat = this.chatService.setNewChat(newText.text, newText._id);
 
-      if (lastStyle) {
-        if (this.messages[this.messages.length - 1].message[this.messages[this.messages.length - 1].message.length - 1].isBgs) {
-          this.messages[this.messages.length - 1].message[this.messages[this.messages.length - 1].message.length - 1].isBottom = true;
+      if (index !== null) {
+        if (this.messages[index].isMe) {
+          if (this.messages[index].message[this.messages[index].message.length - 1].isBgs) {
+            this.messages[index].message[this.messages[index].message.length - 1].isBottom = true;
+          }
         }
       }
 
-      object.message.push(newChat.text);
-      if (newChat.linkText) {
-        object.message.push(newChat.imgSave);
+      if (index !== null) {
+        if (this.messages[index].isMe) {
+          this.messages[index].message.push(newChat.text)
+          if (newChat.linkText) {
+            this.messages[index].message.push(newChat.imgSave);
+          }
+        } else {
+          object.message.push(newChat.text);
+          if (newChat.linkText) {
+            object.message.push(newChat.imgSave);
+          }
+
+          this.messages.push(object)
+        }
+      } else {
+        this.messages.push(object)
       }
-      this.messages.push(object)
   
     } else {
       this.notifier.notify('error', 'Poruka nije poslata, pokusajte ponovo');
@@ -410,7 +422,7 @@ export class ChatComponent implements OnInit {
   setShowMessage() {
     if (this.chater !== null) {
       this.chatService.shetNotShowMessage(this.chater, true).subscribe(res => {
-        this.eventsSubject.next();
+        this.eventsSubject.next(this.chater);
       })
     }
   }
@@ -453,7 +465,6 @@ export class ChatComponent implements OnInit {
     this.isTyping = false;
     this.onTyping = false;
     this.isSpiner = false;
-    this.idOpenUser = null;
     this.chater = null;
     this.status = null;
     this.isSmileShow = false;

@@ -43,6 +43,9 @@ export class SidebarComponent implements OnInit {
     this.global.sidebarComponentRemove$.subscribe(res => {
       this.removeNotification(res);
     });
+    this.global.testComponent$.subscribe(res => {
+      this.serviceCall()
+    })
     this.state = null;
     this.isNotification = true;
     this.isChat = false;
@@ -114,6 +117,15 @@ export class SidebarComponent implements OnInit {
       this.isNotification = true;
     } else {
       this.isNotification = false;
+    }
+  }
+
+  serviceCall() {
+    let item = this.global.getNumberOfMessage()
+    if (item.length > 0) {
+      this.isChat = true;
+    } else if (item.length === 0) {
+      this.isChat = false;
     }
   }
 

@@ -15,7 +15,7 @@ export class ListUsersChatComponent implements OnInit {
   @Input() i: any;
   @Output() emit = new EventEmitter<any>();
   @Output() remove = new EventEmitter<any>();
-  @Input() events: Observable<void>;
+  @Input() events: Observable<any>;
   @Input() editMessage: Observable<void>;
 
   private readonly notifier: NotifierService;
@@ -36,15 +36,19 @@ export class ListUsersChatComponent implements OnInit {
 
   ngOnInit() {
     this.global.setNumberOfMessage(this.item._id)
+    this.global.setNewNotification(this.item._id, 'chat');
     
-    this.events.subscribe(() => {
-      this.isTrueMessage = false;
-      this.global.setNullOfMessage(this.item._id);
+    this.events.subscribe((data) => {
+      if (data._id.toString() === this.item._id.toString()) {
+        this.isTrueMessage = false;
+        this.global.editViewNotification('chat');
+      }
     });
 
     this.editMessage.subscribe(res =>{
       if (res === this.item._id.toString()) {
         this.isTrueMessage = true;
+        this.global.setNewNotification(this.item._id, 'chat');
       }
     })
 
@@ -62,12 +66,14 @@ export class ListUsersChatComponent implements OnInit {
         this.item.message.listViewUser.forEach(element => {
           if (element.toString() === this.me._id.toString()) {
             this.isTrueMessage = false;
-            this.global.setNullOfMessage(this.item._id)
+            this.global.setNullOfMessage(this.item._id);
+            this.global.editViewNotification('chat');
           }
         });
       } else {
         this.isTrueMessage = false;
-        this.global.setNullOfMessage(this.item._id)
+        this.global.setNullOfMessage(this.item._id);
+        this.global.editViewNotification('chat');
       }
     } else {
       this.isFriends = true;
