@@ -42,6 +42,7 @@ router
         var data = req.body;
         var io = req.app.get('socket-io');
 
+        console.log(data)
         data.participants.forEach(element => {
             io.emit(data.link.toString() + element,
                 JSON.stringify(data.data)
