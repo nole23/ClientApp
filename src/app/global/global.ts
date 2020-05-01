@@ -73,7 +73,7 @@ export class Global {
         this.linkLocalhost = 'https://twoway1.herokuapp.com/users/api/';
         this.linkLocalhostMedia = 'https://twoway1.herokuapp.com/media/api/';
         this.linkLocalhostStatus = 'https://twoway1.herokuapp.com/status/api/';
-        this.linkWebhost = 'https://twoway1.herokuapp.com/api/client';
+        this.linkWebhost = '';
         
         // this.linkLocalhostChat = 'http://192.168.0.148:8085/chats/api/'
         // this.linkLocalhost = 'http://192.168.0.148:8085/users/api/';

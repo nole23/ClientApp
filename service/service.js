@@ -18,6 +18,7 @@ module.exports = {
 
         var data = JSON.stringify(edit)
 
+        console.log(hostname[0])
         var options = {
             host: hostname[0],
             path: '/api/' + linkReq,
