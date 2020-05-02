@@ -14,6 +14,8 @@ export class Global {
     private chatChomponentSocketTyping = new Subject<any>();
     private chatChomponentSocketIsOnline = new Subject<any>();
     private chatChomponentSocketShowMessage = new Subject<any>();
+    private appComponentLogin = new Subject<any>();
+    private appComponentLogout = new Subject<any>();
     testComponent$ = this.testComponentSource.asObservable();
     sidebarComponent$ = this.sidebarComponentSource.asObservable();
     sidebarComponentRemove$ = this.sidebarComponentRemoveSource.asObservable();
@@ -21,6 +23,8 @@ export class Global {
     chatChomponentSocketTyping$ = this.chatChomponentSocketTyping.asObservable();
     chatChomponentSocketIsOnline$ = this.chatChomponentSocketIsOnline.asObservable();
     chatChomponentSocketShowMessage$ = this.chatChomponentSocketShowMessage.asObservable();
+    appComponentLogin$ = this.appComponentLogin.asObservable();
+    appComponentLogout$ = this.appComponentLogout.asObservable();
 
     linkLocalhostChat: String;
     linkLocalhostStatus: String;
@@ -42,6 +46,7 @@ export class Global {
     toMatch = new RegExp (/Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone/i)
     numberOfMessage: any;
     me: User;
+    restartEmal: String;
     constructor() {
         this.isAutoLocation = false;
         this.isChangeLocationStatus = false;
@@ -115,14 +120,11 @@ export class Global {
         }
         this.numberOfMessage = [];
         this.linkClient = '';
+        this.restartEmal = null;
     }
 
     setLinkClient(link: String) {
         this.linkClient = link + '/images/emotion01/';
-        // this.linkLocalhostChat = link + '/chats/api/'
-        // this.linkLocalhost = link + '/users/api/';
-        // this.linkLocalhostMedia = link + '/media/api/';
-        // this.linkLocalhostStatus = link + '/status/api/';
     }
 
     getLink() {
@@ -430,7 +432,9 @@ export class Global {
             message === 'ERROR_NOT_SAVE_INFORMATION' ||
             message === 'ERROR_NOT_SAVE_CONFIGURATION' ||
             message === 'SUCCESS_CREAT_PROFILE' ||
-            message === 'ERROR_NOT_FIND_ITEM'
+            message === 'ERROR_NOT_FIND_ITEM' ||
+            message === 'ERROR_NOT_FIND_USER' ||
+            message === 'ERROR_VERIFICATION_CODE_IS_ERROR'
         ) {
             return false;
         } else {
@@ -549,5 +553,26 @@ export class Global {
                 this.chatChomponentSocketShowMessage.next(data);
             }
         }
+    }
+
+    ngLogin(status: Boolean) {
+        this.appComponentLogin.next(status);
+    }
+
+    ngLogOut() {
+        this.appComponentLogout.next();
+    }
+
+    ngRestart() {
+        this.appComponentLogin.next(true);
+    }
+
+    setRestartEmail(email: String) {
+        this.removeRestartEmail();
+        localStorage.setItem('restartEmail', JSON.stringify(email))
+    }
+
+    removeRestartEmail() {
+        localStorage.removeItem('restartEmail')
     }
 }

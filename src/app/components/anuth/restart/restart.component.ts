@@ -1,7 +1,8 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from '../../../models/user';
 import { UserService } from '../../../services/user.service';
+import { Global } from '../../../global/global';
 
 @Component({
   selector: 'app-restart',
@@ -9,35 +10,45 @@ import { UserService } from '../../../services/user.service';
   styleUrls: ['./restart.component.css']
 })
 export class RestartComponent implements OnInit {
-  @Output() ngClose = new EventEmitter<Boolean>();
-  @Output() ngNotFound = new EventEmitter<Boolean>();
-  @Output() ngStatus = new EventEmitter<Object>();
 
   user: User;
   isSpiner: Boolean;
-  constructor(private userService: UserService, private router: Router) {
+  picture: String;
+  errorMessage: String;
+  constructor(
+    private userService: UserService, 
+    private router: Router,
+    private global: Global
+  ) {
     this.user = new User();
     this.isSpiner = false;
+    this.picture = "../../../../assets/picture/bg-01.jpg";
+    this.errorMessage = null;
   }
 
   ngOnInit() {
   }
 
-  ngLogin() {
-    this.ngClose.emit(true);
-  }
-
   ngSendCode() {
     this.isSpiner = true;
+    this.errorMessage = null;
     this.userService.restartPassword(this.user).subscribe(res => {
-      this.ngStatus.emit({status: true, email: this.user.email});
-      this.isSpiner = false;
-    }, err => {
-      if (err['status'] === 404) {
-        this.ngNotFound.emit(true);
-      } else if (err['status'] === 403) {
-        // TODO Not implement
+      if (res['status']) {
+        this.global.setRestartEmail(this.user.email);
+        this.router.navigate(['verify-code'])
+      } else {
+        this.errorMessage = '<span i18n="' +  res['message'] + '"';
+        if (res['message'] === 'ERROR_SERVER_NOT_FOUND' || res['message'] === 'ERROR_NOT_FIND_USER') {
+          this.errorMessage += ' class="text-red">' +
+          'Email nije pronadjen. Molimo vas proverite da li ste uneli ispravne podatke' +
+          '</span>'
+        } else if (res['message'] === 'ERROR_PROFILE_NOT_VERIFY') {
+          this.errorMessage += ' class="text-orange">' +
+          'Nalog nije verifikovan, molimo vas prvo verifikujte vas nalog' +
+          '</span>'
+        }
       }
+
       this.isSpiner = false;
     })
   }

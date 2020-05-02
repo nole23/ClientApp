@@ -47,6 +47,7 @@ import { ChatAreaComponent } from './components/plagin/chat-area/chat-area.compo
 import { ListNotificationComponent } from './components/plagin/list-notification/list-notification.component';
 import { ListNotificationVisitorComponent } from './components/plagin/list-notification-visitor/list-notification-visitor.component';
 import { ChatMobileComponent } from './components/chats/chat-mobile/chat-mobile.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -121,7 +122,8 @@ const customNotifierOptions: NotifierOptions = {
     ChatAreaComponent,
     ListNotificationComponent,
     ListNotificationVisitorComponent,
-    ChatMobileComponent
+    ChatMobileComponent,
+    NotFoundComponent
   ],
   imports: [
     NotifierModule.withConfig(customNotifierOptions),

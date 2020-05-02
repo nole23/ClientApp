@@ -58,20 +58,20 @@
               
             </div>
 
-            <div class="float-l w-100p h-60pc text-white-f">
+            <div class="float-l w-100p h-60pc text-white-f" >
               <button 
                 class="float-l h-100pc btn btn btn-success w-30p"
                 *ngIf="!item.isResOrReq && item.isRelationship && !item.isFriends && !item.isMe"
-                (click)="addFriend(item, true, i)">
+                (click)="acceptFriend(item, true, i)">
                 <i class="fa fa-check" aria-hidden="true"></i>
                 <span class="spinner-border smal" role="status" *ngIf="isLoaderButton"></span>
               </button>
 
               <button 
-                class="float-l w-30p h-100pc btn btn btn-danger"
+                class="float-l w-50p h-100pc btn btn btn-danger"
                 title="Povuci ili odustani"
                 *ngIf="item.isResOrReq && item.isRelationship && !item.isFriends && !item.isMe"
-                (click)="addFriend(item, false, i)">
+                (click)="addRemoveFriend(item, false, i)">
                 <i class="fa fa-times" aria-hidden="true"></i>
                 <span class="spinner-border smal" role="status" *ngIf="isLoaderButton"></span>
               </button>
@@ -80,14 +80,15 @@
                 class="float-l w-30p h-100pc btn btn btn-danger"
                 title="Povuci ili odustani"
                 *ngIf="!item.isResOrReq && item.isRelationship && !item.isFriends && !item.isMe"
-                (click)="addFriend(item, false, i)">
+                (click)="addRemoveFriend(item, false, i)">
                 <i class="fa fa-trash" aria-hidden="true"></i>
                 <span class="spinner-border smal" role="status" *ngIf="isLoaderButton"></span>
               </button>
 
               <button 
                 class="float-l w-50p h-100pc btn btn btn-success"
-                *ngIf="!item.isRelationship && !item.isFriends">
+                *ngIf="!item.isRelationship && !item.isFriends"
+                (click)="addRemoveFriend(item, true, i)">
                 <i class="fa fa-plus" aria-hidden="true" *ngIf="!isLoaderButton && !item.isMe"></i>
                 <span class="spinner-border smal" role="status" *ngIf="isLoaderButton"></span>
               </button>
@@ -95,7 +96,7 @@
               <a
                 class="float-l h-100pc btn btn-info cursor-pointer"
                 *ngIf="!item.isMe"
-                [ngClass]="{'w-30p': item.isRelationship, 'w-50p': !item.isRelationship, 'w-100p': item.isFriends}"
+                [ngClass]="{'w-30p': item.isRelationship, 'w-50p': !item.isRelationship, 'w-100p': item.isFriends, 'w-50': (item.isResOrReq && item.isRelationship)}"
                 [routerLink]="['/f/' + item.user.username + '/profile']">
                 <i class="fa fa-user-o" aria-hidden="true"></i>
               </a>
@@ -114,183 +115,3 @@
     </div>
   </div>
 </div>
-
-<!-- <div class="my-container h-full m-t-35 of-auto" id="style-4">
-  <div class="w-full h-min-50 float-l pos-relative">
-    <h1 class="text-white-f float-l fs-35 mobil-width" i18n="@@SearchPipleInPlace">
-      Osobe iz okruzenja
-    </h1>
-    
-    <button 
-      class="fa-green-h float-r css-media-mobile fs-35 m-r-5"
-      type="button" style="display: none;"
-      (click)="ngOpen()">
-      <i class="fa fa-bars" aria-hidden="true"></i>
-    </button>
-
-    <input
-      type="text"
-      class="form-control h-48p min-w-200 max-w-400 float-r"
-      name="searchText"
-      [(ngModel)]="searchText"
-      (input)="filter()"
-      [id]="'input-search'"
-      i18-pleacholder="@@SearchFriends"
-      placeholder="Pretraga...">
-
-    <button 
-      class="fa-green-h float-r css-media-computer fs-35 m-r-5"
-      type="button"  style="display: none;"
-      (click)="ngOpen()">
-      <i class="fa fa-bars" aria-hidden="true"></i>
-    </button>
-
-    <div
-      class="pos-absolute h-10 bo-c-1 top-50 bgwhite right-0 b-t-l-r b-b-r-r b-b-l-r w-setting-call" 
-      style="z-index: 1000;"
-      [ngClass]="cssClass">
-      <div class="float-l w-50p p-t-10 p-r-10 p-b-10 p-l-10 bo-r-1">
-        <span i18n="@@SearchShownWomenOrMen">Prikazati</span>
-
-        <form class="m-t-10">
-          <div class="custom-control custom-checkbox float-l w-40p-calc">
-            <input
-              type="checkbox"
-              class="custom-control-input"
-              id="men"
-              name="men"
-              [(ngModel)]="type.men">
-
-            <label
-              class="custom-control-label"
-              for="men"
-              i18n="@@SearchMen">
-              Mladici
-            </label>
-          </div>
-
-          <div class="custom-control custom-checkbox float-r w-40p-calc">
-            <input
-              type="checkbox"
-              class="custom-control-input"
-              id="women"
-              name="women"
-              [(ngModel)]="type.women">
-
-            <label 
-              class="custom-control-label"
-              for="women"
-              i18n="@@SearchWomen">
-              Zene
-            </label>
-          </div>
-        </form>
-      </div>
-
-      <div class="float-l w-50p p-t-10 p-r-10 p-b-10 p-l-10">
-        <span>Gde</span>
-
-        <form class="m-t-10">
-          <div class="col-md-12 mb-12 p-l-0 p-r-0 dropdown">
-            <input 
-              type="text"
-              class="form-control"
-              id="validationServer03"
-              autocomplete="off"
-              name="city"
-              [(ngModel)]="city"
-              (input)="filterCity()"
-              i18-pleacholder="@@SearchCity"
-              placeholder="Grad"
-              role="button"
-              id="dropdownMenuLink"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-              required>
-
-            <div class="dropdown-menu line-height">
-              <div *ngIf="listCity !== null">
-                <button 
-                  class="dropdown-item p-t-5 p-r-5 p-b-0 p-l-5 cursor-pointer"
-                  *ngFor="let item of listCity"
-                  (click)="setiAddress(item)">
-                  <span *ngIf="item.address.city === undefinde">
-                    {{item.address.state}}
-                  </span>
-
-                  <span *ngIf="item.address.city !== undefinde">
-                    {{item.address.city + ' - ' + item.address.country}}
-                  </span>
-                </button>
-              </div>
-              
-              <div
-                class="spinner-border text-success m-t-0 m-l-72 m-b-0p m-r-0p fs-12 w-20 h-20p"
-                role="status"
-                *ngIf="listCity === null">
-                <span class="sr-only">Loading...</span>
-              </div>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-
-  <div class="row w-full h-calc p-t-5 p-r-5 p-l-5" id="style-4" >
-    <div 
-      class="col-lg-2 col-md-4 col-6 min-h-160 max-h-230 p-t-5 p-b-5 p-l-5 p-r-5 pos-relative cursor-pointer btn-show"
-      *ngFor="let item of listUsers; let i = index">
-      <img 
-        src="{{item.otherInformation.publicMedia.profileImage}}" 
-        alt="" 
-        class="sizefull fit-image bo-cir-10 op-3">
-
-      <div class="pos-absolute bottom-10 left-10 shift-css lh-0-8">
-        <span class="text-white-f fw-900 fs-25">
-          {{item.firstName + ' ' + item.lastName}}
-        </span>
-
-        <br>
-
-        <span 
-          class="text-green fs-14"
-          *ngIf="item.otherInformation.adress.city !== undefinde">
-          {{item.otherInformation.adress.city + ' - ' + item.otherInformation.adress.country}}
-        </span>
-
-        <span 
-          class="text-green fs-14"
-          *ngIf="item.otherInformation.adress.city === undefinde">
-          {{item.otherInformation.dateOfBirth | date: 'dd. MMM yyyy.'}}
-        </span>
-      </div>
-      
-      <div class="pos-absolute w-full-cal h-45p bottom-5 bgwhite box-shadow m-l-2 b-t-l-r b-t-r-r btn-show-hover">
-        <button 
-          class="float-l w-50p min-h-full btn btn-outline-success"
-          (click)="addFriend(item, item.request, i)"
-          *ngIf="!item.request">
-          <i class="fa fa-plus" aria-hidden="true" *ngIf="!isLoaderButton"></i>
-          <span class="spinner-border smal" role="status" *ngIf="isLoaderButton"></span>
-        </button>
-
-        <button 
-          class="float-l w-50p min-h-full btn btn-outline-danger"
-          (click)="addFriend(item, item.request, i)"
-          *ngIf="item.request"
-          title="Povuci zahtev">
-          <i class="fa fa-trash" aria-hidden="true" *ngIf="!isLoaderButton"></i>
-          <span class="spinner-border smal" role="status" *ngIf="isLoaderButton"></span>
-        </button>
-
-        <a
-          class="float-l w-50p min-h-full btn btn-outline-info cursor-pointer"
-          [routerLink]="['/f/' + item.username + '/profile']">
-          <i class="fa fa-user-o" aria-hidden="true"></i>
-        </a>
-      </div>
-    </div>
-  </div>
-</div> -->

@@ -20,15 +20,7 @@ router
         var type = req.params.type;
         const testFolder = './publication/' + type;
         var fullUrl = req.protocol + '://' + req.get('host');
-
-        // fs.readdir(testFolder, (err, files) => {
-        //     var listSmile = [];
-        //     files.forEach(file => {
-        //         listSmile.push(fullUrl + '/images/' + type + '/' + file.toString())
-        //     });
-
         return res.status(200).send({message: fullUrl, socket: 'SOCKET_NULL_POINT'})
-        // });
     })
     .get('/:city', function(req, res) {
         var city = req.params.city;
@@ -42,7 +34,6 @@ router
         var data = req.body;
         var io = req.app.get('socket-io');
 
-        console.log(data)
         data.participants.forEach(element => {
             io.emit(data.link.toString() + element,
                 JSON.stringify(data.data)

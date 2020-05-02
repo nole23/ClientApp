@@ -1,0 +1,6 @@
+{
+    "ERROR_UNAUTHORIZED" : {
+        "title": "Email ili sifra nije ispravna. Molimo vas proverite da li ste uneli ispravno podatke.",
+        "info": "Server javlja da nije pronasao korisnika sa datim kredencijalima"
+    }
+}

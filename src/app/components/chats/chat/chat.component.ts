@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef, HostListener } from "@angular/core";
 import { Router, ActivatedRoute } from '@angular/router';
-import * as io from "socket.io-client";
 import { Subject } from 'rxjs';
 import { NotifierService } from 'angular-notifier';
 import { User } from "../../../models/user";
@@ -208,7 +207,7 @@ export class ChatComponent implements OnInit {
       this.activatedRoute.params.subscribe(res =>{
         this.getItem(res['id']);
       });
-    }, 50);
+    }, 10);
   }
 
   getItem(id: any) {
@@ -441,17 +440,19 @@ export class ChatComponent implements OnInit {
   }
 
   loadLastChat(event: any) {
-    let newPosition = event.srcElement.offsetHeight + event.srcElement.scrollTop + 25
-    this.chatService.getAllMessageOneChat(this.chater, this.chater['page']).subscribe(res=> {
-      if (res['message'].length !== 0) {
-        this.chater.page = (res['page'] + 1);
-        res['message'].forEach((element: any) => {
-          this.messages.unshift(element)
-        });
-        this.isLoadNewData = false;
-        this.scrollBottomNumber = newPosition;
-      }
-    })
+    if (this.messages !== null) {
+      let newPosition = event.srcElement.offsetHeight + event.srcElement.scrollTop + 25;
+      this.chatService.getAllMessageOneChat(this.chater, this.chater['page']).subscribe(res=> {
+        if (res['message'].length !== 0) {
+          this.chater.page = (res['page'] + 1);
+          res['message'].forEach((element: any) => {
+            this.messages.unshift(element)
+          });
+          this.isLoadNewData = false;
+          this.scrollBottomNumber = newPosition;
+        }
+      })
+    }
   }
 
   destroy() {

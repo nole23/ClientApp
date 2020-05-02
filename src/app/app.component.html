@@ -1,119 +1,15 @@
-<!--Ovo se desava sve dok se ne provjeri da li smo prijavljeni na sistem-->
 <div *ngIf="loading">
   <div class="vertical-center">
       <div class="spinner-border" role="status"></div>
     </div>
 </div>
 
-<!--Ovde ide prvo ako nije prijavljen login page-->
-<div *ngIf="!loginStatus">
-  <div class="limiter" >
-    <div class="container-login100">
-      <div class="login100-more" [ngStyle]="{'background-image':' url(' + picture + ')'}"></div>
-
-      <div class="wrap-login100 p-l-50 p-r-50 p-t-72 p-b-50">
-        <form class="login100-form validate-form">
-        
-          <span class="login100-form-title p-b-59" i18n="@@createProfile">
-            <i class="m-r-5">
-              <img src="../assets/picture/icons/logo.png" alt="" width="25px" height="25px">
-            </i>
-            {{title}}
-          </span>
-          
-          <span 
-            class="worning"
-            *ngIf="statusError === 'ERROR_PROFILE_NOT_VERIFY'"
-            i18n="@@AppProfilNotVerify">
-            Nalog ne postoji ili je deaktiviran. 
-            Da bi ste ponovo vratili vas nalog posaljite zahtev za aktivaciju naloga
-          </span>
-
-          <span
-            class="error"
-            *ngIf="statusError === 'ERROR_UNAUTHORIZED'"
-            i18n="@@AppUnauthorized">
-            Email ili sifra nisu ispravni. Molimo vas proverite da li ste uneli ispravne podatke
-          </span>
-
-          <span
-            class="worning"
-            *ngIf="statusError === 'ERROR_NULL_POINTER_EXEPTION'"
-            i18n="@@AppNullPointExeption">
-            Niste popunili sva polja
-          </span>
-
-          <span
-            class="success"
-            *ngIf="statusError === 'SUCCESS_CREAT_PROFILE'"
-            i18n="@@AppSuccessCreatNewProfile">
-            Uspesno ste se registrovali,
-            ostao je poslednji korak da verifikujete nalog.
-            Idite na vas email i verifikujte nalog
-          </span>
-
-          <span 
-            class="error"
-            *ngIf="statusError === 'ERROR_SERVER_NOT_FOUND'"
-            i18n="@@AppServerNotFound">
-            Server je nedostupan, pokusajte malo kasnije. Hvala
-          </span>
-
-          <span
-            class="worning"
-            *ngIf="statusError === 'ERROR_EMAIL_NOT_FREE'"
-            i18n="@@AppEmalNotFree">
-            Email je vec registrovan, da li ste sigurni da nemate nalog ovde.
-            Probajte sa drugim email-om ili pokusate da restartujete sifu
-          </span>
-
-          <span
-            class="worning"
-            *ngIf="statusError === 'ERROR_NOT_SAVE_INFORMATION' || statusError === 'ERROR_NOT_SAVE_CONFIGURATION'"
-            i18n="@@AppSpecificationError">
-            Ne specificirana greska, provjerite podatke i pokusajte ponovo
-          </span>
-      
-          
-          <app-login 
-            *ngIf="loginForm && !loading && !restart && !verify"
-            (ngRestartPassword)="ngRestartPassword($event)"
-            (ngClose)="ngOpenClose($event)"
-            (ngLoginStatus)="ngLoginStatus($event)">
-          </app-login>
-
-          <app-registration 
-            *ngIf="!loginForm  && !loading && !restart && !verify"
-            (ngClose)="ngRegistrationClose($event)">
-          </app-registration>
-
-          <app-restart
-            *ngIf="restart && !verify"
-            (ngNotFound)="ngNotFound($event)"
-            (ngClose)="ngHidenClose($event)"
-            (ngStatus)="ngStatus($event)">
-          </app-restart>
-
-          <app-verify
-            *ngIf="verify && !restart"
-            [email]="email"
-            (ngNotCodeCorect)="ngNotCodeCorect($event)"
-            (ngSavePassword)="ngSavePassword($event)"
-            (ngClose)="ngOpenFirstPage($event)"
-            (ngRestartPassword)="ngRestartPassword($event)">
-          </app-verify>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!--Ako je prijavljen ide ovo-->
-<div *ngIf="loginStatus && !loading" class="wrapper">
+<div class="wrapper">
   
-  <app-sidebar (status)="status()"></app-sidebar>
+  <app-sidebar *ngIf="loginStatus && !loading"></app-sidebar>
+  
   <div id="content" class="w-100 float-left">
-    <nav class="navbar navbar-expand-lg bacground mobile-nav-bar">
+    <nav class="navbar navbar-expand-lg bacground mobile-nav-bar" *ngIf="loginStatus && !loading">
         <div class="container-fluid float-left border-b p-b-5">
           <button type="button" (click)="ngOpenSideBar()" class="btn btn-dark">
               <i class="fa fa-bars" aria-hidden="true"></i>
@@ -124,7 +20,6 @@
               [routerLink]="['/' + user.username + '/profile']"
               type="button"  
               class="btn btn-color">
-              <!-- <i class="fa fa-user-plus" aria-hidden="true"></i> -->
               <i class="fa fa-user-circle-o" aria-hidden="true"></i>
             </button>
 
@@ -163,10 +58,10 @@
         </div>
 
     </nav>
+
     <router-outlet>
       <notifier-container></notifier-container>
     </router-outlet>
-    <!-- <router-outlet name="chat"></router-outlet> -->
     
   </div>
 </div>

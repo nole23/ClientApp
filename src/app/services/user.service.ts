@@ -16,14 +16,22 @@ export class UserService {
   restartPassword(user: User) {
     return this.http.put(this.global.getLink() + 'authentation/token-for-restart-passwrod', user)
     .pipe(map(res => {
-      return res;
+      if (this.global.getResponseError(res['message'])) {
+        return {status: true, message: 'SUCCESS_SAVE'}
+      } else {
+        return {status: false, message: res['message']}
+      }
     }))
   }
 
-  checkCode(code: any, email: any) {
+  checkCode(code: any, email: String) {
     return this.http.get(this.global.getLink() + 'authentation/check-code/' + email + '/' + code)
     .pipe(map(res => {
-      return res;
+      if (this.global.getResponseError(res['message'])) {
+        return {status: true, message: 'SUCCESS_SAVE'}
+      } else {
+        return {status: false, message: res['message']}
+      }
     }))
   }
 

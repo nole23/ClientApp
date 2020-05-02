@@ -2263,7 +2263,9 @@
 .text-black {color: black;}
 .text-green {color: #00c928}
 .text-white-f {color: #fff;}
-.text-green-b {color: #005f13}
+.text-green-b {color: #005f13;}
+.text-orange {color: orange;}
+.text-red {color: red;}
 
 /* ------------------------------------ */
 .text-up {text-transform: uppercase;}

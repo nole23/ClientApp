@@ -1,7 +1,7 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 import { User } from '../../../models/user';
 import { UserInformation } from '../../../models/user-information';
-import { UserService } from '../../../services/user.service';
 import { LoginService } from '../../../services/login.service';
 
 @Component({
@@ -9,8 +9,7 @@ import { LoginService } from '../../../services/login.service';
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.css']
 })
-export class RegistrationComponent implements OnInit {
-  @Output() ngClose = new EventEmitter<any>();
+export class RegistrationComponent implements OnInit, OnDestroy {
 
   user: User;
   userInformation: UserInformation;
@@ -24,12 +23,18 @@ export class RegistrationComponent implements OnInit {
   isSpiner: Boolean;
   userLang: String;
   iPInfo: any;
-  constructor(private userService: UserService, private loginService: LoginService) {
+  picture: String;
+  errorMessage: String;
+  constructor(
+    private loginService: LoginService,
+    private router: Router
+  ) {
     this.user = new User();
     this.userInformation = new UserInformation();
     this.worningRegistrationStatus = false;
     this.isSpiner = false;
     this.userLang = navigator.language;
+    this.picture = "../../../../assets/picture/bg-01.jpg";
   }
 
   ngOnInit() {
@@ -40,10 +45,6 @@ export class RegistrationComponent implements OnInit {
     this.loginService.getIPInfo().subscribe(res => {
       this.iPInfo = res;
     })
-  }
-
-  ngLogin() {
-    this.ngClose.emit({status: true, message: 'LOGIN'});
   }
 
   validation() {
@@ -68,23 +69,36 @@ export class RegistrationComponent implements OnInit {
 
   ngNewRegistration() {
     this.isSpiner = true;
+    this.errorMessage = null;
     if (this.validation()) {
-      this.loginService.registration(this.user, this.userInformation, this.userLang, this.iPInfo)
-      .subscribe(res => {
+      this.loginService.registration(this.user, this.userInformation, this.userLang, this.iPInfo).subscribe(res => {
         if (res['message'] === 'SUCCESS') {
-          this.userInformation = new UserInformation();
-          this.user = new User();
-          this.isSpiner = false;
-          this.ngClose.emit({status: true, message: 'SUCCESS_CREAT_PROFILE'});
+          this.router.navigate(['/']);
         } else {
-          this.isSpiner = false;
-          this.ngClose.emit({status: false, message: res['message']});
+          this.errorMessage = '<span i18n="' +  res['message'] + '"';
+          if (res['message'] === 'ERROR_NULL_POINTER_EXEPTION') {
+            this.errorMessage += ' class="text-orange">' +
+                                  'Nisu svi podaci popunjeni, proverite podatke' +
+                                  '</span>'
+          } else if (res['message'] === 'ERROR_NOT_SAVE_CONFIGURATION' || res['message'] === 'ERROR_NOT_SAVE_INFORMATION') {
+            this.errorMessage += ' class="text-orange">' +
+                                  'Neke od informacija nisu se uspesno sacuvale, probajte ponovo kreirati nalog' +
+                                  '</span>'
+          } else if (res['message'] === 'ERROR_EMAIL_NOT_FREE') {
+            this.errorMessage += ' class="text-red">' +
+                                  'Email je zauzet, ako se ne secate sifre restartujte sifru' +
+                                  '</span>'
+          }
         }
-      }, err => {
-        this.ngClose.emit({status: false, message: 'ERROR_SERVER_NOT_FOUND'});
         this.isSpiner = false;
-      });
+      })
     }
   }
 
+  ngOnDestroy() {
+    this.user = new User();
+    this.userInformation = new UserInformation();
+    this.worningRegistrationStatus = false;
+    this.worningRegistrationStatus = false;
+  }
 }

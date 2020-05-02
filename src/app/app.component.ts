@@ -1,7 +1,5 @@
 import { Component, OnInit, Inject, LOCALE_ID, ViewChild } from "@angular/core";
 import { AuthNav } from "./guard/auth-nav";
-import * as io from "socket.io-client";
-import { NotifierService } from 'angular-notifier';
 import { SidebarComponent } from "./components/sidebar/sidebar.component";
 import { Global } from "./global/global";
 import { SocketService } from './services/socket.service';
@@ -14,10 +12,6 @@ import { ClientService } from './services/client.service';
 })
 export class AppComponent implements OnInit {
   @ViewChild(SidebarComponent) child;
-  private readonly notifier: NotifierService;
-
-  private socket: any;
-  private socketLogin: any;
 
   user: any;
   title: String;
@@ -46,11 +40,9 @@ export class AppComponent implements OnInit {
     private auth: AuthNav,
     @Inject(LOCALE_ID) public locale: string,
     private global: Global,
-    notifier: NotifierService,
     private socketService: SocketService,
     private clientService: ClientService
   ) {
-    this.notifier = notifier;
     this.loading = true;
     this.loginStatus = false;
     this.loginForm = true;
@@ -78,21 +70,23 @@ export class AppComponent implements OnInit {
     this.global.sidebarComponentRemove$.subscribe(res => {
       this.removeNotification(res);
     });
+    this.global.appComponentLogin$.subscribe(res => {
+      this.ngOnInit(true);
+    });
+    this.global.appComponentLogout$.subscribe(res => {
+      this.status();
+    })
   }
 
   ngOnInit(status: Boolean = false) {
-    if (navigator.userAgent.match(this.toMatch)) {
-      this.global.setDevice(true)
-    } else {
-      this.global.setDevice(false)
-    }
+    this.socketService.setSocket();
+    this.status();
+
     this.clientService.openSmile().subscribe(res => {
       this.global.setLinkClient(res['message']);
-    })
-    
-    this.socketService.setSocket();
+    });
+
     if (!status) {
-      this.status();
       if (this.user !== null) {
         this.socketService.emitStatusOnline();
         this.socketService.setSocketLink();
@@ -104,6 +98,23 @@ export class AppComponent implements OnInit {
       this.socketService.setSocketLink();
 
       this.setNotification(JSON.parse(localStorage.getItem('notification')));
+    }
+  }
+
+  
+
+  status() {
+    if (this.auth.canActivate()) {
+      this.loginForm = false;
+      this.loginStatus = true;
+      this.loading = false;
+      this.restart = false;
+    } else {
+      this.loginForm = true;
+      this.loginStatus = false;
+      this.loading = false;
+      this.restart = false;
+      this.verify = false;
     }
   }
 
@@ -135,123 +146,6 @@ export class AppComponent implements OnInit {
 
   removeNotification(status: Boolean) {
     this.setNotification(JSON.parse(localStorage.getItem('notification')));
-  }
-
-  onEmitListUserChat(event: any) {
-    // console.log(event)
-  }
-
-  status() {
-    if (this.auth.canActivate()) {
-      this.loginForm = false;
-      this.loginStatus = true;
-      this.loading = false;
-      this.restart = false;
-    } else {
-      this.loginForm = true;
-      this.loginStatus = false;
-      this.loading = false;
-      this.restart = false;
-      this.verify = false;
-    }
-  }
-
-  ngStatus(event: any) {
-    this.verify = event["status"];
-    this.restart = !event["status"];
-    this.email = event["email"];
-    this.emailNotFound = false;
-  }
-
-  /**
-   *
-   * @param event
-   */
-  ngOpenClose(event: any) {
-    this.loginForm = event;
-    this.title = "Registrujte nalog";
-  }
-
-  /**
-   *
-   * @param event
-   */
-  ngHidenClose(event: any) {
-    this.loginForm = event;
-    this.restart = false;
-    this.title = "Ulogujte se";
-  }
-
-  ngRegistrationClose(event: any) {
-    if (event['message'] === 'LOGIN') {
-      this.ngHidenClose(true);
-    } else {
-      this.statusError = event['message']
-    }
-  }
-
-  ngEmailNotCorect(event: any) {
-    this.worningRegistrationStatus = event;
-  }
-
-  /**
-   *
-   * @param event
-   */
-  ngLoginStatus(event: any) {
-    if (!event.status) {
-      this.statusError = event.message;
-    } else {
-      this.loginStatus = event.status;
-      this.loading = !event.status;
-      this.ngOnInit(true)
-    }
-  }
-
-  ngSavePassword(event: any) {
-    this.passwordRestart = event;
-    this.status();
-  }
-
-  /**
-   *
-   * @param event
-   */
-  ngEerrorStatus(event: any) {
-    this.errorStatus = event;
-  }
-
-  /**
-   *
-   * @param event
-   */
-  ngStatusProfile(event: any) {
-    this.worningStatus = event;
-  }
-
-  ngNotActivete(event: any) {
-    this.worningStatus = event;
-  }
-
-  ngRestartPassword(event: any) {
-    this.restart = event;
-    this.title = "Restartujte sifru";
-  }
-
-  ngNotFound(event: any) {
-    this.emailNotFound = event;
-  }
-
-  ngOpenFirstPage(event: any) {
-    this.loginForm = true;
-    this.loading = false;
-    this.restart = false;
-    this.verify = false;
-    this.title = "Ulogujte se";
-  }
-
-  ngNotCodeCorect(event: any) {
-    this.codeNotValidate = event;
   }
 
   ngOpenSideBar() {

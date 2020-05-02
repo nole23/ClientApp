@@ -29,26 +29,26 @@
 
     <ul class="list-unstyled components">
 
-        <li [ngClass]="{'active': onStatus.isChat}" (click)="activeRouter()">
+        <li [ngClass]="{'active': onStatus.isChat}">
             <a class="pos-relative" [routerLink]="['/chat/list-user']" routerLinkActive="on">
                 <i class="fa fa-weixin" aria-hidden="true"></i>
                 <span class="pos-absolute style-notification" *ngIf="isChat"></span>
                 <span class="activ-text-width" i18n="@@ahrefChating">Chatovanje</span>
             </a>
         </li>
-        <li [ngClass]="{'active': onStatus.isProfile}" (click)="activeRouter()">
+        <li [ngClass]="{'active': onStatus.isProfile}">
             <a [routerLink]="['/' + user.username + '/profile']" >
                 <i class="fa fa-user-circle-o" aria-hidden="true"></i>
                 <span class="activ-text-width" i18n="@@ahrefProfil"> Profil </span>
             </a>
         </li>
-        <li [ngClass]="{'active': onStatus.isSearch}" (click)="activeRouter()">
+        <li [ngClass]="{'active': onStatus.isSearch}">
             <a [routerLink]="['/search']" >
                 <i class="fa fa-podcast" aria-hidden="true"></i>
                 <span class="activ-text-width" i18n="@@ahrefSearch"> Pretraga </span>
             </a>
         </li>
-        <li [ngClass]="{'active': onStatus.isNotification}" (click)="activeRouter()">
+        <li [ngClass]="{'active': onStatus.isNotification}">
             <a class="pos-relative" [routerLink]="['/notification']" >
                 <i class="fa fa-bell" aria-hidden="true"></i>
                 <span class="pos-absolute style-notification" *ngIf="isNotification"></span>

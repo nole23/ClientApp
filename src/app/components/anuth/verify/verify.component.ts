@@ -1,5 +1,7 @@
-import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { UserService } from '../../../services/user.service';
+import { Global } from '../../../global/global';
 
 @Component({
   selector: 'app-verify',
@@ -7,11 +9,6 @@ import { UserService } from '../../../services/user.service';
   styleUrls: ['./verify.component.css']
 })
 export class VerifyComponent implements OnInit {
-  @Output() ngRestartPassword = new EventEmitter<Boolean>();
-  @Output() ngClose = new EventEmitter<Boolean>();
-  @Output() ngNotCodeCorect = new EventEmitter<Boolean>();
-  @Output() ngSavePassword = new EventEmitter<Boolean>();
-  @Input() email: String;
 
   code: String;
   isNewEmail: Boolean;
@@ -20,38 +17,53 @@ export class VerifyComponent implements OnInit {
   validatePassword: String;
   isSpinerSend: Boolean;
   isSpinerUpdate: Boolean;
-  constructor(private userService: UserService) {
+  picture: String;
+  email: String;
+  errorMessage: String;
+  constructor(
+    private userService: UserService,
+    private router: Router,
+    private global: Global
+  ) {
     this.isNewEmail = false;
     this.validatePassword = '';
     this.isSpinerSend = false;
     this.isSpinerUpdate = false;
+    this.picture = "../../../../assets/picture/bg-01.jpg";
+    this.email = JSON.parse(localStorage.getItem('restartEmail'));
+    this.errorMessage = null;
   }
 
   ngOnInit() {
   }
 
-  ngOpenRestartPassword() {
-    this.ngRestartPassword.emit(true);
-  }
-
   ngSendCode() {
     this.isSpinerSend = true;
+    this.errorMessage = null;
     this.userService.checkCode(this.code, this.email).subscribe(res => {
-      this.isNewEmail = true;
-      this.isSpinerSend = false;
-    }, err =>{
-      if (err['status'] === 403) {
-        this.ngNotCodeCorect.emit(true);
-      } else if (err['status'] === 404) {
-        // TODO 
+
+      if (res['message'] === 'SUCCESS_SAVE') {
+        this.isNewEmail = true;
+        this.isSpinerSend = false;
+      } else {
+        this.errorMessage = '<span i18n="' +  res['message'] + '"';
+        if (res['message'] === 'ERROR_NOT_FIND_USER') {
+          this.errorMessage += ' class="text-red">' +
+          'Email nije pronadjen. Moracete ponovo da posaljete zahtev za kod' +
+          '</span>'
+        } else if (res['message'] === 'ERROR_VERIFICATION_CODE_IS_ERROR') {
+          this.errorMessage += ' class="text-orange">' +
+          'Kod nije tacan, posaljite novi zahtev za kod' +
+          '</span>'
+        } else if (res['message'] === 'ERROR_SERVER_NOT_FOUND') {
+          this.errorMessage += ' class="fs-14">' +
+          'Server nije dostupan probajte malo kasnije. Hvala vas TwoWay' +
+          '</span>'
+        }
       }
-      this.isSpinerSend = false;
     })
   }
 
-  ngLogin() {
-    this.ngClose.emit(true);
-  }
 
   ngUpdatePassword() {
     this.isSpinerUpdate = true;
@@ -60,10 +72,25 @@ export class VerifyComponent implements OnInit {
       this.isSpinerUpdate = false;
     } else {
       this.userService.newPassword(this.password, this.email, this.code).subscribe(res =>{
-        this.ngSavePassword.emit(true);
-      }, err =>{
-        // TODOO
-        this.isSpinerUpdate = false;
+        if (res['message'] === 'SUCCESS_SAVE') {
+          this.global.removeRestartEmail();
+          this.router.navigate(['/']);
+        } else {
+          this.errorMessage = '<span i18n="' +  res['message'] + '"';
+          if (res['message'] === 'ERROR_NOT_FIND_USER') {
+            this.errorMessage += ' class="text-red">' +
+            'Email nije pronadjen. Moracete ponovo da posaljete zahtev za kod' +
+            '</span>'
+          } else if (res['message'] === 'ERROR_VERIFICATION_CODE_IS_ERROR') {
+            this.errorMessage += ' class="text-orange">' +
+            'Kod nije tacan, posaljite novi zahtev za kod' +
+            '</span>'
+          } else if (res['message'] === 'ERROR_SERVER_NOT_FOUND') {
+            this.errorMessage += ' class="fs-14">' +
+            'Server nije dostupan probajte malo kasnije. Hvala vas TwoWay' +
+            '</span>'
+          }
+        }
       })
     }
   }

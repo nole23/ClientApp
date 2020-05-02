@@ -1,5 +1,5 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { LoginService } from '../../services/login.service';
 import { User } from '../../models/user';
@@ -11,7 +11,6 @@ import { Global } from '../../global/global';
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent implements OnInit {
-  @Output() status = new EventEmitter<Boolean>();
 
   addCals: String;
   user: User;
@@ -22,7 +21,6 @@ export class SidebarComponent implements OnInit {
   isNotification: Boolean;
   isChat: Boolean;
   constructor(
-    private router: Router,
     private loginService: LoginService,
     private location: Location,
     private global: Global
@@ -38,7 +36,7 @@ export class SidebarComponent implements OnInit {
       isSettings: false
     };
     this.global.sidebarComponent$.subscribe(res => {
-      this.getStatusLink();
+      this.activeRouter();
     });
     this.global.sidebarComponentRemove$.subscribe(res => {
       this.removeNotification(res);
@@ -135,6 +133,9 @@ export class SidebarComponent implements OnInit {
     }
   }
 
+  /**
+   * Privatna funkcija koju poziva app.component.ts
+   */
   ngOpenSideBar() {
     if (this.addCals === '') {
       this.addCals = 'showSidebar';
@@ -145,10 +146,11 @@ export class SidebarComponent implements OnInit {
 
   ngLogout() {
     this.loginService.logout();
-    this.status.emit();
   }
 
   activeRouter() {
-    this.getStatusLink();
+    setTimeout(() => {
+      this.getStatusLink();
+    }, 1)
   }
 }

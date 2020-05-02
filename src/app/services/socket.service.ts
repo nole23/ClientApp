@@ -17,10 +17,13 @@ export class SocketService {
     private http: HttpClient, 
     private global: Global
   ) {
+    this.socket = null;
   }
 
   setSocket() {
-    this.socket = io(this.global.getLinkClient());
+    if (this.socket === null) {
+      this.socket = io(this.global.getLinkClient());
+    }
   }
 
   emitStatusOnline() {
