@@ -30,7 +30,7 @@
     <ul class="list-unstyled components">
 
         <li [ngClass]="{'active': onStatus.isChat}">
-            <a class="pos-relative" [routerLink]="['/chat/list-user']" routerLinkActive="on">
+            <a class="pos-relative" [routerLink]="['/chat/list-user']">
                 <i class="fa fa-weixin" aria-hidden="true"></i>
                 <span class="pos-absolute style-notification" *ngIf="isChat"></span>
                 <span class="activ-text-width" i18n="@@ahrefChating">Chatovanje</span>

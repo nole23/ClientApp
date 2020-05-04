@@ -69,7 +69,7 @@ export class GeolocationService {
     return navigator.geolocation.getCurrentPosition(res => {
 
       let oldGeolocation = that.geolocation();
-      if (oldGeolocation.cordinates.latitude.toFixed(3) === res.coords.latitude.toFixed(3)) {
+      if (oldGeolocation.cordinates.latitude.toString() === res.coords.latitude.toString()) {
           const source = timer(36000000, 2000);
           that.abc = source.subscribe(val => {
               that.startAutomationChangeLocation();

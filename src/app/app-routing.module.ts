@@ -16,12 +16,14 @@ import { RegistrationComponent } from './components/anuth/registration/registrat
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { RestartComponent } from './components/anuth/restart/restart.component';
 import { VerifyComponent } from './components/anuth/verify/verify.component';
+import { MailVerifyComponent } from './components/anuth/mail-verify/mail-verify.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent, canActivate: [NotLoginGuard] },
   { path: 'sing-up', component: RegistrationComponent, canActivate: [NotLoginGuard] },
   { path: 'restart-password', component: RestartComponent, canActivate: [NotLoginGuard] },
   { path: 'verify-code', component: VerifyComponent, canActivate: [NotLoginGuard] },
+  { path: 'verify/:username/:code', component: MailVerifyComponent, canActivate: [NotLoginGuard] },
   { path: 'chat/:id', component: ChatComponent, canActivate: [AuthGuard] },
   { path: ':username/:status', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'search', component: SearchComponent, canActivate: [AuthGuard] },

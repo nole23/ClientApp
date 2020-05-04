@@ -24,10 +24,10 @@ export class AddPictureComponent implements OnInit {
   ) {
     this.urls = null;
     this.text = null;
+    this.me = new User(JSON.parse(localStorage.getItem('user')));
   }
 
   ngOnInit() {
-    this.me = new User(JSON.parse(localStorage.getItem('user')));
   }
 
   closeModal(message: any = null) {

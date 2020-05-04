@@ -48,6 +48,7 @@ import { ListNotificationComponent } from './components/plagin/list-notification
 import { ListNotificationVisitorComponent } from './components/plagin/list-notification-visitor/list-notification-visitor.component';
 import { ChatMobileComponent } from './components/chats/chat-mobile/chat-mobile.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { MailVerifyComponent } from './components/anuth/mail-verify/mail-verify.component';
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -123,7 +124,8 @@ const customNotifierOptions: NotifierOptions = {
     ListNotificationComponent,
     ListNotificationVisitorComponent,
     ChatMobileComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    MailVerifyComponent
   ],
   imports: [
     NotifierModule.withConfig(customNotifierOptions),

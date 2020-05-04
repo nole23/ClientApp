@@ -42,7 +42,9 @@ export class SidebarComponent implements OnInit {
       this.removeNotification(res);
     });
     this.global.testComponent$.subscribe(res => {
-      this.serviceCall()
+      setTimeout(() => {
+        this.serviceCall()
+      }, 10)
     })
     this.state = null;
     this.isNotification = true;

@@ -64,6 +64,17 @@ export class LoginService {
     return this.http.get<IPInfo>("https://ipapi.co/json/")
   }
 
+  verifyCode(data: any) {
+    return this.http.put(this.global.getLink() + 'authentation/verify/' + data['username'] + '/' + data['code'], {})
+      .pipe(map(res => {
+        if (this.global.getResponseError(res['message'])) {
+          return true;
+        } else {
+          return false;
+        }
+      }))
+  }
+
   
   logout() {
     localStorage.removeItem('token');
