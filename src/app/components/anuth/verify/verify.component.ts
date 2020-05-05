@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NotifierService } from 'angular-notifier';
 import { UserService } from '../../../services/user.service';
 import { Global } from '../../../global/global';
 
@@ -9,6 +10,7 @@ import { Global } from '../../../global/global';
   styleUrls: ['./verify.component.css']
 })
 export class VerifyComponent implements OnInit {
+  private readonly notifier: NotifierService;
 
   code: String;
   isNewEmail: Boolean;
@@ -21,10 +23,12 @@ export class VerifyComponent implements OnInit {
   email: String;
   errorMessage: String;
   constructor(
+    notifier: NotifierService,
     private userService: UserService,
     private router: Router,
     private global: Global
   ) {
+    this.notifier = notifier;
     this.isNewEmail = false;
     this.validatePassword = '';
     this.isSpinerSend = false;
@@ -74,6 +78,7 @@ export class VerifyComponent implements OnInit {
       this.userService.newPassword(this.password, this.email, this.code).subscribe(res =>{
         if (res['message'] === 'SUCCESS_SAVE') {
           this.global.removeRestartEmail();
+          this.notifier.notify('success', 'Uspesno ste promenili sifru, sada se mozete ulogovati sa novom sifrom')
           this.router.navigate(['/']);
         } else {
           this.errorMessage = '<span i18n="' +  res['message'] + '"';

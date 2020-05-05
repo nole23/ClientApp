@@ -36,6 +36,8 @@ for (route of routes) {
             onError: (err, req, res) =>{
                 res.writeHead(500, {
                   'Content-Type': 'application/json',
+                  'Content-Type': 'multipart/form-data',
+                  'Content-Type': 'application/x-www-form-urlencoding'
                 });
                 res.end('Something went wrong. And we are reporting a custom error message.' + err);
             },

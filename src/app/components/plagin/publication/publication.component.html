@@ -189,7 +189,15 @@
 
     <div 
       class="w-full text-white-f p-l-10 p-t-10 p-r-10 p-b-10 lh-1-0"
-      *ngIf="(item.type === 'imagePublic' || item.type === 'again') && item.text !== null">
+      *ngIf="item.type === 'imagePublic' && (item.text !== 'null' && item.text !== null)">
+      <span class="fs-14">
+        {{item.text}}
+      </span>
+    </div>
+
+    <div 
+      class="w-full text-white-f p-l-10 p-t-10 p-r-10 p-b-10 lh-1-0"
+      *ngIf="item.type === 'again' && (item.text !== 'null' && item.text !== null)">
       <span class="fs-14">
         {{item.text}}
       </span>

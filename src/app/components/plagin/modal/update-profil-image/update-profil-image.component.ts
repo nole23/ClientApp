@@ -2,6 +2,8 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { User } from '../../../../models/user';
 import { UserService } from '../../../../services/user.service';
+import { MediaService } from '../../../../services/media.service';
+import { Global } from '../../../../global/global'
 
 @Component({
   selector: 'app-update-profil-image',
@@ -17,7 +19,9 @@ export class UpdateProfilImageComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<UpdateProfilImageComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private userService: UserService
+    private userService: UserService,
+    private mediaService: MediaService,
+    private global: Global
   ) {
     this.urls = null;
   }
@@ -55,7 +59,8 @@ export class UpdateProfilImageComponent implements OnInit {
     let name = this.me.username + '.' + this.me._id + '.' + datetimestamp;
     this.fd.append('file', this.selectedFilesHeaderImage, name.toString());
 
-    this.userService.saveImageProfile(this.fd, name.toString()).subscribe(res => {
+    this.mediaService.saveImageProfile(this.fd, name.toString()).subscribe(res => {
+      this.global.setProfileImage(name);
       this.ngRestore();
       this.closeModal({status: true});
     })

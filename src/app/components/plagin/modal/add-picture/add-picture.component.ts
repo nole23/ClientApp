@@ -65,9 +65,9 @@ export class AddPictureComponent implements OnInit {
 
     this.mediaService.addPicture(this.fd, name.toString(), addPictureConstruct).subscribe(res => {
       this.ngRestore();
-      this.closeModal('success');
+      this.closeModal(res);
     }, err => {
-      this.closeModal('error')
+      this.closeModal('ERROR_NOT_SAVE')
     })
   }
 

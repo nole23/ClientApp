@@ -80,11 +80,17 @@ export class Global {
         // this.linkLocalhostStatus = 'https://twoway1.herokuapp.com/status/api/';
         // this.linkWebhost = '';
         
-        this.linkLocalhostChat = '/chats/api/'
-        this.linkLocalhost = '/users/api/';
-        this.linkLocalhostMedia = '/media/api/';
-        this.linkLocalhostStatus = '/status/api/';
-        this.linkWebhost = '';
+        // this.linkLocalhostChat = '/chats/api/'
+        // this.linkLocalhost = '/users/api/';
+        // this.linkLocalhostMedia = '/media/api/';
+        // this.linkLocalhostStatus = '/status/api/';
+        // this.linkWebhost = '';
+
+        this.linkLocalhostChat = 'http://localhost:8085/chats/api/'
+        this.linkLocalhost = 'http://localhost:8085/users/api/';
+        this.linkLocalhostMedia = 'http://localhost:8085/media/api/';
+        this.linkLocalhostStatus = 'http://localhost:8085/status/api/';
+        this.linkWebhost = 'http://localhost:8085';
 
         this.panleOptions = {
             GeneralData: {
@@ -167,15 +173,13 @@ export class Global {
 
         if (object['email']) newJson.email = object['email'];
         if (object['username']) newJson.username = object['username'];
-        if (object['about']) newJson.about = object['about'];
-        if (object['city']) newJson.address.city = object['city'];
-        if (object['country']) newJson.address.country = object['country'];
-        if (object['region']) newJson.address.region = object['region'];
-        if (object['name']) newJson.jobs.name = object['name'];
-        if (object['nameCompany']) newJson.jobs.nameCompany = object['nameCompany'];
-        if (object['places']) newJson.jobs.places = object['places'];
-        if (object['coverPhoto']) newJson.publicMedia.coverPhoto = object['coverPhoto'];
-        if (object['profileImage']) newJson.publicMedia.profileImage = object['profileImage'];
+        if (object['about']) newJson.otherInformation.about = object['about'];
+        if (object['address']) newJson.otherInformation.address = object['address'];
+        if (object['name']) newJson.otherInformation.jobs.name = object['name'];
+        if (object['nameCompany']) newJson.otherInformation.jobs.nameCompany = object['nameCompany'];
+        if (object['places']) newJson.otherInformation.jobs.places = object['places'];
+        if (object['coverPhoto']) newJson.otherInformation.publicMedia.coverPhoto = object['coverPhoto'];
+        if (object['profileImage']) newJson.otherInformation.publicMedia.profileImage = object['profileImage'];
         if (object['firstName']) newJson.firstName = object['firstName'];
         if (object['lastName']) newJson.lastName = object['lastName'];
         if (object['dateOfBirth']) newJson['otherInformation'].dateOfBirth = object['dateOfBirth'];
@@ -574,5 +578,9 @@ export class Global {
 
     removeRestartEmail() {
         localStorage.removeItem('restartEmail')
+    }
+
+    setProfileImage(name: String) {
+        let data = name.split('.');
     }
 }

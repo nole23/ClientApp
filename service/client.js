@@ -42,4 +42,7 @@ router
 
         return res.status(200).send({message: 'success request'})
     })
+    .post('/profile-picture/:name/:text', function(req, res) {
+        console.log('dosao')
+    })
 module.exports = router;

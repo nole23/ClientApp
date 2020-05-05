@@ -31,10 +31,16 @@ export class MediaService {
         return res;
       }))
   }
-
+// twoway-mediaservice.herokuapp.com
   addPicture(formData: any, name: String, data: any) {
+    return this.http.post('http://twoway-mediaservice.herokuapp.com/api/media/profile-picture/' + name + '/' + data.text, formData)
+      .pipe(map(res => {
+        return res;
+      }))
+  }
 
-    return this.http.post(this.global.getMediaLink() + 'media/profile-picture/' + name + '/' + data.text, formData)
+  saveImageProfile(formData: any, name: any) {
+    return this.http.post('http://twoway-mediaservice.herokuapp.com/api/media/' + name, formData)
       .pipe(map(res => {
         return res;
       }))

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NotifierService } from 'angular-notifier';
 import { User } from '../../../models/user';
 import { UserService } from '../../../services/user.service';
 import { Global } from '../../../global/global';
@@ -10,12 +11,14 @@ import { Global } from '../../../global/global';
   styleUrls: ['./restart.component.css']
 })
 export class RestartComponent implements OnInit {
+  private readonly notifier: NotifierService;
 
   user: User;
   isSpiner: Boolean;
   picture: String;
   errorMessage: String;
   constructor(
+    notifier: NotifierService,
     private userService: UserService, 
     private router: Router,
     private global: Global
@@ -35,6 +38,7 @@ export class RestartComponent implements OnInit {
     this.userService.restartPassword(this.user).subscribe(res => {
       if (res['status']) {
         this.global.setRestartEmail(this.user.email);
+        
         this.router.navigate(['verify-code'])
       } else {
         this.errorMessage = '<span i18n="' +  res['message'] + '"';

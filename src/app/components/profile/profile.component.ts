@@ -173,14 +173,13 @@ export class ProfileComponent implements OnInit, OnDestroy {
     } else if (type === 'addPicture') {
       const modalDialogAddPicture = this.matDialog.open(AddPictureComponent, dialogConfig);
       modalDialogAddPicture.afterClosed().subscribe(result =>{
-        if (result === 'success') {
-          this.notifier.notify('success', 'Uspesno ste dodali objavu')
-        } else if (result === 'error') {
+        
+        if (result === 'ERROR_NOT_SAVE') {
           this.notifier.notify('error', 'Objava nije dodata')
-        } else if (result !== null) {
-          this.notifier.notify('info', 'Pokusajte malo kasnije')
         } else {
-          
+          let data = JSON.parse(result['message']).message;
+          this.publication.unshift(data);
+          this.notifier.notify('success', 'Uspesno ste dodali objavu')
         }
       })
     } else if (type === 'addComent') {
@@ -195,6 +194,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   onEmitPublic(event: any) {
     if (event['type'] === 'public') {
+      this.publication.unshift(event['public'])
     } else if (event['type'] === 'delete') {
       let index = this.publication.findIndex(x => x._id === event['public']['_id'].toString());
       this.publication.splice(index, 1)

@@ -27,6 +27,7 @@
               type="text" 
               name="name" 
               [(ngModel)]="user.firstName" 
+              (input)="verifyName(true, 'firstName')"
               i18n-pleacholder="@@AppPlcFirstName" 
               placeholder="Ime...">
 
@@ -44,6 +45,7 @@
               type="text" 
               name="name" 
               [(ngModel)]="user.lastName" 
+              (input)="verifyName(true, 'lastName')"
               i18-pleacholder="@@AppPlcLastName" 
               placeholder="Prezime...">
 
@@ -61,6 +63,7 @@
               type="email"
               name="email"
               [(ngModel)]="user.email"
+              (input)="verifyName(true, 'email')"
               i18n-pleacholder="@@AppPlcEmail"
               placeholder="Email ...">
 
@@ -70,24 +73,15 @@
           <div 
             class="wrap-input100 validate-input"
             [ngClass]="validateFPass" 
-            data-validate = "Sifra je obavezna">
+            data-validate = "Sifra je obavezna. Mora imati vise od 6 karaktera">
             <span class="label-input100" i18n="@@AppPassword">Sifra</span>
 
-            <input class="input100" type="text" name="pass" placeholder="*************">
-
-            <span class="focus-input100"></span>
-          </div>
-
-          <div 
-            class="wrap-input100 validate-input"
-            data-validate = "Sifra je obavezna">
-            <span class="label-input100" i18n="@@AppAgainPassword">Ponovite Sifru</span>
-
             <input 
-              class="input100"
-              type="text"
-              name="repeat-pass"
-              [(ngModel)]="user.password"
+              class="input100" 
+              type="password"
+              name="frstPassword"
+              [(ngModel)]="frstPassword"
+              (input)="cleerVerification()"
               placeholder="*************">
 
             <span class="focus-input100"></span>
@@ -95,17 +89,55 @@
 
           <div 
             class="wrap-input100 validate-input"
+            [ngClass]="validateLPass" 
+            data-validate = "Sidre se ne poklapapaju">
+            <span class="label-input100" i18n="@@AppAgainPassword">Ponovite Sifru</span>
+
+            <input 
+              class="input100"
+              type="password"
+              name="lastPassword"
+              [(ngModel)]="lastPassword"
+              (input)="verificationPassword(true)"
+              placeholder="*************">
+
+            <span class="focus-input100"></span>
+          </div>
+
+          <div 
+            class="wrap-input100 validate-input h-50p"
+            [ngClass]="validateDate" 
             data-validate = "Datum rodjenja je obavezan">
             <span class="label-input100" i18n="@@AppDateOfBirth">Datum rodjenja</span><br>
 
-            <input 
-              class="form-control"
-              id="date"
-              name="date"
-              [(ngModel)]="userInformation.dateOfBirth"
-              i18n-pleacholder="@@AppPlcDateOfBirth"
-              placeholder="MM/DD/YYYY"
-              type="date"/>
+            <select 
+              name="moun" 
+              class="form-control float-l select-setting w-40p h-100pc" 
+              [(ngModel)]="moun"
+              style="padding: 0; height: 30px;"
+              (ngModelChange)="verifyMoun($event)">
+              <option value="meseci" [selected]="moun === 'meseci'">meseci</option>
+              <option *ngFor="let i of mount" value="{{i.i}}">{{i.item}}</option>
+            </select>
+
+            <select
+              name="day"  
+              class="form-control float-l select-setting w-25p h-100pc" 
+              [(ngModel)]="day"
+              style="padding: 0; height: 30px;">
+              <option value="dan" [selected]="moun === 'dan'">dan</option>
+              <option *ngFor="let i of data" value="{{i}}">{{i}}</option>
+            </select>
+
+            <select 
+              name="years"
+              class="form-control float-l w-35p h-100pc" 
+              [(ngModel)]="years"
+              (ngModelChange)="verifyYears()"
+              style="padding: 0; height: 30px;">
+              <option value="godina" [selected]="moun === 'godina'">godina</option>
+              <option *ngFor="let i of year" value="{{i}}">{{i}}</option>
+            </select>
           </div>
 
           <div 

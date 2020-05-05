@@ -149,13 +149,6 @@ export class UserService {
       }))
   }
 
-  saveImageProfile(formData: any, name: any) {
-    return this.http.post(this.global.getMediaLink() + 'media/' + name, formData)
-      .pipe(map(res => {
-        return res;
-      }))
-  }
-
   updateImageProfile(link: any) {
     return this.http.put(this.global.getLink() + 'media/', {link: link})
       .pipe(map(res => {

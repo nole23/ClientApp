@@ -440,7 +440,7 @@ iframe {
   border: 1px solid #c80000;
   border-radius: 2px;
   padding: 4px 30px 4px 10px;
-  bottom: calc((100% - 25px) / 2);
+  bottom: calc((100% - 25px) / 1);
   -webkit-transform: translateY(50%);
   -moz-transform: translateY(50%);
   -ms-transform: translateY(50%);
@@ -471,7 +471,7 @@ iframe {
   position: absolute;
   color: #c80000;
   font-size: 18px;
-  bottom: calc((100% - 25px) / 2);
+  bottom: calc((100% - 25px) / 1);
   -webkit-transform: translateY(50%);
   -moz-transform: translateY(50%);
   -ms-transform: translateY(50%);
@@ -493,25 +493,19 @@ iframe {
 }
 
 .true-validate::after {
-  content: "\f26b";
-  font-family: Material-Design-Iconic-Font;
-  font-size: 22px;
-  color: #00ad5f;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  content: "\f00c";
+  font-family: FontAwesome;
+  display: block;
   position: absolute;
-  bottom: calc((100% - 25px) / 2);
+  color: #00c928;
+  font-size: 18px;
+  bottom: calc((100% - 25px) / 1);
   -webkit-transform: translateY(50%);
   -moz-transform: translateY(50%);
   -ms-transform: translateY(50%);
   -o-transform: translateY(50%);
   transform: translateY(50%);
-  right: 5px;
+  right: 8px;
 }
 
 /*//////////////////////////////////////////////////////////////////
