@@ -234,9 +234,14 @@
       <samp class="fs-18" *ngIf="item.text !== null">
         {{item.text}}
       </samp>
-      <span *ngIf="item.text === null">
+      <!-- <span *ngIf="item.text === null">
         <i class="fa fa-map fs-90 fa-white" aria-hidden="true"></i>
-      </span>
+      </span> -->
+      <app-publication-location 
+        *ngIf="item.text === null" 
+        [cordinate]='item.location.corrdinate'
+        [i]="i">
+      </app-publication-location>
     </div>
 
     <div 

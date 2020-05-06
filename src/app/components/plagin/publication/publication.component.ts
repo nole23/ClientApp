@@ -17,6 +17,7 @@ export class PublicationComponent implements OnInit {
 
   @Input() item: any;
   @Input() user: any;
+  @Input() i: any;
   @Output() emit = new EventEmitter<any>();
 
   showerChat: String;
@@ -85,13 +86,21 @@ export class PublicationComponent implements OnInit {
     this.isDisavleButtonForLike = true;
     if (type) {
       this.userService.likePublication(this.user, this.item).subscribe(res => {
-        this.item.likes.push(this.me._id);
+        if (res) {
+          this.item.likes.push(this.me._id);
+        } else {
+          this.notifier.notify('error', 'Server trenutno nije dostupan')
+        }
         this.isDisavleButtonForLike = false;
       })
     } else if (!type) {
       this.userService.dislikePublication(this.user, this.item).subscribe(res => {
-        let index = this.item.likes.indexOf(res['publication']._id)
-        this.item.likes.splice(index, 1);
+        if (res) {
+          let index = this.item.likes.indexOf(this.user._id)
+          this.item.likes.splice(index, 1);
+        } else {
+          this.notifier.notify('error', 'Server trenutno nije dostupan')
+        }
         this.isDisavleButtonForLike = false;
       })
     }

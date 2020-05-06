@@ -57,14 +57,18 @@ for (route of routes) {
                     (req.method.toString() == 'DELETE')
                 ) {
                     proxyRes.on('data', (data) => {
-                        var rData = JSON.parse(data.toString('utf-8'));
-                        if (rData.socket.toString() != 'SOCKET_NULL_POINT') {
-                            rData.socket.participants.forEach(element => {
-                                io.emit(rData.socket.link.toString() + element._id,
-                                    JSON.stringify(rData.socket.data)
-                                )
-                            });
-                        }
+                        try {
+                            var rData = JSON.parse(data.toString('utf-8'));
+                            if (rData.socket.toString() != 'SOCKET_NULL_POINT') {
+                                rData.socket.participants.forEach(element => {
+                                    io.emit(rData.socket.link.toString() + element._id,
+                                        JSON.stringify(rData.socket.data)
+                                    )
+                                });
+                            }
+                        } catch (error) {
+                            console.log(error)
+                        } 
                     })
                 }
             }
