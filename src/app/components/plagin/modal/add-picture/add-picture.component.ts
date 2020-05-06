@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { NotifierService } from 'angular-notifier';
 import { User } from '../../../../models/user';
 import { UserService } from '../../../../services/user.service';
 import { MediaService } from '../../../../services/media.service';
@@ -10,6 +11,7 @@ import { MediaService } from '../../../../services/media.service';
   styleUrls: ['./add-picture.component.css']
 })
 export class AddPictureComponent implements OnInit {
+  private readonly notifier: NotifierService;
 
   selectedFilesHeaderImage: File = null;
   urls: any;
@@ -17,11 +19,13 @@ export class AddPictureComponent implements OnInit {
   me: User;
   text: any;
   constructor(
+    notifier: NotifierService,
     public dialogRef: MatDialogRef<AddPictureComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private userService: UserService,
     private mediaService: MediaService
   ) {
+    this.notifier = notifier;
     this.urls = null;
     this.text = null;
     this.me = new User(JSON.parse(localStorage.getItem('user')));
@@ -47,6 +51,9 @@ export class AddPictureComponent implements OnInit {
   }
 
   ngRestore() {
+    if (this.selectedFilesHeaderImage === null) {
+      this.closeModal();
+    }
     this.selectedFilesHeaderImage = null;
     this.urls = null;
     this.fd = new FormData();
@@ -64,10 +71,12 @@ export class AddPictureComponent implements OnInit {
     };
 
     this.mediaService.addPicture(this.fd, name.toString(), addPictureConstruct).subscribe(res => {
-      this.ngRestore();
-      this.closeModal(res);
-    }, err => {
-      this.closeModal('ERROR_NOT_SAVE')
+      if (res['message'] === 'ERROR_NOT_SAVE_IMAGE') {
+        this.notifier.notify('error', 'Slika nije sacuvana, ili je doslo do greske na serveru')
+      } else {
+        this.ngRestore();
+        this.closeModal({publication: res['message'], media: res['media']});
+      }
     })
   }
 

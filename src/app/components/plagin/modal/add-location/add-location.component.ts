@@ -98,9 +98,11 @@ export class AddLocationComponent implements OnInit {
       friends: []
     }
     this.publicationService.setNewLocation(data).subscribe(res =>{
-      this.closeModal(res);
-    }, err => {
-      this.notifier.notify( 'warning', 'Niste uspjeli da dodate lokaciju')
+      if (res['message'] === 'ERROR_NOT_SAVE_LOCATION') {
+        this.notifier.notify( 'warning', 'Niste uspjeli da dodate lokaciju')
+      } else {
+        this.closeModal(res['message']);
+      }
     })
   }
 }

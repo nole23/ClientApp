@@ -2,7 +2,7 @@
     "routes": [
       {
         "route": "/users",
-        "address": "https://twoway-usersservice.herokuapp.com"
+        "address": "https://twoway-usersservice.herokuapp.com/"
       },
       {
           "route": "/media",

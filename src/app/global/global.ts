@@ -80,17 +80,17 @@ export class Global {
         // this.linkLocalhostStatus = 'https://twoway1.herokuapp.com/status/api/';
         // this.linkWebhost = '';
         
-        // this.linkLocalhostChat = '/chats/api/'
-        // this.linkLocalhost = '/users/api/';
-        // this.linkLocalhostMedia = '/media/api/';
-        // this.linkLocalhostStatus = '/status/api/';
-        // this.linkWebhost = '';
+        this.linkLocalhostChat = '/chats/api/'
+        this.linkLocalhost = '/users/api/';
+        this.linkLocalhostMedia = '/media/api/';
+        this.linkLocalhostStatus = '/status/api/';
+        this.linkWebhost = '';
 
-        this.linkLocalhostChat = 'http://localhost:8085/chats/api/'
-        this.linkLocalhost = 'http://localhost:8085/users/api/';
-        this.linkLocalhostMedia = 'http://localhost:8085/media/api/';
-        this.linkLocalhostStatus = 'http://localhost:8085/status/api/';
-        this.linkWebhost = 'http://localhost:8085';
+        // this.linkLocalhostChat = 'http://localhost:8085/chats/api/'
+        // this.linkLocalhost = 'http://localhost:8085/users/api/';
+        // this.linkLocalhostMedia = 'http://localhost:8085/media/api/';
+        // this.linkLocalhostStatus = 'http://localhost:8085/status/api/';
+        // this.linkWebhost = 'http://localhost:8085';
 
         this.panleOptions = {
             GeneralData: {
@@ -429,16 +429,22 @@ export class Global {
     getResponseError(message: String) {
         if (
             message === 'ERROR_UNAUTHORIZED' ||
-            message === 'ERROR_NULL_POINTER_EXEPTION' ||
             message === 'ERROR_PROFILE_NOT_VERIFY' ||
+            message === 'ERROR_PROFILE_IS_VERIFY' ||
+            message === 'ERROR_NULL_POINTER_EXEPTION' ||
             message === 'ERROR_SERVER_NOT_FOUND' ||
             message === 'ERROR_EMAIL_NOT_FREE' ||
-            message === 'ERROR_NOT_SAVE_INFORMATION' ||
             message === 'ERROR_NOT_SAVE_CONFIGURATION' ||
-            message === 'SUCCESS_CREAT_PROFILE' ||
             message === 'ERROR_NOT_FIND_ITEM' ||
             message === 'ERROR_NOT_FIND_USER' ||
-            message === 'ERROR_VERIFICATION_CODE_IS_ERROR'
+            message === 'ERROR_NOT_SAVE_RELATIONSHIP' ||
+            message === 'ERROR_VERIFICATION_CODE_IS_ERROR' ||
+            message === 'ERROR_NOT_SAVE_LOCATION' ||
+            message === 'ERROR_NOT_SAVE_IMAGE' ||
+            message === 'ERROR_NOT_SAVE_AGAIN' ||
+            message === 'ERROR_NOT_DELETE_ITEM' ||
+            message === 'ERROR_NOT_SAVE_COMMENT' ||
+            message === 'ERROR_TYPE_NULL'
         ) {
             return false;
         } else {
@@ -449,11 +455,19 @@ export class Global {
     getResponseSuccess(message: String) {
         if (
             message === 'SUCCESS_SAVE' || 
-            message === 'CREATE_PARTICIPANTS' ||
-            message === 'SUCCESS_CREAT_PROFILE' ||
-            message === 'SUCCESS_SAVE_REMOVE' ||
             message === 'SUCCESS_SAVE_ADD' ||
-            message === 'SUCCESS_ACCEPT_NEW_FRIEND'
+            message === 'SUCCESS_SAVE_REMOVE' ||
+            message === 'SUCCESS_ACCEPT_NEW_FRIEND' ||
+            message === 'SUCCESS_RELATIONSHIP_IS_SAVE' ||
+            message === 'SUCCESS_SEND_VERIFICATION_TOKEN' ||
+            message === 'SUCCESS_VERIFICATION_CODE_IS_SUCCESS' ||
+            message === 'SUCCESS_SEND_NEW_VERIFICATION_TOKEN' ||
+            message === 'SUCCESS_PROFILE_IS_VERIFICATION' ||
+            message === 'SUCCESS_PROFILE_IS_REMOVE' ||
+            message === 'SUCCESS_CREATE_NEW_PROFILE' ||
+            message === 'SUCCESS_TOKEN_IS_OK' ||
+            message === 'SUCCESS_CREAT_PROFILE' ||
+            message === 'CREATE_PARTICIPANTS'
         ) {
             return true;
         } else {
@@ -580,7 +594,11 @@ export class Global {
         localStorage.removeItem('restartEmail')
     }
 
-    setProfileImage(name: String) {
-        let data = name.split('.');
+    setProfileImage(data: any) {
+        let link = data['image'];
+        let user = JSON.parse(localStorage.getItem('user'));
+        localStorage.removeItem('user');
+        user.otherInformation.publicMedia.profileImage = link;
+        localStorage.setItem('user', JSON.stringify(user));
     }
 }

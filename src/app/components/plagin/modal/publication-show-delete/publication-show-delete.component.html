@@ -29,7 +29,7 @@
     <button
       id="modal-action-button"
       class="btn btn-outline-success m-r-5"
-      (click)="closeModal()"
+      (click)="closeModal(null)"
       i18n="@@ButtonCancel">
       Odustati
     </button>
@@ -55,8 +55,7 @@
     <button
       id="modal-cancel-button"
       class="btn btn-outline-danger"
-      (click)="ngDeleteItem()"
-      (click)="closeModal()"
+      (click)="closeModal(null)"
       i18n="@@ButtonCancel">
       Odustati
     </button>

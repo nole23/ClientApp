@@ -26,20 +26,32 @@ export class PublicationShowDeleteComponent implements OnInit {
   }
 
   closeModal(_id: any = null) {
-    this.dialogRef.close(_id);
+    if (_id === null) {
+      this.dialogRef.close({'public' : _id, 'type': 'nothing'});
+    } else {
+      this.dialogRef.close(_id);
+    }
   }
 
   ngDeleteItem() {
     this.publicationService.deletePublicaton(this.data['item']).subscribe((res: any) => {
-      this.notifier.notify('success', 'Uspjesno ste obrisali')
-      this.closeModal({'public' : res['message'], 'type': 'delete'});
+      if (res['message'] === 'ERROR_NOT_DELETE_ITEM') {
+        this.notifier.notify('error', 'Nismo uspjeli da obrisemo datu objavu')
+      } else {
+        this.notifier.notify('success', 'Objava je obrisana')
+        this.closeModal({'public' : res['message'], 'type': 'delete'});
+      }
     })
   }
 
   ngPublicAgain() {
     this.publicationService.publicAgain(this.data['item']).subscribe((res: any) => {
-      this.notifier.notify('success', 'Uspjesno ste objavili')
-      this.closeModal({'public' : res['message'], 'type': 'public'});
+      if (res['message'] === 'ERROR_NOT_SAVE_AGAIN') {
+        this.notifier.notify('error', 'Nismo uspjeli da ponovo objavimo ovu objavu')
+      } else {
+        this.notifier.notify('success', 'Ponovo smo reagovali na staru objavu')
+        this.closeModal({'public' : res['message'], 'type': 'public'});
+      }
     })
   }
 

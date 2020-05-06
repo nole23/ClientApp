@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, HostListener, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { User } from '../../models/user';
-import { Images } from '../../models/images';
+import { Images, Image } from '../../models/images';
 import { Publication } from '../../models/publication';
 import { UserService } from '../../services/user.service';
 import { MediaService } from '../../services/media.service';
@@ -160,33 +160,45 @@ export class ProfileComponent implements OnInit, OnDestroy {
       const modalDialogUpdate = this.matDialog.open(UpdateProfilImageComponent, dialogConfig);
       modalDialogUpdate.afterClosed().subscribe(result => {
         if (result !== null) {
-          this.notifier.notify( 'success', 'Uspjesno ste postavili sliku');
+          this.publication.unshift(result)
         }
       });
     } else if (type === 'addLocation') {
       const modalDialogAddLocation = this.matDialog.open(AddLocationComponent, dialogConfig);
       modalDialogAddLocation.afterClosed().subscribe(result =>{
         if (result !== null) {
-          this.publication.unshift(result.message)
+          this.publication.unshift(result)
         }
       })
     } else if (type === 'addPicture') {
       const modalDialogAddPicture = this.matDialog.open(AddPictureComponent, dialogConfig);
       modalDialogAddPicture.afterClosed().subscribe(result =>{
-        
-        if (result === 'ERROR_NOT_SAVE') {
-          this.notifier.notify('error', 'Objava nije dodata')
-        } else {
-          let data = JSON.parse(result['message']).message;
-          this.publication.unshift(data);
-          this.notifier.notify('success', 'Uspesno ste dodali objavu')
+        if(result !== null) {
+          if (this.publication !== null) {
+            this.publication.unshift(result.publication)
+          } else if (this.imagesList !== null) {
+            let link = {
+              _id: result.media._id,
+              datePublication: result.media.datePublication,
+              link: result.media.link,
+              like: undefined,
+              comment: undefined
+            }
+
+            let item = {
+              user: new User(this.user), 
+              link: new Image(link)
+            }
+
+            this.imagesList.unshift(item);
+          }
         }
       })
     } else if (type === 'addComent') {
       const modalDialogAddText = this.matDialog.open(AddTextComponent, dialogConfig);
       modalDialogAddText.afterClosed().subscribe(result => {
         if(result !== null) {
-          this.publication.unshift(result.message)
+          this.publication.unshift(result)
         }
       })
     }

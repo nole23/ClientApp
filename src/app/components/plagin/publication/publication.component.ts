@@ -1,5 +1,6 @@
-import { Component, OnInit, Input, Output, ViewChild, EventEmitter, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { NotifierService } from 'angular-notifier';
 import { PublicationImageComponent } from '../../plagin/modal/publication-image/publication-image.component';
 import { PublicationShowDeleteComponent } from '../../plagin/modal/publication-show-delete/publication-show-delete.component';
 import { User } from '../../../models/user';
@@ -12,6 +13,7 @@ import { MediaService } from '../../../services/media.service';
   styleUrls: ['./publication.component.css']
 })
 export class PublicationComponent implements OnInit {
+  private readonly notifier: NotifierService;
 
   @Input() item: any;
   @Input() user: any;
@@ -25,11 +27,15 @@ export class PublicationComponent implements OnInit {
   isContextMenu: Boolean;
   isDisable: Boolean;
   isButton: Boolean;
+  isDisavleButtonForLike: Boolean;
+  isSpinerStatusPublic: Boolean;
   constructor(
+    notifier: NotifierService,
     private userService: UserService,
     public matDialog: MatDialog,
     private mediaService: MediaService
   ) { 
+    this.notifier = notifier;
     this.showerChat = 'hide';
     this.addComment = null;
     this.me = JSON.parse(localStorage.getItem('user'));
@@ -37,6 +43,8 @@ export class PublicationComponent implements OnInit {
     this.isComment = 'hide';
     this.isContextMenu = false;
     this.isDisable = true;
+    this.isDisavleButtonForLike = false;
+    this.isSpinerStatusPublic = false;
   }
 
   ngOnInit() {
@@ -45,7 +53,6 @@ export class PublicationComponent implements OnInit {
 
 
   openComentar() {
-    // console.info('ProfileComponent.openComentar() - Show and open component');
     if (this.showerChat === 'hide') {
       this.showerChat = 'show';
     } else {
@@ -54,7 +61,6 @@ export class PublicationComponent implements OnInit {
   }
 
   sendMessage(event: any, item: any) {
-    // console.info('ProfileComponent.sendMessage() - Add comment to publication');
     if (event.keyCode === 13) {
       let comments = {
         user: this.me,
@@ -63,8 +69,11 @@ export class PublicationComponent implements OnInit {
       }
       this.isComment = 'show';
       this.userService.addComment(this.item, comments).subscribe(res => {
-
-        item.comments.push(comments);
+        if (res['message'] === 'ERROR_NOT_SAVE_COMMENT') {
+          this.notifier.notify('error', 'Komentar nije dodat, probajte malo kasnije')
+        } else {
+          item.comments.push(comments);
+        }
         this.addComment = null;
         this.isComment = 'hide';
       })
@@ -73,22 +82,22 @@ export class PublicationComponent implements OnInit {
   }
 
   ngLikeDislike(type: Boolean) {
+    this.isDisavleButtonForLike = true;
     if (type) {
-      // console.info('ProfileComponent.likePublication() - Click like/dislike in publication');
       this.userService.likePublication(this.user, this.item).subscribe(res => {
         this.item.likes.push(this.me._id);
+        this.isDisavleButtonForLike = false;
       })
     } else if (!type) {
-      // console.info('ProfileComponent.likePublication() - Click like/dislike in publication');
       this.userService.dislikePublication(this.user, this.item).subscribe(res => {
         let index = this.item.likes.indexOf(res['publication']._id)
         this.item.likes.splice(index, 1);
+        this.isDisavleButtonForLike = false;
       })
     }
   }
 
   openImage(item: String) {
-    // console.info('ProfileComponent.openImage() - Open modal for image');
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.id = "modal-component";
@@ -105,7 +114,6 @@ export class PublicationComponent implements OnInit {
 
   editStatus(type: String, i: any) {
     if (type === null) {
-      // This is noting
     } else if (type === 'like') {
       if (this.item._id.toString() === i._id.toString()) {
         this.item.likes.push(this.me._id);
@@ -122,6 +130,7 @@ export class PublicationComponent implements OnInit {
   }
 
   ngShowHidePublic(item: any, status: String) {
+    this.isSpinerStatusPublic = true;
     this.userService.showHidePublication(item, status).subscribe((res: any) => {
       if (status === 'friends') {
         item.showPublication.removeStatus = false;
@@ -133,6 +142,8 @@ export class PublicationComponent implements OnInit {
         item.showPublication.removeStatus = true;
         item.showPublication.justFriends = false;
       }
+
+      this.isSpinerStatusPublic = false;
     })
   }
 

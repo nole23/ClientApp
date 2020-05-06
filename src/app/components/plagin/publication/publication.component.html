@@ -27,7 +27,7 @@
       <span
         class="fs-14 fa-white"
         i18n="@@PublicationIsVisit"
-        *ngIf="item.type === 'locatPublic'">
+        *ngIf="item.type === 'location'">
         je posetio 
       </span>
 
@@ -53,7 +53,7 @@
       </span>
       <!-- Ovde se zavrsava naslov za svaki tip objave -->
 
-      <span class="fs-14 fa-white" *ngIf="item.type === 'locatPublic'">
+      <span class="fs-14 fa-white" *ngIf="item.type === 'location'">
         {{' ' + item.location.address.city  + ' - ' + item.location.address.neighbourhood}}
       </span>
 
@@ -70,20 +70,27 @@
           <i 
             class="fa fa-globe fa-white"
             aria-hidden="true"
-            *ngIf="!item.showPublication.removeStatus && !item.showPublication.justFriends">
+            *ngIf="!item.showPublication.removeStatus && !item.showPublication.justFriends && !isSpinerStatusPublic">
           </i>
 
           <i 
             class="fa fa-users fa-white" 
             aria-hidden="true"
-            *ngIf="!item.showPublication.removeStatus && item.showPublication.justFriends">
+            *ngIf="!item.showPublication.removeStatus && item.showPublication.justFriends && !isSpinerStatusPublic">
           </i>
 
           <i 
             class="fa fa-lock fa-white" 
             aria-hidden="true"
-            *ngIf="item.showPublication.removeStatus && !item.showPublication.justFriends">
+            *ngIf="item.showPublication.removeStatus && !item.showPublication.justFriends && !isSpinerStatusPublic">
           </i>
+
+          <div 
+            class="spinner-border text-success w-12 h-12p fs-12" 
+            role="status" 
+            *ngIf="isSpinerStatusPublic">
+            <span class="sr-only">Loading...</span>
+          </div>
 
           <div class="float-r dropdown" *ngIf="item.user_id._id === me._id">
             <span
@@ -169,7 +176,7 @@
           <button 
             class="dropdown-item p-t-5 p-r-5 p-b-0 p-l-5 cursor-pointer"
             (click)="ngShowAgain(item, 'show')">
-            Obajvi ponovo
+            Objavi ponovo
           </button>
 
           <button 
@@ -221,10 +228,10 @@
     </div>
 
     <div 
-      class="w-full h-10 text-white-f p-t-30 p-r-10 p-b-10 p-l-10 text-center"
+      class="w-full h-10 text-white-f p-t-10 p-r-10 p-b-30 p-l-10 text-justify"
       [ngClass]="item.text === null ? 'bgblack-sider' : ''" 
-      *ngIf="item.type === 'locatPublic'" >
-      <samp class="fs-20" *ngIf="item.text !== null">
+      *ngIf="item.type === 'location'" >
+      <samp class="fs-18" *ngIf="item.text !== null">
         {{item.text}}
       </samp>
       <span *ngIf="item.text === null">
@@ -268,12 +275,27 @@
     <div class="float-l h-full w-50p p-t-1 p-r-1 p-b-1 p-l-1">
       <button
         class="sizefull btn btn-white p-t-1 p-r-1 p-b-1 p-l-1 text-center"
+        [disabled]="isDisavleButtonForLike"
         (click)="ngLikeDislike(!isStatusButton(item.likes))">
-        <i class="fa fa-thumbs-o-up" aria-hidden="true" *ngIf="!isStatusButton(item.likes)"></i>
+        
+        <i class="fa fa-thumbs-o-up" aria-hidden="true" *ngIf="!isStatusButton(item.likes) && !isDisavleButtonForLike"></i>
+        <div 
+          class="spinner-border text-success w-15 h-15p fs-15" 
+          role="status"
+          *ngIf="!isStatusButton(item.likes) && isDisavleButtonForLike">
+          <span class="sr-only">Loading...</span>
+        </div>
         <span *ngIf="!isStatusButton(item.likes)" i18n="@@PublicationBtnLikeIt"> Svidja vam se </span>
 
-        <i class="fa fa-thumbs-o-down" aria-hidden="true" *ngIf="isStatusButton(item.likes)"></i>
+        <i class="fa fa-thumbs-o-down" aria-hidden="true" *ngIf="isStatusButton(item.likes) && !isDisavleButtonForLike"></i>
+        <div 
+          class="spinner-border text-success w-15 h-15p fs-15" 
+          role="status"
+          *ngIf="isStatusButton(item.likes) && isDisavleButtonForLike">
+          <span class="sr-only">Loading...</span>
+        </div>
         <span *ngIf="isStatusButton(item.likes)" i18n="@@PublicationBtnDontLikeIt"> Ne svidja vam se </span>
+      
       </button>
     </div>
 

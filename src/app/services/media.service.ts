@@ -33,16 +33,24 @@ export class MediaService {
   }
 // twoway-mediaservice.herokuapp.com
   addPicture(formData: any, name: String, data: any) {
-    return this.http.post('http://twoway-mediaservice.herokuapp.com/api/media/profile-picture/' + name + '/' + data.text, formData)
+    return this.http.post('https://twoway-mediaservice.herokuapp.com/api/media/profile-picture/' + name + '/' + data.text, formData)
       .pipe(map(res => {
-        return res;
+        if (this.global.getResponseError(res['message'])) {
+          return {message: res['message'], media: res['media']}
+        } else {
+          return {message: 'ERROR_NOT_SAVE_IMAGE'}
+        }
       }))
   }
 
   saveImageProfile(formData: any, name: any) {
-    return this.http.post('http://twoway-mediaservice.herokuapp.com/api/media/' + name, formData)
+    return this.http.post('https://twoway-mediaservice.herokuapp.com/api/media/' + name, formData)
       .pipe(map(res => {
-        return res;
+        if (this.global.getResponseError(res['message'])) {
+          return {message: res['message']}
+        } else {
+          return {message: 'ERROR_NOT_SAVE_IMAGE'}
+        }
       }))
   }
 

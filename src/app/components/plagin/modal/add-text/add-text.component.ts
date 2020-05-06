@@ -29,7 +29,11 @@ export class AddTextComponent implements OnInit {
   saveText() {
     if (this.text !== null) {
       this.publicationService.saveText({message: this.text}).subscribe((res: any) => {
-        this.closeModal(res);
+        if (res['message'] === 'ERROR_NOT_SAVE_TEXT') {
+          this.notifier.notify( 'warning', 'Niste uspjeli da dodate novu objavu')
+        } else {
+          this.closeModal(res['message']);
+        }
       })
     } else {
       this.notifier.notify( 'warning', 'Morate uneti neki tekst')

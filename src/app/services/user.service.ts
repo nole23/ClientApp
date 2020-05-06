@@ -171,15 +171,22 @@ export class UserService {
   dislikePublication(user: User, publication: Publication) {
     return this.http.put(this.global.getLink() + 'publication/remove', {user: user._id, publication: publication._id})
       .pipe(map(res => {
-        return res
+        if (this.global.getResponseSuccess(res['message'])) {
+          return true;
+        } else {
+          return false;
+        }
       }))
   }
 
   addComment(item: any, object: any) {
     return this.http.post(this.global.getLink() + 'publication/', {item: item, object: object})
       .pipe(map(res => {
-        console.log(res)
-        return res;
+        if (this.global.getResponseError(res['message'])) {
+          return {message: res['message']};
+        } else {
+          return {message: 'ERROR_NOT_SAVE_COMMENT'};
+        }
       }))
   }
 
@@ -231,7 +238,11 @@ export class UserService {
   getPublicByImage(_id: any) {
     return this.http.get(this.global.getLink() + 'publication/image/' + _id)
       .pipe(map(res => {
-        return res;
+        if (this.global.getResponseError(res['message'])) {
+          return {message: res['message']}
+        } else {
+          return {message: 'ERROR_TYPE_NULL'}
+        }
       }))
   }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, ɵConsole } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NotifierService } from 'angular-notifier';
 import { UserService } from '../../../../services/user.service';
@@ -11,7 +11,6 @@ import { Publication } from '../../../../models/publication';
   styleUrls: ['./image-gallery.component.css']
 })
 export class ImageGalleryComponent implements OnInit {
-
   private readonly notifier: NotifierService;
 
   linkImage: String;
@@ -45,13 +44,14 @@ export class ImageGalleryComponent implements OnInit {
   }
 
   getPublicInfoForImage(id: any) {
+    this.publicInfo = null;
     this.userService.getPublicByImage(id).subscribe(res =>{
-      if (res['publication']['_id'] !== undefined) {
-        this.publicInfo = new Publication(res['publication'])
+      if (res['message']['_id'] !== undefined) {
+        this.publicInfo = new Publication(res['message'])
         this.isLike = this.isStatusButton(this.publicInfo['likes'])
       } else {
         this.publicInfo = null;
-        this.isLike = false;
+        this.isLike = false;   
       }
     })
   }
@@ -93,15 +93,19 @@ export class ImageGalleryComponent implements OnInit {
     if (!this.isLike) {
       if (this.publicInfo !== null) {
         this.userService.likePublication(this.me, this.publicInfo).subscribe(res => {
-          this.publicInfo.likes.push(this.me._id)
+          if (res) {
+            this.publicInfo.likes.push(this.me._id)
+            this.isLike = !this.isLike;
+          }
         })
-      } else {
-        // Ovde treba da napravimo prvi lajk
       }
     } else {
       this.userService.dislikePublication(this.me, this.publicInfo).subscribe(res => {
-        let index = this.publicInfo.likes.findIndex(x => x === this.me._id.toStrint());
-        this.publicInfo.likes.splice(index, 1);
+        if (res) {
+          let index = this.publicInfo.likes.indexOf(this.me._id)
+          this.publicInfo.likes.splice(index, 1);
+          this.isLike = !this.isLike
+        }
       })
     }
   }
