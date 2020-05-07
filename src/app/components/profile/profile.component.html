@@ -38,21 +38,31 @@
 
       <div class="height-info w-100p pos-relative" style="clear: both;">
         <div class="sizefull float-l text-white-f text-center">
-          <div class="float-l w-100p h-40pc">
+          <div class="float-l w-100p h-60pc">
             <h4>{{user.firstName + ' ' + user.lastName}}</h4>
             <p class="text-green fs-12">
-              <i class="fa fa-map-signs fa-white"aria-hidden="true"></i> 
-              {{user.otherInformation.adress.city}} - 
-              {{user.otherInformation.adress.region}} - 
-              {{user.otherInformation.adress.country}} <br>
-              <i class="fa fa-shopping-bag fa-white" aria-hidden="true"></i> 
-              {{user.otherInformation.jobs.name}} - 
-              {{user.otherInformation.jobs.nameCompany}} - 
-              {{user.otherInformation.jobs.places}}
+              <span *ngIf="user.otherInformation.adress !== null">
+                <i class="fa fa-map-signs fa-white"aria-hidden="true"></i> 
+                {{user.otherInformation.adress.city}} - 
+                {{user.otherInformation.adress.region}} - 
+                {{user.otherInformation.adress.country}} <br>
+              </span>
+              
+              <span *ngIf="user.otherInformation.jobs !== null">
+                <i class="fa fa-shopping-bag fa-white" aria-hidden="true"></i> 
+                {{user.otherInformation.jobs.name}} - 
+                {{user.otherInformation.jobs.nameCompany}} - 
+                {{user.otherInformation.jobs.places}} <br>
+              </span>
+
+              <span *ngIf="user.otherInformation.about !== null">
+                <i class="fa fa-id-card-o fa-white" aria-hidden="true"></i>
+                {{user.otherInformation.about}}
+              </span>
           </p>
           </div>
 
-          <div class="float-l w-100p h-60pc">
+          <div class="float-l w-100p h-20pc">
             <button
               class="btn btn-success btn-hide-mobile" 
               *ngIf="!isFriends && !status && !isRequester && !isResponder" 
@@ -95,7 +105,7 @@
               *ngIf="status && isRequester && !isResponder"
               i18n="@@ProfilCancelRequest">
               Povuci zahtjev 
-              <span class="spinner-border smal" role="status" *ngIf="btnSave"></span>
+              <span class="spinner-border smal" role="status" *ngIf="btnCancel"></span>
             </button>
 
             <button

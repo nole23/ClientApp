@@ -235,11 +235,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   updateFriends() {
-    console.log('Nothing implement')
+    console.info('Nothing implement')
   }
 
   updatePicture() {
-    console.log('Nothing implement')
+    console.info('Nothing implement')
   }
 
   updatePublication() {

@@ -57,39 +57,39 @@ export class LocationComponent implements OnInit {
      * i kreira se nova publication
      */
 
-    this.isShowMap = false;
-    // console.info('LocationComponetn - Init geolocation of users');
-    this.statusSave = (this.user._id.toString() === this.me._id.toString());
-    if (this.statusSave) {
-      // Posto lokaciju poziva vise komponenti,
-      // U zavisnosti od date kompoenente odredjene funkcije se okidaju
-      if (this.typeLocation === 'userProfile') {
-        this.getLocationInLocastorage('local');
-      } else if (this.typeLocation === 'startLocation') {
-        this.geolocationService.startAutomationChangeLocation();
-        this.getLocationInLocastorage('local');
-      }
-    } else {
-      // Prvi slucaj nema kordinate
-      if (this.user.otherInformation.adress.corrdinate.longitude !== undefined) {
-        this.cordinates = this.user.otherInformation.adress.corrdinate;
-        this.openMapFriend();
+    if (this.user.otherInformation.adress !== null) {
+      this.isShowMap = false;
+      // console.info('LocationComponetn - Init geolocation of users');
+      this.statusSave = (this.user._id.toString() === this.me._id.toString());
+      if (this.statusSave) {
+        // Posto lokaciju poziva vise komponenti,
+        // U zavisnosti od date kompoenente odredjene funkcije se okidaju
+        if (this.typeLocation === 'userProfile') {
+          this.getLocationInLocastorage('local');
+        } else if (this.typeLocation === 'startLocation') {
+          this.geolocationService.startAutomationChangeLocation();
+          this.getLocationInLocastorage('local');
+        }
       } else {
-        this.isShowMap = true;
-        this.notifier.notify('info', 'Korisnik jos nije dodao lokaciju')
+        // Prvi slucaj nema kordinate
+        if (this.user.otherInformation.adress.corrdinate.longitude !== undefined) {
+          this.cordinates = this.user.otherInformation.adress.corrdinate;
+          this.openMapFriend();
+        } else {
+          this.isShowMap = true;
+          this.notifier.notify('info', 'Korisnik jos nije dodao lokaciju')
+        }
       }
     }
   }
 
   getCordinate() {
     navigator.geolocation.getCurrentPosition(res => {
-      console.log(res)
       this.cordinates = res.coords;
       this.cordinates.type = 'client';
       this.geolocationService.setNewLocationServer(this.cordinates);
       this.openMap(true);
     }, err => {
-      console.log(err)
       if (err.code === 1) {
         // if (this.notificationService.isNotification('warning', 'locatOFF')) {
         //   this.notificationService.saveNotification('warning', 'locatOFF')

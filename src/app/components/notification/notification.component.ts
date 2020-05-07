@@ -147,17 +147,19 @@ export class NotificationComponent implements OnInit, OnDestroy {
   }
 
   setShowNotification(type: String) {
-    this.notificationService.setShowNotification(type).subscribe(res =>{
-      if (type === 'publication') {
-        this.notifications.forEach(element => {
-          element.isStatus = true;
-        });
-      } else if (type === 'visitors') {
-        this.visitors.forEach(element => {
-          element.isStatus = true;
-        });
-      }
-    })
+    if (this.notifications !== null || this.visitors !== null) {
+      this.notificationService.setShowNotification(type).subscribe(res =>{
+        if (type === 'publication') {
+          this.notifications.forEach(element => {
+            element.isStatus = true;
+          });
+        } else if (type === 'visitors') {
+          this.visitors.forEach(element => {
+            element.isStatus = true;
+          });
+        }
+      })
+    }
   }
 
   onEmitRelationship(event: any) {

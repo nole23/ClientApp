@@ -1,5 +1,14 @@
-<div style="width: 100%; height: 100%;">
-  <h4>Poslednja lokacija - <span>'{{(address === null || address.error === null) ? 'N/A' : '' + address.address.neighbourhood + ' - ' + address.address.city + ''}}'</span></h4>
+<div style="width: 100%; height: 100%; color: #ddd">
+  <h4 *ngIf="user.otherInformation.adress !== null">
+    Poslednja lokacija - 
+    <span>
+      '{{(address === null || address.error === null) ? 'N/A' : '' + address.address.neighbourhood + ' - ' + address.address.city + ''}}'
+    </span>
+  </h4>
+
+  <h4 *ngIf="user.otherInformation.adress === null">
+    Adresa nije dostupna
+  </h4>
   <hr>
   <div class="arrea-div">
     <div id="map" class="arrea"></div>

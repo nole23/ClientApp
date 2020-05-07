@@ -54,25 +54,16 @@ export class SocketService {
     })
 
     this.socket.on('new-relationship-' + this.me._id, (data: any) => {
-      console.log('new-relationshop')
       this.global.setNewNotification(data, 'Requester');
     })
 
     this.socket.on('new-notification-' + this.me._id, (data: any) => {
-      console.log('new-notification')
       let jsonData = JSON.parse(data)
       this.global.setNewNotification(jsonData.user, jsonData.type);
-      // this.global.getSocketFromCommponent('app', 'newNotification', data);
     })
 
     this.socket.on('show-message-' + this.me._id, (data: any) => {
       this.global.getSocketFromCommponent('chat', 'showMessage', data);
     })
-  }
-
-  disconnect() {
-    // this.socket.disconnect();
-    // this.setSocket();
-    // this.emitStatusOnline()
   }
 }

@@ -71,7 +71,7 @@ export class NotificationService {
       image: null
     }
     this.http.post(this.global.getLink() + 'notification/', object).subscribe(res => {
-      console.log(res)
+      console.info(res)
     })
   }
 
@@ -109,7 +109,7 @@ export class NotificationService {
   isNotification(type: String, method: String) {
     let notifications = JSON.parse(localStorage.getItem('notification'));
     let status = false;
-    console.log(notifications)
+
     if (notifications !== null) {
       notifications.forEach((element: any) => {
         if (element.method === method) {

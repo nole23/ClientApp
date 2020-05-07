@@ -34,7 +34,6 @@ export class PublicationLocationComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.i)
     setTimeout(() =>{
       this.openMap(this.i);
     }, 1000)

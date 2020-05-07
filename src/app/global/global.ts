@@ -125,12 +125,8 @@ export class Global {
             }
         }
         this.numberOfMessage = [];
-        this.linkClient = '';
+        this.linkClient = this.linkWebhost + '/images/emotion01/';
         this.restartEmal = null;
-    }
-
-    setLinkClient(link: String) {
-        this.linkClient = link + '/images/emotion01/';
     }
 
     getLink() {

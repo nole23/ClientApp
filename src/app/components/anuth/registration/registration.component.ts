@@ -112,7 +112,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     if (this.validation()) {
       this.loginService.registration(this.user, this.userInformation, this.userLang, this.iPInfo).subscribe(res => {
         if (res['message'] === 'SUCCESS') {
-          this.notifier.notify('succes', 'Uspesno ste kreirali nalog. Ostalo je jos da potvrdite nalog preko vaseg emaila.')
+          this.notifier.notify('success', 'Uspesno ste kreirali nalog. Ostalo je jos da potvrdite nalog preko vaseg emaila.')
           this.router.navigate(['/']);
         } else {
           this.errorMessage = '<span i18n="' +  res['message'] + '"';

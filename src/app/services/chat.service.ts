@@ -18,7 +18,10 @@ export class ChatService {
     return this.http.get(this.global.getChat() + 'chats/')
     .pipe(map(res => {
       if (this.global.getResponseError(res['message'])) {
+
         this.listChater = res['message'];
+        this.getStatusOnline(this.listChater);
+
         return {message: this.listChater};
       } else {
         return {message: []}
@@ -101,7 +104,7 @@ export class ChatService {
     )
 
     return this.http.get(this.global.getLinkStatus() + 'status/', {params: params})
-      .pipe(map(res => {
+      .subscribe(res => {
         if (this.global.getResponseError(res['message'])) {
 
           if (this.listChater !== null) {
@@ -112,11 +115,10 @@ export class ChatService {
           }
 
           return true
-
         } else {
           return false;
         }
-      }))
+      })
   }
 
   setNewChat(messageText: any, id: any) {

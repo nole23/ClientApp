@@ -103,7 +103,6 @@ export class UserService {
   acceptRelatuonship(user: User) {
     return this.http.put(this.global.getLink() + 'relationships/' + user._id, {})
     .pipe(map(res => {
-      console.log(res)
       if (this.global.getResponseSuccess(res['message'])) {
         this.global.editViewNotification('Requester');
         return {message: true}
@@ -126,7 +125,6 @@ export class UserService {
   }
 
   editGeneralData(data: any) {
-    // console.info('UserService.editGeneralData() - send date in server');
     return this.http.put(this.global.getLink() + 'users/', data)
       .pipe(map(res => {
         return res;
@@ -134,7 +132,6 @@ export class UserService {
   }
 
   editAccount(data: any) {
-    // console.info('UserService.editGeneralData() - send date in server');
     return this.http.put(this.global.getLink() + 'users/password', data)
       .pipe(map(res => {
         return res;
@@ -142,7 +139,6 @@ export class UserService {
   }
 
   editOtherInformation(data: any) {
-    // console.info('UserService.editOtherInformation() - send date in server');
     return this.http.put(this.global.getLink() + 'users/information', data)
       .pipe(map(res => {
         return res;
@@ -220,7 +216,6 @@ export class UserService {
   }
 
   isPicturDiferent(link: any) {
-    // if (this.getUserInLocalStorage().otherInformation.publicMedia.profileImage.split('/')[5] !== undefined) {
     if (this.getUserInLocalStorage().otherInformation.publicMedia.profileImage.split('/')[5] === undefined) {
       return link.split('/')[3] === this.getUserInLocalStorage().otherInformation.publicMedia.profileImage.split('/')[3];
     } else {

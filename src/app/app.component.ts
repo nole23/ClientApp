@@ -82,10 +82,6 @@ export class AppComponent implements OnInit {
     this.socketService.setSocket();
     this.status();
 
-    this.clientService.openSmile().subscribe(res => {
-      this.global.setLinkClient(res['message']);
-    });
-
     if (!status) {
       if (this.user !== null) {
         this.socketService.emitStatusOnline();

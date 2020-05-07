@@ -87,7 +87,7 @@ export class ChatComponent implements OnInit {
     });
     this.global.chatChomponentSocketShowMessage$.subscribe(res => {
       this.showMessage(res);
-    })
+    });
   }
 
   ngOnInit() {
@@ -113,10 +113,6 @@ export class ChatComponent implements OnInit {
     if (jsonData._id.toString() !== this.me._id.toString()) {
       this.isSeen = true;
     }
-  }
-
-  setOnline() {
-    let item = this.chatService.getListChater();
   }
 
   editSocketMessage(resData: any) {
@@ -154,7 +150,8 @@ export class ChatComponent implements OnInit {
               this.messages[this.messages.length - 1].message.push(newChat.imgSave);
             }
           }
-          this.scrollBottomNumber = this.scrollMe.nativeElement.scrollHeight;
+          this.setScroll();
+          // this.scrollBottomNumber = this.scrollMe.nativeElement.scrollHeight;
           this.global.setNullOfMessage(this.chater._id);
         } else {
           this.eventsEditNewMessage.next(resData.chat._id)
@@ -187,14 +184,6 @@ export class ChatComponent implements OnInit {
     if (this.listChater.length === 0) {
       this.chatService.getAllChater().subscribe(res => {
         this.listChater = res['message'];
-        
-        this.chatService.getStatusOnline(this.listChater).subscribe(res => {
-          if (res) {
-            // this.setOnline()
-          }
-        })
-
-        this.listChater = this.chatService.getListChater();
         this.getActivateRoute();
       })
     } else {
@@ -235,6 +224,7 @@ export class ChatComponent implements OnInit {
       this.message.nativeElement.children['chat-area'].querySelector('#style-4').classList.remove('h-chat-area-open-smile')
     }
     this.isSmileShow = !this.isSmileShow;
+    this.setScroll();
   }
 
   closeSmile() {
@@ -285,7 +275,8 @@ export class ChatComponent implements OnInit {
             }
           }
           setTimeout(() => {
-            this.scrollBottomNumber = this.scrollMe.nativeElement.scrollHeight;
+            // this.scrollBottomNumber = this.scrollMe.nativeElement.scrollHeight;
+            this.setScroll();
           }, 50);
         }
       }) 
@@ -386,6 +377,10 @@ export class ChatComponent implements OnInit {
           this.messages.push(object)
         }
       } else {
+        object.message.push(newChat.text);
+        if (newChat.linkText) {
+          object.message.push(newChat.imgSave);
+        }
         this.messages.push(object)
       }
   
@@ -395,7 +390,8 @@ export class ChatComponent implements OnInit {
     
     this.isSpiner = false;
     this.isTyping = false;
-    this.scrollBottomNumber = (this.scrollMe.nativeElement.scrollHeight + 100);
+    this.lastMessage = this.messages[this.messages.length -1]
+    this.setScroll();
   }
 
   closeChat() {
@@ -441,22 +437,27 @@ export class ChatComponent implements OnInit {
 
   loadLastChat(event: any) {
     if (this.messages !== null) {
-      let newPosition = event.srcElement.offsetHeight + event.srcElement.scrollTop + 25;
-      this.chatService.getAllMessageOneChat(this.chater, this.chater['page']).subscribe(res=> {
-        if (res['message'].length !== 0) {
-          this.chater.page = (res['page'] + 1);
-          res['message'].forEach((element: any) => {
-            this.messages.unshift(element)
-          });
-          this.isLoadNewData = false;
-          this.scrollBottomNumber = newPosition;
-        }
-      })
+      if (this.messages.length > 0) {
+        let newPosition = event.srcElement.offsetHeight + event.srcElement.scrollTop + 25;
+        this.chatService.getAllMessageOneChat(this.chater, this.chater['page']).subscribe(res=> {
+          if (res['message'].length !== 0) {
+            this.chater.page = (res['page'] + 1);
+            res['message'].forEach((element: any) => {
+              this.messages.unshift(element)
+            });
+            this.isLoadNewData = false;
+            this.scrollBottomNumber = newPosition;
+          }
+        })
+      }
     }
   }
 
+  setScroll() {
+    this.scrollBottomNumber = this.scrollMe.nativeElement.offsetHeight + 25;
+  }
+
   destroy() {
-    this.socketService.disconnect();
     this.closeSmile();
 
     this.isOnline = true;

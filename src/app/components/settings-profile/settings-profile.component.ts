@@ -252,7 +252,12 @@ export class SettingsProfileComponent implements OnInit {
       for (let i=0; i<this.otherPrivateInformation.data.length; i++) {
         let item = this.fourthTab.nativeElement.children['input-value-' +  this.otherPrivateInformation.data[i].idName];
         if (item.querySelector('#item-' + this.otherPrivateInformation.data[i].idName).value) {
-          if (this.otherPrivateInformation.data[i].idName !== 'birdthDay' && this.otherPrivateInformation.data[i].idName !== 'jab') {
+          if (
+            this.otherPrivateInformation.data[i].idName !== 'birdthDay' && 
+            this.otherPrivateInformation.data[i].idName !== 'jab' &&
+            this.otherPrivateInformation.data[i].idName !== 'address' &&
+            this.otherPrivateInformation.data[i].idName !== 'location'
+          ) {
             data[this.otherPrivateInformation.data[i].idName] = item.querySelector('#item-' + this.otherPrivateInformation.data[i].idName).value;
           } else if (this.otherPrivateInformation.data[i].idName === 'birdthDay') {
             if (this.birdthDay) {
@@ -262,9 +267,15 @@ export class SettingsProfileComponent implements OnInit {
             if (this.jab) {
               data[this.otherPrivateInformation.data[i].idName] = this.jab;
             }
+          } else if (this.otherPrivateInformation.data[i].idName === 'address') {
+            if (this.address) {
+              data[this.otherPrivateInformation.data[i].idName] = this.address;
+            }
+          } else if (this.otherPrivateInformation.data[i].idName === 'location') {
+            if (this.location) {
+              data[this.otherPrivateInformation.data[i].idName] = this.location;
+            }
           }
-          
-          
         }
       }
       this.userService.editProfile('configuration', data).subscribe(res =>{

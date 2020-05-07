@@ -6,6 +6,7 @@
     <div class="float-l w-100p h-70pc">
       <div class="float-l w-100p pos-relative height-image">
         <img 
+            [routerLink]="['/f/' + item.friend.username + '/profile']"
             src="{{item.friend.otherInformation.publicMedia.profileImage}}" 
             alt="" 
             class="ab-c-m w-85 h-85p fit-image bo-cir" />
